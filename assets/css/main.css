@@ -1,0 +1,45 @@
+:root {
+    --rich-black: #000411;
+    --dark-purple: #160C28;
+    --ash-gray: #AEB7B3;
+    --naple-yellow: #EFCB68;
+    --honey-dew: #E1EFE6;
+}
+
+.navbar-item-text-size {
+    font-size: 9px;
+}
+
+.bg-rich-black {
+    background-color: var(--rich-black) !important;
+}
+
+.bg-dark-purple {
+    background-color: var(--dark-purple) !important;
+}
+
+.bg-ash-gray {
+    background-color: var(--ash-gray) !important;
+}
+
+.bg-naple-yellow {
+    background-color: var(--naple-yellow) !important;
+}
+
+.bg-honey-dew {
+    background-color: var(--honey-dew) !important;
+}
+
+.container-custom {
+    /* width, height for the main container */
+    height: 100vh;
+    width: 100vw;
+
+    /* set a min height and width */
+    min-width: 600px;
+    min-height: 550px;
+}
+
+* {
+    box-sizing: border-box;
+}

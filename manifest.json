@@ -1,17 +1,17 @@
 {
   "manifest_version": 2,
-  "name": "Check mate",
+  "name": "Check-mate",
   "version": "1.0",
-  "description": "A basic Firefox extension.",
+  "description": "A firefox extension that helps you with various tooling and quick recon",
   "icons": {
-    "48": "icons/logo.png"
+    "48": "assets/icons/logo.webp"
   },
   "browser_action": {
     "default_icon": {
-      "48": "icons/logo.png"
+      "48": "assets/icons/logo.webp"
     },
-    "default_title": "Click me!",
-    "default_popup": "popup.html"
+    "default_title": "Check-mate",
+    "default_popup": "index.html"
   },
   "permissions": [
     "tabs"
