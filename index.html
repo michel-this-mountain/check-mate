@@ -9,31 +9,46 @@
 <body>
 <div class="container-custom">
     <div class="row h-100">
-
         <!-- start navbar -->
-        <nav class="navbar col-1 h-100 bg-naple-yellow" style="border-right: 1px solid var(--rich-black)">
-            <ul class="navbar-nav d-flex justify-content-between flex-column">
-                <li class="nav-item navbar-item-text-size bg-dark">
-                    <a class="nav-link" href="#">Link 1</a>
-                    <span class="fs-10">Recon</span>
-                </li>
-                <li class="nav-item navbar-item-text-size">
-                    <a class="nav-link" href="#">Link 2</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link 3</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link 1</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link 2</a>
-                </li>
-            </ul>
-        </nav>
-        <!-- end navbar -->
-
+        <div class="d-flex">
+            <div class="h-100 bg-custom-light-blue col-1 pt-1" style="border-right: 1px solid #0056b3;">
+                <div class="w-100 d-flex justify-content-center flex-column">
+                    <div class="mx-auto">
+                        <img class="rounded" src="assets/icons/logo.webp" alt="check-mate logo" width="30px"
+                             height="30px">
+                    </div>
+                    <div class="mx-auto text-custom-dark-blue text-muted mt-1">
+                        <h6 class="text-white text-center">CM</h6>
+                    </div>
+                </div>
+                <div class="d-flex flex-column mt-5">
+                    <div class="mb-2 text-center">
+                        <a href="#" class="text-custom-dark-blue">Enum 1</a>
+                    </div>
+                    <div class="mb-2 text-center">
+                        <a href="#" class="text-custom-dark-blue">Enum 2</a>
+                    </div>
+                    <div class="mb-2 text-center">
+                        <a href="#" class="text-custom-dark-blue">Enum 3</a>
+                    </div>
+                    <div class="mb-2 text-center">
+                        <a href="#" class="text-custom-dark-blue">Enum 4</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-11 p-1">
+                <button class="btn btn-outline-primary" id="test">test</button>
+            </div>
+        </div>
     </div>
 </div>
 </body>
 </html>
+
+<script>
+    addEventListener("load", function () {
+        document.getElementById("test").addEventListener("click", function () {
+            alert("button clicked")
+        })
+    });
+</script>
