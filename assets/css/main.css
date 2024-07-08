@@ -7,17 +7,17 @@
 
 @font-face {
   font-family: roboto;
-  src: url("assets/fonts/roboto-regular.ttf");
+  src: url("../../assets/fonts/roboto-regular.ttf");
 }
 
 @font-face {
   font-family: roboto-headers;
-  src: url("assets/fonts/roboto-thin.ttf");
+  src: url("../../assets/fonts/roboto-thin.ttf");
 }
 
 @font-face {
   font-family: consolas;
-  src: url("assets/fonts/consolas.ttf")
+  src: url("../../assets/fonts/consolas.ttf")
 }
 
 h1,
@@ -39,7 +39,6 @@ h6 {
     font-size: 11px;
 }
 
-
 .navbar-item-text-size {
     font-size: 11px;
 }
@@ -56,12 +55,16 @@ h6 {
     background-color: var(--custom-dark-blue) !important;
 }
 
+.active-link {
+    color: white !important;
+}
+
 .container-custom {
     /* width, height for the main container */
     height: 100vh;
     width: 100vw;
 
     /* set a min height and width */
-    min-width: 575px;
+    min-width: 500px;
     min-height: 550px;
 }

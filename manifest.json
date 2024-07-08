@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Check-mate",
   "version": "1.0",
-  "description": "A firefox extension that helps you with various tooling and quick recon",
+  "description": "A Firefox extension that helps you with various tooling and quick recon",
   "icons": {
     "48": "assets/icons/logo.webp"
   },
@@ -13,8 +13,18 @@
     "default_title": "Check-mate",
     "default_popup": "index.html"
   },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["assets/js/content-script.js"]
+    }
+  ],
   "permissions": [
     "tabs",
-    "activeTab"
+    "activeTab",
+    "storage"
+  ],
+  "web_accessible_resources": [
+    "assets/icons/logo.webp"
   ]
 }
