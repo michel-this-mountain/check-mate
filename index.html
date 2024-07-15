@@ -5,13 +5,21 @@
     <link rel="stylesheet" href="assets/css/main.css">
     <link href="assets/css/libs/bootstrap.min.css" rel="stylesheet"/>
     <script src="assets/js/libs/bootstrap.bundle.min.js"></script>
+    <style>
+        .nav-link.active-link {
+            color: #0056b3 !important; /* Custom color for active links */
+            background-color: transparent !important;
+        }
+    </style>
 </head>
 <body>
 <div class="container-custom">
     <div class="row h-100">
         <div class="d-flex">
+
             <!-- start navbar -->
-            <div class="h-100 bg-custom-light-blue col-2 pt-1" style="border-right: 1px solid #0056b3;">
+            <div class="h-100 bg-custom-black col-1 pt-1" style="border-right: 1px solid #0056b3;">
+                <!-- start top logo -->
                 <div class="w-100 d-flex justify-content-center flex-column">
                     <div class="mx-auto">
                         <img class="rounded" src="assets/icons/logo.webp" alt="check-mate logo" width="30px"
@@ -21,39 +29,269 @@
                         <h6 class="text-white text-center">CM</h6>
                     </div>
                 </div>
-                <div class="d-flex flex-column mt-5 nav nav-pills">
-                    <div class="mb-2 text-center">
-                        <a href="#tab1" class="nav-link text-custom-dark-blue" data-bs-toggle="tab">Enum 1</a>
+                <!-- end top logo -->
+
+                <!-- start tab navigation -->
+                <div class="d-flex flex-column mt-5 nav nav-pills" id="navbar">
+                    <!-- tab 1 - tools -->
+                    <div class="mb-2 text-center w-100">
+                        <a href="#tab1" class="nav-link text-custom-dark-blue show w-100 d-flex justify-content-center" data-bs-toggle="tab"
+                           data-bs-placement="top" title="Tooltip on top">
+                            <button type="button" class="btn p-0 m-0" onmouseleave="replaceHover('tab-1-img', 'assets/icons/navbar/tools-tab-1.png')" onmouseenter="replaceHover('tab-1-img', 'assets/icons/navbar/tools-tab-1-hover.png')">
+                                <img id="tab-1-img" data-bs-toggle="tooltip"
+                                    data-bs-placement="top" title="General tooling" src="assets/icons/navbar/tools-tab-1.png" width="25px" height="25px;">
+                            </button>
+                        </a>
                     </div>
-                    <div class="mb-2 text-center">
-                        <a href="#tab2" class="nav-link text-custom-dark-blue" data-bs-toggle="tab">Enum 2</a>
+                    <!-- tab 2 - recon tools -->
+                    <div class="mb-2 text-center w-100">
+                        <a href="#tab2" class="nav-link text-custom-dark-blue w-100 d-flex justify-content-center" data-bs-toggle="tab">
+                            <button type="button" class="btn p-0 m-0" onmouseleave="replaceHover('tab-2-img', 'assets/icons/navbar/tools-tab-1.png')" onmouseenter="replaceHover('tab-2-img', 'assets/icons/navbar/tools-tab-1-hover.png')">
+                                <img id="tab-2-img" data-bs-toggle="tooltip"
+                                    data-bs-placement="top" title="Recon tooling" src="assets/icons/navbar/tools-tab-1.png" width="25px" height="25px;">
+                            </button>
+                        </a>
                     </div>
-                    <div class="mb-2 text-center">
-                        <a href="#tab3" class="nav-link text-custom-dark-blue" data-bs-toggle="tab">Enum 3</a>
+                    <!-- tab 3 - exploit assistant -->
+                    <div class="mb-2 text-center w-100">
+                        <a href="#tab3" class="nav-link text-custom-dark-blue w-100 d-flex justify-content-center" data-bs-toggle="tab">
+                            <button type="button" class="btn p-0 m-0" onmouseleave="replaceHover('tab-3-img', 'assets/icons/navbar/tools-tab-1.png')" onmouseenter="replaceHover('tab-3-img', 'assets/icons/navbar/tools-tab-1-hover.png')">
+                                <img id="tab-3-img" data-bs-toggle="tooltip"
+                                    data-bs-placement="top" title="Exploit assistant" src="assets/icons/navbar/tools-tab-1.png" width="25px" height="25px;">
+                            </button>
+                        </a>
                     </div>
-                    <div class="mb-2 text-center">
-                        <a href="#tab4" class="nav-link text-custom-dark-blue" data-bs-toggle="tab">Enum 4</a>
+                    <!-- tab 4 - shell assistant -->
+                    <div class="mb-2 text-center w-100">
+                        <a href="#tab4" class="nav-link text-custom-dark-blue w-100 d-flex justify-content-center" data-bs-toggle="tab">
+                            <button type="button" class="btn p-0 m-0" onmouseleave="replaceHover('tab-4-img', 'assets/icons/navbar/tools-tab-1.png')" onmouseenter="replaceHover('tab-4-img', 'assets/icons/navbar/tools-tab-1-hover.png')">
+                                <img id="tab-4-img" data-bs-toggle="tooltip"
+                                    data-bs-placement="top" title="Shell assistant" src="assets/icons/navbar/tools-tab-1.png" width="25px" height="25px;">
+                            </button>
+                        </a>
                     </div>
+                    <!-- tab 5 - checklist assistant -->
+                    <div class="mb-2 text-center w-100">
+                        <a href="#tab5" class="nav-link text-custom-dark-blue w-100 d-flex justify-content-center" data-bs-toggle="tab">
+                            <button type="button" class="btn p-0 m-0" onmouseleave="replaceHover('tab-5-img', 'assets/icons/navbar/tools-tab-1.png')" onmouseenter="replaceHover('tab-5-img', 'assets/icons/navbar/tools-tab-1-hover.png')">
+                                <img id="tab-5-img" data-bs-toggle="tooltip"
+                                    data-bs-placement="top" title="Checklist assistant" src="assets/icons/navbar/tools-tab-1.png" width="25px" height="25px;">
+                            </button>
+                        </a>
+                    </div>
+                    <!-- tab 6 - handy commands -->
+                    <div class="mb-2 text-center w-100">
+                        <a href="#tab6" class="nav-link text-custom-dark-blue w-100 d-flex justify-content-center" data-bs-toggle="tab">
+                            <button type="button" class="btn p-0 m-0" onmouseleave="replaceHover('tab-6-img', 'assets/icons/navbar/tools-tab-1.png')" onmouseenter="replaceHover('tab-6-img', 'assets/icons/navbar/tools-tab-1-hover.png')">
+                                <img id="tab-6-img" data-bs-toggle="tooltip"
+                                    data-bs-placement="top" title="Usefull commands" src="assets/icons/navbar/tools-tab-1.png" width="25px" height="25px;">
+                            </button>
+                        </a>
+                    </div>
+                    <!-- tab 7 - todo -->
+                    <div class="mb-2 text-center w-100">
+                        <a href="#tab7" class="nav-link text-custom-dark-blue w-100 d-flex justify-content-center" data-bs-toggle="tab">
+                            <button type="button" class="btn p-0 m-0" onmouseleave="replaceHover('tab-7-img', 'assets/icons/navbar/tools-tab-1.png')" onmouseenter="replaceHover('tab-7-img', 'assets/icons/navbar/tools-tab-1-hover.png')">
+                                <img id="tab-7-img" data-bs-toggle="tooltip"
+                                    data-bs-placement="top" title="Checklist assistant" src="assets/icons/navbar/tools-tab-1.png" width="25px" height="25px;">
+                            </button>
+                        </a>
+                    </div>
+                    <!-- tab 8 - todo -->
+                    <div class="mb-2 text-center w-100">
+                        <a href="#tab8" class="nav-link text-custom-dark-blue w-100 d-flex justify-content-center" data-bs-toggle="tab">
+                            <button type="button" class="btn p-0 m-0" onmouseleave="replaceHover('tab-8-img', 'assets/icons/navbar/tools-tab-1.png')" onmouseenter="replaceHover('tab-8-img', 'assets/icons/navbar/tools-tab-1-hover.png')">
+                                <img id="tab-8-img" data-bs-toggle="tooltip"
+                                    data-bs-placement="top" title="Checklist assistant" src="assets/icons/navbar/tools-tab-1.png" width="25px" height="25px;">
+                            </button>
+                        </a>
+                    </div>
+                    <!-- end tabs -->
                 </div>
+            <!-- end tab navigation -->
             </div>
+
             <!-- end navbar -->
             <div class="col-10 p-1 tab-content">
                 <div class="tab-pane fade" id="tab1">
-                    <button class="btn btn-outline-primary" id="test1">Test Enum 1</button>
+                    <!-- Nested tabs for Tools -->
+                    <ul class="nav nav-tabs" id="toolsTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link text-custom-dark-blue" id="encode-tab" data-bs-toggle="tab"
+                               href="#encode" role="tab">Encode Base64</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-custom-dark-blue" id="decode-tab" data-bs-toggle="tab"
+                               href="#decode" role="tab">Decode Base64</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="toolsTabContent">
+                        <div class="tab-pane fade" id="encode" role="tabpanel">
+                            <h4>Encode Base64</h4>
+                            <textarea id="encodeInput" rows="4" class="form-control"
+                                      placeholder="Enter text to encode"></textarea>
+                            <p class="mt-2" id="encodeOutput"></p>
+                        </div>
+                        <div class="tab-pane fade" id="decode" role="tabpanel">
+                            <h4>Decode Base64</h4>
+                            <textarea id="decodeInput" rows="4" class="form-control"
+                                      placeholder="Enter Base64 text to decode"></textarea>
+                            <p class="mt-2" id="decodeOutput"></p>
+                        </div>
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="tab2">
-                    <button class="btn btn-outline-primary" id="test2">Test Enum 2</button>
+                    <!-- Nested tabs for Enum 2 -->
+                    <ul class="nav nav-tabs" id="enum2Tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link text-custom-dark-blue" id="enum2-sub1-tab" data-bs-toggle="tab"
+                               href="#enum2-sub1" role="tab">Enum 2 Sub 1</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-custom-dark-blue" id="enum2-sub2-tab" data-bs-toggle="tab"
+                               href="#enum2-sub2" role="tab">Enum 2 Sub 2</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="enum2TabContent">
+                        <div class="tab-pane fade" id="enum2-sub1" role="tabpanel">
+                            <h4>Enum 2 Sub 1 Content</h4>
+                        </div>
+                        <div class="tab-pane fade" id="enum2-sub2" role="tabpanel">
+                            <h4>Enum 2 Sub 2 Content</h4>
+                        </div>
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="tab3">
-                    <button class="btn btn-outline-primary" id="test3">Test Enum 3</button>
+                    <!-- Nested tabs for Enum 3 -->
+                    <ul class="nav nav-tabs" id="enum3Tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link text-custom-dark-blue" id="enum3-sub1-tab" data-bs-toggle="tab"
+                               href="#enum3-sub1" role="tab">Enum 3 Sub 1</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-custom-dark-blue" id="enum3-sub2-tab" data-bs-toggle="tab"
+                               href="#enum3-sub2" role="tab">Enum 3 Sub 2</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="enum3TabContent">
+                        <div class="tab-pane fade" id="enum3-sub1" role="tabpanel">
+                            <h4>Enum 3 Sub 1 Content</h4>
+                        </div>
+                        <div class="tab-pane fade" id="enum3-sub2" role="tabpanel">
+                            <h4>Enum 3 Sub 2 Content</h4>
+                        </div>
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="tab4">
-                    <button class="btn btn-outline-primary" id="test4">Test Enum 4</button>
+                    <!-- Nested tabs for Enum 4 -->
+                    <ul class="nav nav-tabs" id="enum4Tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link text-custom-dark-blue" id="enum4-sub1-tab" data-bs-toggle="tab"
+                               href="#enum4-sub1" role="tab">Enum 4 Sub 1</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-custom-dark-blue" id="enum4-sub2-tab" data-bs-toggle="tab"
+                               href="#enum4-sub2" role="tab">Enum 4 Sub 2</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="enum4TabContent">
+                        <div class="tab-pane fade" id="enum4-sub1" role="tabpanel">
+                            <h4>Enum 4 Sub 1 Content</h4>
+                        </div>
+                        <div class="tab-pane fade" id="enum4-sub2" role="tabpanel">
+                            <h4>Enum 4 Sub 2 Content</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="tab5">
+                    <!-- Nested tabs for Enum 5 -->
+                    <ul class="nav nav-tabs" id="enum5Tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link text-custom-dark-blue" id="enum5-sub1-tab" data-bs-toggle="tab"
+                               href="#enum5-sub1" role="tab">Enum 5 Sub 1</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-custom-dark-blue" id="enum5-sub2-tab" data-bs-toggle="tab"
+                               href="#enum5-sub2" role="tab">Enum 5 Sub 2</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="enum5TabContent">
+                        <div class="tab-pane fade" id="enum5-sub1" role="tabpanel">
+                            <h4>Enum 5 Sub 1 Content</h4>
+                        </div>
+                        <div class="tab-pane fade" id="enum5-sub2" role="tabpanel">
+                            <h4>Enum 5 Sub 2 Content</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="tab6">
+                    <!-- Nested tabs for Enum 6 -->
+                    <ul class="nav nav-tabs" id="enum6Tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link text-custom-dark-blue" id="enum6-sub1-tab" data-bs-toggle="tab"
+                               href="#enum6-sub1" role="tab">Enum 6 Sub 1</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-custom-dark-blue" id="enum6-sub2-tab" data-bs-toggle="tab"
+                               href="#enum6-sub2" role="tab">Enum 6 Sub 2</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="enum6TabContent">
+                        <div class="tab-pane fade" id="enum6-sub1" role="tabpanel">
+                            <h4>Enum 6 Sub 1 Content</h4>
+                        </div>
+                        <div class="tab-pane fade" id="enum6-sub2" role="tabpanel">
+                            <h4>Enum 6 Sub 2 Content</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="tab7">
+                    <!-- Nested tabs for Enum 7 -->
+                    <ul class="nav nav-tabs" id="enum7Tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link text-custom-dark-blue" id="enum7-sub1-tab" data-bs-toggle="tab"
+                               href="#enum7-sub1" role="tab">Enum 7 Sub 1</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-custom-dark-blue" id="enum7-sub2-tab" data-bs-toggle="tab"
+                               href="#enum7-sub2" role="tab">Enum 7 Sub 2</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="enum7TabContent">
+                        <div class="tab-pane fade" id="enum7-sub1" role="tabpanel">
+                            <h4>Enum 7 Sub 1 Content</h4>
+                        </div>
+                        <div class="tab-pane fade" id="enum7-sub2" role="tabpanel">
+                            <h4>Enum 7 Sub 2 Content</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="tab8">
+                    <!-- Nested tabs for Enum 8 -->
+                    <ul class="nav nav-tabs" id="enum8Tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link text-custom-dark-blue" id="enum8-sub1-tab" data-bs-toggle="tab"
+                               href="#enum8-sub1" role="tab">Enum 8 Sub 1</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-custom-dark-blue" id="enum8-sub2-tab" data-bs-toggle="tab"
+                               href="#enum8-sub2" role="tab">Enum 8 Sub 2</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="enum8TabContent">
+                        <div class="tab-pane fade" id="enum8-sub1" role="tabpanel">
+                            <h4>Enum 8 Sub 1 Content</h4>
+                        </div>
+                        <div class="tab-pane fade" id="enum8-sub2" role="tabpanel">
+                            <h4>Enum 8 Sub 2 Content</h4>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <script src="assets/js/main.js"></script>
+<script src="assets/js/extension-events.js"></script>
 </body>
 </html>

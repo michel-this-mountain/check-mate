@@ -13,18 +13,27 @@
     "default_title": "Check-mate",
     "default_popup": "index.html"
   },
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "storage",
+    "http://*/",
+    "https://*/",
+    "webNavigation",
+    "webRequest",
+    "webRequestBlocking"
+  ],
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
       "js": ["assets/js/content-script.js"]
     }
   ],
-  "permissions": [
-    "tabs",
-    "activeTab",
-    "storage"
-  ],
+  "background": {
+    "scripts": ["assets/js/background.js"]
+  },
   "web_accessible_resources": [
     "assets/icons/logo.webp"
-  ]
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-inline'; object-src 'self'"
 }

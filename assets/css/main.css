@@ -1,7 +1,7 @@
 :root {
-    --custom-light-blue: #23395D;
     --custom-middle-blue: #1C2d4A;
     --custom-dark-blue: #152238;
+    --custom-black: #000000;
     --custom-white: #FFFFFF
 }
 
@@ -43,8 +43,8 @@ h6 {
     font-size: 11px;
 }
 
-.bg-custom-light-blue {
-    background-color: var(--custom-light-blue) !important;
+.bg-custom-black {
+    background-color: var(--custom-black) !important;
 }
 
 .bg-custom-middle-blue {
