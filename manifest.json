@@ -35,5 +35,5 @@
   "web_accessible_resources": [
     "assets/icons/logo.webp"
   ],
-  "content_security_policy": "script-src 'self' 'unsafe-inline'; object-src 'self'"
+  "content_security_policy": "script-src 'self'; object-src 'self'"
 }

@@ -9,13 +9,13 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Retrieve and set the active tab from local storage
-    const activeTab = localStorage.getItem("activeTab");
-    if (activeTab) {
-        activateTab(activeTab);
+    // Retrieve and set the last active main tab from local storage
+    const lastActiveMainTab = localStorage.getItem("lastActiveMainTab");
+    if (lastActiveMainTab) {
+        activateTab(lastActiveMainTab);
     }
 
-    // Add event listener to all nav links
+    // Add event listener to all main nav links
     const navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(navLink => {
         navLink.addEventListener('click', function (event) {
@@ -27,45 +27,47 @@ document.addEventListener("DOMContentLoaded", function () {
                 link.classList.remove('active');
             });
 
-            // Save the active tab to local storage
-            const targetHref = event.target.getAttribute("href");
-            localStorage.setItem("activeTab", targetHref);
+            // Save the active main tab to local storage
+            const targetHref = event.target.closest('a').getAttribute("href");
+            if (targetHref) {
+                localStorage.setItem("lastActiveMainTab", targetHref);
 
-            // Remove the active subtab when switching main tabs
-            if (!targetHref.startsWith("#tab1")) {
-                localStorage.removeItem("activeToolsTab");
-            }
-            if (!targetHref.startsWith("#tab2")) {
-                localStorage.removeItem("activeEnum2Tab");
-            }
-            if (!targetHref.startsWith("#tab3")) {
-                localStorage.removeItem("activeEnum3Tab");
-            }
-            if (!targetHref.startsWith("#tab4")) {
-                localStorage.removeItem("activeEnum4Tab");
-            }
-            if (!targetHref.startsWith("#tab5")) {
-                localStorage.removeItem("activeEnum5Tab");
-            }
-            if (!targetHref.startsWith("#tab6")) {
-                localStorage.removeItem("activeEnum6Tab");
-            }
-            if (!targetHref.startsWith("#tab7")) {
-                localStorage.removeItem("activeEnum7Tab");
-            }
-            if (!targetHref.startsWith("#tab8")) {
-                localStorage.removeItem("activeEnum8Tab");
-            }
+                // Remove the active subtab when switching main tabs
+                if (!targetHref.startsWith("#tab1")) {
+                    localStorage.removeItem("activeToolsTab");
+                }
+                if (!targetHref.startsWith("#tab2")) {
+                    localStorage.removeItem("activeEnum2Tab");
+                }
+                if (!targetHref.startsWith("#tab3")) {
+                    localStorage.removeItem("activeEnum3Tab");
+                }
+                if (!targetHref.startsWith("#tab4")) {
+                    localStorage.removeItem("activeEnum4Tab");
+                }
+                if (!targetHref.startsWith("#tab5")) {
+                    localStorage.removeItem("activeEnum5Tab");
+                }
+                if (!targetHref.startsWith("#tab6")) {
+                    localStorage.removeItem("activeEnum6Tab");
+                }
+                if (!targetHref.startsWith("#tab7")) {
+                    localStorage.removeItem("activeEnum7Tab");
+                }
+                if (!targetHref.startsWith("#tab8")) {
+                    localStorage.removeItem("activeEnum8Tab");
+                }
 
-            // Show the selected tab using Bootstrap's tab API
-            activateTab(targetHref);
+                // Show the selected tab using Bootstrap's tab API
+                activateTab(targetHref);
+            }
         });
     });
 
     // Apply the active-link class to the active tab link on page load
-    if (activeTab) {
+    if (lastActiveMainTab) {
         navLinks.forEach(link => link.classList.remove('active-link'));
-        const activeLinkElement = document.querySelector(`a[href="${activeTab}"]`);
+        const activeLinkElement = document.querySelector(`a[href="${lastActiveMainTab}"]`);
         if (activeLinkElement) {
             activeLinkElement.classList.add('active-link');
             activeLinkElement.classList.add('active');
@@ -74,22 +76,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Nested tabs configuration
     const nestedTabsConfig = [
-        {mainTab: "#tab1", nestedTabKey: "activeToolsTab", nestedTabSelector: "#toolsTab a"},
-        {mainTab: "#tab2", nestedTabKey: "activeEnum2Tab", nestedTabSelector: "#enum2Tab a"},
-        {mainTab: "#tab3", nestedTabKey: "activeEnum3Tab", nestedTabSelector: "#enum3Tab a"},
-        {mainTab: "#tab4", nestedTabKey: "activeEnum4Tab", nestedTabSelector: "#enum4Tab a"},
-        {mainTab: "#tab5", nestedTabKey: "activeEnum5Tab", nestedTabSelector: "#enum5Tab a"},
-        {mainTab: "#tab6", nestedTabKey: "activeEnum6Tab", nestedTabSelector: "#enum6Tab a"},
-        {mainTab: "#tab7", nestedTabKey: "activeEnum7Tab", nestedTabSelector: "#enum7Tab a"},
-        {mainTab: "#tab8", nestedTabKey: "activeEnum8Tab", nestedTabSelector: "#enum8Tab a"},
+        { mainTab: "#tab1", nestedTabKey: "activeToolsTab", nestedTabSelector: "#toolsTab a" },
+        { mainTab: "#tab2", nestedTabKey: "activeEnum2Tab", nestedTabSelector: "#enum2Tab a" },
+        { mainTab: "#tab3", nestedTabKey: "activeEnum3Tab", nestedTabSelector: "#enum3Tab a" },
+        { mainTab: "#tab4", nestedTabKey: "activeEnum4Tab", nestedTabSelector: "#enum4Tab a" },
+        { mainTab: "#tab5", nestedTabKey: "activeEnum5Tab", nestedTabSelector: "#enum5Tab a" },
+        { mainTab: "#tab6", nestedTabKey: "activeEnum6Tab", nestedTabSelector: "#enum6Tab a" },
+        { mainTab: "#tab7", nestedTabKey: "activeEnum7Tab", nestedTabSelector: "#enum7Tab a" },
+        { mainTab: "#tab8", nestedTabKey: "activeEnum8Tab", nestedTabSelector: "#enum8Tab a" },
     ];
 
     nestedTabsConfig.forEach(config => {
         const nestedTabs = document.querySelectorAll(config.nestedTabSelector);
         nestedTabs.forEach(tab => {
             tab.addEventListener("click", function () {
-                localStorage.setItem(config.nestedTabKey, this.getAttribute("href"));
-                localStorage.setItem("activeTab", config.mainTab); // Ensure the main tab is also activated when a sub-tab is clicked
+                const href = this.getAttribute("href");
+                if (href) {
+                    localStorage.setItem(config.nestedTabKey, href);
+                    localStorage.setItem("lastActiveMainTab", config.mainTab); // Ensure the main tab is also activated when a sub-tab is clicked
+                }
             });
         });
 
@@ -112,21 +117,9 @@ document.addEventListener("DOMContentLoaded", function () {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     })
 
+    // add event listeners for tooling
 
-    // Encode and Decode functionality with oninput
-    document.getElementById("encodeInput").addEventListener("input", function () {
-        const input = document.getElementById("encodeInput").value;
-        const output = btoa(input);
-        document.getElementById("encodeOutput").innerText = output;
-    });
-
-    document.getElementById("decodeInput").addEventListener("input", function () {
-        const input = document.getElementById("decodeInput").value;
-        const output = atob(input);
-        document.getElementById("decodeOutput").innerText = output;
-    });
 });
-
 
 /**
  * replaceHover()
@@ -138,3 +131,24 @@ document.addEventListener("DOMContentLoaded", function () {
 function replaceHover(elementId, replaceImage){
     document.getElementById(elementId).src = replaceImage
 }
+
+
+
+
+
+    // Encode and Decode functionality with oninput
+    document.getElementById("encodeInput").addEventListener("input", function () {
+        const input = document.getElementById("encodeInput").value;
+        const output = btoa(input);
+        document.getElementById("encodeOutput").innerText = output;
+    });
+
+    document.getElementById("decodeInput").addEventListener("input", function () {
+        const input = document.getElementById("decodeInput").value;
+        try {
+            const output = atob(input);
+            document.getElementById("decodeOutput").innerText = output;
+        } catch (e) {
+            document.getElementById("decodeOutput").innerText = "Invalid Base64 input";
+        }
+    });
