@@ -76,14 +76,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Nested tabs configuration
     const nestedTabsConfig = [
-        { mainTab: "#tab1", nestedTabKey: "activeToolsTab", nestedTabSelector: "#toolsTab a" },
-        { mainTab: "#tab2", nestedTabKey: "activeEnum2Tab", nestedTabSelector: "#enum2Tab a" },
-        { mainTab: "#tab3", nestedTabKey: "activeEnum3Tab", nestedTabSelector: "#enum3Tab a" },
-        { mainTab: "#tab4", nestedTabKey: "activeEnum4Tab", nestedTabSelector: "#enum4Tab a" },
-        { mainTab: "#tab5", nestedTabKey: "activeEnum5Tab", nestedTabSelector: "#enum5Tab a" },
-        { mainTab: "#tab6", nestedTabKey: "activeEnum6Tab", nestedTabSelector: "#enum6Tab a" },
-        { mainTab: "#tab7", nestedTabKey: "activeEnum7Tab", nestedTabSelector: "#enum7Tab a" },
-        { mainTab: "#tab8", nestedTabKey: "activeEnum8Tab", nestedTabSelector: "#enum8Tab a" },
+        {mainTab: "#tab1", nestedTabKey: "activeToolsTab", nestedTabSelector: "#toolsTab a"},
+        {mainTab: "#tab2", nestedTabKey: "activeEnum2Tab", nestedTabSelector: "#enum2Tab a"},
+        {mainTab: "#tab3", nestedTabKey: "activeEnum3Tab", nestedTabSelector: "#enum3Tab a"},
+        {mainTab: "#tab4", nestedTabKey: "activeEnum4Tab", nestedTabSelector: "#enum4Tab a"},
+        {mainTab: "#tab5", nestedTabKey: "activeEnum5Tab", nestedTabSelector: "#enum5Tab a"},
+        {mainTab: "#tab6", nestedTabKey: "activeEnum6Tab", nestedTabSelector: "#enum6Tab a"},
+        {mainTab: "#tab7", nestedTabKey: "activeEnum7Tab", nestedTabSelector: "#enum7Tab a"},
+        {mainTab: "#tab8", nestedTabKey: "activeEnum8Tab", nestedTabSelector: "#enum8Tab a"},
     ];
 
     nestedTabsConfig.forEach(config => {
@@ -117,38 +117,45 @@ document.addEventListener("DOMContentLoaded", function () {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     })
 
-    // add event listeners for tooling
-
+    // add event listeners for the navbar
+    replaceHover("tab-1-img", "assets/icons/navbar/", "tools-tab-1.png", "tools-tab-1-hover.png")
+    replaceHover("tab-2-img", "assets/icons/navbar/", "recon-tools-tab-2.png", "recon-tools-tab-2-hover.png")
 });
 
 /**
  * replaceHover()
  *
- * used in combination with onmouseout
- * @param elementId
- * @param replaceImage
+ * @param elementId id of the element that should be replaced (img element)
+ * @param prefix prefix for where to find the images
+ * @param image image to use
+ * @param replaceImage onhover image to use
  */
-function replaceHover(elementId, replaceImage){
-    document.getElementById(elementId).src = replaceImage
+function replaceHover(elementId, prefix, image, replaceImage) {
+    // add onmouseenter (hover image)
+    document.getElementById(elementId).addEventListener("mouseenter", function () {
+        document.getElementById(elementId).src = `${prefix}${replaceImage}`
+    })
+
+    // add onmouseleave (standard image)
+    document.getElementById(elementId).addEventListener("mouseleave", function () {
+        document.getElementById(elementId).src = `${prefix}${image}`
+    })
 }
 
 
+// Encode and Decode functionality with oninput
+document.getElementById("encodeInput").addEventListener("input", function () {
+    const input = document.getElementById("encodeInput").value;
+    const output = btoa(input);
+    document.getElementById("encodeOutput").innerText = output;
+});
 
-
-
-    // Encode and Decode functionality with oninput
-    document.getElementById("encodeInput").addEventListener("input", function () {
-        const input = document.getElementById("encodeInput").value;
-        const output = btoa(input);
-        document.getElementById("encodeOutput").innerText = output;
-    });
-
-    document.getElementById("decodeInput").addEventListener("input", function () {
-        const input = document.getElementById("decodeInput").value;
-        try {
-            const output = atob(input);
-            document.getElementById("decodeOutput").innerText = output;
-        } catch (e) {
-            document.getElementById("decodeOutput").innerText = "Invalid Base64 input";
-        }
-    });
+document.getElementById("decodeInput").addEventListener("input", function () {
+    const input = document.getElementById("decodeInput").value;
+    try {
+        const output = atob(input);
+        document.getElementById("decodeOutput").innerText = output;
+    } catch (e) {
+        document.getElementById("decodeOutput").innerText = "Invalid Base64 input";
+    }
+});
