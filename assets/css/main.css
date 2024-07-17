@@ -6,18 +6,18 @@
 }
 
 @font-face {
-  font-family: roboto;
-  src: url("../../assets/fonts/roboto-regular.ttf");
+    font-family: roboto;
+    src: url("../../assets/fonts/roboto-regular.ttf");
 }
 
 @font-face {
-  font-family: roboto-headers;
-  src: url("../../assets/fonts/roboto-thin.ttf");
+    font-family: roboto-headers;
+    src: url("../../assets/fonts/roboto-thin.ttf");
 }
 
 @font-face {
-  font-family: consolas;
-  src: url("../../assets/fonts/consolas.ttf")
+    font-family: consolas;
+    src: url("../../assets/fonts/consolas.ttf")
 }
 
 h1,
@@ -26,13 +26,20 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: roboto-headers;
-  z-index: 100;
+    font-family: roboto-headers;
+    z-index: 100;
 }
 
 * {
-  font-family: roboto;
-  box-sizing: border-box;
+    font-family: roboto;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+textarea {
+    resize: none !important; /* Disable resizing */
+    background-color: #ffffff !important;
 }
 
 .custom-text-small {
@@ -60,11 +67,11 @@ h6 {
 }
 
 .container-custom {
-    /* width, height for the main container */
     height: 100vh;
     width: 100vw;
 
     /* set a min height and width */
-    min-width: 500px;
+    min-width: 600px;
     min-height: 550px;
 }
+

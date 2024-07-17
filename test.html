@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Textarea with Copy Button</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .textarea-container {
+      position: relative;
+    }
+    .copy-button {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-4">
+    <div class="form-group textarea-container">
+      <label for="jsonTextarea">JSON Input</label>
+      <textarea class="form-control" id="jsonTextarea" rows="10"></textarea>
+      <button class="btn btn-primary copy-button" id="copyButton">Copy</button>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    document.getElementById('copyButton').addEventListener('click', function() {
+      const textarea = document.getElementById('jsonTextarea');
+      textarea.select();
+      document.execCommand('copy');
+      alert('Copied to clipboard!');
+    });
+  </script>
+</body>
+</html>

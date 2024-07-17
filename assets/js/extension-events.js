@@ -120,6 +120,54 @@ document.addEventListener("DOMContentLoaded", function () {
     // add event listeners for the navbar
     replaceHover("tab-1-img", "assets/icons/navbar/", "tools-tab-1.png", "tools-tab-1-hover.png")
     replaceHover("tab-2-img", "assets/icons/navbar/", "recon-tools-tab-2.png", "recon-tools-tab-2-hover.png")
+    replaceHover("tab-3-img", "assets/icons/navbar/", "exploit-assistant-tab-3.png", "exploit-assistant-tab-3-hover.png")
+    replaceHover("tab-4-img", "assets/icons/navbar/", "shell-assistant-tab-4.png", "shell-assistant-tab-4-hover.png")
+    replaceHover("tab-5-img", "assets/icons/navbar/", "checklist-assistant-tab-5.png", "checklist-assistant-tab-5-hover.png")
+    replaceHover("tab-6-img", "assets/icons/navbar/", "usefull-commands-tab-6.png", "usefull-commands-tab-6-hover.png")
+
+    // clipboard for copying text inside a textarea
+    let activeCopyIcon = null;
+
+    document.addEventListener('click', function (event) {
+        if (event.target.classList.contains('copy-icon')) {
+            if (activeCopyIcon) {
+                activeCopyIcon.src = "/assets/icons/general/copy.png";
+                activeCopyIcon.style.cssText = "position: absolute; bottom: 5px; right: 5px;";
+            }
+
+            let img = event.target;
+            activeCopyIcon = img;
+
+            img.style.cssText = "position: absolute; bottom: 5px; right: 5px; pointer-events: none;";
+
+            // Find the closest parent with the class 'position-relative'
+            let container = event.target.closest('.position-relative');
+            if (container) {
+                // Find the textarea within this container
+                let textarea = container.querySelector('textarea');
+                if (textarea) {
+                    // Use the Clipboard API to copy the content
+                    navigator.clipboard.writeText(textarea.value).then(function () {
+                        console.log('[*] Text copied to clipboard');
+                    }).catch(function (err) {
+                        console.error('[*] Could not copy text: ', err);
+                    });
+                }
+            }
+
+            img.src = "/assets/icons/general/copy-success.png";
+            setTimeout(function () {
+                if (activeCopyIcon === img) {
+                    img.src = "/assets/icons/general/copy.png";
+                    img.style.cssText = "position: absolute; bottom: 5px; right: 5px;";
+                    activeCopyIcon = null;
+                }
+            }, 2000);
+        }
+    });
+
+
+    //
 });
 
 /**

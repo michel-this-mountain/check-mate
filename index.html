@@ -6,9 +6,18 @@
     <link href="assets/css/libs/bootstrap.min.css" rel="stylesheet"/>
     <script src="assets/js/libs/bootstrap.bundle.min.js"></script>
     <style>
+
         .nav-link.active-link {
             color: #0056b3 !important; /* Custom color for active links */
             background-color: transparent !important;
+        }
+
+        .tab-content > .tab-pane {
+            display: none;
+        }
+
+        .tab-content > .active {
+            display: block;
         }
     </style>
 </head>
@@ -35,111 +44,194 @@
                 <div class="d-flex flex-column mt-5 nav nav-pills" id="navbar">
                     <!-- tab 1 - tools -->
                     <div class="mb-2 text-center w-100">
-                        <a href="#tab1" class="nav-link text-custom-dark-blue show w-100 d-flex justify-content-center" data-bs-toggle="tab"
+                        <a href="#tab1" class="nav-link text-custom-dark-blue show w-100 d-flex justify-content-center"
+                           data-bs-toggle="tab"
                            data-bs-placement="top" title="Tooltip on top">
-                            <button type="button" class="btn p-0 m-0">
-                                <img id="tab-1-img" data-bs-toggle="tooltip"
-                                    data-bs-placement="top" title="General tooling" src="assets/icons/navbar/tools-tab-1.png" width="25px" height="25px;">
-                            </button>
+                            <img id="tab-1-img" data-bs-toggle="tooltip"
+                                 data-bs-placement="top" title="General tooling"
+                                 src="assets/icons/navbar/tools-tab-1.png" width="25px" height="25px;">
                         </a>
                     </div>
                     <!-- tab 2 - recon tools -->
                     <div class="mb-2 text-center w-100">
-                        <a href="#tab2" class="nav-link text-custom-dark-blue w-100 d-flex justify-content-center" data-bs-toggle="tab">
-                            <button type="button" class="btn p-0 m-0">
-                                <img id="tab-2-img" data-bs-toggle="tooltip"
-                                    data-bs-placement="top" title="Recon tooling" src="assets/icons/navbar/recon-tools-tab-2.png" width="25px" height="25px;">
-                            </button>
+                        <a href="#tab2" class="nav-link text-custom-dark-blue w-100 d-flex justify-content-center"
+                           data-bs-toggle="tab">
+                            <img id="tab-2-img" data-bs-toggle="tooltip"
+                                 data-bs-placement="top" title="Recon tooling"
+                                 src="assets/icons/navbar/recon-tools-tab-2.png" width="25px" height="25px;">
                         </a>
                     </div>
                     <!-- tab 3 - exploit assistant -->
                     <div class="mb-2 text-center w-100">
-                        <a href="#tab3" class="nav-link text-custom-dark-blue w-100 d-flex justify-content-center" data-bs-toggle="tab">
-                            <button type="button" class="btn p-0 m-0">
-                                <img id="tab-3-img" data-bs-toggle="tooltip"
-                                    data-bs-placement="top" title="Exploit assistant" src="assets/icons/navbar/tools-tab-1.png" width="25px" height="25px;">
-                            </button>
+                        <a href="#tab3" class="nav-link text-custom-dark-blue w-100 d-flex justify-content-center"
+                           data-bs-toggle="tab">
+                            <img id="tab-3-img" data-bs-toggle="tooltip"
+                                 data-bs-placement="top" title="Exploit assistant"
+                                 src="assets/icons/navbar/exploit-assistant-tab-3.png" width="25px" height="25px;">
                         </a>
                     </div>
                     <!-- tab 4 - shell assistant -->
                     <div class="mb-2 text-center w-100">
-                        <a href="#tab4" class="nav-link text-custom-dark-blue w-100 d-flex justify-content-center" data-bs-toggle="tab">
-                            <button type="button" class="btn p-0 m-0">
-                                <img id="tab-4-img" data-bs-toggle="tooltip"
-                                    data-bs-placement="top" title="Shell assistant" src="assets/icons/navbar/tools-tab-1.png" width="25px" height="25px;">
-                            </button>
+                        <a href="#tab4" class="nav-link text-custom-dark-blue w-100 d-flex justify-content-center"
+                           data-bs-toggle="tab">
+                            <img id="tab-4-img" data-bs-toggle="tooltip"
+                                 data-bs-placement="top" title="Shell assistant"
+                                 src="assets/icons/navbar/shell-assistant-tab-4.png" width="25px" height="25px;">
                         </a>
                     </div>
                     <!-- tab 5 - checklist assistant -->
                     <div class="mb-2 text-center w-100">
-                        <a href="#tab5" class="nav-link text-custom-dark-blue w-100 d-flex justify-content-center" data-bs-toggle="tab">
-                            <button type="button" class="btn p-0 m-0">
-                                <img id="tab-5-img" data-bs-toggle="tooltip"
-                                    data-bs-placement="top" title="Checklist assistant" src="assets/icons/navbar/tools-tab-1.png" width="25px" height="25px;">
-                            </button>
+                        <a href="#tab5" class="nav-link text-custom-dark-blue w-100 d-flex justify-content-center"
+                           data-bs-toggle="tab">
+                            <img id="tab-5-img" data-bs-toggle="tooltip"
+                                 data-bs-placement="top" title="Checklist assistant"
+                                 src="assets/icons/navbar/checklist-assistant-tab-5.png" width="28px" height="28px">
                         </a>
                     </div>
                     <!-- tab 6 - handy commands -->
                     <div class="mb-2 text-center w-100">
-                        <a href="#tab6" class="nav-link text-custom-dark-blue w-100 d-flex justify-content-center" data-bs-toggle="tab">
-                            <button type="button" class="btn p-0 m-0">
-                                <img id="tab-6-img" data-bs-toggle="tooltip"
-                                    data-bs-placement="top" title="Usefull commands" src="assets/icons/navbar/tools-tab-1.png" width="25px" height="25px;">
-                            </button>
+                        <a href="#tab6" class="nav-link text-custom-dark-blue w-100 d-flex justify-content-center"
+                           data-bs-toggle="tab">
+                            <img id="tab-6-img" data-bs-toggle="tooltip"
+                                 data-bs-placement="top" title="Usefull commands"
+                                 src="assets/icons/navbar/usefull-commands-tab-6.png" width="26px" height="26px;">
                         </a>
                     </div>
-                    <!-- tab 7 - todo -->
-                    <div class="mb-2 text-center w-100">
-                        <a href="#tab7" class="nav-link text-custom-dark-blue w-100 d-flex justify-content-center" data-bs-toggle="tab">
-                            <button type="button" class="btn p-0 m-0">
-                                <img id="tab-7-img" data-bs-toggle="tooltip"
-                                    data-bs-placement="top" title="Checklist assistant" src="assets/icons/navbar/tools-tab-1.png" width="25px" height="25px;">
-                            </button>
-                        </a>
-                    </div>
+                    <!-- tab 7 - todo-->
+                    <!--                    <div class="mb-2 text-center w-100">-->
+                    <!--                        <a href="#tab7" class="nav-link text-custom-dark-blue w-100 d-flex justify-content-center"-->
+                    <!--                           data-bs-toggle="tab">-->
+                    <!--                            <img id="tab-7-img" data-bs-toggle="tooltip"-->
+                    <!--                                 data-bs-placement="top" title="Checklist assistant"-->
+                    <!--                                 src="assets/icons/navbar/tools-tab-1.png" width="25px" height="25px;">-->
+                    <!--                        </a>-->
+                    <!--                    </div>-->
                     <!-- tab 8 - todo -->
-                    <div class="mb-2 text-center w-100">
-                        <a href="#tab8" class="nav-link text-custom-dark-blue w-100 d-flex justify-content-center" data-bs-toggle="tab">
-                            <button type="button" class="btn p-0 m-0">
-                                <img id="tab-8-img" data-bs-toggle="tooltip"
-                                    data-bs-placement="top" title="Checklist assistant" src="assets/icons/navbar/tools-tab-1.png" width="25px" height="25px;">
-                            </button>
-                        </a>
-                    </div>
+                    <!--                    <div class="mb-2 text-center w-100">-->
+                    <!--                        <a href="#tab8" class="nav-link text-custom-dark-blue w-100 d-flex justify-content-center"-->
+                    <!--                           data-bs-toggle="tab">-->
+                    <!--                            <img id="tab-8-img" data-bs-toggle="tooltip"-->
+                    <!--                                 data-bs-placement="top" title="Checklist assistant"-->
+                    <!--                                 src="assets/icons/navbar/tools-tab-1.png" width="25px" height="25px;">-->
+                    <!--                        </a>-->
+                    <!--                    </div>-->
                     <!-- end tabs -->
                 </div>
-            <!-- end tab navigation -->
+                <!-- end tab navigation -->
             </div>
 
             <!-- end navbar -->
-            <div class="col-10 p-1 tab-content">
+            <div class="col-11 p-2 tab-content rounded border h-100 border border-dark" style="overflow-y: scroll;">
+
+                <!-- tab 1 (tooling) start-->
                 <div class="tab-pane fade" id="tab1">
                     <!-- Nested tabs for Tools -->
                     <ul class="nav nav-tabs" id="toolsTab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link text-custom-dark-blue" id="encode-tab" data-bs-toggle="tab"
-                               href="#encode" role="tab">Encode Base64</a>
+                            <a class="nav-link active" id="encode_decode-tab" data-bs-toggle="tab"
+                               href="#encode_decode" role="tab">
+                                <img data-bs-toggle="tooltip"
+                                     data-bs-placement="top" title="Encode & decoding tooling"
+                                     src="assets/icons/navbar/tools-tab-1/encode_decode.png"
+                                     width="25px" height="25px;">
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-custom-dark-blue" id="decode-tab" data-bs-toggle="tab"
-                               href="#decode" role="tab">Decode Base64</a>
+                            <a class="nav-link" id="hash-tab" data-bs-toggle="tab"
+                               href="#hashing" role="tab">
+                                <img data-bs-toggle="tooltip"
+                                     data-bs-placement="top" title="Hash identifier, generator and cracker"
+                                     src="assets/icons/navbar/tools-tab-1/hashing.png"
+                                     width="25px" height="25px;">
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="formatter-tab" data-bs-toggle="tab"
+                               href="#formatter" role="tab">
+                                <img data-bs-toggle="tooltip"
+                                     data-bs-placement="top"
+                                     title="JSON formatter"
+                                     src="assets/icons/navbar/tools-tab-1/formatter.png"
+                                     width="25px" height="25px;">
+                            </a>
                         </li>
                     </ul>
+                    <!-- tab 1 content start -->
                     <div class="tab-content" id="toolsTabContent">
-                        <div class="tab-pane fade" id="encode" role="tabpanel">
-                            <h4>Encode Base64</h4>
-                            <textarea id="encodeInput" rows="4" class="form-control"
-                                      placeholder="Enter text to encode"></textarea>
-                            <p class="mt-2" id="encodeOutput"></p>
+                        <div class="tab-pane fade show active d-flex justify-content-between flex-column"
+                             id="encode_decode"
+                             role="tabpanel" style="height: 485px">
+                            <div class="mt-2 mb-2">
+                                <h4> Encoding/ Decoding </h4>
+                            </div>
+
+                            <div>
+                                <div class="form-group mb-2">
+                                    <label for="encoding-select-technique">Technique</label>
+                                    <select class="form-control" id="encoding-select-technique">
+                                        <option value="b64-e" selected>Base64 encode</option>
+                                        <option value="b64-d">Base64 decode</option>
+                                        <option value="uri-e">URI encode</option>
+                                        <option value="uri-d">URI decode</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <span>Input</span>
+                                <div class="position-relative d-flex">
+                    <textarea
+                            id="encoding-decoding-input-textarea"
+                            class="form-control"
+                            rows="5"
+                            style="width: 100%; padding-right: 40px;"></textarea>
+                                    <a href="#">
+                                        <img class="copy-icon"
+                                             src="assets/icons/general/copy.png"
+                                             style="position: absolute; bottom: 5px; right: 5px;"
+                                             height="25px"
+                                             width="25px"
+                                             alt="Copy">
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <span>Output</span>
+                                <div class="position-relative d-flex">
+                    <textarea
+                            id="encoding-decoding-output-textarea"
+                            readonly
+                            class="form-control"
+                            rows="7"
+                            style="width: 100%; padding-right: 40px;"></textarea>
+                                    <a href="#">
+                                        <img class="copy-icon"
+                                             src="assets/icons/general/copy.png"
+                                             style="position: absolute; bottom: 5px; right: 5px;"
+                                             height="25px"
+                                             width="25px"
+                                             alt="Copy">
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="tab-pane fade" id="decode" role="tabpanel">
-                            <h4>Decode Base64</h4>
-                            <textarea id="decodeInput" rows="4" class="form-control"
-                                      placeholder="Enter Base64 text to decode"></textarea>
-                            <p class="mt-2" id="decodeOutput"></p>
+                        <div class="tab-pane fade" id="hashing" role="tabpanel">
+                            <div class="mt-2 mb-2">
+                                <h4> Hashing </h4>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="formatter" role="tabpanel">
+                            <div class="mt-2 mb-2">
+                                <h4> Formatter </h4>
+                            </div>
                         </div>
                     </div>
+                    <!-- tab 1 content end -->
                 </div>
+
+                <!-- tab 1 (tooling) end -->
+                <!-- tab 2 start -->
                 <div class="tab-pane fade" id="tab2">
                     <!-- Nested tabs for Enum 2 -->
                     <ul class="nav nav-tabs" id="enum2Tab" role="tablist">
@@ -293,5 +385,7 @@
 </div>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/extension-events.js"></script>
+<script src="assets/js/tabs/tab-1-tooling.js"></script>
+
 </body>
 </html>
