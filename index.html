@@ -11,14 +11,6 @@
             color: #0056b3 !important; /* Custom color for active links */
             background-color: transparent !important;
         }
-
-        .tab-content > .tab-pane {
-            display: none;
-        }
-
-        .tab-content > .active {
-            display: block;
-        }
     </style>
 </head>
 <body>
@@ -158,74 +150,86 @@
                     </ul>
                     <!-- tab 1 content start -->
                     <div class="tab-content" id="toolsTabContent">
-                        <div class="tab-pane fade show active d-flex justify-content-between flex-column"
+                        <div class="tab-pane fade show active"
                              id="encode_decode"
                              role="tabpanel" style="height: 485px">
-                            <div class="mt-2 mb-2">
-                                <h4> Encoding/ Decoding </h4>
-                            </div>
-
-                            <div>
-                                <div class="form-group mb-2">
-                                    <label for="encoding-select-technique">Technique</label>
-                                    <select class="form-control" id="encoding-select-technique">
-                                        <option value="b64-e" selected>Base64 encode</option>
-                                        <option value="b64-d">Base64 decode</option>
-                                        <option value="uri-e">URI encode</option>
-                                        <option value="uri-d">URI decode</option>
-                                    </select>
+                            <div class="d-flex flex-column justify-content-between">
+                                <div class="mt-2 mb-2">
+                                    <h4> Encoding/ Decoding </h4>
                                 </div>
-                            </div>
 
-                            <div class="form-group">
-                                <span>Input</span>
-                                <div class="position-relative d-flex">
-                    <textarea
-                            id="encoding-decoding-input-textarea"
-                            class="form-control"
-                            rows="5"
-                            style="width: 100%; padding-right: 40px;"></textarea>
-                                    <a href="#">
-                                        <img class="copy-icon"
-                                             src="assets/icons/general/copy.png"
-                                             style="position: absolute; bottom: 5px; right: 5px;"
-                                             height="25px"
-                                             width="25px"
-                                             alt="Copy">
-                                    </a>
+                                <div>
+                                    <div class="form-group mb-2">
+                                        <label for="encoding-select-technique">Technique</label>
+                                        <select class="form-control" id="encoding-select-technique">
+                                            <option value="b64-e" selected>Base64 encode</option>
+                                            <option value="b64-d">Base64 decode</option>
+                                            <option value="uri-e">URI encode</option>
+                                            <option value="uri-d">URI decode</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group">
-                                <span>Output</span>
-                                <div class="position-relative d-flex">
-                    <textarea
-                            id="encoding-decoding-output-textarea"
-                            readonly
-                            class="form-control"
-                            rows="7"
-                            style="width: 100%; padding-right: 40px;"></textarea>
-                                    <a href="#">
-                                        <img class="copy-icon"
-                                             src="assets/icons/general/copy.png"
-                                             style="position: absolute; bottom: 5px; right: 5px;"
-                                             height="25px"
-                                             width="25px"
-                                             alt="Copy">
-                                    </a>
+                                <div class="form-group">
+                                    <span>Input</span>
+                                    <div class="position-relative d-flex">
+                        <textarea
+                                id="encoding-decoding-input-textarea"
+                                class="form-control"
+                                rows="5"
+                                style="width: 100%; padding-right: 40px;"></textarea>
+                                        <a href="#">
+                                            <img class="copy-icon"
+                                                 src="assets/icons/general/copy.png"
+                                                 style="position: absolute; bottom: 5px; right: 5px;"
+                                                 height="25px"
+                                                 width="25px"
+                                                 alt="Copy">
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <span>Output</span>
+                                    <div class="position-relative d-flex">
+                        <textarea
+                                id="encoding-decoding-output-textarea"
+                                readonly
+                                class="form-control"
+                                rows="7"
+                                style="width: 100%; padding-right: 40px;"></textarea>
+                                        <a href="#">
+                                            <img class="copy-icon"
+                                                 src="assets/icons/general/copy.png"
+                                                 style="position: absolute; bottom: 5px; right: 5px;"
+                                                 height="25px"
+                                                 width="25px"
+                                                 alt="Copy">
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="hashing" role="tabpanel">
-                            <div class="mt-2 mb-2">
-                                <h4> Hashing </h4>
+
+                        <div class="tab-pane fade"
+                             id="hashing"
+                             role="tabpanel" style="height: 485px">
+                            <div class="d-flex flex-column justify-content-between h-100">
+                                <div class="mt-2 mb-2">
+                                    <h4> Hashing </h4>
+                                </div>
+
+
                             </div>
                         </div>
+
                         <div class="tab-pane fade" id="formatter" role="tabpanel">
                             <div class="mt-2 mb-2">
                                 <h4> Formatter </h4>
                             </div>
                         </div>
+
+
                     </div>
                     <!-- tab 1 content end -->
                 </div>
