@@ -125,7 +125,7 @@
                             <a class="nav-link active" id="encode_decode-tab" data-bs-toggle="tab"
                                href="#encode_decode" role="tab">
                                 <img data-bs-toggle="tooltip"
-                                     data-bs-placement="right" title="Encode & decoding tooling"
+                                     data-bs-placement="right" title="Encoding & decoding"
                                      src="assets/icons/navbar/tools-tab-1/encode_decode.png"
                                      width="25px" height="25px;">
                             </a>
@@ -134,7 +134,7 @@
                             <a class="nav-link" id="hash-tab" data-bs-toggle="tab"
                                href="#hashing" role="tab">
                                 <img data-bs-toggle="tooltip"
-                                     data-bs-placement="right" title="Hash identifier and generator"
+                                     data-bs-placement="right" title="Hash generator and identifier"
                                      src="assets/icons/navbar/tools-tab-1/hashing.png"
                                      width="25px" height="25px;">
                             </a>
@@ -263,7 +263,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                        <span>Output</span>
+                                            <span>Output</span>
                                             <!-- start textarea and copybutton-->
                                             <div class="position-relative d-flex">
                                         <textarea
@@ -291,8 +291,8 @@
                                               data-bs-placement="right"
                                               title="Insert the hash to identify the hash type.">Hash identifier
                                               <img src="assets/icons/general/info.png"
-                                                 alt="info" width="15px"
-                                                 height="15px">
+                                                   alt="info" width="15px"
+                                                   height="15px">
                                         </span>
                                         <!-- start textarea and copybutton-->
                                         <div class="position-relative d-flex">
@@ -343,9 +343,37 @@
                         </div>
                         <!-- Hashing tab END -->
                         <!-- Formatter tab START -->
-                        <div class="tab-pane fade" id="formatter" role="tabpanel">
-                            <div class="mt-2 mb-2">
-                                <h4> Formatter </h4>
+                        <div class="tab-pane fade"
+                             id="formatter"
+                             role="tabpanel" style="height: 485px">
+                            <div class="d-flex flex-column justify-content-between h-100">
+                                <div class="mt-2 mb-2">
+                                    <h4> Formatter </h4>
+                                </div>
+                                <div class="form-group">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <button class="btn btn-outline-primary" id="input-format-json-button">
+                                            Format JSON
+                                        </button>
+                                    </div>
+                                    <!-- start textarea and copybutton-->
+                                    <div class="position-relative d-flex">
+                                        <textarea
+                                                id="input-json-text"
+                                                class="form-control"
+                                                rows="16"
+                                                style="width: 100%; padding-right: 40px;"></textarea>
+                                        <a href="#">
+                                            <img class="copy-icon"
+                                                 src="assets/icons/general/copy.png"
+                                                 style="position: absolute; bottom: 5px; right: 5px;"
+                                                 height="25px"
+                                                 width="25px"
+                                                 alt="Copy">
+                                        </a>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                         <!-- Formatter tab END -->

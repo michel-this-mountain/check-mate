@@ -34,11 +34,52 @@ document.addEventListener("DOMContentLoaded", function () {
     hashIdentifyInputElement.addEventListener("input", function () {
         hashIdentifyOutputEelement.innerText = identifyHash(hashIdentifyInputElement.value)
     })
-
-
     // #### hashing tab END #### //
+    // #### Formatter tab start #### //
+    let formatJsonButton = document.getElementById("input-format-json-button")
+    let formatJsonTextarea = document.getElementById("input-json-text")
+
+    formatJsonTextarea.addEventListener("input", function () {
+        if (isValidJSON(formatJsonTextarea.value)){
+            formatJsonTextarea.classList.add("is-valid")
+            formatJsonTextarea.classList.remove("is-invalid")
+        } else {
+            formatJsonTextarea.classList.remove("is-valid")
+            formatJsonTextarea.classList.add("is-invalid")
+        }
+    })
+
+    formatJsonButton.addEventListener("click", function () {
+        formatJsonTextarea.value = formatJSON(formatJsonTextarea.value, 2)
+    })
+    // #### Formatter tab end #### //
 
 })
+
+
+// FORMATTER TAB START
+
+// method that verifies if the input JSON is valid
+function isValidJSON(jsonString) {
+    try {
+        JSON.parse(jsonString);
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
+
+// method that formats a json object
+function formatJSON(jsonString, depth = 2) {
+    if (!isValidJSON(jsonString)) {
+        throw new Error('Invalid JSON string');
+    }
+    const jsonObject = JSON.parse(jsonString);
+    return JSON.stringify(jsonObject, null, depth);
+}
+
+
+// FORMATTER TAB END
 
 // HASHING TAB START
 /**
@@ -46,9 +87,9 @@ document.addEventListener("DOMContentLoaded", function () {
  *
  * decides based off the input what hashing algorithm it should use
  *
- * @param algorithm
- * @param text
- * @returns {*|string}
+ * @param algorithm algorithm to use
+ * @param text text to hash
+ * @returns {*|string} returns a hashed string
  */
 function decideHashingAlgorithm(algorithm, text) {
     switch (algorithm) {
@@ -68,15 +109,6 @@ function decideHashingAlgorithm(algorithm, text) {
             return hashSHA512(text);
     }
 }
-
-/**
- * hashMD5()
- *
- * Method that hashes an input string, and returns the md5 value
- *
- * @param input
- * @returns {*}
- */
 
 // method to hash using md5
 function hashMD5(input) {
@@ -112,7 +144,6 @@ function hashSHA384(input) {
 function hashSHA512(input) {
     return CryptoJS.SHA512(input).toString(CryptoJS.enc.Hex);
 }
-
 
 /**
  * identifyHash()
