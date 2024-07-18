@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="assets/css/main.css">
     <link href="assets/css/libs/bootstrap.min.css" rel="stylesheet"/>
     <script src="assets/js/libs/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/libs/crypto.min.js"></script>
+    <script src="assets/js/libs/bcrypt.min.js"></script>
     <style>
 
         .nav-link.active-link {
@@ -123,7 +125,7 @@
                             <a class="nav-link active" id="encode_decode-tab" data-bs-toggle="tab"
                                href="#encode_decode" role="tab">
                                 <img data-bs-toggle="tooltip"
-                                     data-bs-placement="top" title="Encode & decoding tooling"
+                                     data-bs-placement="right" title="Encode & decoding tooling"
                                      src="assets/icons/navbar/tools-tab-1/encode_decode.png"
                                      width="25px" height="25px;">
                             </a>
@@ -132,7 +134,7 @@
                             <a class="nav-link" id="hash-tab" data-bs-toggle="tab"
                                href="#hashing" role="tab">
                                 <img data-bs-toggle="tooltip"
-                                     data-bs-placement="top" title="Hash identifier, generator and cracker"
+                                     data-bs-placement="right" title="Hash identifier and generator"
                                      src="assets/icons/navbar/tools-tab-1/hashing.png"
                                      width="25px" height="25px;">
                             </a>
@@ -141,7 +143,7 @@
                             <a class="nav-link" id="formatter-tab" data-bs-toggle="tab"
                                href="#formatter" role="tab">
                                 <img data-bs-toggle="tooltip"
-                                     data-bs-placement="top"
+                                     data-bs-placement="right"
                                      title="JSON formatter"
                                      src="assets/icons/navbar/tools-tab-1/formatter.png"
                                      width="25px" height="25px;">
@@ -150,6 +152,8 @@
                     </ul>
                     <!-- tab 1 content start -->
                     <div class="tab-content" id="toolsTabContent">
+
+                        <!-- Encoding/ decoding tab START -->
                         <div class="tab-pane fade show active"
                              id="encode_decode"
                              role="tabpanel" style="height: 485px">
@@ -160,7 +164,7 @@
 
                                 <div>
                                     <div class="form-group mb-2">
-                                        <label for="encoding-select-technique">Technique</label>
+                                        <label for="encoding-select-technique">Encoding algorithm</label>
                                         <select class="form-control" id="encoding-select-technique">
                                             <option value="b64-e" selected>Base64 encode</option>
                                             <option value="b64-d">Base64 decode</option>
@@ -173,11 +177,11 @@
                                 <div class="form-group">
                                     <span>Input</span>
                                     <div class="position-relative d-flex">
-                        <textarea
-                                id="encoding-decoding-input-textarea"
-                                class="form-control"
-                                rows="5"
-                                style="width: 100%; padding-right: 40px;"></textarea>
+                                        <textarea
+                                                id="encoding-decoding-input-textarea"
+                                                class="form-control"
+                                                rows="5"
+                                                style="width: 100%; padding-right: 40px;"></textarea>
                                         <a href="#">
                                             <img class="copy-icon"
                                                  src="assets/icons/general/copy.png"
@@ -192,12 +196,12 @@
                                 <div class="form-group">
                                     <span>Output</span>
                                     <div class="position-relative d-flex">
-                        <textarea
-                                id="encoding-decoding-output-textarea"
-                                readonly
-                                class="form-control"
-                                rows="7"
-                                style="width: 100%; padding-right: 40px;"></textarea>
+                                        <textarea
+                                                id="encoding-decoding-output-textarea"
+                                                readonly
+                                                class="form-control"
+                                                rows="7"
+                                                style="width: 100%; padding-right: 40px;"></textarea>
                                         <a href="#">
                                             <img class="copy-icon"
                                                  src="assets/icons/general/copy.png"
@@ -208,9 +212,11 @@
                                         </a>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
-
+                        <!-- Encoding/ decoding tab END -->
+                        <!-- Hashing tab START -->
                         <div class="tab-pane fade"
                              id="hashing"
                              role="tabpanel" style="height: 485px">
@@ -219,19 +225,134 @@
                                     <h4> Hashing </h4>
                                 </div>
 
+                                <div>
+                                    <div class="form-group mb-1">
+                                        <label for="encoding-select-technique">Hashing algorithm</label>
+                                        <select class="form-control" id="hash-select-algorithm">
+                                            <option value="md5" selected>MD5</option>
+                                            <option value="bcrypt">BCRYPT</option>
+                                            <option value="sha1">SHA1</option>
+                                            <option value="sha224">SHA224</option>
+                                            <option value="sha256">SHA256</option>
+                                            <option value="sha384">SHA384</option>
+                                            <option value="sha512">SHA512</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <div class="form-group">
+                                        <span>
+                                              Input
+                                        </span>
+                                            <!-- start textarea and copybutton-->
+                                            <div class="position-relative d-flex">
+                                        <textarea
+                                                id="hash-generate-input"
+                                                class="form-control"
+                                                rows="2"
+                                                style="width: 100%; padding-right: 40px;"></textarea>
+                                                <a href="#">
+                                                    <img class="copy-icon"
+                                                         src="assets/icons/general/copy.png"
+                                                         style="position: absolute; bottom: 5px; right: 5px;"
+                                                         height="25px"
+                                                         width="25px"
+                                                         alt="Copy">
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                        <span>Output</span>
+                                            <!-- start textarea and copybutton-->
+                                            <div class="position-relative d-flex">
+                                        <textarea
+                                                id="hash-generate-output"
+                                                readonly
+                                                class="form-control"
+                                                rows="2"
+                                                style="width: 100%; padding-right: 40px;"></textarea>
+                                                <a href="#">
+                                                    <img class="copy-icon"
+                                                         src="assets/icons/general/copy.png"
+                                                         style="position: absolute; bottom: 5px; right: 5px;"
+                                                         height="25px"
+                                                         width="25px"
+                                                         alt="Copy">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4">
+                                    <div class="form-group">
+                                        <span data-bs-toggle="tooltip"
+                                              data-bs-placement="right"
+                                              title="Insert the hash to identify the hash type.">Hash identifier
+                                              <img src="assets/icons/general/info.png"
+                                                 alt="info" width="15px"
+                                                 height="15px">
+                                        </span>
+                                        <!-- start textarea and copybutton-->
+                                        <div class="position-relative d-flex">
+                                        <textarea
+                                                id="hash-identify-input"
+                                                class="form-control"
+                                                rows="2"
+                                                style="width: 100%; padding-right: 40px;"></textarea>
+                                            <a href="#">
+                                                <img class="copy-icon"
+                                                     src="assets/icons/general/copy.png"
+                                                     style="position: absolute; bottom: 5px; right: 5px;"
+                                                     height="25px"
+                                                     width="25px"
+                                                     alt="Copy">
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <span data-bs-toggle="tooltip"
+                                              data-bs-placement="right"
+                                              title="Possible hash types, prioritized from left to right.">Possible hash(es)
+                                            <img src="assets/icons/general/info.png" alt="info" width="15px"
+                                                 height="15px">
+                                        </span>
+                                        <!-- start textarea and copybutton-->
+                                        <div class="position-relative d-flex">
+                                        <textarea
+                                                readonly
+                                                id="hash-identify-output"
+                                                class="form-control"
+                                                rows="2"
+                                                style="width: 100%; padding-right: 40px;"></textarea>
+                                            <a href="#">
+                                                <img class="copy-icon"
+                                                     src="assets/icons/general/copy.png"
+                                                     style="position: absolute; bottom: 5px; right: 5px;"
+                                                     height="25px"
+                                                     width="25px"
+                                                     alt="Copy">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
                         </div>
-
+                        <!-- Hashing tab END -->
+                        <!-- Formatter tab START -->
                         <div class="tab-pane fade" id="formatter" role="tabpanel">
                             <div class="mt-2 mb-2">
                                 <h4> Formatter </h4>
                             </div>
                         </div>
-
+                        <!-- Formatter tab END -->
 
                     </div>
                     <!-- tab 1 content end -->
+
                 </div>
 
                 <!-- tab 1 (tooling) end -->

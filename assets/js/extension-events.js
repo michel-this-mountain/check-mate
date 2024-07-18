@@ -111,11 +111,13 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // tooltip
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
+        return new bootstrap.Tooltip(tooltipTriggerEl, {
+            delay: { "hide": 50 }
+        });
+    });
+
 
     // add event listeners for the navbar
     replaceHover("tab-1-img", "assets/icons/navbar/", "tools-tab-1.png", "tools-tab-1-hover.png")
