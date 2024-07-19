@@ -46,13 +46,13 @@
                                  src="assets/icons/navbar/tools-tab-1.png" width="25px" height="25px;">
                         </a>
                     </div>
-                    <!-- tab 2 - recon tools -->
+                    <!-- tab 2 - enum tools -->
                     <div class="mb-2 text-center w-100">
                         <a href="#tab2" class="nav-link text-custom-dark-blue w-100 d-flex justify-content-center"
                            data-bs-toggle="tab">
                             <img id="tab-2-img" data-bs-toggle="tooltip"
-                                 data-bs-placement="top" title="Recon tooling"
-                                 src="assets/icons/navbar/recon-tools-tab-2.png" width="25px" height="25px;">
+                                 data-bs-placement="top" title="Enumeration tooling"
+                                 src="assets/icons/navbar/enum-tools-tab-2.png" width="25px" height="25px;">
                         </a>
                     </div>
                     <!-- tab 3 - exploit assistant -->
@@ -126,7 +126,7 @@
                                href="#encode_decode" role="tab">
                                 <img data-bs-toggle="tooltip"
                                      data-bs-placement="right" title="Encoding & decoding"
-                                     src="assets/icons/navbar/tools-tab-1/encode_decode.png"
+                                     src="assets/icons/navbar/tab-1-tools/encode_decode.png"
                                      width="25px" height="25px;">
                             </a>
                         </li>
@@ -135,7 +135,7 @@
                                href="#hashing" role="tab">
                                 <img data-bs-toggle="tooltip"
                                      data-bs-placement="right" title="Hash generator and identifier"
-                                     src="assets/icons/navbar/tools-tab-1/hashing.png"
+                                     src="assets/icons/navbar/tab-1-tools/hashing.png"
                                      width="25px" height="25px;">
                             </a>
                         </li>
@@ -145,7 +145,7 @@
                                 <img data-bs-toggle="tooltip"
                                      data-bs-placement="right"
                                      title="JSON formatter"
-                                     src="assets/icons/navbar/tools-tab-1/formatter.png"
+                                     src="assets/icons/navbar/tab-1-tools/formatter.png"
                                      width="25px" height="25px;">
                             </a>
                         </li>
@@ -352,7 +352,8 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="d-flex justify-content-between mb-1">
-                                        <button class="btn btn-outline-primary" id="input-format-json-button">
+                                        <button class="btn btn-sm w-100 btn-outline-primary"
+                                                id="input-format-json-button">
                                             Format JSON
                                         </button>
                                     </div>
@@ -382,33 +383,118 @@
                     <!-- tab 1 content end -->
 
                 </div>
-
                 <!-- tab 1 (tooling) end -->
-                <!-- tab 2 start -->
+
+                <!-- tab 2 (Enum tooling) start -->
                 <div class="tab-pane fade" id="tab2">
                     <!-- Nested tabs for Enum 2 -->
-                    <ul class="nav nav-tabs" id="enum2Tab" role="tablist">
+                    <ul class="nav nav-tabs" id="enum-tools-tab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link text-custom-dark-blue" id="enum2-sub1-tab" data-bs-toggle="tab"
-                               href="#enum2-sub1" role="tab">Enum 2 Sub 1</a>
+                            <a class="nav-link" id="enum-tools-toolbox-nav-item" data-bs-toggle="tab"
+                               href="#enum-tools-toolbox" role="tab">
+                                <img data-bs-toggle="tooltip"
+                                     data-bs-placement="right" title="Enumeration toolbox"
+                                     src="assets/icons/navbar/tab-2-enum-tools/toolbox.png"
+                                     width="25px" height="25px">
+                            </a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link text-custom-dark-blue" id="enum2-sub2-tab" data-bs-toggle="tab"
-                               href="#enum2-sub2" role="tab">Enum 2 Sub 2</a>
+                            <a class="nav-link active" id="enum-tools-spider-nav-item" data-bs-toggle="tab"
+                               href="#enum-tools-spider" role="tab">
+                                <img data-bs-toggle="tooltip"
+                                     data-bs-placement="right" title="Website spider"
+                                     src="assets/icons/navbar/tab-2-enum-tools/spider.png"
+                                     width="25px" height="25px">
+                            </a>
                         </li>
                     </ul>
-                    <div class="tab-content" id="enum2TabContent">
-                        <div class="tab-pane fade" id="enum2-sub1" role="tabpanel">
-                            <h4>Enum 2 Sub 1 Content</h4>
+                    <div class="tab-content" id="enum-tools-tab-content">
+
+                        <!-- tab 1 - toolbox start -->
+                        <div class="tab-pane fade" id="enum-tools-toolbox" role="tabpanel" style="height: 485px">
+                            <div class="d-flex flex-column justify-content-between h-100">
+                                <div class="mt-2 mb-2">
+                                    <h4> Toolbox </h4>
+                                </div>
+
+                                <div>
+                                    <span>Act on current page</span>
+                                    <div class="d-flex justify-content-between">
+                                        <button class="btn btn-outline-primary w-50 me-1"
+                                                id="recon-tooling-highlight-forms-cp">Highlight
+                                            <small class="consolas-text">&lt;form&gt;</small></button>
+                                        <button class="btn btn-outline-primary w-50 me-1"
+                                                id="recon-tooling-highlight-inputs-cp">Highlight
+                                            <small class="consolas-text">&lt;input&gt;</small></button>
+                                    </div>
+                                </div>
+
+                                <div class="mb-1 mt-1">
+                                    <span>Extract from current page</span>
+                                    <div class="d-flex justify-content-between">
+                                        <button class="btn btn-outline-primary w-25 me-1 consolas-text"
+                                                id="recon-tooling-extract-comments-cp"> comments
+                                        </button>
+                                        <button class="btn btn-outline-primary w-25 me-1 consolas-text"
+                                                id="recon-tooling-extract-forms-cp"> &lt;form&gt;
+                                        </button>
+                                        <button class="btn btn-outline-primary w-25 me-1 consolas-text"
+                                                id="recon-tooling-extract-url-cp">Urls
+                                        </button>
+                                        <button class="btn btn-outline-primary w-25 me-1 consolas-text"
+                                                id="recon-tooling-extract-external-uri-cp">Headers
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mb-1">
+                                    <span>Output <small>(json)</small></span>
+                                    <!-- start textarea and copybutton-->
+                                    <div class="position-relative d-flex">
+                                        <textarea
+                                                readonly
+                                                id="recon-tooling-output-textarea"
+                                                class="form-control"
+                                                rows="11"
+                                                style="width: 100%; padding-right: 40px;"></textarea>
+                                        <a href="#">
+                                            <img class="copy-icon"
+                                                 src="assets/icons/general/copy.png"
+                                                 style="position: absolute; bottom: 5px; right: 5px;"
+                                                 height="25px"
+                                                 width="25px"
+                                                 alt="Copy">
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
-                        <div class="tab-pane fade" id="enum2-sub2" role="tabpanel">
-                            <h4>Enum 2 Sub 2 Content</h4>
+                        <!-- tab 1 - toolbox end -->
+                        <!-- tab 2 - spider start -->
+                        <div class="tab-pane fade show active" id="enum-tools-spider" role="tabpanel"
+                             style="height: 485px">
+                            <div class="d-flex flex-column justify-content-between h-100">
+                                <div class="mt-2 mb-2">
+                                    <h4> Website spider </h4>
+                                </div>
+
+
+                            </div>
                         </div>
+                        <!-- tab 2 - spider end -->
+
                     </div>
+
+
                 </div>
+                <!-- tab 2 (Enum) end -->
+
+                <!-- tab 3 (Exploit assistant) start -->
                 <div class="tab-pane fade" id="tab3">
                     <!-- Nested tabs for Enum 3 -->
-                    <ul class="nav nav-tabs" id="enum3Tab" role="tablist">
+                    <ul class="nav nav-tabs" id="exploit-assistant-tab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link text-custom-dark-blue" id="enum3-sub1-tab" data-bs-toggle="tab"
                                href="#enum3-sub1" role="tab">Enum 3 Sub 1</a>
@@ -418,7 +504,7 @@
                                href="#enum3-sub2" role="tab">Enum 3 Sub 2</a>
                         </li>
                     </ul>
-                    <div class="tab-content" id="enum3TabContent">
+                    <div class="tab-content" id="exploit-assistant-tabContent">
                         <div class="tab-pane fade" id="enum3-sub1" role="tabpanel">
                             <h4>Enum 3 Sub 1 Content</h4>
                         </div>
@@ -427,9 +513,12 @@
                         </div>
                     </div>
                 </div>
+                <!-- tab 3 (Exploit assistant) end -->
+
+                <!-- tab 4 (shell assistant) start -->
                 <div class="tab-pane fade" id="tab4">
                     <!-- Nested tabs for Enum 4 -->
-                    <ul class="nav nav-tabs" id="enum4Tab" role="tablist">
+                    <ul class="nav nav-tabs" id="shell-assistant-tab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link text-custom-dark-blue" id="enum4-sub1-tab" data-bs-toggle="tab"
                                href="#enum4-sub1" role="tab">Enum 4 Sub 1</a>
@@ -439,7 +528,7 @@
                                href="#enum4-sub2" role="tab">Enum 4 Sub 2</a>
                         </li>
                     </ul>
-                    <div class="tab-content" id="enum4TabContent">
+                    <div class="tab-content" id="shell-assistant-tabContent">
                         <div class="tab-pane fade" id="enum4-sub1" role="tabpanel">
                             <h4>Enum 4 Sub 1 Content</h4>
                         </div>
@@ -448,9 +537,12 @@
                         </div>
                     </div>
                 </div>
+                <!-- tab 4 (shell assistant) end -->
+
+                <!-- tab 5 (checklist assistant) start -->
                 <div class="tab-pane fade" id="tab5">
                     <!-- Nested tabs for Enum 5 -->
-                    <ul class="nav nav-tabs" id="enum5Tab" role="tablist">
+                    <ul class="nav nav-tabs" id="checklist-assistant-tab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link text-custom-dark-blue" id="enum5-sub1-tab" data-bs-toggle="tab"
                                href="#enum5-sub1" role="tab">Enum 5 Sub 1</a>
@@ -469,9 +561,12 @@
                         </div>
                     </div>
                 </div>
+                <!-- tab 5 (checklist assistant) end -->
+
+                <!-- tab 6 (usefull commands) start -->
                 <div class="tab-pane fade" id="tab6">
                     <!-- Nested tabs for Enum 6 -->
-                    <ul class="nav nav-tabs" id="enum6Tab" role="tablist">
+                    <ul class="nav nav-tabs" id="useful-commands-tab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link text-custom-dark-blue" id="enum6-sub1-tab" data-bs-toggle="tab"
                                href="#enum6-sub1" role="tab">Enum 6 Sub 1</a>
@@ -490,6 +585,9 @@
                         </div>
                     </div>
                 </div>
+                <!-- tab 6 (usefull commands) end -->
+
+
                 <div class="tab-pane fade" id="tab7">
                     <!-- Nested tabs for Enum 7 -->
                     <ul class="nav nav-tabs" id="enum7Tab" role="tablist">

@@ -37,6 +37,9 @@ h6 {
     padding: 0;
 }
 
+.consolas-text {
+    font-family: consolas;
+}
 textarea {
     resize: none !important; /* Disable resizing */
     background-color: #ffffff !important;

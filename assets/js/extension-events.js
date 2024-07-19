@@ -34,22 +34,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 // Remove the active subtab when switching main tabs
                 if (!targetHref.startsWith("#tab1")) {
-                    localStorage.removeItem("activeToolsTab");
+                    localStorage.removeItem("general-tools-tab");
                 }
                 if (!targetHref.startsWith("#tab2")) {
-                    localStorage.removeItem("activeEnum2Tab");
+                    localStorage.removeItem("enum-tools-tab");
                 }
                 if (!targetHref.startsWith("#tab3")) {
-                    localStorage.removeItem("activeEnum3Tab");
+                    localStorage.removeItem("exploit-assistant-tab");
                 }
                 if (!targetHref.startsWith("#tab4")) {
-                    localStorage.removeItem("activeEnum4Tab");
+                    localStorage.removeItem("shell-assistant-tab");
                 }
                 if (!targetHref.startsWith("#tab5")) {
-                    localStorage.removeItem("activeEnum5Tab");
+                    localStorage.removeItem("checklist-assistant-tab");
                 }
                 if (!targetHref.startsWith("#tab6")) {
-                    localStorage.removeItem("activeEnum6Tab");
+                    localStorage.removeItem("useful-commands-tab");
                 }
                 if (!targetHref.startsWith("#tab7")) {
                     localStorage.removeItem("activeEnum7Tab");
@@ -76,12 +76,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Nested tabs configuration
     const nestedTabsConfig = [
-        {mainTab: "#tab1", nestedTabKey: "activeToolsTab", nestedTabSelector: "#toolsTab a"},
-        {mainTab: "#tab2", nestedTabKey: "activeEnum2Tab", nestedTabSelector: "#enum2Tab a"},
-        {mainTab: "#tab3", nestedTabKey: "activeEnum3Tab", nestedTabSelector: "#enum3Tab a"},
-        {mainTab: "#tab4", nestedTabKey: "activeEnum4Tab", nestedTabSelector: "#enum4Tab a"},
-        {mainTab: "#tab5", nestedTabKey: "activeEnum5Tab", nestedTabSelector: "#enum5Tab a"},
-        {mainTab: "#tab6", nestedTabKey: "activeEnum6Tab", nestedTabSelector: "#enum6Tab a"},
+        {mainTab: "#tab1", nestedTabKey: "general-tools-tab", nestedTabSelector: "#toolsTab a"},
+        {mainTab: "#tab2", nestedTabKey: "enum-tools-tab", nestedTabSelector: "#enum-tools-tab a"},
+        {mainTab: "#tab3", nestedTabKey: "exploit-assistant-tab", nestedTabSelector: "#exploit-assistant-tab a"},
+        {mainTab: "#tab4", nestedTabKey: "shell-assistant-tab", nestedTabSelector: "#shell-assistant-tab a"},
+        {mainTab: "#tab5", nestedTabKey: "checklist-assistant-tab", nestedTabSelector: "#checklist-assistant-tab a"},
+        {mainTab: "#tab6", nestedTabKey: "useful-commands-tab", nestedTabSelector: "#useful-commands-tab a"},
         {mainTab: "#tab7", nestedTabKey: "activeEnum7Tab", nestedTabSelector: "#enum7Tab a"},
         {mainTab: "#tab8", nestedTabKey: "activeEnum8Tab", nestedTabSelector: "#enum8Tab a"},
     ];
@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // add event listeners for the navbar
     replaceHover("tab-1-img", "assets/icons/navbar/", "tools-tab-1.png", "tools-tab-1-hover.png")
-    replaceHover("tab-2-img", "assets/icons/navbar/", "recon-tools-tab-2.png", "recon-tools-tab-2-hover.png")
+    replaceHover("tab-2-img", "assets/icons/navbar/", "enum-tools-tab-2.png", "enum-tools-tab-2-hover.png")
     replaceHover("tab-3-img", "assets/icons/navbar/", "exploit-assistant-tab-3.png", "exploit-assistant-tab-3-hover.png")
     replaceHover("tab-4-img", "assets/icons/navbar/", "shell-assistant-tab-4.png", "shell-assistant-tab-4-hover.png")
     replaceHover("tab-5-img", "assets/icons/navbar/", "checklist-assistant-tab-5.png", "checklist-assistant-tab-5-hover.png")
@@ -191,21 +191,3 @@ function replaceHover(elementId, prefix, image, replaceImage) {
         document.getElementById(elementId).src = `${prefix}${image}`
     })
 }
-
-
-// Encode and Decode functionality with oninput
-document.getElementById("encodeInput").addEventListener("input", function () {
-    const input = document.getElementById("encodeInput").value;
-    const output = btoa(input);
-    document.getElementById("encodeOutput").innerText = output;
-});
-
-document.getElementById("decodeInput").addEventListener("input", function () {
-    const input = document.getElementById("decodeInput").value;
-    try {
-        const output = atob(input);
-        document.getElementById("decodeOutput").innerText = output;
-    } catch (e) {
-        document.getElementById("decodeOutput").innerText = "Invalid Base64 input";
-    }
-});
