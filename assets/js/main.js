@@ -1,17 +1,33 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // IDs of buttons to set event listeners on
+    let browserRuntimeActionIds = [
+        "enum-tooling-highlight-forms-cp",
+        "enum-tooling-highlight-inputs-cp",
+        "enum-tooling-extract-comments-cp",
+        "enum-tooling-extract-forms-cp",
+        "enum-tooling-extract-url-cp",
+        "enum-tooling-extract-headers",
+    ];
 
-    // if the sendMessageButton is clicked, send a message to the background script
-    document.getElementById('sendMessageButton').addEventListener('click', () => {
-        browser.runtime.sendMessage("getDomainName").then(response => {
-            console.log(response.response);
-        });
+    // Set event listeners for all enum-tools on the toolbox page
+    browserRuntimeActionIds.forEach(id => {
+        let tmpElement = document.getElementById(id);
+        if (tmpElement) {
+            tmpElement.addEventListener('click', () => {
+                let messageValue = tmpElement.value
+                browser.runtime.sendMessage({ command: messageValue });
+            });
+        }
     });
 
     // Listen for messages from the background script
     browser.runtime.onMessage.addListener(async (message) => {
-        if (message.domainName) {
-            document.getElementById('domainName').innerText = `Domain: ${message.domainName}`;
+        if (message.hasOwnProperty("toolboxJson")) {
+            if (isValidJSON(message.toolboxJson)) {
+                document.getElementById("enum-tooling-output-textarea").value = formatJSON(message.toolboxJson);
+            }
         }
     });
 });
+
 
