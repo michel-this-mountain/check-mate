@@ -1,6 +1,7 @@
 // script that gets injected in the specified urls (manifest.json)
 browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
     switch (message.command) {
+        // tab 2 recon-tooling (toolbox)
         case "highlightForms":
             document.querySelectorAll('form').forEach(form => form.style.border = '5px solid red');
             break;
@@ -22,6 +23,12 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
         case "extractHeaderCP":
             let headers = await extractHeadersAsJson();
             browser.runtime.sendMessage({toolboxJson: headers});
+            break;
+
+        // tab 2 recon-tooling (iframe checker)
+        case "enumToolingGetCurrentUrlIframe":
+            let currentUrlPath = location.href
+            browser.runtime.sendMessage({enumToolingGetCurrentUrlIframe: currentUrlPath});
             break;
         // Additional cases for other commands can be added here
     }
