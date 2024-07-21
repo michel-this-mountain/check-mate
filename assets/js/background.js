@@ -9,6 +9,11 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
     });
 
 
+    if (message.hasOwnProperty("enumSpider")) {
+        // relay the spider results back
+        browser.runtime.sendMessage({enumSpider: message.enumSpider})
+    }
+
     if (message.hasOwnProperty("toolboxJson")) {
         // Relay the message back to the popup script
         browser.runtime.sendMessage({toolboxJson: message.toolboxJson});
@@ -18,4 +23,6 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
         // Relay the message back to the popup script
         browser.runtime.sendMessage({enumToolingGetCurrentUrlIframe: message.enumToolingGetCurrentUrlIframe});
     }
+
+
 });

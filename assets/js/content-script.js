@@ -1,6 +1,13 @@
 // script that gets injected in the specified urls (manifest.json)
 browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
     switch (message.command) {
+        // tab 1 recon-tooling (spider)
+        case "spiderCurrentWebsite":
+            let spiderResult = await initSpider()
+            console.log(spiderResult)
+            browser.runtime.sendMessage({enumSpider: spiderResult})
+            break;
+
         // tab 2 recon-tooling (toolbox)
         case "highlightForms":
             document.querySelectorAll('form').forEach(form => form.style.border = '5px solid red');
@@ -39,6 +46,30 @@ async function spiderWebsite(startUrl, maxDepth = 2) {
     const visited = new Set();
     const siteTree = {};
 
+    function addUrlToTree(tree, url, formInfo) {
+        const urlObj = new URL(url);
+        const pathSegments = urlObj.pathname.split('/').filter(Boolean);
+        let currentLevel = tree;
+
+        pathSegments.forEach((segment, index) => {
+            const fullPath = urlObj.origin + '/' + pathSegments.slice(0, index + 1).join('/');
+            if (!currentLevel[fullPath]) {
+                currentLevel[fullPath] = { totalForms: 0, forms: [], params: [] };
+            }
+            if (index === pathSegments.length - 1 && urlObj.search) {
+                const params = Array.from(new URLSearchParams(urlObj.search).entries())
+                    .map(([key, value]) => `${key}=${value}`)
+                    .join('&');
+                currentLevel[fullPath].params.push(params);
+            }
+            if (index === pathSegments.length - 1) {
+                currentLevel[fullPath].totalForms = formInfo.totalForms;
+                currentLevel[fullPath].forms = formInfo.forms;
+            }
+            currentLevel = currentLevel[fullPath];
+        });
+    }
+
     async function visitPage(currentUrl, depth) {
         if (depth > maxDepth || visited.has(currentUrl)) {
             return;
@@ -48,24 +79,33 @@ async function spiderWebsite(startUrl, maxDepth = 2) {
 
         try {
             const response = await fetch(currentUrl);
+            if (!response.ok) {
+                throw new Error(`Failed to fetch ${currentUrl}: ${response.statusText}`);
+            }
             const text = await response.text();
             const parser = new DOMParser();
             const doc = parser.parseFromString(text, 'text/html');
 
-            const links = Array.from(doc.querySelectorAll('a[href]')).map(link => new URL(link.href, currentUrl).href);
-            const filteredLinks = [...new Set(links.filter(link => link.startsWith(startUrl) && !visited.has(link)))];
+            const links = Array.from(doc.querySelectorAll('a[href]'))
+                .map(link => link.getAttribute('href'))
+                .map(href => new URL(href, currentUrl).href);
 
-            const currentPath = new URL(currentUrl).pathname;
 
-            let currentLevel = siteTree;
-            currentPath.split('/').filter(Boolean).forEach(segment => {
-                if (!currentLevel[segment]) {
-                    currentLevel[segment] = {};
-                }
-                currentLevel = currentLevel[segment];
+            const filteredLinks = links.filter(link => {
+                const normalizedLink = new URL(link).href;
+                return normalizedLink.startsWith(startUrl) && !visited.has(normalizedLink);
             });
 
-            for (const link of filteredLinks) {
+            const uniqueFilteredLinks = [...new Set(filteredLinks)];
+
+
+            const forms = doc.querySelectorAll('form');
+            const formTags = Array.from(forms).map(form => form.outerHTML.match(/<form[^>]*>/)[0]);
+            const formInfo = { totalForms: forms.length, forms: formTags };
+
+            addUrlToTree(siteTree, currentUrl, formInfo);
+
+            for (const link of uniqueFilteredLinks) {
                 await visitPage(link, depth + 1);
             }
         } catch (error) {
@@ -75,15 +115,35 @@ async function spiderWebsite(startUrl, maxDepth = 2) {
 
     await visitPage(startUrl, 0);
 
-    return siteTree;
+    const simpleTree = buildSimpleTree(siteTree);
+
+    return { simpleTree, siteTree };
+}
+
+function buildSimpleTree(tree) {
+    const simpleTree = {};
+
+    function traverse(node, currentPath) {
+        for (const key in node) {
+            if (typeof node[key] === 'object' && !Array.isArray(node[key])) {
+                simpleTree[currentPath] = simpleTree[currentPath] || [];
+                simpleTree[currentPath].push(key);
+                traverse(node[key], key);
+            }
+        }
+    }
+
+    traverse(tree, '');
+
+    return simpleTree;
 }
 
 async function initSpider() {
     const startUrl = window.location.href; // Use the current URL as the start URL
-    const siteTree = await spiderWebsite(startUrl, 2);
+    const { simpleTree, siteTree } = await spiderWebsite(startUrl, 2);
 
     // Convert the tree structure to a JSON string
-    return JSON.stringify(siteTree, null, 2); // Return the JSON string
+    return JSON.stringify({ simpleTree, siteTree }, null, 2); // Return the JSON string
 }
 
 // treeStructureJson will now hold the JSON string after initSpider resolves

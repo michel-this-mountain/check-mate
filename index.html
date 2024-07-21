@@ -21,9 +21,11 @@
         <div class="d-flex">
 
             <!-- start navbar -->
-            <div class="h-100 bg-custom-black col-1 pt-1" style="border-right: 1px solid #0056b3;">
+            <div class="h-100 bg-custom-black col-1 pt-1 d-flex justify-content-between flex-column"
+                 style="border-right: 1px solid #0056b3;">
+
                 <!-- start top logo -->
-                <div class="w-100 d-flex justify-content-center flex-column">
+                <div class="w-100 d-flex justify-content-center flex-column mt-2">
                     <div class="mx-auto">
                         <img class="rounded" src="assets/icons/logo.webp" alt="check-mate logo" width="30px"
                              height="30px">
@@ -35,7 +37,7 @@
                 <!-- end top logo -->
 
                 <!-- start tab navigation -->
-                <div class="d-flex flex-column mt-5 nav nav-pills" id="navbar">
+                <div class="d-flex flex-column nav nav-pills" id="navbar">
                     <!-- tab 1 - tools -->
                     <div class="mb-2 text-center w-100">
                         <a href="#tab1" class="nav-link text-custom-dark-blue show w-100 d-flex justify-content-center"
@@ -112,6 +114,9 @@
                     <!-- end tabs -->
                 </div>
                 <!-- end tab navigation -->
+                <div class="d-flex justify-content-center mb-2">
+                    <img class="d-none" src="assets/icons/loader.gif" width="40px" height="40px" id="loader" data-bs-toggle="tooltip" data-bs-placement="right" title="Loader, this loader shows up whenever an process is still running">
+                </div>
             </div>
 
             <!-- end navbar -->
@@ -411,8 +416,8 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="enum-tools-iframe-checker-nav-item" data-bs-toggle="tab"
-                               href="#enum-tools-iframe-checker" role="tab">
+                            <a class="nav-link" id="enum-tooling-iframe-checker-nav-item" data-bs-toggle="tab"
+                               href="#enum-tooling-iframe-checker" role="tab">
                                 <img data-bs-toggle="tooltip"
                                      data-bs-placement="right" title="Iframe checker"
                                      src="assets/icons/navbar/tab-2-enum-tools/frame.png"
@@ -421,8 +426,8 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="enum-tools-csrf-checker-nav-item" data-bs-toggle="tab"
-                               href="#enum-tools-csrf-checker" role="tab">
+                            <a class="nav-link" id="enum-tooling-csrf-checker-nav-item" data-bs-toggle="tab"
+                               href="#enum-tooling-csrf-checker" role="tab">
                                 <img data-bs-toggle="tooltip"
                                      data-bs-placement="right" title="CSRF checker"
                                      src="assets/icons/navbar/tab-2-enum-tools/csrf.png"
@@ -450,6 +455,39 @@
                                     <h4> Website spider </h4>
                                 </div>
 
+                                <div>
+                                    <div class="d-flex justify-content-between">
+                                        <button class="btn btn-outline-primary w-100"
+                                                id="enum-tooling-spider-start-button" value="spiderCurrentWebsite">Start
+                                            spider
+                                        </button>
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-1">
+                                        <button class="btn btn-outline-primary w-50 me-1" id="enum-tooling-spider-simplified-view" value="simplified" >View simple tree</button>
+                                        <button class="btn btn-outline-primary w-50" id="enum-tooling-spider-detailed-view">View tree & forms</button>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <span>Output</span>
+                                    <!-- start textarea and copybutton-->
+                                    <div class="position-relative d-flex">
+                                        <textarea
+                                                id="enum-tooling-spider-output-textarea"
+                                                readonly
+                                                class="form-control"
+                                                rows="13"
+                                                style="width: 100%; padding-right: 40px;"></textarea>
+                                        <a href="#">
+                                            <img class="copy-icon"
+                                                 src="assets/icons/general/copy.png"
+                                                 style="position: absolute; bottom: 5px; right: 5px;"
+                                                 height="25px"
+                                                 width="25px"
+                                                 alt="Copy">
+                                        </a>
+                                    </div>
+                                </div>
 
                             </div>
                         </div>
@@ -478,17 +516,17 @@
                                 <div class="mb-1 mt-1">
                                     <span>Extract from current page</span>
                                     <div class="d-flex justify-content-between">
-                                        <button class="btn btn-outline-primary w-25 me-1 consolas-text"
+                                        <button class="btn btn-outline-primary w-25 me-1"
                                                 id="enum-tooling-extract-comments-cp" value="extractCommentsCP">
                                             comments
                                         </button>
-                                        <button class="btn btn-outline-primary w-25 me-1 consolas-text"
-                                                id="enum-tooling-extract-forms-cp" value="extractFormsCP"> &lt;form&gt;
+                                        <button class="btn btn-outline-primary w-25 me-1"
+                                                id="enum-tooling-extract-forms-cp" value="extractFormsCP"> forms
                                         </button>
-                                        <button class="btn btn-outline-primary w-25 me-1 consolas-text"
+                                        <button class="btn btn-outline-primary w-25 me-1"
                                                 id="enum-tooling-extract-url-cp" value="extractUrlsCP">urls
                                         </button>
-                                        <button class="btn btn-outline-primary w-25 me-1 consolas-text"
+                                        <button class="btn btn-outline-primary w-25 me-1"
                                                 id="enum-tooling-extract-headers" value="extractHeaderCP">headers
                                         </button>
                                     </div>
@@ -522,7 +560,7 @@
                         <!-- tab 3 - iframe checker start -->
 
                         <div class="tab-pane fade"
-                             id="enum-tools-iframe-checker"
+                             id="enum-tooling-iframe-checker"
                              role="tabpanel" style="height: 485px">
                             <div class="d-flex flex-column justify-content-between h-100">
                                 <div class="mt-2 mb-2">
@@ -531,8 +569,13 @@
 
                                 <div class="w-100">
                                     <div class="d-flex justify-content-between mb-1">
-                                        <button class="btn btn-outline-primary w-50 me-1" id="enum-tooling-iframe-get-current-url" value="enumToolingGetCurrentUrlIframe">Get current URL</button>
-                                        <button class="btn btn-outline-primary w-50" id="enum-tooling-iframe-check-iframe-button">Check</button>
+                                        <button class="btn btn-outline-primary w-50 me-1"
+                                                id="enum-tooling-iframe-get-current-url"
+                                                value="enumToolingGetCurrentUrlIframe">Get current URL
+                                        </button>
+                                        <button class="btn btn-outline-primary w-50"
+                                                id="enum-tooling-iframe-check-iframe-button">Check
+                                        </button>
                                     </div>
 
                                     <div class="form-group w-100 d-flex justify-content-between">
@@ -551,8 +594,32 @@
                         <!-- tab 3 - iframe checker end -->
 
                         <!-- tab 4 - csrf checker start -->
-                        <div class="tab-pane fade" id="enum-tools-csrf-checker" role="tabpanel">
-                            sup
+                        <div class="tab-pane fade" id="enum-tooling-csrf-checker"
+                             role="tabpanel" style="height: 485px">
+                            <div class="d-flex flex-column justify-content-between h-100">
+                                <div class="mt-2 mb-2">
+                                    <h4 class="text-dark"> CSRF checker </h4>
+                                </div>
+
+                                <div>
+                                    <div class="d-flex justify-content-between w-100">
+                                        <button class="btn btn-outline-primary w-50 me-1"> Load forms</button>
+                                        <button class="btn btn-outline-primary w-50"> Generate form</button>
+                                    </div>
+                                    <div id="form-selector" class="d-flex justify-content-between flex-wrap">
+                                        <div class="form-group form-check">
+                                            <input type="radio" class="form-check-input" name="form-radio-checkout">
+                                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                        </div>
+                                        <div class="form-group form-check">
+                                            <input type="radio" class="form-check-input" name="form-radio-checkout">
+                                            <label class="form-check-label">Check me out</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
                         </div>
                         <!-- tab 4 - csrf checker end -->
 
