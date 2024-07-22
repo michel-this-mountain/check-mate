@@ -26,15 +26,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Listen for messages from the background script
     browser.runtime.onMessage.addListener(async (message) => {
+        console.log("main.js - outer")
         if (message.hasOwnProperty("enumSpider")) {
-            console.log("---")
-            console.log(message.enumSpider)
-            console.log("---")
+            if (isValidJSON(message.enumSpider)) {
+                let simplified = JSON.stringify(JSON.parse(message.enumSpider).simpleTree)
+                let detailed = JSON.stringify(JSON.parse(message.enumSpider).siteTree)
 
-            document.getElementById("enum-tooling-spider-simplified-view").value = formatJSON(message.enumSpider.simplified)
-            document.getElementById("enum-tooling-spider-detailed-view").value = formatJSON(message.enumSpider.detailed)
-            document.getElementById("enum-tooling-spider-output-textarea").value = formatJSON(message.enumSpider.simplified)
-
+                document.getElementById("enum-tooling-spider-simplified-view").value = formatJSON(simplified)
+                document.getElementById("enum-tooling-spider-detailed-view").value = formatJSON(detailed)
+                document.getElementById("enum-tooling-spider-output-textarea").value = formatJSON(simplified)
+            }
         }
 
         // enum-tooling (toolbox)

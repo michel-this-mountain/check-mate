@@ -4,7 +4,6 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
         // tab 1 recon-tooling (spider)
         case "spiderCurrentWebsite":
             let spiderResult = await initSpider()
-            console.log(spiderResult)
             browser.runtime.sendMessage({enumSpider: spiderResult})
             break;
 
@@ -54,13 +53,7 @@ async function spiderWebsite(startUrl, maxDepth = 2) {
         pathSegments.forEach((segment, index) => {
             const fullPath = urlObj.origin + '/' + pathSegments.slice(0, index + 1).join('/');
             if (!currentLevel[fullPath]) {
-                currentLevel[fullPath] = { totalForms: 0, forms: [], params: [] };
-            }
-            if (index === pathSegments.length - 1 && urlObj.search) {
-                const params = Array.from(new URLSearchParams(urlObj.search).entries())
-                    .map(([key, value]) => `${key}=${value}`)
-                    .join('&');
-                currentLevel[fullPath].params.push(params);
+                currentLevel[fullPath] = { totalForms: 0, forms: [] };
             }
             if (index === pathSegments.length - 1) {
                 currentLevel[fullPath].totalForms = formInfo.totalForms;
@@ -90,14 +83,12 @@ async function spiderWebsite(startUrl, maxDepth = 2) {
                 .map(link => link.getAttribute('href'))
                 .map(href => new URL(href, currentUrl).href);
 
-
             const filteredLinks = links.filter(link => {
                 const normalizedLink = new URL(link).href;
                 return normalizedLink.startsWith(startUrl) && !visited.has(normalizedLink);
             });
 
             const uniqueFilteredLinks = [...new Set(filteredLinks)];
-
 
             const forms = doc.querySelectorAll('form');
             const formTags = Array.from(forms).map(form => form.outerHTML.match(/<form[^>]*>/)[0]);
@@ -115,20 +106,23 @@ async function spiderWebsite(startUrl, maxDepth = 2) {
 
     await visitPage(startUrl, 0);
 
-    const simpleTree = buildSimpleTree(siteTree);
+    const simpleTree = buildSimpleTree(siteTree, startUrl);
 
     return { simpleTree, siteTree };
 }
 
-function buildSimpleTree(tree) {
+function buildSimpleTree(tree, rootUrl) {
     const simpleTree = {};
+    const rootDomain = new URL(rootUrl).origin;
 
     function traverse(node, currentPath) {
         for (const key in node) {
             if (typeof node[key] === 'object' && !Array.isArray(node[key])) {
-                simpleTree[currentPath] = simpleTree[currentPath] || [];
-                simpleTree[currentPath].push(key);
-                traverse(node[key], key);
+                const newPath = key;
+                const domainRoot = currentPath === '' ? rootDomain : currentPath;
+                simpleTree[domainRoot] = simpleTree[domainRoot] || [];
+                simpleTree[domainRoot].push(newPath);
+                traverse(node[key], newPath);
             }
         }
     }
@@ -143,8 +137,9 @@ async function initSpider() {
     const { simpleTree, siteTree } = await spiderWebsite(startUrl, 2);
 
     // Convert the tree structure to a JSON string
-    return JSON.stringify({ simpleTree, siteTree }, null, 2); // Return the JSON string
+    return JSON.stringify({ simpleTree, siteTree }, null, 2); // Logs the JSON string of the site tree structure
 }
+
 
 // treeStructureJson will now hold the JSON string after initSpider resolves
 
