@@ -4,7 +4,7 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
         // tab 1 recon-tooling (spider)
         case "spiderCurrentWebsite":
             let spiderResult = await initSpider()
-            browser.runtime.sendMessage({enumSpider: spiderResult})
+            browser.runtime.sendMessage({enumSpider: spiderResult, id:message.id})
             break;
 
         // tab 2 recon-tooling (toolbox)
@@ -16,25 +16,25 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
             break;
         case "extractCommentsCP":
             let comments = extractCommentsAsJson();
-            browser.runtime.sendMessage({toolboxJson: comments});
+            browser.runtime.sendMessage({toolboxJson: comments, id:message.id});
             break;
         case "extractFormsCP":
             let forms = extractFormsAsJson();
-            browser.runtime.sendMessage({toolboxJson: forms});
+            browser.runtime.sendMessage({toolboxJson: forms, id:message.id});
             break;
         case "extractUrlsCP":
             let urls = extractUrlsAsJson();
-            browser.runtime.sendMessage({toolboxJson: urls});
+            browser.runtime.sendMessage({toolboxJson: urls, id:message.id});
             break;
         case "extractHeaderCP":
             let headers = await extractHeadersAsJson();
-            browser.runtime.sendMessage({toolboxJson: headers});
+            browser.runtime.sendMessage({toolboxJson: headers, id:message.id});
             break;
 
         // tab 2 recon-tooling (iframe checker)
         case "enumToolingGetCurrentUrlIframe":
             let currentUrlPath = location.href
-            browser.runtime.sendMessage({enumToolingGetCurrentUrlIframe: currentUrlPath});
+            browser.runtime.sendMessage({enumToolingGetCurrentUrlIframe: currentUrlPath, id:message.id});
             break;
         // Additional cases for other commands can be added here
     }

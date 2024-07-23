@@ -1,3 +1,6 @@
+let loaderElementIds = ["enum-tooling-spider-start-button", "enum-tooling-extract-headers"]
+let totalScriptsProcessing = 0;
+
 document.addEventListener('DOMContentLoaded', () => {
     // IDs of buttons to set event listeners on
     let browserRuntimeActionIds = [
@@ -19,14 +22,19 @@ document.addEventListener('DOMContentLoaded', () => {
         if (tmpElement) {
             tmpElement.addEventListener('click', () => {
                 let messageValue = tmpElement.value
-                browser.runtime.sendMessage({command: messageValue});
+                browser.runtime.sendMessage({command: messageValue, id: id});
+
+                // these are scripts that take longer to process, e.g. spidering a website, if so, the loading icon appears on the left bottom side
+                loaderCheck(id, true)
             });
         }
     });
 
     // Listen for messages from the background script
     browser.runtime.onMessage.addListener(async (message) => {
-        console.log("main.js - outer")
+
+        loaderCheck(message.id, false);
+
         if (message.hasOwnProperty("enumSpider")) {
             if (isValidJSON(message.enumSpider)) {
                 let simplified = JSON.stringify(JSON.parse(message.enumSpider).simpleTree)
@@ -54,4 +62,34 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+/**
+ * loaderCheck()
+ *
+ * checks if the loader element should be shown or should be hidden, based on the total scripts that are being processed.
+ *
+ * @param currentId
+ * @param incrementTotalScriptsProcessing
+ */
+function loaderCheck(currentId, incrementTotalScriptsProcessing) {
+    // loader element and see if there is a match
+    let loaderElement = document.getElementById("loader")
+    let match = loaderElementIds.includes(currentId)
 
+    // decrement the total scripts processing | loader icon will hide if it reaches 0
+    if (incrementTotalScriptsProcessing === false && match) {
+        if (totalScriptsProcessing > 0) {
+            totalScriptsProcessing -= 1;
+            if (totalScriptsProcessing === 0) {
+                loaderElement.classList.add("d-none")
+            }
+        }
+
+    // increment the total scripts processing | loader icon will show if totalScriptsProcessing is >  0
+    } else if (incrementTotalScriptsProcessing === true && match) {
+        if (totalScriptsProcessing >= 0) {
+            totalScriptsProcessing += 1
+            loaderElement.classList.remove("d-none")
+        }
+    }
+
+}
