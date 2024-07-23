@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 document.getElementById("enum-tooling-spider-simplified-view").value = formatJSON(simplified)
                 document.getElementById("enum-tooling-spider-detailed-view").value = formatJSON(detailed)
+                document.getElementById("enum-tooling-spider-output-textarea").innerText = formatJSON(simplified)
                 document.getElementById("enum-tooling-spider-output-textarea").value = formatJSON(simplified)
             }
         }
@@ -49,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // enum-tooling (toolbox)
         if (message.hasOwnProperty("toolboxJson")) {
             if (isValidJSON(message.toolboxJson)) {
+                document.getElementById("enum-tooling-output-textarea").innerText = formatJSON(message.toolboxJson);
                 document.getElementById("enum-tooling-output-textarea").value = formatJSON(message.toolboxJson);
             }
         }
@@ -56,10 +58,37 @@ document.addEventListener('DOMContentLoaded', () => {
         // enum-tooling (iframe checker)
         if (message.hasOwnProperty("enumToolingGetCurrentUrlIframe")) {
             // Relay the message back to the popup script
+            document.getElementById("enum-tooling-iframe-url-input").innerText = message.enumToolingGetCurrentUrlIframe
             document.getElementById("enum-tooling-iframe-url-input").value = message.enumToolingGetCurrentUrlIframe
         }
 
     });
+
+    // ##### PERSIST DATA START ##### //
+    let persistDataSwitch = document.getElementById("persist-data-checkbox")
+
+    // set the toggle to checked if the value is set to true
+    if (localStorage.getItem("persistDataSwitch") === "true") {
+        persistDataSwitch.setAttribute("checked", true)
+        loadTextareasFromLocalStorage()
+        setupMutationObserver()
+    } else {
+        removeTextAreasFromLocalStorage()
+    }
+
+    // add an event listener that toggles the switch to true or false
+    persistDataSwitch.addEventListener("change", function () {
+        if (persistDataSwitch.hasAttribute("checked")) {
+            persistDataSwitch.removeAttribute("checked")
+            localStorage.setItem("persistDataSwitch", false)
+        } else {
+            persistDataSwitch.setAttribute("checked", true)
+            localStorage.setItem("persistDataSwitch", true)
+            setupMutationObserver()
+        }
+    });
+
+    // ##### PERSIST DATA END ##### //
 });
 
 /**
@@ -84,12 +113,68 @@ function loaderCheck(currentId, incrementTotalScriptsProcessing) {
             }
         }
 
-    // increment the total scripts processing | loader icon will show if totalScriptsProcessing is >  0
+        // increment the total scripts processing | loader icon will show if totalScriptsProcessing is >  0
     } else if (incrementTotalScriptsProcessing === true && match) {
         if (totalScriptsProcessing >= 0) {
             totalScriptsProcessing += 1
             loaderElement.classList.remove("d-none")
         }
     }
-
 }
+
+function saveTextareasToLocalStorage() {
+    let PD_textareas = document.querySelectorAll('textarea');
+    PD_textareas.forEach(function (PD_textarea) {
+        let PD_id = PD_textarea.id;
+        localStorage.setItem(PD_id, PD_textarea.value);
+    });
+    console.log('Textarea values saved to localStorage!');
+}
+
+function loadTextareasFromLocalStorage() {
+    let PD_textareas = document.querySelectorAll('textarea');
+    PD_textareas.forEach(function (PD_textarea) {
+        let PD_id = PD_textarea.id;
+        let PD_savedValue = localStorage.getItem(PD_id);
+        if (PD_savedValue !== null) {
+            let PD_tmpElement = document.getElementById(PD_id)
+            PD_tmpElement.innerText = PD_savedValue;
+            if (isValidJSON(PD_tmpElement.value)) {
+                PD_tmpElement.value = formatJSON(PD_tmpElement.value)
+            }
+        }
+    });
+    console.log('Textarea values loaded from localStorage!');
+}
+
+function removeTextAreasFromLocalStorage() {
+    let PD_textareas = document.querySelectorAll('textarea');
+    PD_textareas.forEach(function (PD_textarea) {
+        let PD_id = PD_textarea.id;
+        localStorage.removeItem(PD_id);
+    });
+    console.log('Textarea values saved to localStorage!');
+}
+
+function setupMutationObserver() {
+    let PD_observer = new MutationObserver(function (PD_mutations) {
+        PD_mutations.forEach(function (PD_mutation) {
+            if (PD_mutation.target.tagName.toLowerCase() === 'textarea') {
+                saveTextareasToLocalStorage();
+            }
+        });
+    });
+
+    let PD_config = {
+        attributes: true,
+        characterData: true,
+        childList: true,
+        subtree: true
+    };
+
+    document.querySelectorAll('textarea').forEach(function (PD_textarea) {
+        PD_observer.observe(PD_textarea, PD_config);
+    });
+    saveTextareasToLocalStorage()
+}
+

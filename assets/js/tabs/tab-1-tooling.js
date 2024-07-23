@@ -7,11 +7,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // if the technique changes, update the output textarea element
     encodingSelectTechniqueElement.addEventListener("change", function () {
         encodingOutputElement.innerText = decideEncodingOrDecoding(encodingSelectTechniqueElement.value, encodingInputElement.value)
+        encodingOutputElement.value = decideEncodingOrDecoding(encodingSelectTechniqueElement.value, encodingInputElement.value)
     })
 
     // if the user is typing something, realtime update it to the output element
     encodingInputElement.addEventListener("input", function () {
         encodingOutputElement.innerText = decideEncodingOrDecoding(encodingSelectTechniqueElement.value, encodingInputElement.value)
+        encodingOutputElement.value = decideEncodingOrDecoding(encodingSelectTechniqueElement.value, encodingInputElement.value)
     })
     // #### encoding tab END #### //
     // #### hashing tab START #### //
@@ -24,15 +26,18 @@ document.addEventListener("DOMContentLoaded", function () {
     // add event listeners for generating an hash
     hashAlgorithmSelectElement.addEventListener("change", function () {
         hashGenOutputElement.innerText = decideHashingAlgorithm(hashAlgorithmSelectElement.value, hashGenInputElement.value)
+        hashGenOutputElement.value = decideHashingAlgorithm(hashAlgorithmSelectElement.value, hashGenInputElement.value)
     })
 
     hashGenInputElement.addEventListener("input", function () {
         hashGenOutputElement.innerText = decideHashingAlgorithm(hashAlgorithmSelectElement.value, hashGenInputElement.value)
+        hashGenOutputElement.value = decideHashingAlgorithm(hashAlgorithmSelectElement.value, hashGenInputElement.value)
     })
 
     // add event listener for the the hash-identifier
     hashIdentifyInputElement.addEventListener("input", function () {
         hashIdentifyOutputEelement.innerText = identifyHash(hashIdentifyInputElement.value)
+        hashIdentifyOutputEelement.value = identifyHash(hashIdentifyInputElement.value)
     })
     // #### hashing tab END #### //
     // #### Formatter tab start #### //
