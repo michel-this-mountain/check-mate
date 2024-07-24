@@ -10,7 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Retrieve and set the last active main tab from local storage
-    const lastActiveMainTab = localStorage.getItem("lastActiveMainTab");
+    const lastActiveMainTab = localStorage.getItem("lastActiveMainTab") === null ? "#tab1" : localStorage.getItem("lastActiveMainTab");
+
     if (lastActiveMainTab) {
         activateTab(lastActiveMainTab);
     }

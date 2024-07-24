@@ -133,7 +133,7 @@ function buildSimpleTree(tree, rootUrl) {
 }
 
 async function initSpider() {
-    const startUrl = window.location.href; // Use the current URL as the start URL
+    const startUrl = window.location.origin; // Use the domain as the starturl
     const { simpleTree, siteTree } = await spiderWebsite(startUrl, 2);
 
     // Convert the tree structure to a JSON string

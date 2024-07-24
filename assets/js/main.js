@@ -1,3 +1,5 @@
+// loaderElementIds = these are the IDS due to the time, the loader icon will appear on the left bottomside.
+// totalScriptsProcessing = this variable keeps track on how many processes are running. If the value > 0, the loader icon will show, otherwise it does not show.
 let loaderElementIds = ["enum-tooling-spider-start-button", "enum-tooling-extract-headers"]
 let totalScriptsProcessing = 0;
 
@@ -70,10 +72,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // set the toggle to checked if the value is set to true
     if (localStorage.getItem("persistDataSwitch") === "true") {
         persistDataSwitch.setAttribute("checked", true)
-        loadTextareasFromLocalStorage()
+        loadElementsFromLocalStorage()
         setupMutationObserver()
     } else {
-        removeTextAreasFromLocalStorage()
+        removeElementsFromLocalStorage()
     }
 
     // add an event listener that toggles the switch to true or false
@@ -122,45 +124,119 @@ function loaderCheck(currentId, incrementTotalScriptsProcessing) {
     }
 }
 
-function saveTextareasToLocalStorage() {
+/**
+ * saveElementsToLocalStorage()
+ *
+ * save the different kind of html elements that need to be persistent to localstorage
+ */
+function saveElementsToLocalStorage() {
+    // Save all textareas
     let PD_textareas = document.querySelectorAll('textarea');
     PD_textareas.forEach(function (PD_textarea) {
         let PD_id = PD_textarea.id;
         localStorage.setItem(PD_id, PD_textarea.value);
     });
-    console.log('Textarea values saved to localStorage!');
+
+    // Save all checkboxes (excluding 'persist-data-checkbox')
+    let PD_checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    PD_checkboxes.forEach(function (PD_checkbox) {
+        let PD_id = PD_checkbox.id;
+        if (PD_id !== 'persist-data-checkbox') {
+            localStorage.setItem(PD_id, PD_checkbox.checked);
+        }
+    });
+
+    // Save all buttons
+    let PD_buttons = document.querySelectorAll('button');
+    PD_buttons.forEach(function (PD_button) {
+        let PD_id = PD_button.id;
+        localStorage.setItem(PD_id, PD_button.value);
+    });
 }
 
-function loadTextareasFromLocalStorage() {
+/**
+ * loadElementsFromLocalStorage()
+ *
+ * loads the different kind of html elements that need to be persistent from localstorage
+ */
+function loadElementsFromLocalStorage() {
+    // Load all textareas
     let PD_textareas = document.querySelectorAll('textarea');
     PD_textareas.forEach(function (PD_textarea) {
         let PD_id = PD_textarea.id;
         let PD_savedValue = localStorage.getItem(PD_id);
         if (PD_savedValue !== null) {
-            let PD_tmpElement = document.getElementById(PD_id)
-            PD_tmpElement.innerText = PD_savedValue;
+            let PD_tmpElement = document.getElementById(PD_id);
+            PD_tmpElement.value = PD_savedValue;
             if (isValidJSON(PD_tmpElement.value)) {
-                PD_tmpElement.value = formatJSON(PD_tmpElement.value)
+                PD_tmpElement.value = formatJSON(PD_tmpElement.value);
             }
         }
     });
-    console.log('Textarea values loaded from localStorage!');
+
+    // Load all checkboxes (excluding 'persist-data-checkbox')
+    let PD_checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    PD_checkboxes.forEach(function (PD_checkbox) {
+        let PD_id = PD_checkbox.id;
+        if (PD_id !== 'persist-data-checkbox') {
+            let PD_savedChecked = localStorage.getItem(PD_id) === 'true';
+            PD_checkbox.checked = PD_savedChecked;
+        }
+    });
+
+    // Load all buttons
+    let PD_buttons = document.querySelectorAll('button');
+    PD_buttons.forEach(function (PD_button) {
+        let PD_id = PD_button.id;
+        let PD_savedValue = localStorage.getItem(PD_id);
+        if (PD_savedValue !== null) {
+            PD_button.value = PD_savedValue;
+        }
+    });
 }
 
-function removeTextAreasFromLocalStorage() {
+/**
+ * removeElementsFromLocalStorage()
+ *
+ * remove the different kind of html elements from localstorage
+ */
+function removeElementsFromLocalStorage() {
+    // Remove all textareas
     let PD_textareas = document.querySelectorAll('textarea');
     PD_textareas.forEach(function (PD_textarea) {
         let PD_id = PD_textarea.id;
         localStorage.removeItem(PD_id);
     });
-    console.log('Textarea values saved to localStorage!');
+
+    // Remove all checkboxes (excluding 'persist-data-checkbox')
+    let PD_checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    PD_checkboxes.forEach(function (PD_checkbox) {
+        let PD_id = PD_checkbox.id;
+        if (PD_id !== 'persist-data-checkbox') {
+            localStorage.removeItem(PD_id);
+        }
+    });
+
+    // Remove all buttons
+    let PD_buttons = document.querySelectorAll('button');
+    PD_buttons.forEach(function (PD_button) {
+        let PD_id = PD_button.id;
+        localStorage.removeItem(PD_id);
+    });
 }
 
+/**
+ * setupMutationObserver
+ *
+ * sets up the mutationobserver. Watches changes across the different kind of elements that are relevant
+ */
 function setupMutationObserver() {
     let PD_observer = new MutationObserver(function (PD_mutations) {
         PD_mutations.forEach(function (PD_mutation) {
-            if (PD_mutation.target.tagName.toLowerCase() === 'textarea') {
-                saveTextareasToLocalStorage();
+            if (PD_mutation.target.tagName.toLowerCase() === 'textarea' ||
+                (PD_mutation.target.tagName.toLowerCase() === 'input' && PD_mutation.target.type === 'checkbox' && PD_mutation.target.id !== 'persist-data-checkbox') ||
+                PD_mutation.target.tagName.toLowerCase() === 'button') {
+                saveElementsToLocalStorage();
             }
         });
     });
@@ -172,9 +248,22 @@ function setupMutationObserver() {
         subtree: true
     };
 
-    document.querySelectorAll('textarea').forEach(function (PD_textarea) {
-        PD_observer.observe(PD_textarea, PD_config);
+    document.querySelectorAll('textarea, input[type="checkbox"], button').forEach(function (PD_element) {
+        if (!(PD_element.tagName.toLowerCase() === 'input' && PD_element.id === 'persist-data-checkbox')) {
+            PD_observer.observe(PD_element, PD_config);
+        }
     });
-    saveTextareasToLocalStorage()
+
+    // Add change event listeners for checkboxes to ensure state changes are saved
+    document.querySelectorAll('input[type="checkbox"]').forEach(function (PD_checkbox) {
+        if (PD_checkbox.id !== 'persist-data-checkbox') {
+            PD_checkbox.addEventListener('change', function () {
+                saveElementsToLocalStorage();
+            });
+        }
+    });
+
+    saveElementsToLocalStorage();
 }
+
 
