@@ -121,12 +121,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // add event listeners for the navbar
-    replaceHover("tab-1-img", "assets/icons/navbar/", "tools-tab-1.png", "tools-tab-1-hover.png")
-    replaceHover("tab-2-img", "assets/icons/navbar/", "enum-tools-tab-2.png", "enum-tools-tab-2-hover.png")
-    replaceHover("tab-3-img", "assets/icons/navbar/", "exploit-assistant-tab-3.png", "exploit-assistant-tab-3-hover.png")
-    replaceHover("tab-4-img", "assets/icons/navbar/", "shell-assistant-tab-4.png", "shell-assistant-tab-4-hover.png")
-    replaceHover("tab-5-img", "assets/icons/navbar/", "checklist-assistant-tab-5.png", "checklist-assistant-tab-5-hover.png")
-    replaceHover("tab-6-img", "assets/icons/navbar/", "usefull-commands-tab-6.png", "usefull-commands-tab-6-hover.png")
+    replaceHover("tab-1-img", "assets/icons/navbar/", "tab-1-gen-tooling.png", "tab-1-gen-tooling-hover.png")
+    replaceHover("tab-2-img", "assets/icons/navbar/", "tab-2-enum-tools.png", "tab-2-enum-tools-hover.png")
+    replaceHover("tab-3-img", "assets/icons/navbar/", "tab-3-exploit-assistant.png", "tab-3-exploit-assistant-hover.png")
+    replaceHover("tab-4-img", "assets/icons/navbar/", "tab-4-shell-assistant.png", "tab-4-shell-assistant-hover.png")
+    replaceHover("tab-5-img", "assets/icons/navbar/", "tab-5-checklist-assistant.png", "tab-5-checklist-assistant-hover.png")
+    replaceHover("tab-6-img", "assets/icons/navbar/", "tab-6-useful-commands.png", "tab-6-useful-commands-hover.png")
 
     // clipboard for copying text inside a textarea
     let activeCopyIcon = null;
