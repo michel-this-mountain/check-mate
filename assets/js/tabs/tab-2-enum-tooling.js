@@ -17,11 +17,20 @@ document.addEventListener("DOMContentLoaded", function () {
     // #### IFRAME CHECKER tab START #### //
     let checkIframeButton = document.getElementById("enum-tooling-iframe-check-iframe-button")
     let iframeInputUrl = document.getElementById("enum-tooling-iframe-url-input")
-    let iframeElement  = document.getElementById("enum-tooling-iframe-check-iframe-element")
+    let iframeElement = document.getElementById("enum-tooling-iframe-check-iframe-element")
 
     checkIframeButton.addEventListener("click", function () {
         iframeElement.src = iframeInputUrl.value;
     })
     // #### IFRAME CHECKER tab END #### //
+
+    // #### CSRF CHECKER tab END #### //
+    let enumToolingCSRFLoadButtonEventListener = document.getElementById("exploit-assistant-csrf-checker-load-form")
+
+    enumToolingCSRFLoadButtonEventListener.addEventListener("click", function () {
+     document.getElementById("exploit-assistant-csrf-checker-form-radio-button-container").innerHTML = ""
+    })
+    // #### CSRF CHECKER tab END #### //
+
 
 })

@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     localStorage.removeItem("general-tools-tab");
                 }
                 if (!targetHref.startsWith("#tab2")) {
-                    localStorage.removeItem("enum-tools-tab");
+                    localStorage.removeItem("enum-tooling-tab");
                 }
                 if (!targetHref.startsWith("#tab3")) {
                     localStorage.removeItem("exploit-assistant-tab");
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Nested tabs configuration
     const nestedTabsConfig = [
         {mainTab: "#tab1", nestedTabKey: "general-tools-tab", nestedTabSelector: "#toolsTab a"},
-        {mainTab: "#tab2", nestedTabKey: "enum-tools-tab", nestedTabSelector: "#enum-tools-tab a"},
+        {mainTab: "#tab2", nestedTabKey: "enum-tooling-tab", nestedTabSelector: "#enum-tooling-tab a"},
         {mainTab: "#tab3", nestedTabKey: "exploit-assistant-tab", nestedTabSelector: "#exploit-assistant-tab a"},
         {mainTab: "#tab4", nestedTabKey: "shell-assistant-tab", nestedTabSelector: "#shell-assistant-tab a"},
         {mainTab: "#tab5", nestedTabKey: "checklist-assistant-tab", nestedTabSelector: "#checklist-assistant-tab a"},

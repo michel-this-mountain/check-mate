@@ -7,25 +7,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // IDs of buttons to set event listeners on
     let browserRuntimeActionIds = [
         "enum-tooling-spider-start-button",
-
         "enum-tooling-highlight-forms-cp",
         "enum-tooling-highlight-inputs-cp",
         "enum-tooling-extract-comments-cp",
         "enum-tooling-extract-forms-cp",
         "enum-tooling-extract-url-cp",
         "enum-tooling-extract-headers",
+        "enum-tooling-iframe-get-current-url",
+        "exploit-assistant-csrf-checker-load-form"
 
-        "enum-tooling-iframe-get-current-url"
     ];
 
-    // Set event listeners for all enum-tools on the toolbox page
+    // Set event listeners for all enum-tooling on the toolbox page
     browserRuntimeActionIds.forEach(id => {
         let tmpElement = document.getElementById(id);
         if (tmpElement) {
             tmpElement.addEventListener('click', () => {
                 let messageValue = tmpElement.value
                 browser.runtime.sendMessage({command: messageValue, id: id});
-
                 // these are scripts that take longer to process, e.g. spidering a website, if so, the loading icon appears on the left bottom side
                 loaderCheck(id, true)
             });
@@ -34,9 +33,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Listen for messages from the background script
     browser.runtime.onMessage.addListener(async (message) => {
-
+        // check if the loader needs to be applied to the process
         loaderCheck(message.id, false);
 
+        // enum-tooling (spider)
         if (message.hasOwnProperty("enumSpider")) {
             if (isValidJSON(message.enumSpider)) {
                 let simplified = JSON.stringify(JSON.parse(message.enumSpider).simpleTree)
@@ -62,6 +62,65 @@ document.addEventListener('DOMContentLoaded', () => {
             // Relay the message back to the popup script
             document.getElementById("enum-tooling-iframe-url-input").innerText = message.enumToolingGetCurrentUrlIframe
             document.getElementById("enum-tooling-iframe-url-input").value = message.enumToolingGetCurrentUrlIframe
+        }
+
+        // enum-tooling (CSRF checker)
+        if (message.hasOwnProperty("exploitAsssitantCSRFloadForms")) {
+            let enumToolingCsrfFormsParsed = parseFormsFromJson(message.exploitAsssitantCSRFloadForms, message.domainName);
+            let enumToolingCSRFRadioButtonContainerForms = document.getElementById("exploit-assistant-csrf-checker-form-radio-button-container")
+            let enumToolingCSRFFormsContainerOuterDiv = document.getElementById("exploit-assistant-forms-container-outer-div")
+
+            enumToolingCsrfFormsParsed.forEach(enumToolingCsrfFormParsed => {
+                let dynamicId = generateDynamicId()
+                let csrfOuterDiv = createElement("div", ["form-check", "form-check-inline", "w-100"]);
+                let csrfInput = createElement("input", ["form-check-input"])
+                csrfInput.setAttribute("type", "radio")
+                csrfInput.setAttribute("name", "csrf-radio-button")
+                csrfInput.setAttribute("id", dynamicId)
+
+                let csrfLabel = createElement("label", ["form-check-label"])
+                csrfLabel.setAttribute("for", dynamicId)
+                csrfLabel.innerText = `Action: ${enumToolingCsrfFormParsed.getAttribute("action")} -- Method: ${enumToolingCsrfFormParsed.getAttribute("method")}`
+
+                csrfOuterDiv.appendChild(csrfInput)
+                csrfOuterDiv.appendChild(csrfLabel)
+
+                csrfInput.addEventListener("click", function () {
+                    // remove the old iframe element
+                    enumToolingCSRFFormsContainerOuterDiv.innerHTML = ""
+
+                    // create a new iframe element and append it to the outer-div container
+                    let tmpIframeElementCSRF = createElement("iframe", ["border", "rounded", "w-100"])
+                    tmpIframeElementCSRF.setAttribute("id", "exploit-assistant-csrf-checker-form-container")
+                    tmpIframeElementCSRF.setAttribute("style", "min-height: 285px;")
+                    enumToolingCSRFFormsContainerOuterDiv.appendChild(tmpIframeElementCSRF)
+
+                    const csrfFormContainerDoc = tmpIframeElementCSRF.contentWindow.document;
+
+                    // Open the document and write the initial HTML structure
+                    csrfFormContainerDoc.open();
+                    csrfFormContainerDoc.write(`<!DOCTYPE html>
+                                            <html lang="en">
+                                            <head>
+                                                <meta charset="UTF-8">
+                                                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                            </head>
+                                            <body style="width: 100px !important;">
+                                            </body>
+                                            </html>`);
+
+                    // Clear the body content
+                    csrfFormContainerDoc.body.innerHTML = '';
+
+                    // Append the new form
+                    csrfFormContainerDoc.body.appendChild(enumToolingCsrfFormParsed);
+
+                    // Close the document
+                    csrfFormContainerDoc.close();
+                })
+
+                enumToolingCSRFRadioButtonContainerForms.appendChild(csrfOuterDiv)
+            });
         }
 
     });
@@ -266,4 +325,63 @@ function setupMutationObserver() {
     saveElementsToLocalStorage();
 }
 
+/**
+ * parseFormsFromJson()
+ *
+ * Parse JSON string containing HTML forms and return them as HTML elements.
+ * If the form's action attribute is a relative path, update it to the current domain/path.
+ * @param {string} jsonString - The JSON string with form details.
+ * @returns {HTMLElement[]} An array of parsed form elements.
+ */
+function parseFormsFromJson(jsonString, currentDomain) {
+    const formDetails = JSON.parse(jsonString);
+    const formElements = [];
+
+    Object.values(formDetails).forEach(formHtml => {
+        const formElement = document.createElement('div');
+        formElement.innerHTML = formHtml;
+        const form = formElement.querySelector('form');
+
+        if (form) {
+            const action = form.getAttribute('action');
+            if (action && !(action.startsWith('http://') || action.startsWith('https://'))) {
+                if (action[0] === "/") {
+                    form.setAttribute('action', `${currentDomain}${action}`);
+                } else {
+                    form.setAttribute('action', `${currentDomain}/${action}`);
+                }
+                form.setAttribute("target", "_blank")
+            }
+            formElements.push(form);
+        }
+    });
+
+    return formElements;
+}
+
+/**
+ * createElement()
+ *
+ * Creates an element with the specified classes.
+ *
+ * @param {string} elementName - The name of the element to create.
+ * @param {string[]} classes - An array of class names to add to the element.
+ * @returns {HTMLElement} The created element with the specified classes.
+ */
+function createElement(elementName, classes) {
+    const e = document.createElement(elementName);
+    for (let index = 0; index < classes.length; index++) {
+        e.classList.add(classes[index]);
+    }
+    return e;
+}
+
+/**
+ * generateDynamicId()
+ *
+ * @returns a random dynamic ID
+ */
+function generateDynamicId() {
+    return `${Math.floor((Math.random() * 999999) + 1)}${Math.random().toString(36)}${Math.floor((Math.random() * 999999) + 1)}${Math.random().toString(36)}${Math.floor((Math.random() * 999999) + 1)}`
+}
 
