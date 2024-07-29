@@ -7,13 +7,16 @@ let currentTab = null;
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         // Query the active tab in the current window
-        const [tab] = await browser.tabs.query({ active: true, currentWindow: true });
+        const [tab] = await browser.tabs.query({active: true, currentWindow: true});
 
         // Create a new URL object
-        const url = new URL(tab.url);
+        currentTab = String(new URL(tab.url));
 
-        // Retrieve the hostname or full URL as needed
-        currentTab = url.hostname
+        // adjust the tab url
+        document.querySelectorAll(".postmessage-tab-url").forEach(function (element) {
+            // Set the innerText of each element to the current URL
+            element.innerText = currentTab;
+        });
     } catch (error) {
         console.error('Error querying active tab:', error);
     }

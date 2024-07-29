@@ -149,9 +149,8 @@ function logAllChanges() {
             // console.log('[*][CM] Detected Postmessage changes:', postMessageEventsJson);
 
             let msg = {
-                domainName: document.domain,
                 postMessage: {
-                    [`${document.domain}`]: postMessageEventsJson
+                    [`${window.location.href}`]: postMessageEventsJson
                 },
                 id: "enum-tooling-intercepted-post-messages"
             }
@@ -161,9 +160,8 @@ function logAllChanges() {
         if (cookieChangesJson.length > 0) {
             // console.log('[*][CM] Detected cookie changes:', cookieChangesJson);
             let msg = {
-                domainName: document.domain,
                 cookieChange: {
-                    [`${document.domain}`]: cookieChangesJson
+                    [`${window.location.href}`]: cookieChangesJson
                 },
                 id: "enum-tooling-altered-cookie-messages"
             }
