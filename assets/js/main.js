@@ -2,6 +2,22 @@
 // totalScriptsProcessing = this variable keeps track on how many processes are running. If the value > 0, the loader icon will show, otherwise it does not show.
 let loaderElementIds = ["enum-tooling-spider-start-button", "enum-tooling-extract-headers"]
 let totalScriptsProcessing = 0;
+let currentTab = null;
+
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        // Query the active tab in the current window
+        const [tab] = await browser.tabs.query({ active: true, currentWindow: true });
+
+        // Create a new URL object
+        const url = new URL(tab.url);
+
+        // Retrieve the hostname or full URL as needed
+        currentTab = url.hostname
+    } catch (error) {
+        console.error('Error querying active tab:', error);
+    }
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     // IDs of buttons to set event listeners on
@@ -31,11 +47,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+
     // Listen for messages from the background script
     browser.runtime.onMessage.addListener(async (message) => {
-        // check if the loader needs to be applied to the process
+        // GENERAL SECTION START //
         loaderCheck(message.id, false);
 
+        // GENERAL SECTION END
         // enum-tooling (spider)
         if (message.hasOwnProperty("enumSpider")) {
             if (isValidJSON(message.enumSpider)) {
@@ -64,8 +82,48 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById("enum-tooling-iframe-url-input").value = message.enumToolingGetCurrentUrlIframe
         }
 
-        // enum-tooling (CSRF checker)
-        if (message.hasOwnProperty("exploitAsssitantCSRFloadForms")) {
+        if (message.hasOwnProperty("postMessage")) {
+            document.getElementById("enum-tooling-postmessage-monitor-count").innerText = message.postMessage[currentTab].length;
+            let tbody = document.getElementById("postmessage-monitor-table-table-body");
+            tbody.innerHTML = ""
+
+            message.postMessage[currentTab].forEach(postMessageObject => {
+                let postMessageTr = createElement("tr", [])
+
+                for (let key of Object.keys(postMessageObject)) {
+                    let postMessageChangeTd = createElement("td", [])
+                    if (key === "message") {
+                        postMessageChangeTd.innerText = JSON.stringify(postMessageObject[key])
+                    } else {
+                        postMessageChangeTd.innerText = postMessageObject[key]
+                    }
+                    postMessageTr.appendChild(postMessageChangeTd)
+                }
+                tbody.appendChild(postMessageTr)
+            })
+        }
+
+        if (message.hasOwnProperty("cookieChange")) {
+            document.getElementById("enum-tooling-cookie-monitor-count").innerText = message.cookieChange[currentTab].length;
+            let tbody = document.getElementById("cookie-monitor-table-table-body");
+            tbody.innerHTML = ""
+
+            message.cookieChange[currentTab].forEach(cookieChangeObject => {
+                let cookieChangeTr = createElement("tr", [])
+
+                for (let key of Object.keys(cookieChangeObject)) {
+                    let cookieChangeTd = createElement("td", [])
+                    cookieChangeTd.innerText = cookieChangeObject[key]
+                    cookieChangeTr.appendChild(cookieChangeTd)
+                }
+
+                tbody.appendChild(cookieChangeTr)
+            })
+        }
+
+
+        // exploit-assistant (CSRF checker)
+        if (message.hasOwnProperty("exploitAssitantCSRFloadForms")) {
             let enumToolingCsrfFormsParsed = parseFormsFromJson(message.exploitAsssitantCSRFloadForms, message.domainName);
             let enumToolingCSRFRadioButtonContainerForms = document.getElementById("exploit-assistant-csrf-checker-form-radio-button-container")
             let enumToolingCSRFFormsContainerOuterDiv = document.getElementById("exploit-assistant-forms-container-outer-div")
@@ -122,6 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 enumToolingCSRFRadioButtonContainerForms.appendChild(csrfOuterDiv)
             });
         }
+        applySeeMoreToTableCells()
 
     });
 
@@ -150,6 +209,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ##### PERSIST DATA END ##### //
+    // ##### TABLE SORT AND SEARCH START ##### //
+    makeAllTablesSortable()
+
+    searchTable("search-postmessage-input", "postmessage-monitor-table")
+    // ##### TABLE SORT AND SEARCH END ##### //
+
 });
 
 /**
@@ -385,3 +450,148 @@ function generateDynamicId() {
     return `${Math.floor((Math.random() * 999999) + 1)}${Math.random().toString(36)}${Math.floor((Math.random() * 999999) + 1)}${Math.random().toString(36)}${Math.floor((Math.random() * 999999) + 1)}`
 }
 
+/**
+ * searchTable : searches for a value specific in a table. The number of columns or rows do not matter
+ *
+ * @param {*} inputFieldId id of the input field (no hashtag)
+ * @param {*} tableId id of the table (no hashtag)
+ */
+function searchTable(inputFieldId, tableId) {
+    $(document).ready(function () {
+        $(`#${inputFieldId}`).on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $(`#${tableId} tbody tr`).filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+}
+
+/**
+ * makeAllTablesSortable()
+ *
+ * adds the possibility to sort ascending or descending based on a table column
+ */
+function makeAllTablesSortable() {
+    let currentSortColumn = null;
+    let sortDirection = 1; // 1 for ascending, -1 for descending
+
+    // Function to sort the table
+    function sortTable(table, columnIndex) {
+        const rows = Array.from(table.tBodies[0].rows);
+
+        if (currentSortColumn === columnIndex) {
+            sortDirection *= -1; // Reverse sort direction
+        } else {
+            sortDirection = 1; // Default to ascending
+        }
+
+        currentSortColumn = columnIndex;
+
+        rows.sort((rowA, rowB) => {
+            const cellA = rowA.cells[columnIndex].innerText;
+            const cellB = rowB.cells[columnIndex].innerText;
+
+            if (!isNaN(cellA) && !isNaN(cellB)) {
+                return (cellA - cellB) * sortDirection;
+            }
+
+            return cellA.localeCompare(cellB) * sortDirection;
+        });
+
+        // Update the table with sorted rows
+        const tbody = table.tBodies[0];
+        while (tbody.firstChild) {
+            tbody.removeChild(tbody.firstChild);
+        }
+
+        tbody.append(...rows);
+
+        // Update sort icons
+        updateSortIcons(table, columnIndex);
+    }
+
+    // Function to update sort icons
+    function updateSortIcons(table, columnIndex) {
+        const headers = table.querySelectorAll("th .sort-icon");
+        headers.forEach((icon, index) => {
+            if (index === columnIndex) {
+                icon.innerHTML = sortDirection === 1 ? "&#9650;" : "&#9660;";
+            } else {
+                icon.innerHTML = "&#9650;"; // Default to ascending icon
+            }
+        });
+    }
+
+    // Initialize the sorting functionality on all tables
+    document.querySelectorAll("table").forEach(table => {
+        table.querySelectorAll("th").forEach((header, index) => {
+            // Add a span for the sort icon if not already present
+            if (!header.querySelector(".sort-icon")) {
+                const sortIcon = document.createElement("span");
+                sortIcon.className = "sort-icon";
+                sortIcon.innerHTML = "&#9650;"; // Default to ascending icon
+                header.appendChild(sortIcon);
+            }
+            header.addEventListener("click", () => sortTable(table, index));
+        });
+    });
+}
+
+/**
+ * applySeeMoreToTableCells()
+ *
+ * updates the table cells to have a max length of 300, if longer, the "see-more" will be shown
+ */
+function applySeeMoreToTableCells() {
+    const maxLength = 300;
+
+    // Function to create "see more" and "see less" elements
+    function createSeeMoreElement(fullText) {
+        const shortText = fullText.slice(0, maxLength) + '... ';
+
+        const spanShort = document.createElement('span');
+        spanShort.className = 'see-more-short';
+        spanShort.textContent = shortText;
+
+        const spanFull = document.createElement('span');
+        spanFull.className = 'see-more-content';
+        spanFull.textContent = fullText;
+
+        const linkToggle = document.createElement('span');
+        linkToggle.className = 'see-more';
+        linkToggle.textContent = 'see more';
+
+        linkToggle.addEventListener('click', () => {
+            if (spanFull.style.display === 'none') {
+                spanFull.style.display = 'inline';
+                spanShort.style.display = 'none';
+                linkToggle.textContent = 'see less';
+            } else {
+                spanFull.style.display = 'none';
+                spanShort.style.display = 'inline';
+                linkToggle.textContent = 'see more';
+            }
+        });
+
+        const container = document.createElement('div');
+        container.appendChild(spanShort);
+        container.appendChild(spanFull);
+        container.appendChild(linkToggle);
+
+        // Initially show only the short text
+        spanFull.style.display = 'none';
+
+        return container;
+    }
+
+    // Apply the "see more" functionality to all table cells
+    document.querySelectorAll('table tbody tr td').forEach(cell => {
+        const cellText = cell.textContent.trim();
+        if (cellText.length > maxLength) {
+            const seeMoreElement = createSeeMoreElement(cellText);
+            cell.innerHTML = ''; // Clear the cell content
+            cell.appendChild(seeMoreElement);
+        }
+    });
+}

@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Add event listener to all main nav links
     const navLinks = document.querySelectorAll('.nav-link');
+
     navLinks.forEach(navLink => {
         navLink.addEventListener('click', function (event) {
             event.preventDefault();
@@ -115,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl, {
-            delay: { "hide": 50 }
+            delay: {"hide": 50}
         });
     });
 
@@ -167,6 +168,32 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }, 2000);
         }
+    });
+
+    // add listeners for the refresh button class
+    document.querySelectorAll(".refresh-control").forEach(element => {
+        // Add event listener to each element
+        element.addEventListener("click", function () {
+            let controlRefreshState = element.getAttribute("data-control-refresh-active");
+
+            if (controlRefreshState === "true") {
+                let controlRefreshTbody = document.getElementById(element.value)
+                controlRefreshTbody.setAttribute("id", `${element.value}-stopped`)
+                element.classList.remove("btn-outline-danger")
+                element.classList.add("btn-outline-primary")
+                element.innerText = "Start refresh"
+                element.setAttribute("data-control-refresh-active", "false");
+
+            } else if (controlRefreshState === "false") {
+                let controlRefreshTbody = document.getElementById(`${element.value}-stopped`)
+                controlRefreshTbody.setAttribute("id", `${element.value}`)
+                element.classList.remove("btn-outline-primary")
+                element.classList.add("btn-outline-danger")
+                element.innerText = "Stop refresh"
+                element.setAttribute("data-control-refresh-active", "true");
+
+            }
+        });
     });
 });
 

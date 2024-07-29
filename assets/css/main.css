@@ -40,6 +40,7 @@ h6 {
 .consolas-text {
     font-family: consolas;
 }
+
 textarea {
     resize: none !important; /* Disable resizing */
     background-color: #ffffff !important;
@@ -78,3 +79,14 @@ textarea {
     min-height: 550px;
 }
 
+.sort-icon {
+    font-size: 0.8em; /* Adjust the size as needed */
+    margin-left: 5px; /* Adds some space between the header text and the icon */
+    cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
+}
+
+.see-more {
+    color: blue;
+    cursor: pointer;
+    text-decoration: underline;
+}
