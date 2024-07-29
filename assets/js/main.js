@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         currentTab = String(new URL(tab.url));
 
         // adjust the tab url
-        document.querySelectorAll(".postmessage-tab-url").forEach(function (element) {
+        document.querySelectorAll(".current-tab-url").forEach(function (element) {
             // Set the innerText of each element to the current URL
             element.innerText = currentTab;
         });
@@ -216,6 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
     makeAllTablesSortable()
 
     searchTable("search-postmessage-input", "postmessage-monitor-table")
+    searchTable("search-cookie-monitor-input", "cookie-monitor-table")
     // ##### TABLE SORT AND SEARCH END ##### //
 
 });

@@ -183,6 +183,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 element.classList.add("btn-outline-primary")
                 element.innerText = "Start refresh"
                 element.setAttribute("data-control-refresh-active", "false");
+                console.log(controlRefreshTbody)
 
             } else if (controlRefreshState === "false") {
                 let controlRefreshTbody = document.getElementById(`${element.value}-stopped`)
@@ -191,6 +192,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 element.classList.add("btn-outline-danger")
                 element.innerText = "Stop refresh"
                 element.setAttribute("data-control-refresh-active", "true");
+                console.log(controlRefreshTbody)
 
             }
         });
