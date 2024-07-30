@@ -34,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
         "enum-tooling-extract-headers",
         "enum-tooling-iframe-get-current-url",
         "exploit-assistant-csrf-checker-load-form"
-
     ];
 
     // Set event listeners for all enum-tooling on the toolbox page
@@ -50,14 +49,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-
     // Listen for messages from the background script
     browser.runtime.onMessage.addListener(async (message) => {
         // GENERAL SECTION START //
         loaderCheck(message.id, false);
-
         // GENERAL SECTION END
-        // enum-tooling (spider)
+
+        // ## TAB 1 'general tooling' START ## //
+        // ## TAB 1 'general tooling' END ## //
+
+        // ## TAB 2 'enum tooling' START ## //
         if (message.hasOwnProperty("enumSpider")) {
             if (isValidJSON(message.enumSpider)) {
                 let simplified = JSON.stringify(JSON.parse(message.enumSpider).simpleTree)
@@ -70,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // enum-tooling (toolbox)
         if (message.hasOwnProperty("toolboxJson")) {
             if (isValidJSON(message.toolboxJson)) {
                 document.getElementById("enum-tooling-output-textarea").innerText = formatJSON(message.toolboxJson);
@@ -78,7 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // enum-tooling (iframe checker)
         if (message.hasOwnProperty("enumToolingGetCurrentUrlIframe")) {
             // Relay the message back to the popup script
             document.getElementById("enum-tooling-iframe-url-input").innerText = message.enumToolingGetCurrentUrlIframe
@@ -88,9 +87,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (message.hasOwnProperty("postMessage")) {
             document.getElementById("enum-tooling-postmessage-monitor-count").innerText = message.postMessage[currentTab].length;
             let tbody = document.getElementById("postmessage-monitor-table-table-body");
-            tbody.innerHTML = ""
+            let tbodyUpdate = tbody.getAttribute("data-control-update")
 
-            message.postMessage[currentTab].forEach(postMessageObject => {
+            message.postMessage[currentTab].forEach((postMessageObject, index) => {
                 let postMessageTr = createElement("tr", [])
 
                 for (let key of Object.keys(postMessageObject)) {
@@ -102,16 +101,23 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     postMessageTr.appendChild(postMessageChangeTd)
                 }
-                tbody.appendChild(postMessageTr)
+                if (tbodyUpdate === "true") {
+                    if (index === 0){
+                         tbody.innerHTML = ""
+                    }
+                    tbody.appendChild(postMessageTr)
+                    applySeeMoreToTableCells(tbody)
+                }
             })
+
         }
 
         if (message.hasOwnProperty("cookieChange")) {
             document.getElementById("enum-tooling-cookie-monitor-count").innerText = message.cookieChange[currentTab].length;
             let tbody = document.getElementById("cookie-monitor-table-table-body");
-            tbody.innerHTML = ""
+            let tbodyUpdate = tbody.getAttribute("data-control-update")
 
-            message.cookieChange[currentTab].forEach(cookieChangeObject => {
+            message.cookieChange[currentTab].forEach((cookieChangeObject, index) => {
                 let cookieChangeTr = createElement("tr", [])
 
                 for (let key of Object.keys(cookieChangeObject)) {
@@ -120,12 +126,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     cookieChangeTr.appendChild(cookieChangeTd)
                 }
 
-                tbody.appendChild(cookieChangeTr)
+                if (tbodyUpdate === "true") {
+                    if (index === 0){
+                         tbody.innerHTML = ""
+                    }
+                    tbody.appendChild(cookieChangeTr)
+                    applySeeMoreToTableCells(tbody)
+                }
             })
         }
+        // ## TAB 2 'enum tooling' END ## //
 
-
-        // exploit-assistant (CSRF checker)
+        // ## TAB 3 'exploit assistant' END ## //
         if (message.hasOwnProperty("exploitAssitantCSRFloadForms")) {
             let enumToolingCsrfFormsParsed = parseFormsFromJson(message.exploitAsssitantCSRFloadForms, message.domainName);
             let enumToolingCSRFRadioButtonContainerForms = document.getElementById("exploit-assistant-csrf-checker-form-radio-button-container")
@@ -183,35 +195,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 enumToolingCSRFRadioButtonContainerForms.appendChild(csrfOuterDiv)
             });
         }
-        applySeeMoreToTableCells()
+
+        // ## TAB 3 'exploit assistant' END ## //
+
+        // ## TAB 4 'shell assistant' START ## //
+        // ## TAB 4 'shell assistant' END ## //
+
+        // ## TAB 5 '' START ## //
+        // ## TAB 5 '' END ## //
+
+        // ## TAB 6 START ## //
+        // ## TAB 6 END ## //
 
     });
 
     // ##### PERSIST DATA START ##### //
-    let persistDataSwitch = document.getElementById("persist-data-checkbox")
-
-    // set the toggle to checked if the value is set to true
-    if (localStorage.getItem("persistDataSwitch") === "true") {
-        persistDataSwitch.setAttribute("checked", true)
-        loadElementsFromLocalStorage()
-        setupMutationObserver()
-    } else {
-        removeElementsFromLocalStorage()
-    }
-
-    // add an event listener that toggles the switch to true or false
-    persistDataSwitch.addEventListener("change", function () {
-        if (persistDataSwitch.hasAttribute("checked")) {
-            persistDataSwitch.removeAttribute("checked")
-            localStorage.setItem("persistDataSwitch", false)
-        } else {
-            persistDataSwitch.setAttribute("checked", true)
-            localStorage.setItem("persistDataSwitch", true)
-            setupMutationObserver()
-        }
-    });
-
+    persistDataMonitor()
     // ##### PERSIST DATA END ##### //
+
     // ##### TABLE SORT AND SEARCH START ##### //
     makeAllTablesSortable()
 
@@ -400,6 +401,7 @@ function setupMutationObserver() {
  * Parse JSON string containing HTML forms and return them as HTML elements.
  * If the form's action attribute is a relative path, update it to the current domain/path.
  * @param {string} jsonString - The JSON string with form details.
+ * @param {string} currentDomain - the current domain the user is on
  * @returns {HTMLElement[]} An array of parsed form elements.
  */
 function parseFormsFromJson(jsonString, currentDomain) {
@@ -547,12 +549,19 @@ function makeAllTablesSortable() {
  *
  * updates the table cells to have a max length of 300, if longer, the "see-more" will be shown
  */
-function applySeeMoreToTableCells() {
+/**
+ * applySeeMoreToTableCells()
+ *
+ * updates the table cells in the given table body to have a max length of 300, if longer, the "see-more" will be shown
+ *
+ * @param {HTMLElement} tableBody - The table body element to apply the "see more" functionality to.
+ */
+function applySeeMoreToTableCells(tableBody) {
     const maxLength = 300;
 
     // Function to create "see more" and "see less" elements
     function createSeeMoreElement(fullText) {
-        const shortText = fullText.slice(0, maxLength) + '... ';
+        const shortText = fullText.slice(0, maxLength);
 
         const spanShort = document.createElement('span');
         spanShort.className = 'see-more-short';
@@ -564,7 +573,7 @@ function applySeeMoreToTableCells() {
 
         const linkToggle = document.createElement('span');
         linkToggle.className = 'see-more';
-        linkToggle.textContent = 'see more';
+        linkToggle.textContent = '...see more';
 
         linkToggle.addEventListener('click', () => {
             if (spanFull.style.display === 'none') {
@@ -574,7 +583,7 @@ function applySeeMoreToTableCells() {
             } else {
                 spanFull.style.display = 'none';
                 spanShort.style.display = 'inline';
-                linkToggle.textContent = 'see more';
+                linkToggle.textContent = '...see more';
             }
         });
 
@@ -589,13 +598,48 @@ function applySeeMoreToTableCells() {
         return container;
     }
 
-    // Apply the "see more" functionality to all table cells
-    document.querySelectorAll('table tbody tr td').forEach(cell => {
+    // Apply the "see more" functionality to all table cells in the given table body
+    tableBody.querySelectorAll('tr td').forEach(cell => {
         const cellText = cell.textContent.trim();
         if (cellText.length > maxLength) {
             const seeMoreElement = createSeeMoreElement(cellText);
             cell.innerHTML = ''; // Clear the cell content
             cell.appendChild(seeMoreElement);
+        }
+    });
+}
+
+// Example usage:
+// const tableBody = document.querySelector('table tbody');
+// applySeeMoreToTableCells(tableBody);
+
+/**
+ * persistDataMonitor()
+ *
+ * method that implements handlers that checks if the persistDataSwitch is being toggled,
+ * if so, apply the correct handling of saving data in the plugin
+ */
+function persistDataMonitor() {
+    let persistDataSwitch = document.getElementById("persist-data-checkbox")
+
+    // set the toggle to checked if the value is set to true
+    if (localStorage.getItem("persistDataSwitch") === "true") {
+        persistDataSwitch.setAttribute("checked", true)
+        loadElementsFromLocalStorage()
+        setupMutationObserver()
+    } else {
+        removeElementsFromLocalStorage()
+    }
+
+    // add an event listener that toggles the switch to true or false
+    persistDataSwitch.addEventListener("change", function () {
+        if (persistDataSwitch.hasAttribute("checked")) {
+            persistDataSwitch.removeAttribute("checked")
+            localStorage.setItem("persistDataSwitch", false)
+        } else {
+            persistDataSwitch.setAttribute("checked", true)
+            localStorage.setItem("persistDataSwitch", true)
+            setupMutationObserver()
         }
     });
 }

@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Function to activate a tab
+    // ## Retrieve and set the last active main tab from local storage START ## //
     function activateTab(tabId) {
         const tabElement = document.querySelector(`a[href="${tabId}"]`);
         if (tabElement) {
@@ -8,13 +8,11 @@ document.addEventListener("DOMContentLoaded", function () {
             tabElement.classList.add('active-link');
         }
     }
-
-    // Retrieve and set the last active main tab from local storage
     const lastActiveMainTab = localStorage.getItem("lastActiveMainTab") === null ? "#tab1" : localStorage.getItem("lastActiveMainTab");
-
     if (lastActiveMainTab) {
         activateTab(lastActiveMainTab);
     }
+    // ## Retrieve and set the last active main tab from local storage END ## //
 
     // Add event listener to all main nav links
     const navLinks = document.querySelectorAll('.nav-link');
@@ -87,7 +85,6 @@ document.addEventListener("DOMContentLoaded", function () {
         {mainTab: "#tab7", nestedTabKey: "activeEnum7Tab", nestedTabSelector: "#enum7Tab a"},
         {mainTab: "#tab8", nestedTabKey: "activeEnum8Tab", nestedTabSelector: "#enum8Tab a"},
     ];
-
     nestedTabsConfig.forEach(config => {
         const nestedTabs = document.querySelectorAll(config.nestedTabSelector);
         nestedTabs.forEach(tab => {
@@ -113,25 +110,27 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    // ## TOOLTIP INIT START ## //
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl, {
             delay: {"hide": 50}
         });
     });
+    // ## TOOLTIP INIT END ## //
 
 
-    // add event listeners for the navbar
+    // ## NAVBAR REPLACE IMAGE ON HOVER START ## //
     replaceHover("tab-1-img", "assets/icons/navbar/", "tab-1-gen-tooling.png", "tab-1-gen-tooling-hover.png")
     replaceHover("tab-2-img", "assets/icons/navbar/", "tab-2-enum-tooling.png", "tab-2-enum-tooling-hover.png")
     replaceHover("tab-3-img", "assets/icons/navbar/", "tab-3-exploit-assistant.png", "tab-3-exploit-assistant-hover.png")
     replaceHover("tab-4-img", "assets/icons/navbar/", "tab-4-shell-assistant.png", "tab-4-shell-assistant-hover.png")
     replaceHover("tab-5-img", "assets/icons/navbar/", "tab-5-checklist-assistant.png", "tab-5-checklist-assistant-hover.png")
     replaceHover("tab-6-img", "assets/icons/navbar/", "tab-6-useful-commands.png", "tab-6-useful-commands-hover.png")
+    // ## NAVBAR REPLACE IMAGE ON HOVER END ## //
 
-    // clipboard for copying text inside a textarea
+    // ## COPY CONTENT (textarea) START ## //
     let activeCopyIcon = null;
-
     document.addEventListener('click', function (event) {
         if (event.target.classList.contains('copy-icon')) {
             if (activeCopyIcon) {
@@ -169,34 +168,34 @@ document.addEventListener("DOMContentLoaded", function () {
             }, 2000);
         }
     });
+    // ## COPY CONTENT (textarea) END ## //
 
-    // add listeners for the refresh button class
+    // ## EVENT LISTENER FOR REFRESH-CONTROL (monitoring script) START ## //
     document.querySelectorAll(".refresh-control").forEach(element => {
         // Add event listener to each element
         element.addEventListener("click", function () {
             let controlRefreshState = element.getAttribute("data-control-refresh-active");
+            let controlRefreshTbody = document.getElementById(element.value)
 
             if (controlRefreshState === "true") {
-                let controlRefreshTbody = document.getElementById(element.value)
-                controlRefreshTbody.setAttribute("id", `${element.value}-stopped`)
                 element.classList.remove("btn-outline-danger")
                 element.classList.add("btn-outline-primary")
                 element.innerText = "Start refresh"
                 element.setAttribute("data-control-refresh-active", "false");
-                console.log(controlRefreshTbody)
+                controlRefreshTbody.setAttribute("data-control-update", "false")
 
             } else if (controlRefreshState === "false") {
-                let controlRefreshTbody = document.getElementById(`${element.value}-stopped`)
-                controlRefreshTbody.setAttribute("id", `${element.value}`)
                 element.classList.remove("btn-outline-primary")
                 element.classList.add("btn-outline-danger")
                 element.innerText = "Stop refresh"
                 element.setAttribute("data-control-refresh-active", "true");
-                console.log(controlRefreshTbody)
+                controlRefreshTbody.setAttribute("data-control-update", "true")
 
             }
         });
     });
+    // ## EVENT LISTENER FOR REFRESH-CONTROL (monitoring script) END ## //
+
 });
 
 /**

@@ -1,13 +1,17 @@
 // script that gets injected in the specified urls (manifest.json)
 browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
     switch (message.command) {
-        // tab 1 recon-tooling (spider)
+        // ## TAB 1 'general tooling' START ## //
+        // ## TAB 1 'general tooling' END ## //
+
+        // ## TAB 2 'enum tooling' START ## //
+        // website spider
         case "spiderCurrentWebsite":
             let spiderResult = await initSpider()
             browser.runtime.sendMessage({enumSpider: spiderResult, id: message.id})
             break;
 
-        // tab 2 recon-tooling (toolbox)
+        // toolbox
         case "highlightForms":
             document.querySelectorAll('form').forEach(form => form.style.border = '5px solid red');
             break;
@@ -31,19 +35,33 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
             browser.runtime.sendMessage({toolboxJson: headers, id: message.id});
             break;
 
-        // tab 2 enum-tooling (iframe checker)
+        // iframe checker
         case "enumToolingGetCurrentUrlIframe":
             let currentUrlPath = location.href
             browser.runtime.sendMessage({enumToolingGetCurrentUrlIframe: currentUrlPath, id: message.id});
             break;
+        // ## TAB 2 'enum tooling' END ## //
 
-        // tab 2 enum-tooling (CSRF checker)
+        // ## TAB 3 'exploit assistant' START ## //
+        // CSRF checker
         case "exploitAsssitantCSRFloadForms":
             let enumToolingCsrfForms = extractFormsAsJson()
-            browser.runtime.sendMessage({exploitAsssitantCSRFloadForms: enumToolingCsrfForms, domainName:`${window.location.origin}`, id: message.id});
+            browser.runtime.sendMessage({
+                exploitAsssitantCSRFloadForms: enumToolingCsrfForms,
+                domainName: `${window.location.origin}`,
+                id: message.id
+            });
             break;
+        // ## TAB 3 'exploit assistant' END ## //
 
-        // Additional cases for other commands can be added here
+        // ## TAB 4 'shell assistant' START ## //
+        // ## TAB 4 'shell assistant' END ## //
+
+        // ## TAB 5 '' START ## //
+        // ## TAB 5 '' END ## //
+
+        // ## TAB 6 START ## //
+        // ## TAB 6 END ## //
     }
 });
 
@@ -126,6 +144,12 @@ async function spiderWebsite(startUrl, maxDepth = 2) {
     return {simpleTree, siteTree};
 }
 
+/**
+ * buildSimpleTree()
+ *
+ * build a simple tree structure, used by spiderWebsite() async method
+ *
+ */
 function buildSimpleTree(tree, rootUrl) {
     const simpleTree = {};
     const rootDomain = new URL(rootUrl).origin;

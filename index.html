@@ -8,14 +8,17 @@
     <script src="assets/js/libs/jquery.js"></script>
     <script src="assets/js/libs/crypto.min.js"></script>
     <script src="assets/js/libs/bcrypt.min.js"></script>
+
     <style>
         .nav-link.active-link {
             color: #0056b3 !important; /* Custom color for active links */
             background-color: transparent !important;
         }
     </style>
+
 </head>
 <body>
+
 <div class="container-custom" style="overflow-x: hidden">
     <div class="row h-100">
         <div class="d-flex">
@@ -131,6 +134,7 @@
             </div>
             <!-- end navbar -->
 
+            <!-- main content START -->
             <div class="col-11 p-2 tab-content rounded border h-100 border border-dark" style="overflow-y: scroll;">
 
                 <!-- tab 1 (tooling) START-->
@@ -176,6 +180,7 @@
                         <div class="tab-pane fade show active"
                              id="encode_decode"
                              role="tabpanel" style="height: 485px">
+
                             <div class="d-flex flex-column justify-content-between">
                                 <div class="mt-2 mb-2">
                                     <h4> Encoding/ Decoding </h4>
@@ -233,6 +238,7 @@
                                 </div>
 
                             </div>
+
                         </div>
                         <!-- Encoding/ decoding tab END -->
 
@@ -266,7 +272,7 @@
                                         </span>
                                             <!-- start textarea and copybutton-->
                                             <div class="position-relative d-flex">
-                                        <textarea
+                                                <textarea
                                                 id="hash-generate-input"
                                                 class="form-control"
                                                 rows="2"
@@ -399,13 +405,16 @@
                             </div>
                         </div>
                         <!-- Formatter tab END -->
+
                     </div>
                     <!-- tab 1 content END -->
+
                 </div>
                 <!-- tab 1 (tooling) END -->
 
                 <!-- tab 2 (Enum tooling) START -->
                 <div class="tab-pane fade" id="tab2">
+
                     <!-- Nested tabs for Enum 2 START -->
                     <ul class="nav nav-tabs" id="enum-tooling-tab" role="tablist">
 
@@ -448,8 +457,10 @@
                                      width="25px" height="25px">
                             </a>
                         </li>
+
                     </ul>
                     <!-- Nested tabs for Enum 2 END -->
+
                     <!-- tab content START -->
                     <div class="tab-content" id="enum-tooling-tab-content">
 
@@ -501,7 +512,6 @@
                                         </a>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                         <!-- tab 1 - spider END -->
@@ -659,20 +669,22 @@
                                         </div>
                                     </a>
                                 </li>
+
                             </ul>
                             <!-- tab switcher Message listener END -->
 
                             <div class="tab-content">
-
                                 <div class="tab-pane fade show active mt-1" id="enum-tooling-postmessage-monitor-tab"
                                      style="height: 420px"
                                      role="tabpanel">
+
                                     <h6>
                                         Postmessage monitor: <br>
                                         <small>
                                             <span class="current-tab-url"></span>
                                         </small>
                                     </h6>
+
                                     <div class="form-group d-flex justify-content-between">
                                         <input class="form-control w-75 me-1" type="text" id="search-postmessage-input"
                                                placeholder="Search...">
@@ -681,6 +693,7 @@
                                                 data-control-refresh-active="true">Stop refresh
                                         </button>
                                     </div>
+
                                     <div>
                                         <table id="postmessage-monitor-table"
                                                class="table table-responsive-sm table-hover table-striped">
@@ -688,7 +701,7 @@
                                             <th>Message</th>
                                             <th>Timestamp</th>
                                             </thead>
-                                            <tbody id="postmessage-monitor-table-table-body">
+                                            <tbody id="postmessage-monitor-table-table-body" data-control-update="true">
 
                                             </tbody>
                                         </table>
@@ -697,6 +710,7 @@
 
                                 <div class="tab-pane fade mt-1" id="enum-tooling-cookie-monitor-tab"
                                      style="height: 420px" role="tabpanel">
+
                                     <h6>
                                         Cookie monitor:
                                         <br>
@@ -704,6 +718,7 @@
                                             <span class="current-tab-url"></span>
                                         </small>
                                     </h6>
+
                                     <div class="form-group d-flex justify-content-between">
                                         <input class="form-control w-75 me-1" type="text" id="search-cookie-monitor-input"
                                                placeholder="Search...">
@@ -712,6 +727,7 @@
                                                 data-control-refresh-active="true">Stop refresh
                                         </button>
                                     </div>
+
                                     <div>
                                         <table id="cookie-monitor-table"
                                                class="table table-responsive-sm table-hover table-striped">
@@ -721,19 +737,17 @@
                                             <th>Path</th>
                                             <th>Timestamp</th>
                                             </thead>
-                                            <tbody id="cookie-monitor-table-table-body">
+                                            <tbody id="cookie-monitor-table-table-body" data-control-update="true">
 
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
-                        <!-- tab 4 - message listener end -->
+                        <!-- tab 4 - message listener END -->
                     </div>
-
+                    <!-- tab content END -->
 
                 </div>
                 <!-- tab 2 (Enum) end -->
@@ -866,7 +880,7 @@
                 </div>
                 <!-- tab 6 (usefull commands) end -->
 
-
+                <!-- tab 7 & 8 (unused) START -->
                 <div class="tab-pane fade" id="tab7">
                     <!-- Nested tabs for Enum 7 -->
                     <ul class="nav nav-tabs" id="enum7Tab" role="tablist">
@@ -909,12 +923,19 @@
                         </div>
                     </div>
                 </div>
+                <!-- tab 7 & 8 (unused) START -->
+
             </div>
+            <!-- main content END -->
+
         </div>
     </div>
 </div>
+
+<!-- general JS used over all tabs START -->
 <script src="assets/js/main.js"></script>
 <script src="assets/js/extension-events.js"></script>
+<!-- general JS used over all tabs END -->
 
 <!-- tab specific script start -->
 <script src="assets/js/tabs/tab-1-tooling.js"></script>

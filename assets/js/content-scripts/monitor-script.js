@@ -1,6 +1,12 @@
 let cookieChangesJson = null;
 let postMessageEventsJson = null;
 
+/**
+ * cookieMonitor()
+ *
+ * monitor changes made to all cookies
+ *
+ */
 (function cookieMonitor() {
     // Array to store cookie changes
     const cookieChanges = [];
@@ -69,7 +75,12 @@ let postMessageEventsJson = null;
     });
 })();
 
-// Intercept and log all window.postMessage events
+/**
+ * interceptPostMessages()
+ *
+ * intercept all POST messages that can be retrieved from the current URL the user is on
+ *
+ */
 (function interceptPostMessages() {
     const originalPostMessage = window.postMessage;
     console.log('[*][CM] Postmessage monitor initialized');
@@ -107,7 +118,11 @@ let postMessageEventsJson = null;
     };
 })();
 
-// Function to handle circular references in objects
+/**
+ * getCircularReplacer()
+ *
+ * Function to handle circular references in objects
+ */
 function getCircularReplacer() {
     const seen = new WeakSet();
     return (key, value) => {
@@ -121,7 +136,11 @@ function getCircularReplacer() {
     };
 }
 
-// Function to sanitize messages by removing any properties that might cause cross-origin issues
+/**
+ * sanitizeMessage()
+ *
+ * Function to sanitize messages by removing any properties that might cause cross-origin issues
+ */
 function sanitizeMessage(message) {
     if (typeof message !== "object" || message === null) {
         return {message};
@@ -139,7 +158,11 @@ function sanitizeMessage(message) {
     return sanitized;
 }
 
-// Function to log all changes
+/**
+ * logAllChanges()
+ *
+ * logs all changes and updates the multiple variables with their new respective value, after that, sends the result with browser.runtime.sendmessage(), and repeats this every x seconds
+ */
 function logAllChanges() {
     try {
         cookieChangesJson = JSON.parse(window.getCookieChanges());
