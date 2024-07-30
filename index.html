@@ -273,10 +273,10 @@
                                             <!-- start textarea and copybutton-->
                                             <div class="position-relative d-flex">
                                                 <textarea
-                                                id="hash-generate-input"
-                                                class="form-control"
-                                                rows="2"
-                                                style="width: 100%; padding-right: 40px;"></textarea>
+                                                        id="hash-generate-input"
+                                                        class="form-control"
+                                                        rows="2"
+                                                        style="width: 100%; padding-right: 40px;"></textarea>
                                                 <a href="#">
                                                     <img class="copy-icon"
                                                          src="assets/icons/general/copy.png"
@@ -720,7 +720,8 @@
                                     </h6>
 
                                     <div class="form-group d-flex justify-content-between">
-                                        <input class="form-control w-75 me-1" type="text" id="search-cookie-monitor-input"
+                                        <input class="form-control w-75 me-1" type="text"
+                                               id="search-cookie-monitor-input"
                                                placeholder="Search...">
                                         <button class="refresh-control btn btn-outline-danger w-25"
                                                 value="cookie-monitor-table-table-body"
@@ -810,23 +811,98 @@
 
                 <!-- tab 4 (shell assistant) start -->
                 <div class="tab-pane fade" id="tab4">
-                    <!-- Nested tabs for Enum 4 -->
+
+                    <!-- shell assistant subtab navigation START -->
                     <ul class="nav nav-tabs" id="shell-assistant-tab" role="tablist">
+
                         <li class="nav-item">
-                            <a class="nav-link text-custom-dark-blue" id="enum4-sub1-tab" data-bs-toggle="tab"
-                               href="#enum4-sub1" role="tab">Enum 4 Sub 1</a>
+                            <a class="nav-link active" id="shell-assistant-linux-tab" data-bs-toggle="tab"
+                               href="#shell-assistant-linux-content" role="tab">
+                                <img data-bs-toggle="tooltip"
+                                     data-bs-placement="right" title="Linux shells"
+                                     src="assets/icons/navbar/tab-4-shell-assistant/linux.png"
+                                     width="25px" height="25px;">
+                            </a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link text-custom-dark-blue" id="enum4-sub2-tab" data-bs-toggle="tab"
-                               href="#enum4-sub2" role="tab">Enum 4 Sub 2</a>
+                            <a class="nav-link" id="shell-assistant-windows-tab" data-bs-toggle="tab"
+                               href="#shell-assistant-windows-content" role="tab">
+                                <img data-bs-toggle="tooltip"
+                                     data-bs-placement="right" title="Windows shells"
+                                     src="assets/icons/navbar/tab-4-shell-assistant/windows.png"
+                                     width="25px" height="25px;">
+                            </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" id="shell-assistant-PL-tab" data-bs-toggle="tab"
+                               href="#shell-assistant-PL-content" role="tab">
+                                <img data-bs-toggle="tooltip"
+                                     data-bs-placement="right" title="Programming language shells"
+                                     src="assets/icons/navbar/tab-4-shell-assistant/programing-languages.png"
+                                     width="25px" height="25px;">
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" id="shell-assistant-msf-tab" data-bs-toggle="tab"
+                               href="#shell-assistant-msf-content" role="tab">
+                                <img data-bs-toggle="tooltip"
+                                     data-bs-placement="right" title="MSF-venom shells"
+                                     src="assets/icons/navbar/tab-4-shell-assistant/metasploit.png"
+                                     width="25px" height="25px;">
+                            </a>
+                        </li>
+
                     </ul>
+                    <!-- shell assistant subtab navigation END -->
+
+
                     <div class="tab-content" id="shell-assistant-tabContent">
-                        <div class="tab-pane fade" id="enum4-sub1" role="tabpanel">
-                            <h4>Enum 4 Sub 1 Content</h4>
+                        <div class="tab-pane fade active show"
+                             id="shell-assistant-linux-content"
+                             role="tabpanel" style="height: 485px">
+                            <div class="d-flex flex-column justify-content-between h-100">
+                                <div class="mt-2 mb-2">
+                                    <h4> Linux shells </h4>
+                                </div>
+
+
+                            </div>
                         </div>
-                        <div class="tab-pane fade" id="enum4-sub2" role="tabpanel">
-                            <h4>Enum 4 Sub 2 Content</h4>
+                        <div class="tab-pane fade"
+                             id="shell-assistant-windows-content"
+                             role="tabpanel" style="height: 485px">
+                            <div class="d-flex flex-column justify-content-between h-100">
+                                <div class="mt-2 mb-2">
+                                    <h4> Windows shells </h4>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="tab-pane fade"
+                             id="shell-assistant-PL-content"
+                             role="tabpanel" style="height: 485px">
+                            <div class="d-flex flex-column justify-content-between h-100">
+                                <div class="mt-2 mb-2">
+                                    <h4> Programming language shells </h4>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="tab-pane fade"
+                             id="shell-assistant-msf-content"
+                             role="tabpanel" style="height: 485px">
+                            <div class="d-flex flex-column justify-content-between h-100">
+                                <div class="mt-2 mb-2">
+                                    <h4> MSF-venom shells </h4>
+                                </div>
+
+
+                            </div>
                         </div>
                     </div>
                 </div>
