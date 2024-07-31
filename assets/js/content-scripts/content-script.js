@@ -589,4 +589,3 @@ async function extractHeadersAsJson() {
 
     return JSON.stringify(headers, null, 2);
 }
-

@@ -102,8 +102,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     postMessageTr.appendChild(postMessageChangeTd)
                 }
                 if (tbodyUpdate === "true") {
-                    if (index === 0){
-                         tbody.innerHTML = ""
+                    if (index === 0) {
+                        tbody.innerHTML = ""
                     }
                     tbody.appendChild(postMessageTr)
                     applySeeMoreToTableCells(tbody)
@@ -127,8 +127,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 if (tbodyUpdate === "true") {
-                    if (index === 0){
-                         tbody.innerHTML = ""
+                    if (index === 0) {
+                        tbody.innerHTML = ""
                     }
                     tbody.appendChild(cookieChangeTr)
                     applySeeMoreToTableCells(tbody)
@@ -213,11 +213,17 @@ document.addEventListener('DOMContentLoaded', () => {
     persistDataMonitor()
     // ##### PERSIST DATA END ##### //
 
+    // ##### CODE HIGHLIGHTING START ##### //
+    insertIpInHighlight();
+    // ##### CODE HIGHLIGHTING END ##### //
+
     // ##### TABLE SORT AND SEARCH START ##### //
     makeAllTablesSortable()
 
     searchTable("search-postmessage-input", "postmessage-monitor-table")
     searchTable("search-cookie-monitor-input", "cookie-monitor-table")
+
+    searchList("shell-assistant-input-search", "shell-assistant-shell-list-general")
     // ##### TABLE SORT AND SEARCH END ##### //
 
 });
@@ -474,6 +480,23 @@ function searchTable(inputFieldId, tableId) {
 }
 
 /**
+ * searchList : searches for a value specific in a list.
+ *
+ * @param {*} inputFieldId id of the input field (no hashtag)
+ * @param {*} listId id of the list (no hashtag)
+ */
+function searchList(inputFieldId, listId) {
+    $(document).ready(function () {
+        $(`#${inputFieldId}`).on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $(`#${listId} li`).filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+}
+
+/**
  * makeAllTablesSortable()
  *
  * adds the possibility to sort ascending or descending based on a table column
@@ -609,10 +632,6 @@ function applySeeMoreToTableCells(tableBody) {
     });
 }
 
-// Example usage:
-// const tableBody = document.querySelector('table tbody');
-// applySeeMoreToTableCells(tableBody);
-
 /**
  * persistDataMonitor()
  *
@@ -643,3 +662,86 @@ function persistDataMonitor() {
         }
     });
 }
+
+/**
+ * escapeHTML()
+ *
+ * Escapes special HTML characters in a string to their corresponding HTML entities.
+ *
+ * @param {string} str - The string to escape.
+ * @returns {string} - The escaped string.
+ */
+function escapeHTML(str) {
+    return str.replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
+/**
+ * insertIpInHighlight()
+ *
+ * Inserts the IP address of the current tab into the highlighted code blocks.
+ */
+function insertIpInHighlight() {
+    // Get the IP address and localPort from the input fields
+    let localIp = document.getElementById("shell-assistant-local-ip");
+    let localPort = document.getElementById("shell-assistant-local-port");
+    let codeClass = ".shell-assistant-code-element-pre"
+
+    // Set the initial values of the code blocks
+    document.querySelectorAll(codeClass).forEach((codeElement) => {
+        let oldCodeElement = codeElement.querySelector("code")
+        let localIpValue = localIp.value.length > 0 ? localIp.value : "{ip}"
+        let localPortValue = localPort.value.length > 0 ? localPort.value : "{port}"
+        let newCodeElement = createElement("code", Array.from(oldCodeElement.classList))
+        newCodeElement.setAttribute("data-shell-assistant-original-code-value", oldCodeElement.getAttribute("data-shell-assistant-original-code-value"))
+        let codeElementOriginalValue = newCodeElement.getAttribute("data-shell-assistant-original-code-value");
+
+        newCodeElement.innerText = codeElementOriginalValue.replace(/{port}/g, localPortValue).replace(/{ip}/g, localIpValue);
+        oldCodeElement.remove()
+        codeElement.appendChild(newCodeElement)
+    });
+
+    // on input of the localIp, update all the code block values
+    localIp.addEventListener("input", function () {
+        document.querySelectorAll(codeClass).forEach((codeElement) => {
+            let oldCodeElement = codeElement.querySelector("code")
+            let localIpValue = localIp.value.length > 0 ? localIp.value : "{ip}"
+            let localPortValue = localPort.value.length > 0 ? localPort.value : "{port}"
+            let newCodeElement = createElement("code", Array.from(oldCodeElement.classList))
+            newCodeElement.setAttribute("data-shell-assistant-original-code-value", oldCodeElement.getAttribute("data-shell-assistant-original-code-value"))
+            let codeElementOriginalValue = newCodeElement.getAttribute("data-shell-assistant-original-code-value");
+
+            newCodeElement.innerText = codeElementOriginalValue.replace(/{port}/g, localPortValue).replace(/{ip}/g, localIpValue);
+            newCodeElement.style.cssText = oldCodeElement.style.cssText
+            oldCodeElement.remove()
+            codeElement.appendChild(newCodeElement)
+            hljs.highlightAll()
+            saveElementsToLocalStorage()
+        });
+    });
+
+    // on input of the localPort, update all the code block values
+    localPort.addEventListener("input", function () {
+        document.querySelectorAll(codeClass).forEach((codeElement) => {
+            let oldCodeElement = codeElement.querySelector("code")
+            let localIpValue = localIp.value.length > 0 ? localIp.value : "{ip}"
+            let localPortValue = localPort.value.length > 0 ? localPort.value : "{port}"
+            let newCodeElement = createElement("code", Array.from(oldCodeElement.classList))
+            newCodeElement.setAttribute("data-shell-assistant-original-code-value", oldCodeElement.getAttribute("data-shell-assistant-original-code-value"))
+            let codeElementOriginalValue = newCodeElement.getAttribute("data-shell-assistant-original-code-value");
+
+            newCodeElement.innerText = codeElementOriginalValue.replace(/{port}/g, localPortValue).replace(/{ip}/g, localIpValue);
+            newCodeElement.style.cssText = oldCodeElement.style.cssText
+            oldCodeElement.remove()
+            codeElement.appendChild(newCodeElement)
+            hljs.highlightAll()
+            saveElementsToLocalStorage()
+        });
+    });
+
+    hljs.highlightAll()
+}
+

@@ -4,18 +4,27 @@ let postMessageEventsJson = null;
 /**
  * cookieMonitor()
  *
- * monitor changes made to all cookies
+ * Monitors changes made to all cookies on the page.
  *
+ * This IIFE (Immediately Invoked Function Expression) sets up a monitoring system for cookies.
+ * It tracks additions, updates, and deletions of cookies and logs these changes.
  */
 (function cookieMonitor() {
     // Array to store cookie changes
     const cookieChanges = [];
+
+    // Map to store the original state of cookies
     let originalCookies = new Map(document.cookie.split('; ').map(cookie => {
         const [name, val = ''] = cookie.split('=');
         return [name.trim(), val.trim()];
     }));
 
-    // Function to poll cookies and detect changes
+    /**
+     * pollCookies()
+     *
+     * Function to poll cookies and detect changes.
+     * This function compares the current state of cookies with the original state and logs any changes.
+     */
     function pollCookies() {
         const currentCookies = new Map(document.cookie.split('; ').map(cookie => {
             const [name, val = ''] = cookie.split('=');
@@ -63,7 +72,14 @@ let postMessageEventsJson = null;
         setTimeout(pollCookies, 1000);
     }
 
-    // Expose function to get all cookie changes as a JSON string
+    /**
+     * getCookieChanges()
+     *
+     * Exposes a function to get all cookie changes as a JSON string.
+     * This function can be called from the global `window` object.
+     *
+     * @returns {string} JSON string representing all cookie changes.
+     */
     window.getCookieChanges = function () {
         return JSON.stringify(cookieChanges, getCircularReplacer(), 2);
     };
@@ -161,7 +177,7 @@ function sanitizeMessage(message) {
 /**
  * logAllChanges()
  *
- * logs all changes and updates the multiple variables with their new respective value, after that, sends the result with browser.runtime.sendmessage(), and repeats this every x seconds
+ * Function to log all changes to cookies and postMessage events every 3 seconds
  */
 function logAllChanges() {
     try {
@@ -181,14 +197,12 @@ function logAllChanges() {
         }
 
         if (cookieChangesJson.length > 0) {
-            // console.log('[*][CM] Detected cookie changes:', cookieChangesJson);
             let msg = {
                 cookieChange: {
-                    [`${window.location.href}`]: cookieChangesJson
+                    [window.location.href]: cookieChangesJson
                 },
                 id: "enum-tooling-altered-cookie-messages"
-            }
-
+            };
             browser.runtime.sendMessage(msg);
         }
     } catch (error) {

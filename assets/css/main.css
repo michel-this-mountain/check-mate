@@ -90,3 +90,12 @@ textarea {
     cursor: pointer;
     text-decoration: underline;
 }
+
+.shell-assistant-shell-list {
+    list-style: none;
+    text-align: left;
+}
+
+.shell-assistant-shell-list li {
+    height: 100px;
+}

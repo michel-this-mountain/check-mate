@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
             tabElement.classList.add('active-link');
         }
     }
+
     const lastActiveMainTab = localStorage.getItem("lastActiveMainTab") === null ? "#tab1" : localStorage.getItem("lastActiveMainTab");
     if (lastActiveMainTab) {
         activateTab(lastActiveMainTab);
@@ -129,12 +130,12 @@ document.addEventListener("DOMContentLoaded", function () {
     replaceHover("tab-6-img", "assets/icons/navbar/", "tab-6-useful-commands.png", "tab-6-useful-commands-hover.png")
     // ## NAVBAR REPLACE IMAGE ON HOVER END ## //
 
-    // ## COPY CONTENT (textarea) START ## //
+// ## COPY CONTENT (textarea and code) START ## //
     let activeCopyIcon = null;
     document.addEventListener('click', function (event) {
-        if (event.target.classList.contains('copy-icon')) {
+        if (event.target.classList.contains('copy-icon') || event.target.classList.contains('copy-icon-white')) {
             if (activeCopyIcon) {
-                activeCopyIcon.src = "/assets/icons/general/copy.png";
+                activeCopyIcon.src = activeCopyIcon.classList.contains('copy-icon') ? "/assets/icons/general/copy.png" : "/assets/icons/general/copy-white.png";
                 activeCopyIcon.style.cssText = "position: absolute; bottom: 5px; right: 5px;";
             }
 
@@ -146,29 +147,43 @@ document.addEventListener("DOMContentLoaded", function () {
             // Find the closest parent with the class 'position-relative'
             let container = event.target.closest('.position-relative');
             if (container) {
-                // Find the textarea within this container
-                let textarea = container.querySelector('textarea');
-                if (textarea) {
+                let contentToCopy = null;
+                if (img.classList.contains('copy-icon')) {
+                    // Find the textarea within this container
+                    let textarea = container.querySelector('textarea');
+                    if (textarea) {
+                        contentToCopy = textarea.value;
+                    }
+                } else if (img.classList.contains('copy-icon-white')) {
+                    // Find the code element within this container
+                    let codeElement = container.querySelector('code');
+                    if (codeElement) {
+                        contentToCopy = codeElement.textContent;
+                    }
+                }
+
+                if (contentToCopy) {
                     // Use the Clipboard API to copy the content
-                    navigator.clipboard.writeText(textarea.value).then(function () {
+                    navigator.clipboard.writeText(contentToCopy).then(function () {
                         console.log('[*] Text copied to clipboard');
                     }).catch(function (err) {
                         console.error('[*] Could not copy text: ', err);
                     });
                 }
-            }
 
-            img.src = "/assets/icons/general/copy-success.png";
-            setTimeout(function () {
-                if (activeCopyIcon === img) {
-                    img.src = "/assets/icons/general/copy.png";
-                    img.style.cssText = "position: absolute; bottom: 5px; right: 5px;";
-                    activeCopyIcon = null;
-                }
-            }, 2000);
+                img.src = img.classList.contains('copy-icon') ? "/assets/icons/general/copy-success.png" : "/assets/icons/general/copy-white-success.png";
+                setTimeout(function () {
+                    if (activeCopyIcon === img) {
+                        img.src = img.classList.contains('copy-icon') ? "/assets/icons/general/copy.png" : "/assets/icons/general/copy-white.png";
+                        img.style.cssText = "position: absolute; bottom: 5px; right: 5px;";
+                        activeCopyIcon = null;
+                    }
+                }, 2000);
+            }
         }
     });
-    // ## COPY CONTENT (textarea) END ## //
+    // ## COPY CONTENT (textarea and code) END ## //
+
 
     // ## EVENT LISTENER FOR REFRESH-CONTROL (monitoring script) START ## //
     document.querySelectorAll(".refresh-control").forEach(element => {
