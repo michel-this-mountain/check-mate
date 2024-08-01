@@ -153,7 +153,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         contentToCopy = textarea.value;
                     }
                 } else if (img.classList.contains('copy-icon-white')) {
-                    let preElement = container.querySelector('pre');
+                    let preElement = container.querySelector('div');
                     if (preElement) {
                         let codeElement = preElement.querySelector('code');
                         if (codeElement) {
