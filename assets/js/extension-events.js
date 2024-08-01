@@ -135,35 +135,34 @@ document.addEventListener("DOMContentLoaded", function () {
     document.addEventListener('click', function (event) {
         if (event.target.classList.contains('copy-icon') || event.target.classList.contains('copy-icon-white')) {
             if (activeCopyIcon) {
-                activeCopyIcon.src = activeCopyIcon.classList.contains('copy-icon') ? "/assets/icons/general/copy.png" : "/assets/icons/general/copy-white.png";
-                activeCopyIcon.style.cssText = "position: absolute; bottom: 5px; right: 5px;";
+                activeCopyIcon.src = activeCopyIcon.classList.contains('copy-icon') ? "assets/icons/general/copy.png" : "assets/icons/general/copy-white.png";
             }
 
             let img = event.target;
             activeCopyIcon = img;
 
-            img.style.cssText = "position: absolute; bottom: 5px; right: 5px; pointer-events: none;";
+            // Maintain the current position and other styles
+            img.style.pointerEvents = "none";
 
-            // Find the closest parent with the class 'position-relative'
-            let container = event.target.closest('.position-relative');
+            let container = event.target.closest('div');
             if (container) {
                 let contentToCopy = null;
                 if (img.classList.contains('copy-icon')) {
-                    // Find the textarea within this container
                     let textarea = container.querySelector('textarea');
                     if (textarea) {
                         contentToCopy = textarea.value;
                     }
                 } else if (img.classList.contains('copy-icon-white')) {
-                    // Find the code element within this container
-                    let codeElement = container.querySelector('code');
-                    if (codeElement) {
-                        contentToCopy = codeElement.textContent;
+                    let preElement = container.querySelector('pre');
+                    if (preElement) {
+                        let codeElement = preElement.querySelector('code');
+                        if (codeElement) {
+                            contentToCopy = codeElement.textContent;
+                        }
                     }
                 }
 
                 if (contentToCopy) {
-                    // Use the Clipboard API to copy the content
                     navigator.clipboard.writeText(contentToCopy).then(function () {
                         console.log('[*] Text copied to clipboard');
                     }).catch(function (err) {
@@ -171,17 +170,19 @@ document.addEventListener("DOMContentLoaded", function () {
                     });
                 }
 
-                img.src = img.classList.contains('copy-icon') ? "/assets/icons/general/copy-success.png" : "/assets/icons/general/copy-white-success.png";
+                img.src = img.classList.contains('copy-icon') ? "assets/icons/general/copy-success.png" : "assets/icons/general/copy-white-success.png";
                 setTimeout(function () {
                     if (activeCopyIcon === img) {
-                        img.src = img.classList.contains('copy-icon') ? "/assets/icons/general/copy.png" : "/assets/icons/general/copy-white.png";
-                        img.style.cssText = "position: absolute; bottom: 5px; right: 5px;";
+                        img.src = img.classList.contains('copy-icon') ? "assets/icons/general/copy.png" : "assets/icons/general/copy-white.png";
+                        img.style.pointerEvents = "";
                         activeCopyIcon = null;
                     }
                 }, 2000);
             }
         }
     });
+
+
     // ## COPY CONTENT (textarea and code) END ## //
 
 
