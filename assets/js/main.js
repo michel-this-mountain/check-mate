@@ -223,7 +223,6 @@ document.addEventListener('DOMContentLoaded', () => {
     searchTable("search-postmessage-input", "postmessage-monitor-table")
     searchTable("search-cookie-monitor-input", "cookie-monitor-table")
 
-    searchList("shell-assistant-input-search", "shell-assistant-shell-list-general")
     // ##### TABLE SORT AND SEARCH END ##### //
 
 });
@@ -287,6 +286,20 @@ function saveElementsToLocalStorage() {
         let PD_id = PD_button.id;
         localStorage.setItem(PD_id, PD_button.value);
     });
+
+    // Save all select menus
+    let PD_selects = document.querySelectorAll('select');
+    PD_selects.forEach(function (PD_select) {
+        let PD_id = PD_select.id;
+        localStorage.setItem(PD_id, PD_select.value);
+    });
+
+    // Save all code blocks
+    let PD_codeBlocks = document.querySelectorAll('code');
+    PD_codeBlocks.forEach(function (PD_codeBlock) {
+        let PD_id = PD_codeBlock.id;
+        localStorage.setItem(PD_id, PD_codeBlock.textContent);
+    });
 }
 
 /**
@@ -328,6 +341,26 @@ function loadElementsFromLocalStorage() {
             PD_button.value = PD_savedValue;
         }
     });
+
+    // Load all select menus
+    let PD_selects = document.querySelectorAll('select');
+    PD_selects.forEach(function (PD_select) {
+        let PD_id = PD_select.id;
+        let PD_savedValue = localStorage.getItem(PD_id);
+        if (PD_savedValue !== null) {
+            PD_select.value = PD_savedValue;
+        }
+    });
+
+    // Load all code blocks
+    let PD_codeBlocks = document.querySelectorAll('code');
+    PD_codeBlocks.forEach(function (PD_codeBlock) {
+        let PD_id = PD_codeBlock.id;
+        let PD_savedValue = localStorage.getItem(PD_id);
+        if (PD_savedValue !== null) {
+            PD_codeBlock.textContent = PD_savedValue;
+        }
+    });
 }
 
 /**
@@ -358,6 +391,20 @@ function removeElementsFromLocalStorage() {
         let PD_id = PD_button.id;
         localStorage.removeItem(PD_id);
     });
+
+    // Remove all select menus
+    let PD_selects = document.querySelectorAll('select');
+    PD_selects.forEach(function (PD_select) {
+        let PD_id = PD_select.id;
+        localStorage.removeItem(PD_id);
+    });
+
+    // Remove all code blocks
+    let PD_codeBlocks = document.querySelectorAll('code');
+    PD_codeBlocks.forEach(function (PD_codeBlock) {
+        let PD_id = PD_codeBlock.id;
+        localStorage.removeItem(PD_id);
+    });
 }
 
 /**
@@ -370,7 +417,9 @@ function setupMutationObserver() {
         PD_mutations.forEach(function (PD_mutation) {
             if (PD_mutation.target.tagName.toLowerCase() === 'textarea' ||
                 (PD_mutation.target.tagName.toLowerCase() === 'input' && PD_mutation.target.type === 'checkbox' && PD_mutation.target.id !== 'persist-data-checkbox') ||
-                PD_mutation.target.tagName.toLowerCase() === 'button') {
+                PD_mutation.target.tagName.toLowerCase() === 'button' ||
+                PD_mutation.target.tagName.toLowerCase() === 'select' ||
+                PD_mutation.target.tagName.toLowerCase() === 'code') {
                 saveElementsToLocalStorage();
             }
         });
@@ -383,7 +432,7 @@ function setupMutationObserver() {
         subtree: true
     };
 
-    document.querySelectorAll('textarea, input[type="checkbox"], button').forEach(function (PD_element) {
+    document.querySelectorAll('textarea, input[type="checkbox"], button, select, code').forEach(function (PD_element) {
         if (!(PD_element.tagName.toLowerCase() === 'input' && PD_element.id === 'persist-data-checkbox')) {
             PD_observer.observe(PD_element, PD_config);
         }
@@ -398,8 +447,16 @@ function setupMutationObserver() {
         }
     });
 
+    // Add change event listeners for select menus
+    document.querySelectorAll('select').forEach(function (PD_select) {
+        PD_select.addEventListener('change', function () {
+            saveElementsToLocalStorage();
+        });
+    });
+
     saveElementsToLocalStorage();
 }
+
 
 /**
  * parseFormsFromJson()
@@ -672,11 +729,12 @@ function persistDataMonitor() {
  * @returns {string} - The escaped string.
  */
 function escapeHTML(str) {
-    return str.replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
+    return str.replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;")
+        .replace(/\n/g, "<br>");
 }
 
 /**
@@ -685,79 +743,105 @@ function escapeHTML(str) {
  * Inserts the IP address of the current tab into the highlighted code blocks.
  */
 function insertIpInHighlight() {
-    // Get the IP address and localPort from the input fields
-    let localIp = document.getElementById("shell-assistant-local-ip");
-    let localPort = document.getElementById("shell-assistant-local-port");
-    let codeClass = ".shell-assistant-code-element-pre"
+    // Ensure reverseShells object is defined and accessible
+    if (typeof reverseShells === 'undefined' || !reverseShells.reverse_shell) {
+        console.error('reverseShells object is not defined or does not contain reverse_shell property.');
+    } else {
+        // Get the IP, port, and other required elements
+        let localIp = document.getElementById("shell-assistant-local-ip");
+        let localPort = document.getElementById("shell-assistant-local-port");
+        let selectMenuLanguageTool = document.getElementById("shell-assistant-select-menu-language-tool");
+        let selectMenuShellType = document.getElementById("shell-assistant-select-menu-reverse-shell");
 
-    // Set the initial values of the code blocks
-    document.querySelectorAll(codeClass).forEach((codeElement) => {
-        let oldCodeElement = codeElement.querySelector("div code");
-        if (oldCodeElement) {
-            let oldCodeElementClassList = Array.from(oldCodeElement.classList);
-            let newCodeElement = document.createElement("code");
-            newCodeElement.classList.add(...oldCodeElementClassList);
-            newCodeElement.setAttribute("data-shell-assistant-original-code-value", oldCodeElement.getAttribute("data-shell-assistant-original-code-value"));
+        // Append an empty element (disabled) so that the user must choose a language
 
-            let localIpValue = localIp.value.length > 0 ? localIp.value : "{ip}";
-            let localPortValue = localPort.value.length > 0 ? localPort.value : "{port}";
-            let codeElementOriginalValue = newCodeElement.getAttribute("data-shell-assistant-original-code-value");
-            newCodeElement.innerText = codeElementOriginalValue.replace(/{port}/g, localPortValue).replace(/{ip}/g, localIpValue);
+        let languageOptionDisabled = document.createElement("option");
+        languageOptionDisabled.text = "Choose language";
+        languageOptionDisabled.setAttribute("disabled", "true");
+        languageOptionDisabled.setAttribute("selected", "true");
+        selectMenuLanguageTool.appendChild(languageOptionDisabled);
 
-            oldCodeElement.parentNode.replaceChild(newCodeElement, oldCodeElement);
+        // Populate selectMenuLanguageTool with options from reverseShells
+        Object.keys(reverseShells.reverse_shell).forEach(key => {
+            let option = document.createElement("option");
+            option.text = key;
+            option.value = key;
+            selectMenuLanguageTool.appendChild(option);
+        });
+
+        // Append an empty element (disabled) so that the user must choose a reverse shell
+        let shellOptionDisabled = document.createElement("option");
+        shellOptionDisabled.text = "Choose reverse shell";
+        shellOptionDisabled.setAttribute("disabled", "true");
+        shellOptionDisabled.setAttribute("selected", "true");
+        selectMenuShellType.appendChild(shellOptionDisabled);
+
+        // Event listener for selectMenuLanguageTool changes
+        selectMenuLanguageTool.addEventListener("change", function () {
+            let selectMenuLanguagetoolValue = selectMenuLanguageTool.value;
+            selectMenuShellType.innerHTML = "";
+
+            // Append the disabled option again
+            let shellOptionDisabled = document.createElement("option");
+            shellOptionDisabled.text = "Choose reverse shell";
+            shellOptionDisabled.setAttribute("disabled", "true");
+            shellOptionDisabled.setAttribute("selected", "true");
+            selectMenuShellType.appendChild(shellOptionDisabled);
+
+            // Populate selectMenuShellType with options based on selected language
+            reverseShells.reverse_shell[selectMenuLanguagetoolValue].forEach(shell => {
+                let option = document.createElement("option");
+                option.text = shell.title;
+                option.value = shell.command;
+                option.setAttribute("data-cm-language", shell.highlight);
+                selectMenuShellType.appendChild(option);
+            });
+            saveElementsToLocalStorage();
+        });
+
+        document.querySelectorAll('code').forEach((el) => {
+            hljs.highlightElement(el);
+        });
+
+        // Event listener for selectMenuShellType changes
+        selectMenuShellType.addEventListener("change", function () {
+            replaceAndBuildCodeElement();
+            saveElementsToLocalStorage();
+        });
+
+        // Event listener for localIp changes
+        localIp.addEventListener("input", function () {
+            replaceAndBuildCodeElement();
+            saveElementsToLocalStorage()
+        });
+
+        // Event listener for localPort changes
+        localPort.addEventListener("input", function () {
+            replaceAndBuildCodeElement();
+            saveElementsToLocalStorage()
+        });
+
+        // Function to build and replace the code element
+        function buildCodeElement(oldCodeElement, language) {
+            let codeElement = document.createElement("code");
+            codeElement.classList.add("rounded", language);
+            codeElement.setAttribute("style", oldCodeElement.getAttribute("style"));
+            codeElement.setAttribute("id", oldCodeElement.getAttribute("id"));
+            codeElement.textContent = oldCodeElement.textContent;
+
+            return codeElement;
         }
-    });
 
-    // on input of the localIp, update all the code block values
+        function replaceAndBuildCodeElement() {
+            let oldCodeElement = document.getElementById("shell-assistant-reverse-shell-code-element");
+            let commandTemplate = selectMenuShellType.value.replace(/{ip}/g, localIp.value).replace(/{port}/g, localPort.value);
+            oldCodeElement.textContent = commandTemplate;
+            oldCodeElement.parentNode.replaceChild(buildCodeElement(oldCodeElement, selectMenuShellType.options[selectMenuShellType.selectedIndex].getAttribute("data-cm-language")), oldCodeElement);
 
-    localIp.addEventListener("input", function () {
-        document.querySelectorAll(codeClass).forEach((codeElement) => {
-            let oldCodeElement = codeElement.querySelector("div code");
-            if (oldCodeElement) {
-                let oldCodeElementClassList = Array.from(oldCodeElement.classList);
-                let newCodeElement = document.createElement("code");
-                newCodeElement.classList.add(...oldCodeElementClassList);
-                newCodeElement.setAttribute("data-shell-assistant-original-code-value", oldCodeElement.getAttribute("data-shell-assistant-original-code-value"));
-
-                let localIpValue = localIp.value.length > 0 ? localIp.value : "{ip}";
-                let localPortValue = localPort.value.length > 0 ? localPort.value : "{port}";
-                let codeElementOriginalValue = newCodeElement.getAttribute("data-shell-assistant-original-code-value");
-                newCodeElement.innerText = codeElementOriginalValue.replace(/{port}/g, localPortValue).replace(/{ip}/g, localIpValue);
-
-                oldCodeElement.parentNode.replaceChild(newCodeElement, oldCodeElement);
-                document.querySelectorAll('code').forEach((el) => {
-                    hljs.highlightElement(el);
-                });
-                saveElementsToLocalStorage()
-            }
-        });
-    });
-
-    // on input of the localPort, update all the code block values
-    localPort.addEventListener("input", function () {
-        document.querySelectorAll(codeClass).forEach((codeElement) => {
-            let oldCodeElement = codeElement.querySelector("div code");
-            if (oldCodeElement) {
-                let oldCodeElementClassList = Array.from(oldCodeElement.classList);
-                let newCodeElement = document.createElement("code");
-                newCodeElement.classList.add(...oldCodeElementClassList);
-                newCodeElement.setAttribute("data-shell-assistant-original-code-value", oldCodeElement.getAttribute("data-shell-assistant-original-code-value"));
-
-                let localIpValue = localIp.value.length > 0 ? localIp.value : "{ip}";
-                let localPortValue = localPort.value.length > 0 ? localPort.value : "{port}";
-                let codeElementOriginalValue = newCodeElement.getAttribute("data-shell-assistant-original-code-value");
-                newCodeElement.innerText = codeElementOriginalValue.replace(/{port}/g, localPortValue).replace(/{ip}/g, localIpValue);
-
-                oldCodeElement.parentNode.replaceChild(newCodeElement, oldCodeElement);
-                document.querySelectorAll('code').forEach((el) => {
-                    hljs.highlightElement(el);
-                });
-                saveElementsToLocalStorage()
-            }
-        });
-    });
-    document.querySelectorAll('code').forEach((el) => {
-        hljs.highlightElement(el);
-    });
+            document.querySelectorAll('code').forEach((el) => {
+                hljs.highlightElement(el);
+            });
+        }
+    }
 }
 

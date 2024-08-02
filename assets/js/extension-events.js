@@ -133,9 +133,9 @@ document.addEventListener("DOMContentLoaded", function () {
 // ## COPY CONTENT (textarea and code) START ## //
     let activeCopyIcon = null;
     document.addEventListener('click', function (event) {
-        if (event.target.classList.contains('copy-icon') || event.target.classList.contains('copy-icon-white')) {
+        if (event.target.classList.contains('copy-icon') || event.target.classList.contains('copy-icon-code')) {
             if (activeCopyIcon) {
-                activeCopyIcon.src = activeCopyIcon.classList.contains('copy-icon') ? "assets/icons/general/copy.png" : "assets/icons/general/copy-white.png";
+                activeCopyIcon.src = "assets/icons/general/copy.png";
             }
 
             let img = event.target;
@@ -152,8 +152,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (textarea) {
                         contentToCopy = textarea.value;
                     }
-                } else if (img.classList.contains('copy-icon-white')) {
-                    let preElement = container.querySelector('div');
+                } else if (img.classList.contains('copy-icon-code')) {
+                    let preElement = container.querySelector('pre');
                     if (preElement) {
                         let codeElement = preElement.querySelector('code');
                         if (codeElement) {
@@ -170,10 +170,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     });
                 }
 
-                img.src = img.classList.contains('copy-icon') ? "assets/icons/general/copy-success.png" : "assets/icons/general/copy-white-success.png";
+                img.src = "assets/icons/general/copy-success.png";
                 setTimeout(function () {
                     if (activeCopyIcon === img) {
-                        img.src = img.classList.contains('copy-icon') ? "assets/icons/general/copy.png" : "assets/icons/general/copy-white.png";
+                        img.src = "assets/icons/general/copy.png";
                         img.style.pointerEvents = "";
                         activeCopyIcon = null;
                     }
