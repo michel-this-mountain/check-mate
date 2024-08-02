@@ -209,10 +209,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     });
 
-    // ##### PERSIST DATA START ##### //
-    persistDataMonitor()
-    // ##### PERSIST DATA END ##### //
-
     // ##### CODE HIGHLIGHTING START ##### //
     insertIpInHighlight();
     // ##### CODE HIGHLIGHTING END ##### //
@@ -222,9 +218,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     searchTable("search-postmessage-input", "postmessage-monitor-table")
     searchTable("search-cookie-monitor-input", "cookie-monitor-table")
-
     // ##### TABLE SORT AND SEARCH END ##### //
 
+    // ##### PERSIST DATA START ##### //
+    persistDataMonitor()
+    // ##### PERSIST DATA END ##### //
+    document.querySelectorAll('code').forEach((el) => {
+        hljs.highlightElement(el);
+    });
 });
 
 /**
@@ -753,40 +754,40 @@ function insertIpInHighlight() {
         let selectMenuLanguageTool = document.getElementById("shell-assistant-select-menu-language-tool");
         let selectMenuShellType = document.getElementById("shell-assistant-select-menu-reverse-shell");
 
-        // Append an empty element (disabled) so that the user must choose a language
-
-        let languageOptionDisabled = document.createElement("option");
-        languageOptionDisabled.text = "Choose language";
-        languageOptionDisabled.setAttribute("disabled", "true");
-        languageOptionDisabled.setAttribute("selected", "true");
-        selectMenuLanguageTool.appendChild(languageOptionDisabled);
+        selectMenuLanguageTool.appendChild(buildDisabledSelectOption("Select language/ tool"))
+        selectMenuShellType.appendChild(buildDisabledSelectOption("Select reverse shell"))
 
         // Populate selectMenuLanguageTool with options from reverseShells
         Object.keys(reverseShells.reverse_shell).forEach(key => {
             let option = document.createElement("option");
             option.text = key;
             option.value = key;
+
+            if (localStorage.getItem("shell-assistant-select-menu-language-tool") === key) {
+                option.selected = true;
+                Object.keys(reverseShells.reverse_shell[key]).forEach(shell => {
+                    let optionShell = document.createElement("option");
+                    optionShell.text = reverseShells.reverse_shell[key][shell].title;
+                    optionShell.value = reverseShells.reverse_shell[key][shell].command;
+
+                    if (localStorage.getItem("shell-assistant-select-menu-reverse-shell") === reverseShells.reverse_shell[key][shell].command) {
+                        optionShell.selected = true;
+                    } else {
+                        optionShell.text = reverseShells.reverse_shell[key][shell].title;
+                        optionShell.selected = true;
+                    }
+
+                    selectMenuShellType.appendChild(optionShell);
+                });
+            }
             selectMenuLanguageTool.appendChild(option);
         });
-
-        // Append an empty element (disabled) so that the user must choose a reverse shell
-        let shellOptionDisabled = document.createElement("option");
-        shellOptionDisabled.text = "Choose reverse shell";
-        shellOptionDisabled.setAttribute("disabled", "true");
-        shellOptionDisabled.setAttribute("selected", "true");
-        selectMenuShellType.appendChild(shellOptionDisabled);
 
         // Event listener for selectMenuLanguageTool changes
         selectMenuLanguageTool.addEventListener("change", function () {
             let selectMenuLanguagetoolValue = selectMenuLanguageTool.value;
             selectMenuShellType.innerHTML = "";
-
-            // Append the disabled option again
-            let shellOptionDisabled = document.createElement("option");
-            shellOptionDisabled.text = "Choose reverse shell";
-            shellOptionDisabled.setAttribute("disabled", "true");
-            shellOptionDisabled.setAttribute("selected", "true");
-            selectMenuShellType.appendChild(shellOptionDisabled);
+            selectMenuShellType.appendChild(buildDisabledSelectOption("Select reverse shell"))
 
             // Populate selectMenuShellType with options based on selected language
             reverseShells.reverse_shell[selectMenuLanguagetoolValue].forEach(shell => {
@@ -797,10 +798,6 @@ function insertIpInHighlight() {
                 selectMenuShellType.appendChild(option);
             });
             saveElementsToLocalStorage();
-        });
-
-        document.querySelectorAll('code').forEach((el) => {
-            hljs.highlightElement(el);
         });
 
         // Event listener for selectMenuShellType changes
@@ -821,27 +818,51 @@ function insertIpInHighlight() {
             saveElementsToLocalStorage()
         });
 
-        // Function to build and replace the code element
-        function buildCodeElement(oldCodeElement, language) {
-            let codeElement = document.createElement("code");
-            codeElement.classList.add("rounded", language);
-            codeElement.setAttribute("style", oldCodeElement.getAttribute("style"));
-            codeElement.setAttribute("id", oldCodeElement.getAttribute("id"));
-            codeElement.textContent = oldCodeElement.textContent;
-
-            return codeElement;
-        }
-
+        /**
+         * replaceAndBuildCodeElement()
+         *
+         * Replaces the current code element with a new one based on the selected shell type
+         */
         function replaceAndBuildCodeElement() {
             let oldCodeElement = document.getElementById("shell-assistant-reverse-shell-code-element");
-            let commandTemplate = selectMenuShellType.value.replace(/{ip}/g, localIp.value).replace(/{port}/g, localPort.value);
-            oldCodeElement.textContent = commandTemplate;
-            oldCodeElement.parentNode.replaceChild(buildCodeElement(oldCodeElement, selectMenuShellType.options[selectMenuShellType.selectedIndex].getAttribute("data-cm-language")), oldCodeElement);
+            let selectedOption = selectMenuShellType.options[selectMenuShellType.selectedIndex];
 
-            document.querySelectorAll('code').forEach((el) => {
-                hljs.highlightElement(el);
-            });
+            if (selectedOption) {
+                oldCodeElement.textContent = selectMenuShellType.value.replace(/{ip}/g, localIp.value).replace(/{port}/g, localPort.value);
+                oldCodeElement.parentNode.replaceChild(buildCodeElement(oldCodeElement, selectedOption.getAttribute("data-cm-language")), oldCodeElement);
+
+                document.querySelectorAll('code').forEach((el) => {
+                    hljs.highlightElement(el);
+                });
+            } else {
+                console.error("No option selected in selectMenuShellType.");
+            }
+
+            function buildCodeElement(oldCodeElement, language) {
+                let codeElement = document.createElement("code");
+                codeElement.classList.add("rounded", language, "p-2");
+                codeElement.setAttribute("style", oldCodeElement.getAttribute("style"));
+                codeElement.setAttribute("id", oldCodeElement.getAttribute("id"));
+                codeElement.textContent = oldCodeElement.textContent;
+
+                return codeElement;
+            }
         }
     }
+}
+
+/**
+ * buildDisabledSelectOption()
+ *
+ * Builds a disabled select option element with the specified text content.
+ * @param textContent
+ * @returns {HTMLOptionElement}
+ */
+function buildDisabledSelectOption(textContent) {
+    let option = document.createElement("option");
+    option.text = textContent
+    option.selected = true;
+    option.disabled = true;
+    return option;
 }
 

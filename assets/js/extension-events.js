@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
     replaceHover("tab-6-img", "assets/icons/navbar/", "tab-6-useful-commands.png", "tab-6-useful-commands-hover.png")
     // ## NAVBAR REPLACE IMAGE ON HOVER END ## //
 
-// ## COPY CONTENT (textarea and code) START ## //
+    // ## COPY CONTENT (textarea and code) START ## //
     let activeCopyIcon = null;
     document.addEventListener('click', function (event) {
         if (event.target.classList.contains('copy-icon') || event.target.classList.contains('copy-icon-code')) {
@@ -181,8 +181,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     });
-
-
     // ## COPY CONTENT (textarea and code) END ## //
 
 
