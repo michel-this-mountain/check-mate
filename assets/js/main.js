@@ -210,7 +210,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ##### CODE HIGHLIGHTING START ##### //
-    insertIpInHighlight();
+
+    // reverse shell code highlighting
+    insertIpInHighlight(
+        "shell-assistant-local-ip",
+        "shell-assistant-local-port",
+        "shell-assistant-select-menu-language-tool",
+        "shell-assistant-select-menu-reverse-shell",
+        "shell-assistant-reverse-shell-code-element",
+        reverseShells,
+        "reverse_shell"
+    );
+
+
     // ##### CODE HIGHLIGHTING END ##### //
 
     // ##### TABLE SORT AND SEARCH START ##### //
@@ -738,116 +750,77 @@ function escapeHTML(str) {
         .replace(/\n/g, "<br>");
 }
 
-/**
- * insertIpInHighlight()
- *
- * Inserts the IP address of the current tab into the highlighted code blocks.
- */
-function insertIpInHighlight() {
-    // Ensure reverseShells object is defined and accessible
-    if (typeof reverseShells === 'undefined' || !reverseShells.reverse_shell) {
-        console.error('reverseShells object is not defined or does not contain reverse_shell property.');
-    } else {
-        // Get the IP, port, and other required elements
-        let localIp = document.getElementById("shell-assistant-local-ip");
-        let localPort = document.getElementById("shell-assistant-local-port");
-        let selectMenuLanguageTool = document.getElementById("shell-assistant-select-menu-language-tool");
-        let selectMenuShellType = document.getElementById("shell-assistant-select-menu-reverse-shell");
+function insertIpInHighlight(localIpId, localPortId, selectMenuLanguageToolId, selectMenuShellTypeId, codeElementId, revShellVar, firstKey) {
+    if (!revShellVar || !revShellVar[firstKey]) {
+        console.error('[*][CM] reverseShells object is not defined or does not contain reverse_shell property.');
+        return;
+    }
 
-        selectMenuLanguageTool.appendChild(buildDisabledSelectOption("Select language/ tool"))
-        selectMenuShellType.appendChild(buildDisabledSelectOption("Select reverse shell"))
+    // get the elements that are required
+    localIp = document.getElementById(localIpId)
+    localPort = document.getElementById(localPortId)
+    selectMenuLanguageTool = document.getElementById(selectMenuLanguageToolId)
+    selectMenuShellType = document.getElementById(selectMenuShellTypeId)
 
-        // Populate selectMenuLanguageTool with options from reverseShells
-        Object.keys(reverseShells.reverse_shell).forEach(key => {
-            let option = document.createElement("option");
-            option.text = key;
-            option.value = key;
+    // apply a disabled select option to both the select menu's
+    selectMenuLanguageTool.appendChild(buildDisabledSelectOption("Select language/ tool"));
+    selectMenuShellType.appendChild(buildDisabledSelectOption("Select shell"));
 
-            if (localStorage.getItem("shell-assistant-select-menu-language-tool") === key) {
-                option.selected = true;
-                Object.keys(reverseShells.reverse_shell[key]).forEach(shell => {
-                    let optionShell = document.createElement("option");
-                    optionShell.text = reverseShells.reverse_shell[key][shell].title;
-                    optionShell.value = reverseShells.reverse_shell[key][shell].command;
+    // iterate over the reverse shell objects and populate the select menu's
+    Object.keys(revShellVar[firstKey]).forEach(key => {
+        const option = new Option(key, key);
+        selectMenuLanguageTool.appendChild(option);
 
-                    if (localStorage.getItem("shell-assistant-select-menu-reverse-shell") === reverseShells.reverse_shell[key][shell].command) {
-                        optionShell.selected = true;
-                    } else {
-                        optionShell.text = reverseShells.reverse_shell[key][shell].title;
-                        optionShell.selected = true;
-                    }
-
-                    selectMenuShellType.appendChild(optionShell);
-                });
-            }
-            selectMenuLanguageTool.appendChild(option);
-        });
-
-        // Event listener for selectMenuLanguageTool changes
-        selectMenuLanguageTool.addEventListener("change", function () {
-            let selectMenuLanguagetoolValue = selectMenuLanguageTool.value;
-            selectMenuShellType.innerHTML = "";
-            selectMenuShellType.appendChild(buildDisabledSelectOption("Select reverse shell"))
-
-            // Populate selectMenuShellType with options based on selected language
-            reverseShells.reverse_shell[selectMenuLanguagetoolValue].forEach(shell => {
-                let option = document.createElement("option");
-                option.text = shell.title;
-                option.value = shell.command;
-                option.setAttribute("data-cm-language", shell.highlight);
-                selectMenuShellType.appendChild(option);
-            });
-            saveElementsToLocalStorage();
-        });
-
-        // Event listener for selectMenuShellType changes
-        selectMenuShellType.addEventListener("change", function () {
-            replaceAndBuildCodeElement();
-            saveElementsToLocalStorage();
-        });
-
-        // Event listener for localIp changes
-        localIp.addEventListener("input", function () {
-            replaceAndBuildCodeElement();
-            saveElementsToLocalStorage()
-        });
-
-        // Event listener for localPort changes
-        localPort.addEventListener("input", function () {
-            replaceAndBuildCodeElement();
-            saveElementsToLocalStorage()
-        });
-
-        /**
-         * replaceAndBuildCodeElement()
-         *
-         * Replaces the current code element with a new one based on the selected shell type
-         */
-        function replaceAndBuildCodeElement() {
-            let oldCodeElement = document.getElementById("shell-assistant-reverse-shell-code-element");
-            let selectedOption = selectMenuShellType.options[selectMenuShellType.selectedIndex];
-
-            if (selectedOption) {
-                oldCodeElement.textContent = selectMenuShellType.value.replace(/{ip}/g, localIp.value).replace(/{port}/g, localPort.value);
-                oldCodeElement.parentNode.replaceChild(buildCodeElement(oldCodeElement, selectedOption.getAttribute("data-cm-language")), oldCodeElement);
-
-                document.querySelectorAll('code').forEach((el) => {
-                    hljs.highlightElement(el);
-                });
-            } else {
-                console.error("No option selected in selectMenuShellType.");
-            }
-
-            function buildCodeElement(oldCodeElement, language) {
-                let codeElement = document.createElement("code");
-                codeElement.classList.add("rounded", language, "p-2");
-                codeElement.setAttribute("style", oldCodeElement.getAttribute("style"));
-                codeElement.setAttribute("id", oldCodeElement.getAttribute("id"));
-                codeElement.textContent = oldCodeElement.textContent;
-
-                return codeElement;
-            }
+        if (localStorage.getItem(selectMenuLanguageToolId) === key) {
+            option.selected = true;
+            populateShellTypeOptions(revShellVar[firstKey][key]);
         }
+    });
+
+    // add event listeners to the select menu's
+    selectMenuLanguageTool.addEventListener("change", () => {
+        selectMenuShellType.innerHTML = "";
+        selectMenuShellType.appendChild(buildDisabledSelectOption("Select shell"));
+        populateShellTypeOptions(revShellVar[firstKey][selectMenuLanguageTool.value]);
+    });
+
+    // when the shell changes, update the code field
+    selectMenuShellType.addEventListener("change", () => {
+        replaceAndBuildCodeElement();
+    });
+
+    //
+    localIp.addEventListener("input", replaceAndBuildCodeElement);
+    localPort.addEventListener("input", replaceAndBuildCodeElement);
+
+    function populateShellTypeOptions(shells) {
+        shells.forEach(shell => {
+            const option = new Option(shell.title, shell.command);
+            option.dataset.cmLanguage = shell.highlight;
+            selectMenuShellType.appendChild(option);
+
+            if (localStorage.getItem(selectMenuShellTypeId) === shell.command) {
+                option.selected = true;
+            }
+        });
+    }
+
+    function replaceAndBuildCodeElement() {
+        const oldCodeElement = document.getElementById(codeElementId);
+        const newCodeElement = buildCodeElement(oldCodeElement, selectMenuShellType.selectedOptions[0]?.dataset.cmLanguage);
+        newCodeElement.textContent = selectMenuShellType.value.replace(/{ip}/g, localIp.value).replace(/{port}/g, localPort.value);
+        oldCodeElement.replaceWith(newCodeElement);
+        document.querySelectorAll('code').forEach(hljs.highlightElement);
+        saveElementsToLocalStorage();
+    }
+
+    function buildCodeElement(oldCodeElement, language) {
+        const codeElement = document.createElement("code");
+        codeElement.className = `rounded ${language} p-2`;
+        codeElement.style = oldCodeElement.style;
+        codeElement.id = oldCodeElement.id;
+        codeElement.textContent = oldCodeElement.textContent;
+        return codeElement;
     }
 }
 
@@ -859,9 +832,7 @@ function insertIpInHighlight() {
  * @returns {HTMLOptionElement}
  */
 function buildDisabledSelectOption(textContent) {
-    let option = document.createElement("option");
-    option.text = textContent
-    option.selected = true;
+    const option = new Option(textContent, "", true, true);
     option.disabled = true;
     return option;
 }
