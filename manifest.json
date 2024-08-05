@@ -4,11 +4,11 @@
   "version": "1.0",
   "description": "A Firefox extension that helps you with various tooling and quick recon",
   "icons": {
-    "48": "assets/icons/logo.webp"
+    "48": "assets/icons/logo.png"
   },
   "browser_action": {
     "default_icon": {
-      "48": "assets/icons/logo.webp"
+      "48": "assets/icons/logo.png"
     },
     "default_title": "Check-mate",
     "default_popup": "index.html"
@@ -33,7 +33,7 @@
     "scripts": ["assets/js/background.js"]
   },
   "web_accessible_resources": [
-    "assets/icons/logo.webp"
+    "assets/icons/logo.png"
   ],
   "content_security_policy": "script-src 'self'; object-src 'self'"
 }

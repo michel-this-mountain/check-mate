@@ -34,13 +34,10 @@
                  style="border-right: 1px solid #0056b3;">
 
                 <!-- start top logo -->
-                <div class="w-100 d-flex justify-content-center flex-column mt-2">
+                <div class="w-100 d-flex justify-content-center flex-column mt-1">
                     <div class="mx-auto">
-                        <img class="rounded" src="assets/icons/logo.webp" alt="check-mate logo" width="30px"
-                             height="30px">
-                    </div>
-                    <div class="mx-auto text-custom-dark-blue text-muted mt-1">
-                        <h6 class="text-white text-center">CM</h6>
+                        <img id="check-mate-logo" src="assets/icons/logo.png" alt="check-mate logo" width="40px"
+                             height="40px">
                     </div>
                 </div>
                 <!-- end top logo -->
@@ -194,7 +191,7 @@
 
                                 <div>
                                     <div class="form-group mb-2">
-                                        <label for="encoding-select-technique">Encoding algorithm</label>
+                                        <label for="encoding-select-technique">Algorithm</label>
                                         <select class="form-control" id="encoding-select-technique">
                                             <option value="b64-e" selected>Base64 encode</option>
                                             <option value="b64-d">Base64 decode</option>
@@ -381,7 +378,7 @@
                              role="tabpanel" style="height: 485px">
                             <div class="d-flex flex-column justify-content-between h-100">
                                 <div class="mt-2 mb-2">
-                                    <h4> Formatter </h4>
+                                    <h4> JSON formatter </h4>
                                 </div>
                                 <div class="form-group">
                                     <div class="d-flex justify-content-between mb-1">

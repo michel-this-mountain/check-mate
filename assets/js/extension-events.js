@@ -210,6 +210,22 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     // ## EVENT LISTENER FOR REFRESH-CONTROL (monitoring script) END ## //
 
+    // ## EVENT LISTENER FOR LOGO start ## //
+    const checkMateLogo = document.getElementById("check-mate-logo");
+    let checkMateLogoHovered = false;
+
+    checkMateLogo.addEventListener("mouseenter", function () {
+        if (!checkMateLogoHovered) {
+            checkMateLogoHovered = true;
+            checkMateLogo.src = "assets/icons/logo.gif";
+            setTimeout(function () {
+                checkMateLogo.src = "assets/icons/logo.png";
+                checkMateLogoHovered = false;
+            }, 5330);
+        }
+    });
+    // ## EVENT LISTENER FOR LOGO END ## //
+
 });
 
 /**
