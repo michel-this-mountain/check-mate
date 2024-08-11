@@ -1,137 +1,100 @@
+// the extension-events.js file is used to handle all the events that are global to the extension
+// it works close together with: main.js, background.js and the content scripts
+
+let currentTab = null;
+let loaderElementIds = ["enum-tooling-spider-start-button", "enum-tooling-extract-headers"]
+let totalScriptsProcessing = 0;
+
+// async event listener for the document to load (for now only query the active tab URL)
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        // Query the active tab in the current window
+        const [tab] = await browser.tabs.query({active: true, currentWindow: true});
+
+        // Create a new URL object
+        currentTab = String(new URL(tab.url));
+
+        // adjust the tab url
+        document.querySelectorAll(".current-tab-url").forEach(function (element) {
+            // Set the innerText of each element to the current URL
+            element.innerText = currentTab;
+        });
+    } catch (error) {
+        console.error('Error querying active tab:', error);
+    }
+});
+
+// event listener for the document to load and load the scripts that are important to the plugin
 document.addEventListener("DOMContentLoaded", function () {
-    // ## Retrieve and set the last active main tab from local storage START ## //
-    function activateTab(tabId) {
-        const tabElement = document.querySelector(`a[href="${tabId}"]`);
-        if (tabElement) {
-            const tab = new bootstrap.Tab(tabElement);
-            tab.show();
-            tabElement.classList.add('active-link');
-        }
-    }
 
-    const lastActiveMainTab = localStorage.getItem("lastActiveMainTab") === null ? "#tab1" : localStorage.getItem("lastActiveMainTab");
-    if (lastActiveMainTab) {
-        activateTab(lastActiveMainTab);
-    }
-    // ## Retrieve and set the last active main tab from local storage END ## //
+    // init the event listeners for the nav menu on the left (global)
+    initReplaceHoverNavbar()
 
-    // Add event listener to all main nav links
-    const navLinks = document.querySelectorAll('.nav-link');
+    // init the tab persistence (global)
+    initTabPersistence()
 
-    navLinks.forEach(navLink => {
-        navLink.addEventListener('click', function (event) {
-            event.preventDefault();
+    // init the copy content by class (global)
+    initCopyContentByClass();
 
-            // Remove active class from all links
-            navLinks.forEach(link => {
-                link.classList.remove('active-link');
-                link.classList.remove('active');
-            });
+    // init the logo control, for acting with the logo (global)
+    initLogoControl();
 
-            // Save the active main tab to local storage
-            const targetHref = event.target.closest('a').getAttribute("href");
-            if (targetHref) {
-                localStorage.setItem("lastActiveMainTab", targetHref);
+    // init the message manager (global)
+    initMessageManager();
 
-                // Remove the active subtab when switching main tabs
-                if (!targetHref.startsWith("#tab1")) {
-                    localStorage.removeItem("general-tools-tab");
-                }
-                if (!targetHref.startsWith("#tab2")) {
-                    localStorage.removeItem("enum-tooling-tab");
-                }
-                if (!targetHref.startsWith("#tab3")) {
-                    localStorage.removeItem("exploit-assistant-tab");
-                }
-                if (!targetHref.startsWith("#tab4")) {
-                    localStorage.removeItem("shell-assistant-tab");
-                }
-                if (!targetHref.startsWith("#tab5")) {
-                    localStorage.removeItem("checklist-assistant-tab");
-                }
-                if (!targetHref.startsWith("#tab6")) {
-                    localStorage.removeItem("useful-commands-tab");
-                }
-                if (!targetHref.startsWith("#tab7")) {
-                    localStorage.removeItem("activeEnum7Tab");
-                }
-                if (!targetHref.startsWith("#tab8")) {
-                    localStorage.removeItem("activeEnum8Tab");
-                }
+    // init the refresh control (global, but for now only applies to: message listener tab - enum tooling)
+    initRefreshControl();
 
-                // Show the selected tab using Bootstrap's tab API
-                activateTab(targetHref);
-            }
-        });
-    });
-
-    // Apply the active-link class to the active tab link on page load
-    if (lastActiveMainTab) {
-        navLinks.forEach(link => link.classList.remove('active-link'));
-        const activeLinkElement = document.querySelector(`a[href="${lastActiveMainTab}"]`);
-        if (activeLinkElement) {
-            activeLinkElement.classList.add('active-link');
-            activeLinkElement.classList.add('active');
-        }
-    }
-
-    // Nested tabs configuration
-    const nestedTabsConfig = [
-        {mainTab: "#tab1", nestedTabKey: "general-tools-tab", nestedTabSelector: "#toolsTab a"},
-        {mainTab: "#tab2", nestedTabKey: "enum-tooling-tab", nestedTabSelector: "#enum-tooling-tab a"},
-        {mainTab: "#tab3", nestedTabKey: "exploit-assistant-tab", nestedTabSelector: "#exploit-assistant-tab a"},
-        {mainTab: "#tab4", nestedTabKey: "shell-assistant-tab", nestedTabSelector: "#shell-assistant-tab a"},
-        {mainTab: "#tab5", nestedTabKey: "checklist-assistant-tab", nestedTabSelector: "#checklist-assistant-tab a"},
-        {mainTab: "#tab6", nestedTabKey: "useful-commands-tab", nestedTabSelector: "#useful-commands-tab a"},
-        {mainTab: "#tab7", nestedTabKey: "activeEnum7Tab", nestedTabSelector: "#enum7Tab a"},
-        {mainTab: "#tab8", nestedTabKey: "activeEnum8Tab", nestedTabSelector: "#enum8Tab a"},
-    ];
-    nestedTabsConfig.forEach(config => {
-        const nestedTabs = document.querySelectorAll(config.nestedTabSelector);
-        nestedTabs.forEach(tab => {
-            tab.addEventListener("click", function () {
-                const href = this.getAttribute("href");
-                if (href) {
-                    localStorage.setItem(config.nestedTabKey, href);
-                    localStorage.setItem("lastActiveMainTab", config.mainTab); // Ensure the main tab is also activated when a sub-tab is clicked
-                }
-            });
-        });
-
-        const activeNestedTab = localStorage.getItem(config.nestedTabKey);
-        if (activeNestedTab) {
-            activateTab(config.mainTab); // Ensure the parent tab is activated first
-            activateTab(activeNestedTab);
-        } else {
-            // Default to the first nested tab if no active nested tab is stored
-            const defaultNestedTabElement = document.querySelector(config.nestedTabSelector);
-            if (defaultNestedTabElement) {
-                activateTab(defaultNestedTabElement.getAttribute("href"));
-            }
-        }
-    });
-
-    // ## TOOLTIP INIT START ## //
+    // tooltip bootstrap init (global)
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl, {
             delay: {"hide": 50}
         });
     });
-    // ## TOOLTIP INIT END ## //
+});
 
-
-    // ## NAVBAR REPLACE IMAGE ON HOVER START ## //
+/**
+ * initReplaceHover()
+ *
+ * sets all the nav left menu items to have a hover effect
+ */
+function initReplaceHoverNavbar() {
     replaceHover("tab-1-img", "assets/icons/navbar/", "tab-1-gen-tooling.png", "tab-1-gen-tooling-hover.png")
     replaceHover("tab-2-img", "assets/icons/navbar/", "tab-2-enum-tooling.png", "tab-2-enum-tooling-hover.png")
     replaceHover("tab-3-img", "assets/icons/navbar/", "tab-3-exploit-assistant.png", "tab-3-exploit-assistant-hover.png")
     replaceHover("tab-4-img", "assets/icons/navbar/", "tab-4-shell-assistant.png", "tab-4-shell-assistant-hover.png")
     replaceHover("tab-5-img", "assets/icons/navbar/", "tab-5-checklist-assistant.png", "tab-5-checklist-assistant-hover.png")
     replaceHover("tab-6-img", "assets/icons/navbar/", "tab-6-useful-commands.png", "tab-6-useful-commands-hover.png")
-    // ## NAVBAR REPLACE IMAGE ON HOVER END ## //
+}
 
-    // ## COPY CONTENT (textarea and code) START ## //
-    let activeCopyIcon = null;
+/**
+ * replaceHover()
+ *
+ * @param elementId id of the element that should be replaced (img element)
+ * @param prefix prefix for where to find the images
+ * @param image image to use
+ * @param replaceImage onhover image to use
+ */
+function replaceHover(elementId, prefix, image, replaceImage) {
+    // add onmouseenter (hover image)
+    document.getElementById(elementId).addEventListener("mouseenter", function () {
+        document.getElementById(elementId).src = `${prefix}${replaceImage}`
+    })
+
+    // add onmouseleave (standard image)
+    document.getElementById(elementId).addEventListener("mouseleave", function () {
+        document.getElementById(elementId).src = `${prefix}${image}`
+    })
+}
+
+/**
+ * copyContentByClass()
+ *
+ * Copy content from elements using the 'copy-icon' and 'copy-icon-code' classes
+ *
+ */
+function initCopyContentByClass() {
     document.addEventListener('click', function (event) {
         if (event.target.classList.contains('copy-icon') || event.target.classList.contains('copy-icon-code')) {
             if (activeCopyIcon) {
@@ -181,10 +144,16 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     });
-    // ## COPY CONTENT (textarea and code) END ## //
+}
 
+let activeCopyIcon = null;
 
-    // ## EVENT LISTENER FOR REFRESH-CONTROL (monitoring script) START ## //
+/**
+ * initRefreshControl()
+ *
+ * add an event listener to all elements with the class 'refresh-control'
+ */
+function initRefreshControl() {
     document.querySelectorAll(".refresh-control").forEach(element => {
         // Add event listener to each element
         element.addEventListener("click", function () {
@@ -208,9 +177,14 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
-    // ## EVENT LISTENER FOR REFRESH-CONTROL (monitoring script) END ## //
+}
 
-    // ## EVENT LISTENER FOR LOGO start ## //
+/**
+ * initLogoControl()
+ *
+ *
+ */
+function initLogoControl() {
     const checkMateLogo = document.getElementById("check-mate-logo");
     let checkMateLogoHovered = false;
 
@@ -224,26 +198,227 @@ document.addEventListener("DOMContentLoaded", function () {
             }, 5330);
         }
     });
-    // ## EVENT LISTENER FOR LOGO END ## //
-
-});
+}
 
 /**
- * replaceHover()
  *
- * @param elementId id of the element that should be replaced (img element)
- * @param prefix prefix for where to find the images
- * @param image image to use
- * @param replaceImage onhover image to use
+ *
  */
-function replaceHover(elementId, prefix, image, replaceImage) {
-    // add onmouseenter (hover image)
-    document.getElementById(elementId).addEventListener("mouseenter", function () {
-        document.getElementById(elementId).src = `${prefix}${replaceImage}`
-    })
+function initMessageManager() {
+    // IDs of buttons to set event listeners on
+    let browserRuntimeActionIds = [
+        "enum-tooling-spider-start-button",
+        "enum-tooling-highlight-forms-cp",
+        "enum-tooling-highlight-inputs-cp",
+        "enum-tooling-extract-comments-cp",
+        "enum-tooling-extract-forms-cp",
+        "enum-tooling-extract-url-cp",
+        "enum-tooling-extract-headers",
+        "enum-tooling-iframe-get-current-url",
+        "exploit-assistant-csrf-checker-load-form"
+    ];
 
-    // add onmouseleave (standard image)
-    document.getElementById(elementId).addEventListener("mouseleave", function () {
-        document.getElementById(elementId).src = `${prefix}${image}`
-    })
+    // Set event listeners for all enum-tooling on the toolbox page
+    browserRuntimeActionIds.forEach(id => {
+        let tmpElement = document.getElementById(id);
+        if (tmpElement) {
+            tmpElement.addEventListener('click', () => {
+                let messageValue = tmpElement.value
+                browser.runtime.sendMessage({command: messageValue, id: id});
+                // these are scripts that take longer to process, e.g. spidering a website, if so, the loading icon appears on the left bottom side
+                loaderCheck(id, true)
+            });
+        }
+    });
+
+    // Listen for messages from the background script
+    browser.runtime.onMessage.addListener(async (message) => {
+        // GENERAL SECTION START //
+        loaderCheck(message.id, false);
+        // GENERAL SECTION END
+
+        // ## TAB 1 'general tooling' START ## //
+        // ## TAB 1 'general tooling' END ## //
+
+        // ## TAB 2 'enum tooling' START ## //
+        if (message.hasOwnProperty("enumSpider")) {
+            if (isValidJSON(message.enumSpider)) {
+                let simplified = JSON.stringify(JSON.parse(message.enumSpider).simpleTree)
+                let detailed = JSON.stringify(JSON.parse(message.enumSpider).siteTree)
+
+                document.getElementById("enum-tooling-spider-simplified-view").value = formatJSON(simplified)
+                document.getElementById("enum-tooling-spider-detailed-view").value = formatJSON(detailed)
+                document.getElementById("enum-tooling-spider-output-textarea").innerText = formatJSON(simplified)
+                document.getElementById("enum-tooling-spider-output-textarea").value = formatJSON(simplified)
+            }
+        }
+
+        if (message.hasOwnProperty("toolboxJson")) {
+            if (isValidJSON(message.toolboxJson)) {
+                document.getElementById("enum-tooling-output-textarea").innerText = formatJSON(message.toolboxJson);
+                document.getElementById("enum-tooling-output-textarea").value = formatJSON(message.toolboxJson);
+            }
+        }
+
+        if (message.hasOwnProperty("enumToolingGetCurrentUrlIframe")) {
+            // Relay the message back to the popup script
+            document.getElementById("enum-tooling-iframe-url-input").innerText = message.enumToolingGetCurrentUrlIframe
+            document.getElementById("enum-tooling-iframe-url-input").value = message.enumToolingGetCurrentUrlIframe
+        }
+
+        if (message.hasOwnProperty("postMessage")) {
+            document.getElementById("enum-tooling-postmessage-monitor-count").innerText = message.postMessage[currentTab].length;
+            let tbody = document.getElementById("postmessage-monitor-table-table-body");
+            let tbodyUpdate = tbody.getAttribute("data-control-update")
+
+            message.postMessage[currentTab].forEach((postMessageObject, index) => {
+                let postMessageTr = createElement("tr", [])
+
+                for (let key of Object.keys(postMessageObject)) {
+                    let postMessageChangeTd = createElement("td", [])
+                    if (key === "message") {
+                        postMessageChangeTd.innerText = JSON.stringify(postMessageObject[key])
+                    } else {
+                        postMessageChangeTd.innerText = postMessageObject[key]
+                    }
+                    postMessageTr.appendChild(postMessageChangeTd)
+                }
+                if (tbodyUpdate === "true") {
+                    if (index === 0) {
+                        tbody.innerHTML = ""
+                    }
+                    tbody.appendChild(postMessageTr)
+                    applySeeMoreToTableCells(tbody)
+                }
+            })
+
+        }
+
+        if (message.hasOwnProperty("cookieChange")) {
+            document.getElementById("enum-tooling-cookie-monitor-count").innerText = message.cookieChange[currentTab].length;
+            let tbody = document.getElementById("cookie-monitor-table-table-body");
+            let tbodyUpdate = tbody.getAttribute("data-control-update")
+
+            message.cookieChange[currentTab].forEach((cookieChangeObject, index) => {
+                let cookieChangeTr = createElement("tr", [])
+
+                for (let key of Object.keys(cookieChangeObject)) {
+                    let cookieChangeTd = createElement("td", [])
+                    cookieChangeTd.innerText = cookieChangeObject[key]
+                    cookieChangeTr.appendChild(cookieChangeTd)
+                }
+
+                if (tbodyUpdate === "true") {
+                    if (index === 0) {
+                        tbody.innerHTML = ""
+                    }
+                    tbody.appendChild(cookieChangeTr)
+                    applySeeMoreToTableCells(tbody)
+                }
+            })
+        }
+        // ## TAB 2 'enum tooling' END ## //
+
+        // ## TAB 3 'exploit assistant' END ## //
+        if (message.hasOwnProperty("exploitAssitantCSRFloadForms")) {
+            let enumToolingCsrfFormsParsed = parseFormsFromJson(message.exploitAsssitantCSRFloadForms, message.domainName);
+            let enumToolingCSRFRadioButtonContainerForms = document.getElementById("exploit-assistant-csrf-checker-form-radio-button-container")
+            let enumToolingCSRFFormsContainerOuterDiv = document.getElementById("exploit-assistant-forms-container-outer-div")
+
+            enumToolingCsrfFormsParsed.forEach(enumToolingCsrfFormParsed => {
+                let dynamicId = generateDynamicId()
+                let csrfOuterDiv = createElement("div", ["form-check", "form-check-inline", "w-100"]);
+                let csrfInput = createElement("input", ["form-check-input"])
+                csrfInput.setAttribute("type", "radio")
+                csrfInput.setAttribute("name", "csrf-radio-button")
+                csrfInput.setAttribute("id", dynamicId)
+
+                let csrfLabel = createElement("label", ["form-check-label"])
+                csrfLabel.setAttribute("for", dynamicId)
+                csrfLabel.innerText = `Action: ${enumToolingCsrfFormParsed.getAttribute("action")} -- Method: ${enumToolingCsrfFormParsed.getAttribute("method")}`
+
+                csrfOuterDiv.appendChild(csrfInput)
+                csrfOuterDiv.appendChild(csrfLabel)
+
+                csrfInput.addEventListener("click", function () {
+                    // remove the old iframe element
+                    enumToolingCSRFFormsContainerOuterDiv.innerHTML = ""
+
+                    // create a new iframe element and append it to the outer-div container
+                    let tmpIframeElementCSRF = createElement("iframe", ["border", "rounded", "w-100"])
+                    tmpIframeElementCSRF.setAttribute("id", "exploit-assistant-csrf-checker-form-container")
+                    tmpIframeElementCSRF.setAttribute("style", "min-height: 285px;")
+                    enumToolingCSRFFormsContainerOuterDiv.appendChild(tmpIframeElementCSRF)
+
+                    const csrfFormContainerDoc = tmpIframeElementCSRF.contentWindow.document;
+
+                    // Open the document and write the initial HTML structure
+                    csrfFormContainerDoc.open();
+                    csrfFormContainerDoc.write(`<!DOCTYPE html>
+                                            <html lang="en">
+                                            <head>
+                                                <meta charset="UTF-8">
+                                                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                            </head>
+                                            <body style="width: 100px !important;">
+                                            </body>
+                                            </html>`);
+
+                    // Clear the body content
+                    csrfFormContainerDoc.body.innerHTML = '';
+
+                    // Append the new form
+                    csrfFormContainerDoc.body.appendChild(enumToolingCsrfFormParsed);
+
+                    // Close the document
+                    csrfFormContainerDoc.close();
+                })
+
+                enumToolingCSRFRadioButtonContainerForms.appendChild(csrfOuterDiv)
+            });
+        }
+
+        // ## TAB 3 'exploit assistant' END ## //
+
+        // ## TAB 4 'shell assistant' START ## //
+        // ## TAB 4 'shell assistant' END ## //
+
+        // ## TAB 5 '' START ## //
+        // ## TAB 5 '' END ## //
+
+        // ## TAB 6 START ## //
+        // ## TAB 6 END ## //
+
+    });
+}
+
+/**
+ * loaderCheck()
+ *
+ * checks if the loader element should be shown or should be hidden, based on the total scripts that are being processed.
+ *
+ * @param currentId
+ * @param incrementTotalScriptsProcessing
+ */
+function loaderCheck(currentId, incrementTotalScriptsProcessing) {
+    // loader element and see if there is a match
+    let loaderElement = document.getElementById("loader")
+    let match = loaderElementIds.includes(currentId)
+
+    // decrement the total scripts processing | loader icon will hide if it reaches 0
+    if (incrementTotalScriptsProcessing === false && match) {
+        if (totalScriptsProcessing > 0) {
+            totalScriptsProcessing -= 1;
+            if (totalScriptsProcessing === 0) {
+                loaderElement.classList.add("d-none")
+            }
+        }
+
+        // increment the total scripts processing | loader icon will show if totalScriptsProcessing is >  0
+    } else if (incrementTotalScriptsProcessing === true && match) {
+        if (totalScriptsProcessing >= 0) {
+            totalScriptsProcessing += 1
+            loaderElement.classList.remove("d-none")
+        }
+    }
 }

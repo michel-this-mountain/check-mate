@@ -1,8 +1,5 @@
-// loaderElementIds = these are the IDS due to the time, the loader icon will appear on the left bottomside.
-// totalScriptsProcessing = this variable keeps track on how many processes are running. If the value > 0, the loader icon will show, otherwise it does not show.
-let loaderElementIds = ["enum-tooling-spider-start-button", "enum-tooling-extract-headers"]
-let totalScriptsProcessing = 0;
-let currentTab = null;
+// main.js is used for building up the functionality of the plugin, and is the base for methods that are globally used
+// across the plugin
 
 document.addEventListener('DOMContentLoaded', async () => {
     try {
@@ -23,281 +20,26 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    // IDs of buttons to set event listeners on
-    let browserRuntimeActionIds = [
-        "enum-tooling-spider-start-button",
-        "enum-tooling-highlight-forms-cp",
-        "enum-tooling-highlight-inputs-cp",
-        "enum-tooling-extract-comments-cp",
-        "enum-tooling-extract-forms-cp",
-        "enum-tooling-extract-url-cp",
-        "enum-tooling-extract-headers",
-        "enum-tooling-iframe-get-current-url",
-        "exploit-assistant-csrf-checker-load-form"
-    ];
 
-    // Set event listeners for all enum-tooling on the toolbox page
-    browserRuntimeActionIds.forEach(id => {
-        let tmpElement = document.getElementById(id);
-        if (tmpElement) {
-            tmpElement.addEventListener('click', () => {
-                let messageValue = tmpElement.value
-                browser.runtime.sendMessage({command: messageValue, id: id});
-                // these are scripts that take longer to process, e.g. spidering a website, if so, the loading icon appears on the left bottom side
-                loaderCheck(id, true)
-            });
-        }
-    });
+    // init/build the content for the shell assistant tabs (reverse, bind, transfer)
+    initShellAssistantContent()
 
-    // Listen for messages from the background script
-    browser.runtime.onMessage.addListener(async (message) => {
-        // GENERAL SECTION START //
-        loaderCheck(message.id, false);
-        // GENERAL SECTION END
+    // init/build the content for the checklist-assistant tabs
+    buildChecklists()
 
-        // ## TAB 1 'general tooling' START ## //
-        // ## TAB 1 'general tooling' END ## //
-
-        // ## TAB 2 'enum tooling' START ## //
-        if (message.hasOwnProperty("enumSpider")) {
-            if (isValidJSON(message.enumSpider)) {
-                let simplified = JSON.stringify(JSON.parse(message.enumSpider).simpleTree)
-                let detailed = JSON.stringify(JSON.parse(message.enumSpider).siteTree)
-
-                document.getElementById("enum-tooling-spider-simplified-view").value = formatJSON(simplified)
-                document.getElementById("enum-tooling-spider-detailed-view").value = formatJSON(detailed)
-                document.getElementById("enum-tooling-spider-output-textarea").innerText = formatJSON(simplified)
-                document.getElementById("enum-tooling-spider-output-textarea").value = formatJSON(simplified)
-            }
-        }
-
-        if (message.hasOwnProperty("toolboxJson")) {
-            if (isValidJSON(message.toolboxJson)) {
-                document.getElementById("enum-tooling-output-textarea").innerText = formatJSON(message.toolboxJson);
-                document.getElementById("enum-tooling-output-textarea").value = formatJSON(message.toolboxJson);
-            }
-        }
-
-        if (message.hasOwnProperty("enumToolingGetCurrentUrlIframe")) {
-            // Relay the message back to the popup script
-            document.getElementById("enum-tooling-iframe-url-input").innerText = message.enumToolingGetCurrentUrlIframe
-            document.getElementById("enum-tooling-iframe-url-input").value = message.enumToolingGetCurrentUrlIframe
-        }
-
-        if (message.hasOwnProperty("postMessage")) {
-            document.getElementById("enum-tooling-postmessage-monitor-count").innerText = message.postMessage[currentTab].length;
-            let tbody = document.getElementById("postmessage-monitor-table-table-body");
-            let tbodyUpdate = tbody.getAttribute("data-control-update")
-
-            message.postMessage[currentTab].forEach((postMessageObject, index) => {
-                let postMessageTr = createElement("tr", [])
-
-                for (let key of Object.keys(postMessageObject)) {
-                    let postMessageChangeTd = createElement("td", [])
-                    if (key === "message") {
-                        postMessageChangeTd.innerText = JSON.stringify(postMessageObject[key])
-                    } else {
-                        postMessageChangeTd.innerText = postMessageObject[key]
-                    }
-                    postMessageTr.appendChild(postMessageChangeTd)
-                }
-                if (tbodyUpdate === "true") {
-                    if (index === 0) {
-                        tbody.innerHTML = ""
-                    }
-                    tbody.appendChild(postMessageTr)
-                    applySeeMoreToTableCells(tbody)
-                }
-            })
-
-        }
-
-        if (message.hasOwnProperty("cookieChange")) {
-            document.getElementById("enum-tooling-cookie-monitor-count").innerText = message.cookieChange[currentTab].length;
-            let tbody = document.getElementById("cookie-monitor-table-table-body");
-            let tbodyUpdate = tbody.getAttribute("data-control-update")
-
-            message.cookieChange[currentTab].forEach((cookieChangeObject, index) => {
-                let cookieChangeTr = createElement("tr", [])
-
-                for (let key of Object.keys(cookieChangeObject)) {
-                    let cookieChangeTd = createElement("td", [])
-                    cookieChangeTd.innerText = cookieChangeObject[key]
-                    cookieChangeTr.appendChild(cookieChangeTd)
-                }
-
-                if (tbodyUpdate === "true") {
-                    if (index === 0) {
-                        tbody.innerHTML = ""
-                    }
-                    tbody.appendChild(cookieChangeTr)
-                    applySeeMoreToTableCells(tbody)
-                }
-            })
-        }
-        // ## TAB 2 'enum tooling' END ## //
-
-        // ## TAB 3 'exploit assistant' END ## //
-        if (message.hasOwnProperty("exploitAssitantCSRFloadForms")) {
-            let enumToolingCsrfFormsParsed = parseFormsFromJson(message.exploitAsssitantCSRFloadForms, message.domainName);
-            let enumToolingCSRFRadioButtonContainerForms = document.getElementById("exploit-assistant-csrf-checker-form-radio-button-container")
-            let enumToolingCSRFFormsContainerOuterDiv = document.getElementById("exploit-assistant-forms-container-outer-div")
-
-            enumToolingCsrfFormsParsed.forEach(enumToolingCsrfFormParsed => {
-                let dynamicId = generateDynamicId()
-                let csrfOuterDiv = createElement("div", ["form-check", "form-check-inline", "w-100"]);
-                let csrfInput = createElement("input", ["form-check-input"])
-                csrfInput.setAttribute("type", "radio")
-                csrfInput.setAttribute("name", "csrf-radio-button")
-                csrfInput.setAttribute("id", dynamicId)
-
-                let csrfLabel = createElement("label", ["form-check-label"])
-                csrfLabel.setAttribute("for", dynamicId)
-                csrfLabel.innerText = `Action: ${enumToolingCsrfFormParsed.getAttribute("action")} -- Method: ${enumToolingCsrfFormParsed.getAttribute("method")}`
-
-                csrfOuterDiv.appendChild(csrfInput)
-                csrfOuterDiv.appendChild(csrfLabel)
-
-                csrfInput.addEventListener("click", function () {
-                    // remove the old iframe element
-                    enumToolingCSRFFormsContainerOuterDiv.innerHTML = ""
-
-                    // create a new iframe element and append it to the outer-div container
-                    let tmpIframeElementCSRF = createElement("iframe", ["border", "rounded", "w-100"])
-                    tmpIframeElementCSRF.setAttribute("id", "exploit-assistant-csrf-checker-form-container")
-                    tmpIframeElementCSRF.setAttribute("style", "min-height: 285px;")
-                    enumToolingCSRFFormsContainerOuterDiv.appendChild(tmpIframeElementCSRF)
-
-                    const csrfFormContainerDoc = tmpIframeElementCSRF.contentWindow.document;
-
-                    // Open the document and write the initial HTML structure
-                    csrfFormContainerDoc.open();
-                    csrfFormContainerDoc.write(`<!DOCTYPE html>
-                                            <html lang="en">
-                                            <head>
-                                                <meta charset="UTF-8">
-                                                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                                            </head>
-                                            <body style="width: 100px !important;">
-                                            </body>
-                                            </html>`);
-
-                    // Clear the body content
-                    csrfFormContainerDoc.body.innerHTML = '';
-
-                    // Append the new form
-                    csrfFormContainerDoc.body.appendChild(enumToolingCsrfFormParsed);
-
-                    // Close the document
-                    csrfFormContainerDoc.close();
-                })
-
-                enumToolingCSRFRadioButtonContainerForms.appendChild(csrfOuterDiv)
-            });
-        }
-
-        // ## TAB 3 'exploit assistant' END ## //
-
-        // ## TAB 4 'shell assistant' START ## //
-        // ## TAB 4 'shell assistant' END ## //
-
-        // ## TAB 5 '' START ## //
-        // ## TAB 5 '' END ## //
-
-        // ## TAB 6 START ## //
-        // ## TAB 6 END ## //
-
-    });
-
-    // ##### CODE HIGHLIGHTING START ##### //
-
-    // reverse shell code highlighting
-    insertIpInHighlight(
-        "shell-assistant-local-ip",
-        "shell-assistant-local-port",
-        "shell-assistant-select-menu-language-tool",
-        "shell-assistant-select-menu-reverse-shell",
-        "shell-assistant-reverse-shell-code-element",
-        reverseShells,
-        "reverse_shell",
-        "Select language/ tool",
-        "Select reverse shell"
-    );
-
-    // bind shell code highlighting
-    insertIpInHighlight(
-        "shell-assistant-bs-local-ip",
-        "shell-assistant-bs-local-port",
-        "shell-assistant-bs-select-menu-language-tool",
-        "shell-assistant-bs-select-menu-reverse-shell",
-        "shell-assistant-bs-code-element",
-        bindShells,
-        "bind_shell",
-        "Select language/ tool",
-        "Select bind shell"
-    );
-    // transfer methods code highlighting
-    insertIpInHighlight(
-        "shell-assistant-tm-local-ip",
-        "shell-assistant-tm-local-port",
-        "shell-assistant-tm-select-menu-language-tool",
-        "shell-assistant-tm-select-menu-reverse-shell",
-        "shell-assistant-tm-code-element",
-        transferMethods,
-        "transfer_files",
-        "Select platform",
-        "Select transfer method",
-        "shell-assistant-tm-filepath",
-        "shell-assistant-tm-filename"
-    );
-
-    // ##### CODE HIGHLIGHTING END ##### //
-
-    // ##### TABLE SORT AND SEARCH START ##### //
+    // make all tables sortable & set up search functionality for tables
     makeAllTablesSortable()
-
     searchTable("search-postmessage-input", "postmessage-monitor-table")
     searchTable("search-cookie-monitor-input", "cookie-monitor-table")
-    // ##### TABLE SORT AND SEARCH END ##### //
 
-    // ##### PERSIST DATA START ##### //
+    // init/build the persistDataMonitor
     persistDataMonitor()
-    // ##### PERSIST DATA END ##### //
+
+    // highlight all code elements
     document.querySelectorAll('code').forEach((el) => {
         hljs.highlightElement(el);
     });
 });
-
-/**
- * loaderCheck()
- *
- * checks if the loader element should be shown or should be hidden, based on the total scripts that are being processed.
- *
- * @param currentId
- * @param incrementTotalScriptsProcessing
- */
-function loaderCheck(currentId, incrementTotalScriptsProcessing) {
-    // loader element and see if there is a match
-    let loaderElement = document.getElementById("loader")
-    let match = loaderElementIds.includes(currentId)
-
-    // decrement the total scripts processing | loader icon will hide if it reaches 0
-    if (incrementTotalScriptsProcessing === false && match) {
-        if (totalScriptsProcessing > 0) {
-            totalScriptsProcessing -= 1;
-            if (totalScriptsProcessing === 0) {
-                loaderElement.classList.add("d-none")
-            }
-        }
-
-        // increment the total scripts processing | loader icon will show if totalScriptsProcessing is >  0
-    } else if (incrementTotalScriptsProcessing === true && match) {
-        if (totalScriptsProcessing >= 0) {
-            totalScriptsProcessing += 1
-            loaderElement.classList.remove("d-none")
-        }
-    }
-}
 
 /**
  * saveElementsToLocalStorage()
@@ -778,7 +520,72 @@ function escapeHTML(str) {
         .replace(/\n/g, "<br>");
 }
 
-function insertIpInHighlight(localIpId, localPortId, selectMenuLanguageToolId, selectMenuShellTypeId, codeElementId, JsonObjectVar, firstKey, firstSelectText, secondSelectText, optionalFilePathId = null, optionalNewFilenameId = null) {
+/**
+ * initShellAssistantContent()
+ *
+ * init the content for the shell assistant tabs
+ */
+function initShellAssistantContent(){
+    // reverse shell code highlighting
+    buildShellAssistantContent(
+        "shell-assistant-local-ip",
+        "shell-assistant-local-port",
+        "shell-assistant-select-menu-language-tool",
+        "shell-assistant-select-menu-reverse-shell",
+        "shell-assistant-reverse-shell-code-element",
+        reverseShells,
+        "reverse_shell",
+        "Select language/ tool",
+        "Select reverse shell"
+    );
+
+    // bind shell code highlighting
+    buildShellAssistantContent(
+        "shell-assistant-bs-local-ip",
+        "shell-assistant-bs-local-port",
+        "shell-assistant-bs-select-menu-language-tool",
+        "shell-assistant-bs-select-menu-reverse-shell",
+        "shell-assistant-bs-code-element",
+        bindShells,
+        "bind_shell",
+        "Select language/ tool",
+        "Select bind shell"
+    );
+
+    // transfer methods code highlighting
+    buildShellAssistantContent(
+        "shell-assistant-tm-local-ip",
+        "shell-assistant-tm-local-port",
+        "shell-assistant-tm-select-menu-language-tool",
+        "shell-assistant-tm-select-menu-reverse-shell",
+        "shell-assistant-tm-code-element",
+        transferMethods,
+        "transfer_files",
+        "Select platform",
+        "Select transfer method",
+        "shell-assistant-tm-filepath",
+        "shell-assistant-tm-filename"
+    );
+}
+
+/**
+ * insertIpInHighlight()
+ *
+ * Inserts an IP address and port number into a code block, highlighting the code block based on the selected language/tool.
+ *
+ * @param localIpId = The ID of the input field for the local IP address.
+ * @param localPortId = The ID of the input field for the local port number.
+ * @param selectMenuLanguageToolId = The ID of the select menu for the language/tool selection.
+ * @param selectMenuShellTypeId = The ID of the select menu for the shell type selection.
+ * @param codeElementId = The ID of the code element to insert the code into.
+ * @param JsonObjectVar = The JSON object containing the various details.
+ * @param firstKey = firstkey of the json object to use e.g. reverse_shell, bind_shell, transfer_files
+ * @param firstSelectText = The text to display in the first select menu.
+ * @param secondSelectText = The text to display in the second select menu.
+ * @param optionalFilePathId = The ID of the input field for the file path.
+ * @param optionalNewFilenameId = The ID of the input field for the new filename.
+ */
+function buildShellAssistantContent(localIpId, localPortId, selectMenuLanguageToolId, selectMenuShellTypeId, codeElementId, JsonObjectVar, firstKey, firstSelectText, secondSelectText, optionalFilePathId = null, optionalNewFilenameId = null) {
     if (!JsonObjectVar || !JsonObjectVar[firstKey]) {
         console.error('[*][CM] JsonObjectVar object is not defined or does not contain the correct property.');
         return;
@@ -890,10 +697,33 @@ function insertIpInHighlight(localIpId, localPortId, selectMenuLanguageToolId, s
     }
 }
 
+/**
+ * buildChecklists()
+ *
+ * Builds a disabled select option element with the specified text content.
+ *
+ * @param textContent
+ * @returns {HTMLOptionElement}
+ */
 function buildDisabledSelectOption(textContent) {
     const option = new Option(textContent, "", true, true);
     option.disabled = true;
     return option;
+}
+
+/**
+ * addGlobalEventListener()
+ *
+ * add a global event listener to the document
+ * addGlobalEventListener('click', '.my-class', (e) => console.log('clicked'));
+ *
+ */
+function addGlobalEventListener(type, selector, callback) {
+    document.addEventListener(type, e => {
+        if (e.target.matches(selector)) {
+            callback(e);
+        }
+    });
 }
 
 
