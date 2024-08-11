@@ -294,7 +294,7 @@ function escapeHTML(str) {
  *
  * init the content for the shell assistant tabs
  */
-function initShellAssistantContent(){
+function initShellAssistantContent() {
     // reverse shell code highlighting
     buildShellAssistantContent(
         "shell-assistant-local-ip",
@@ -453,7 +453,6 @@ function buildShellAssistantContent(localIpId, localPortId, selectMenuLanguageTo
         oldCodeElement.replaceWith(newCodeElement);
         // Uncomment if using highlight.js
         hljs.highlightElement(newCodeElement);
-        saveElementsToLocalStorage();
     }
 
     function buildCodeElement(oldCodeElement, language) {

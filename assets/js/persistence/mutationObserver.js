@@ -1,3 +1,4 @@
+
 function persistDataMonitor() {
     const persistDataSwitch = document.getElementById("persist-data-checkbox");
 
@@ -18,6 +19,11 @@ function persistDataMonitor() {
     });
 }
 
+/**
+ * setupMutationObserver()
+ *
+ * Setup a mutation observer to save elements to local storage when they change.
+ */
 function setupMutationObserver() {
     const observer = new MutationObserver(function (mutations) {
         mutations.forEach(function (mutation) {
