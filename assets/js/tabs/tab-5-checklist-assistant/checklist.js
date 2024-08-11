@@ -26,7 +26,7 @@ const checklist = {
     }
 }
 
-function buildChecklists(){
+function initChecklistAssistantContent(){
     buildChecklistRows(checklist.web.base_checklist, "web-general-checklist");
 }
 

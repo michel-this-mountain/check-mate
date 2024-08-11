@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initShellAssistantContent()
 
     // init/build the content for the checklist-assistant tabs
-    buildChecklists()
+    initChecklistAssistantContent()
 
     // make all tables sortable & set up search functionality for tables
     makeAllTablesSortable()

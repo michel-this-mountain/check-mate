@@ -148,7 +148,6 @@ function initCopyContentByClass() {
         }
     });
 }
-
 let activeCopyIcon = null;
 
 /**
@@ -185,7 +184,7 @@ function initRefreshControl() {
 /**
  * initLogoControl()
  *
- *
+ * Add an event listener to the logo to change the image to a gif when hovered
  */
 function initLogoControl() {
     const checkMateLogo = document.getElementById("check-mate-logo");
@@ -204,8 +203,9 @@ function initLogoControl() {
 }
 
 /**
+ * initMessageManager()
  *
- *
+ * Initialize the message manager for the extension
  */
 function initMessageManager() {
     // IDs of buttons to set event listeners on
