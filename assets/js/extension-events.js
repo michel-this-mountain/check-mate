@@ -45,6 +45,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // init the refresh control (global, but for now only applies to: message listener tab - enum tooling)
     initRefreshControl();
 
+    // persist data monitor (global)
+    persistDataMonitor()
+
     // tooltip bootstrap init (global)
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {

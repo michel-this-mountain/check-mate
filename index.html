@@ -4,8 +4,9 @@
     <title>Check-mate</title>
     <link rel="stylesheet" href="assets/css/main.css">
     <link href="assets/css/libs/bootstrap.min.css" rel="stylesheet"/>
-
     <script src="assets/js/persistence/tabs.js"></script>
+    <script src="assets/js/persistence/mutationObserver.js"></script>
+
     <script src="assets/js/libs/bootstrap.bundle.min.js"></script>
     <script src="assets/js/libs/jquery.js"></script>
     <script src="assets/js/libs/crypto.min.js"></script>
@@ -693,6 +694,7 @@
                                         <input class="form-control w-75 me-1" type="text" id="search-postmessage-input"
                                                placeholder="Search...">
                                         <button class="refresh-control btn btn-outline-danger w-25"
+                                                id="refresh-button-postmessage-monitor-table-body"
                                                 value="postmessage-monitor-table-table-body"
                                                 data-control-refresh-active="true">Stop refresh
                                         </button>
@@ -728,6 +730,7 @@
                                                id="search-cookie-monitor-input"
                                                placeholder="Search...">
                                         <button class="refresh-control btn btn-outline-danger w-25"
+                                                id="refresh-button-cookie-monitor-table-body"
                                                 value="cookie-monitor-table-table-body"
                                                 data-control-refresh-active="true">Stop refresh
                                         </button>

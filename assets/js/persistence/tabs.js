@@ -1,5 +1,5 @@
 /**
- * tabPersistence()
+ * initTabPersistence()
  *
  * This function is responsible for maintaining the active tab state across pages.
  * Once a tab or subtab has been clicked, it should hold track of where the user is, using local storage, on restart of the plugin
