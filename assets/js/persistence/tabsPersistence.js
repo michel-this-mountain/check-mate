@@ -5,21 +5,16 @@
  * Once a tab or subtab has been clicked, it should hold track of where the user is, using local storage, on restart of the plugin
  */
 function initTabPersistence() {
-    // ## Retrieve and set the last active main tab from local storage START ## //
-    function activateTab(tabId) {
-        const tabElement = document.querySelector(`a[href="${tabId}"]`);
-        if (tabElement) {
-            const tab = new bootstrap.Tab(tabElement);
-            tab.show();
-            tabElement.classList.add('active-link');
-        }
-    }
+    // activate the first tab by default, if it isn't already set in local storage
+    const LAYER_1_TAB = "layer_1_tab"
+    const LAYER_2_TAB = "layer_2_tab"
+    const LAYER_3_TAB = "layer_3_tab"
 
-    const lastActiveMainTab = localStorage.getItem("lastActiveMainTab") === null ? "#tab1" : localStorage.getItem("lastActiveMainTab");
-    if (lastActiveMainTab) {
-        activateTab(lastActiveMainTab);
+    const mainTab = localStorage.getItem(LAYER_1_TAB) === null ? "#tab1" : localStorage.getItem(LAYER_1_TAB);
+
+    if (mainTab) {
+        activateTab(mainTab);
     }
-    // ## Retrieve and set the last active main tab from local storage END ## //
 
     // Add event listener to all main nav links
     const navLinks = document.querySelectorAll('.nav-link');
@@ -36,85 +31,77 @@ function initTabPersistence() {
 
             // Save the active main tab to local storage
             const targetHref = event.target.closest('a').getAttribute("href");
+            console.log(targetHref)
+
             if (targetHref) {
-                localStorage.setItem("lastActiveMainTab", targetHref);
+                Object.keys(tabs).forEach(function (key) {
 
-                // Remove the active subtab when switching main tabs
-                if (!targetHref.startsWith("#tab1")) {
-                    localStorage.removeItem("general-tools-tab");
-                }
-                if (!targetHref.startsWith("#tab2")) {
-                    localStorage.removeItem("enum-tooling-tab");
-                }
-                if (!targetHref.startsWith("#tab3")) {
-                    localStorage.removeItem("exploit-assistant-tab");
-                }
-                if (!targetHref.startsWith("#tab4")) {
-                    localStorage.removeItem("shell-assistant-tab");
-                }
-                if (!targetHref.startsWith("#tab5")) {
-                    localStorage.removeItem("checklist-assistant-tab");
-                }
-                if (!targetHref.startsWith("#tab6")) {
-                    localStorage.removeItem("useful-commands-tab");
-                }
-                if (!targetHref.startsWith("#tab7")) {
-                    localStorage.removeItem("activeEnum7Tab");
-                }
-                if (!targetHref.startsWith("#tab8")) {
-                    localStorage.removeItem("activeEnum8Tab");
-                }
+                    // layer 1
+                    if (tabs[key].includes(targetHref) && key === "layer_1") {
+                        localStorage.setItem(LAYER_1_TAB, targetHref);
+                        localStorage.setItem(LAYER_2_TAB, null);
+                        localStorage.setItem(LAYER_3_TAB, null);
+                        activateTab(targetHref);
+                    }
 
-                // Show the selected tab using Bootstrap's tab API
-                activateTab(targetHref);
+                    // layer 2
+                    else if (tabs[key].includes(targetHref) && key === "layer_2") {
+                        localStorage.setItem(LAYER_2_TAB, targetHref);
+                        localStorage.setItem(LAYER_3_TAB, null);
+                        activateTab(targetHref);
+                    }
+
+                    // layer 3
+                    else if (tabs[key].includes(targetHref) && key === "layer_3") {
+                        localStorage.setItem(LAYER_3_TAB, targetHref);
+                        activateTab(targetHref);
+                    }
+                });
             }
         });
     });
 
-    // Apply the active-link class to the active tab link on page load
-    if (lastActiveMainTab) {
-        navLinks.forEach(link => link.classList.remove('active-link'));
-        const activeLinkElement = document.querySelector(`a[href="${lastActiveMainTab}"]`);
-        if (activeLinkElement) {
-            activeLinkElement.classList.add('active-link');
-            activeLinkElement.classList.add('active');
-        }
+    // set the layer 1 tab if possible
+    if (localStorage.getItem(LAYER_1_TAB) !== null && tabs["layer_1"].includes(localStorage.getItem(LAYER_1_TAB))) {
+        activateTab(localStorage.getItem(LAYER_1_TAB));
     }
 
-    // Nested tabs configuration
-    const nestedTabsConfig = [
-        {mainTab: "#tab1", nestedTabKey: "general-tools-tab", nestedTabSelector: "#toolsTab a"},
-        {mainTab: "#tab2", nestedTabKey: "enum-tooling-tab", nestedTabSelector: "#enum-tooling-tab a"},
-        {mainTab: "#tab3", nestedTabKey: "exploit-assistant-tab", nestedTabSelector: "#exploit-assistant-tab a"},
-        {mainTab: "#tab4", nestedTabKey: "shell-assistant-tab", nestedTabSelector: "#shell-assistant-tab a"},
-        {mainTab: "#tab5", nestedTabKey: "checklist-assistant-tab", nestedTabSelector: "#checklist-assistant-tab a"},
-        {mainTab: "#tab6", nestedTabKey: "useful-commands-tab", nestedTabSelector: "#useful-commands-tab a"},
-        {mainTab: "#tab7", nestedTabKey: "activeEnum7Tab", nestedTabSelector: "#enum7Tab a"},
-        {mainTab: "#tab8", nestedTabKey: "activeEnum8Tab", nestedTabSelector: "#enum8Tab a"},
-    ];
+    // set the layer 2 tab if possible
+    if (localStorage.getItem(LAYER_2_TAB) !== null && tabs["layer_2"].includes(localStorage.getItem(LAYER_2_TAB))) {
+        activateTab(localStorage.getItem(LAYER_2_TAB));
+    }
 
-    nestedTabsConfig.forEach(config => {
-        const nestedTabs = document.querySelectorAll(config.nestedTabSelector);
-        nestedTabs.forEach(tab => {
-            tab.addEventListener("click", function () {
-                const href = this.getAttribute("href");
-                if (href) {
-                    localStorage.setItem(config.nestedTabKey, href);
-                    localStorage.setItem("lastActiveMainTab", config.mainTab); // Ensure the main tab is also activated when a sub-tab is clicked
-                }
-            });
-        });
+    // set the layer 3 tab if possible
+    if (localStorage.getItem(LAYER_3_TAB) !== null && tabs["layer_3"].includes(localStorage.getItem(LAYER_3_TAB))) {
+        activateTab(localStorage.getItem(LAYER_3_TAB));
+    }
 
-        const activeNestedTab = localStorage.getItem(config.nestedTabKey);
-        if (activeNestedTab) {
-            activateTab(config.mainTab); // Ensure the parent tab is activated first
-            activateTab(activeNestedTab);
-        } else {
-            // Default to the first nested tab if no active nested tab is stored
-            const defaultNestedTabElement = document.querySelector(config.nestedTabSelector);
-            if (defaultNestedTabElement) {
-                activateTab(defaultNestedTabElement.getAttribute("href"));
-            }
-        }
-    });
+}
+
+/**
+ * activateTab()
+ *
+ * Activate a tab by tabId
+ * @param tabId
+ */
+function activateTab(tabId) {
+    const tabElement = document.querySelector(`a[href="${tabId}"]`);
+    if (tabElement) {
+        const tab = new bootstrap.Tab(tabElement);
+        tab.show();
+        tabElement.classList.add('active-link');
+    }
+}
+
+// Define the tabs for each layer
+const tabs = {
+    "layer_1": ["#tab1", "#tab2", "#tab3", "#tab4", "#tab5", "#tab6", "#tab7", "#tab8"],
+
+    "layer_2": ["#encode_decode", "#hashing", "#formatter", "#enum-tooling-spider",
+                "#enum-tooling-toolbox", "#enum-tooling-iframe-checker", "#enum-tooling-message-listener",
+                "#exploit-assistant-csrf-checker", "#shell-assistant-reverse-shells", "#shell-assistant-bind-shells",
+                "#shell-assistant-transfer-methods", "#shell-assistant-msf-content", "#checklist-assistant-web-checklist",
+                "#checklist-assistant-linux-os-checklist", "#checklist-assistant-windows-os-checklist"],
+
+    "layer_3": ["#enum-tooling-cookie-monitor-tab", "#enum-tooling-postmessage-monitor-tab"]
 }
