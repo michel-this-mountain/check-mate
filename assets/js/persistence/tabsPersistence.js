@@ -97,7 +97,7 @@ function activateTab(tabId) {
 const tabs = {
     "layer_1": ["#tab1", "#tab2", "#tab3", "#tab4", "#tab5", "#tab6", "#tab7", "#tab8"],
 
-    "layer_2": ["#encode_decode", "#hashing", "#formatter",
+    "layer_2": ["#encode_decode", "#hashing", "#formatter", "#general-tooling-code-highlighter-content",
                 "#enum-tooling-spider", "#enum-tooling-toolbox", "#enum-tooling-iframe-checker", "#enum-tooling-message-listener",
                 "#exploit-assistant-csrf-checker",
                 "#shell-assistant-reverse-shells", "#shell-assistant-bind-shells", "#shell-assistant-transfer-methods", "#shell-assistant-msf-content",
