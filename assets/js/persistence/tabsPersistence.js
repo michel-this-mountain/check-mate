@@ -104,5 +104,7 @@ const tabs = {
                 "#checklist-assistant-web-checklist", "#checklist-assistant-linux-os-checklist", "#checklist-assistant-windows-os-checklist"],
 
     "layer_3": ["#enum-tooling-cookie-monitor-tab", "#enum-tooling-postmessage-monitor-tab",
+                "#checklist-assistant-web-wordpress-check-content", "#checklist-assistant-web-general-check-content",
+                "#checklist-assistant-linux-privesc-content", "#checklist-assistant-windows-privesc-content"
     ]
 }
