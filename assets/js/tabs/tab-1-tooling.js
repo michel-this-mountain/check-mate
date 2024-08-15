@@ -75,6 +75,16 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     })
 
+    codeHighlightSelectMenu.addEventListener("change", function () {
+        let oldCodeElement = codeHighlightOutput.querySelector("code")
+
+        if (oldCodeElement) {
+            oldCodeElement.textContent = codeHighlightInput.value
+            let newCodeElement = buildCodeElement(oldCodeElement, codeHighlightSelectMenu.value)
+            oldCodeElement.parentNode.replaceChild(newCodeElement, oldCodeElement)
+            hljs.highlightElement(newCodeElement)
+        }
+    })
     // #### Code highlighter tab END #### //
 
 })
