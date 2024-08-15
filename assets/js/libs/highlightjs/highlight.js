@@ -41,8 +41,8 @@ var hljs = (function () {
     return obj;
   }
 
-  /** @typedef {import('assets/js/libs/highlightjs/highlight.js').CallbackResponse} CallbackResponse */
-  /** @typedef {import('assets/js/libs/highlightjs/highlight.js').CompiledMode} CompiledMode */
+  /** @typedef {import('highlight.js').CallbackResponse} CallbackResponse */
+  /** @typedef {import('highlight.js').CompiledMode} CompiledMode */
   /** @implements CallbackResponse */
 
   class Response {
@@ -208,7 +208,7 @@ var hljs = (function () {
 
   /** @typedef {{scope?: string, language?: string, children: Node[]} | string} Node */
   /** @typedef {{scope?: string, language?: string, children: Node[]} } DataNode */
-  /** @typedef {import('assets/js/libs/highlightjs/highlight.js').Emitter} Emitter */
+  /** @typedef {import('highlight.js').Emitter} Emitter */
   /**  */
 
   /** @returns {DataNode} */
@@ -525,8 +525,8 @@ var hljs = (function () {
     }).map(re => `(${re})`).join(joinWith);
   }
 
-  /** @typedef {import('assets/js/libs/highlightjs/highlight.js').Mode} Mode */
-  /** @typedef {import('assets/js/libs/highlightjs/highlight.js').ModeCallback} ModeCallback */
+  /** @typedef {import('highlight.js').Mode} Mode */
+  /** @typedef {import('highlight.js').ModeCallback} ModeCallback */
 
   // Common regexps
   const MATCH_NOTHING_RE = /\b\B/;
@@ -749,8 +749,8 @@ var hljs = (function () {
   });
 
   /**
-  @typedef {import('assets/js/libs/highlightjs/highlight.js').CallbackResponse} CallbackResponse
-  @typedef {import('assets/js/libs/highlightjs/highlight.js').CompilerExt} CompilerExt
+  @typedef {import('highlight.js').CallbackResponse} CallbackResponse
+  @typedef {import('highlight.js').CompilerExt} CompilerExt
   */
 
   // Grammar extensions / plugins
@@ -1007,7 +1007,7 @@ var hljs = (function () {
   /* eslint-disable no-throw-literal */
 
   /**
-  @typedef {import('assets/js/libs/highlightjs/highlight.js').CompiledMode} CompiledMode
+  @typedef {import('highlight.js').CompiledMode} CompiledMode
   */
 
   const MultiClassError = new Error();
@@ -1136,11 +1136,11 @@ var hljs = (function () {
   }
 
   /**
-  @typedef {import('assets/js/libs/highlightjs/highlight.js').Mode} Mode
-  @typedef {import('assets/js/libs/highlightjs/highlight.js').CompiledMode} CompiledMode
-  @typedef {import('assets/js/libs/highlightjs/highlight.js').Language} Language
-  @typedef {import('assets/js/libs/highlightjs/highlight.js').HLJSPlugin} HLJSPlugin
-  @typedef {import('assets/js/libs/highlightjs/highlight.js').CompiledLanguage} CompiledLanguage
+  @typedef {import('highlight.js').Mode} Mode
+  @typedef {import('highlight.js').CompiledMode} CompiledMode
+  @typedef {import('highlight.js').Language} Language
+  @typedef {import('highlight.js').HLJSPlugin} HLJSPlugin
+  @typedef {import('highlight.js').CompiledLanguage} CompiledLanguage
   */
 
   // compilation
@@ -1576,24 +1576,24 @@ var hljs = (function () {
 
 
   /**
-  @typedef {import('assets/js/libs/highlightjs/highlight.js').Mode} Mode
-  @typedef {import('assets/js/libs/highlightjs/highlight.js').CompiledMode} CompiledMode
-  @typedef {import('assets/js/libs/highlightjs/highlight.js').CompiledScope} CompiledScope
-  @typedef {import('assets/js/libs/highlightjs/highlight.js').Language} Language
-  @typedef {import('assets/js/libs/highlightjs/highlight.js').HLJSApi} HLJSApi
-  @typedef {import('assets/js/libs/highlightjs/highlight.js').HLJSPlugin} HLJSPlugin
-  @typedef {import('assets/js/libs/highlightjs/highlight.js').PluginEvent} PluginEvent
-  @typedef {import('assets/js/libs/highlightjs/highlight.js').HLJSOptions} HLJSOptions
-  @typedef {import('assets/js/libs/highlightjs/highlight.js').LanguageFn} LanguageFn
-  @typedef {import('assets/js/libs/highlightjs/highlight.js').HighlightedHTMLElement} HighlightedHTMLElement
-  @typedef {import('assets/js/libs/highlightjs/highlight.js').BeforeHighlightContext} BeforeHighlightContext
+  @typedef {import('highlight.js').Mode} Mode
+  @typedef {import('highlight.js').CompiledMode} CompiledMode
+  @typedef {import('highlight.js').CompiledScope} CompiledScope
+  @typedef {import('highlight.js').Language} Language
+  @typedef {import('highlight.js').HLJSApi} HLJSApi
+  @typedef {import('highlight.js').HLJSPlugin} HLJSPlugin
+  @typedef {import('highlight.js').PluginEvent} PluginEvent
+  @typedef {import('highlight.js').HLJSOptions} HLJSOptions
+  @typedef {import('highlight.js').LanguageFn} LanguageFn
+  @typedef {import('highlight.js').HighlightedHTMLElement} HighlightedHTMLElement
+  @typedef {import('highlight.js').BeforeHighlightContext} BeforeHighlightContext
   @typedef {import('highlight.js/private').MatchType} MatchType
   @typedef {import('highlight.js/private').KeywordData} KeywordData
   @typedef {import('highlight.js/private').EnhancedMatch} EnhancedMatch
   @typedef {import('highlight.js/private').AnnotatedError} AnnotatedError
-  @typedef {import('assets/js/libs/highlightjs/highlight.js').AutoHighlightResult} AutoHighlightResult
-  @typedef {import('assets/js/libs/highlightjs/highlight.js').HighlightOptions} HighlightOptions
-  @typedef {import('assets/js/libs/highlightjs/highlight.js').HighlightResult} HighlightResult
+  @typedef {import('highlight.js').AutoHighlightResult} AutoHighlightResult
+  @typedef {import('highlight.js').HighlightOptions} HighlightOptions
+  @typedef {import('highlight.js').HighlightResult} HighlightResult
   */
 
 
@@ -4563,324 +4563,6 @@ if (typeof exports === 'object' && typeof module !== 'undefined') { module.expor
 })();
 
     hljs.registerLanguage('c', hljsGrammar);
-  })();/*! `cal` grammar compiled for Highlight.js 11.10.0 */
-  (function(){
-    var hljsGrammar = (function () {
-  'use strict';
-
-  /*
-  Language: C/AL
-  Author: Kenneth Fuglsang Christensen <kfuglsang@gmail.com>
-  Description: Provides highlighting of Microsoft Dynamics NAV C/AL code files
-  Website: https://docs.microsoft.com/en-us/dynamics-nav/programming-in-c-al
-  Category: enterprise
-  */
-
-  /** @type LanguageFn */
-  function cal(hljs) {
-    const regex = hljs.regex;
-    const KEYWORDS = [
-      "div",
-      "mod",
-      "in",
-      "and",
-      "or",
-      "not",
-      "xor",
-      "asserterror",
-      "begin",
-      "case",
-      "do",
-      "downto",
-      "else",
-      "end",
-      "exit",
-      "for",
-      "local",
-      "if",
-      "of",
-      "repeat",
-      "then",
-      "to",
-      "until",
-      "while",
-      "with",
-      "var"
-    ];
-    const LITERALS = 'false true';
-    const COMMENT_MODES = [
-      hljs.C_LINE_COMMENT_MODE,
-      hljs.COMMENT(
-        /\{/,
-        /\}/,
-        { relevance: 0 }
-      ),
-      hljs.COMMENT(
-        /\(\*/,
-        /\*\)/,
-        { relevance: 10 }
-      )
-    ];
-    const STRING = {
-      className: 'string',
-      begin: /'/,
-      end: /'/,
-      contains: [ { begin: /''/ } ]
-    };
-    const CHAR_STRING = {
-      className: 'string',
-      begin: /(#\d+)+/
-    };
-    const DATE = {
-      className: 'number',
-      begin: '\\b\\d+(\\.\\d+)?(DT|D|T)',
-      relevance: 0
-    };
-    const DBL_QUOTED_VARIABLE = {
-      className: 'string', // not a string technically but makes sense to be highlighted in the same style
-      begin: '"',
-      end: '"'
-    };
-
-    const PROCEDURE = {
-      match: [
-        /procedure/,
-        /\s+/,
-        /[a-zA-Z_][\w@]*/,
-        /\s*/
-      ],
-      scope: {
-        1: "keyword",
-        3: "title.function"
-      },
-      contains: [
-        {
-          className: 'params',
-          begin: /\(/,
-          end: /\)/,
-          keywords: KEYWORDS,
-          contains: [
-            STRING,
-            CHAR_STRING,
-            hljs.NUMBER_MODE
-          ]
-        },
-        ...COMMENT_MODES
-      ]
-    };
-
-    const OBJECT_TYPES = [
-      "Table",
-      "Form",
-      "Report",
-      "Dataport",
-      "Codeunit",
-      "XMLport",
-      "MenuSuite",
-      "Page",
-      "Query"
-    ];
-    const OBJECT = {
-      match: [
-        /OBJECT/,
-        /\s+/,
-        regex.either(...OBJECT_TYPES),
-        /\s+/,
-        /\d+/,
-        /\s+(?=[^\s])/,
-        /.*/,
-        /$/
-      ],
-      relevance: 3,
-      scope: {
-        1: "keyword",
-        3: "type",
-        5: "number",
-        7: "title"
-      }
-    };
-
-    const PROPERTY = {
-      match: /[\w]+(?=\=)/,
-      scope: "attribute",
-      relevance: 0
-    };
-
-    return {
-      name: 'C/AL',
-      case_insensitive: true,
-      keywords: {
-        keyword: KEYWORDS,
-        literal: LITERALS
-      },
-      illegal: /\/\*/,
-      contains: [
-        PROPERTY,
-        STRING,
-        CHAR_STRING,
-        DATE,
-        DBL_QUOTED_VARIABLE,
-        hljs.NUMBER_MODE,
-        OBJECT,
-        PROCEDURE
-      ]
-    };
-  }
-
-  return cal;
-
-})();
-
-    hljs.registerLanguage('cal', hljsGrammar);
-  })();/*! `ceylon` grammar compiled for Highlight.js 11.10.0 */
-  (function(){
-    var hljsGrammar = (function () {
-  'use strict';
-
-  /*
-  Language: Ceylon
-  Author: Lucas Werkmeister <mail@lucaswerkmeister.de>
-  Website: https://ceylon-lang.org
-  Category: system
-  */
-
-  /** @type LanguageFn */
-  function ceylon(hljs) {
-    // 2.3. Identifiers and keywords
-    const KEYWORDS = [
-      "assembly",
-      "module",
-      "package",
-      "import",
-      "alias",
-      "class",
-      "interface",
-      "object",
-      "given",
-      "value",
-      "assign",
-      "void",
-      "function",
-      "new",
-      "of",
-      "extends",
-      "satisfies",
-      "abstracts",
-      "in",
-      "out",
-      "return",
-      "break",
-      "continue",
-      "throw",
-      "assert",
-      "dynamic",
-      "if",
-      "else",
-      "switch",
-      "case",
-      "for",
-      "while",
-      "try",
-      "catch",
-      "finally",
-      "then",
-      "let",
-      "this",
-      "outer",
-      "super",
-      "is",
-      "exists",
-      "nonempty"
-    ];
-    // 7.4.1 Declaration Modifiers
-    const DECLARATION_MODIFIERS = [
-      "shared",
-      "abstract",
-      "formal",
-      "default",
-      "actual",
-      "variable",
-      "late",
-      "native",
-      "deprecated",
-      "final",
-      "sealed",
-      "annotation",
-      "suppressWarnings",
-      "small"
-    ];
-    // 7.4.2 Documentation
-    const DOCUMENTATION = [
-      "doc",
-      "by",
-      "license",
-      "see",
-      "throws",
-      "tagged"
-    ];
-    const SUBST = {
-      className: 'subst',
-      excludeBegin: true,
-      excludeEnd: true,
-      begin: /``/,
-      end: /``/,
-      keywords: KEYWORDS,
-      relevance: 10
-    };
-    const EXPRESSIONS = [
-      {
-        // verbatim string
-        className: 'string',
-        begin: '"""',
-        end: '"""',
-        relevance: 10
-      },
-      {
-        // string literal or template
-        className: 'string',
-        begin: '"',
-        end: '"',
-        contains: [ SUBST ]
-      },
-      {
-        // character literal
-        className: 'string',
-        begin: "'",
-        end: "'"
-      },
-      {
-        // numeric literal
-        className: 'number',
-        begin: '#[0-9a-fA-F_]+|\\$[01_]+|[0-9_]+(?:\\.[0-9_](?:[eE][+-]?\\d+)?)?[kMGTPmunpf]?',
-        relevance: 0
-      }
-    ];
-    SUBST.contains = EXPRESSIONS;
-
-    return {
-      name: 'Ceylon',
-      keywords: {
-        keyword: KEYWORDS.concat(DECLARATION_MODIFIERS),
-        meta: DOCUMENTATION
-      },
-      illegal: '\\$[^01]|#[^0-9a-fA-F]',
-      contains: [
-        hljs.C_LINE_COMMENT_MODE,
-        hljs.COMMENT('/\\*', '\\*/', { contains: [ 'self' ] }),
-        {
-          // compiler annotation
-          className: 'meta',
-          begin: '@[a-z]\\w*(?::"[^"]*")?'
-        }
-      ].concat(EXPRESSIONS)
-    };
-  }
-
-  return ceylon;
-
-})();
-
-    hljs.registerLanguage('ceylon', hljsGrammar);
   })();/*! `cmake` grammar compiled for Highlight.js 11.10.0 */
   (function(){
     var hljsGrammar = (function () {
@@ -5566,488 +5248,6 @@ if (typeof exports === 'object' && typeof module !== 'undefined') { module.expor
 })();
 
     hljs.registerLanguage('cpp', hljsGrammar);
-  })();/*! `csharp` grammar compiled for Highlight.js 11.10.0 */
-  (function(){
-    var hljsGrammar = (function () {
-  'use strict';
-
-  /*
-  Language: C#
-  Author: Jason Diamond <jason@diamond.name>
-  Contributor: Nicolas LLOBERA <nllobera@gmail.com>, Pieter Vantorre <pietervantorre@gmail.com>, David Pine <david.pine@microsoft.com>
-  Website: https://docs.microsoft.com/dotnet/csharp/
-  Category: common
-  */
-
-  /** @type LanguageFn */
-  function csharp(hljs) {
-    const BUILT_IN_KEYWORDS = [
-      'bool',
-      'byte',
-      'char',
-      'decimal',
-      'delegate',
-      'double',
-      'dynamic',
-      'enum',
-      'float',
-      'int',
-      'long',
-      'nint',
-      'nuint',
-      'object',
-      'sbyte',
-      'short',
-      'string',
-      'ulong',
-      'uint',
-      'ushort'
-    ];
-    const FUNCTION_MODIFIERS = [
-      'public',
-      'private',
-      'protected',
-      'static',
-      'internal',
-      'protected',
-      'abstract',
-      'async',
-      'extern',
-      'override',
-      'unsafe',
-      'virtual',
-      'new',
-      'sealed',
-      'partial'
-    ];
-    const LITERAL_KEYWORDS = [
-      'default',
-      'false',
-      'null',
-      'true'
-    ];
-    const NORMAL_KEYWORDS = [
-      'abstract',
-      'as',
-      'base',
-      'break',
-      'case',
-      'catch',
-      'class',
-      'const',
-      'continue',
-      'do',
-      'else',
-      'event',
-      'explicit',
-      'extern',
-      'finally',
-      'fixed',
-      'for',
-      'foreach',
-      'goto',
-      'if',
-      'implicit',
-      'in',
-      'interface',
-      'internal',
-      'is',
-      'lock',
-      'namespace',
-      'new',
-      'operator',
-      'out',
-      'override',
-      'params',
-      'private',
-      'protected',
-      'public',
-      'readonly',
-      'record',
-      'ref',
-      'return',
-      'scoped',
-      'sealed',
-      'sizeof',
-      'stackalloc',
-      'static',
-      'struct',
-      'switch',
-      'this',
-      'throw',
-      'try',
-      'typeof',
-      'unchecked',
-      'unsafe',
-      'using',
-      'virtual',
-      'void',
-      'volatile',
-      'while'
-    ];
-    const CONTEXTUAL_KEYWORDS = [
-      'add',
-      'alias',
-      'and',
-      'ascending',
-      'async',
-      'await',
-      'by',
-      'descending',
-      'equals',
-      'from',
-      'get',
-      'global',
-      'group',
-      'init',
-      'into',
-      'join',
-      'let',
-      'nameof',
-      'not',
-      'notnull',
-      'on',
-      'or',
-      'orderby',
-      'partial',
-      'remove',
-      'select',
-      'set',
-      'unmanaged',
-      'value|0',
-      'var',
-      'when',
-      'where',
-      'with',
-      'yield'
-    ];
-
-    const KEYWORDS = {
-      keyword: NORMAL_KEYWORDS.concat(CONTEXTUAL_KEYWORDS),
-      built_in: BUILT_IN_KEYWORDS,
-      literal: LITERAL_KEYWORDS
-    };
-    const TITLE_MODE = hljs.inherit(hljs.TITLE_MODE, { begin: '[a-zA-Z](\\.?\\w)*' });
-    const NUMBERS = {
-      className: 'number',
-      variants: [
-        { begin: '\\b(0b[01\']+)' },
-        { begin: '(-?)\\b([\\d\']+(\\.[\\d\']*)?|\\.[\\d\']+)(u|U|l|L|ul|UL|f|F|b|B)' },
-        { begin: '(-?)(\\b0[xX][a-fA-F0-9\']+|(\\b[\\d\']+(\\.[\\d\']*)?|\\.[\\d\']+)([eE][-+]?[\\d\']+)?)' }
-      ],
-      relevance: 0
-    };
-    const RAW_STRING = {
-      className: 'string',
-      begin: /"""("*)(?!")(.|\n)*?"""\1/,
-      relevance: 1
-    };
-    const VERBATIM_STRING = {
-      className: 'string',
-      begin: '@"',
-      end: '"',
-      contains: [ { begin: '""' } ]
-    };
-    const VERBATIM_STRING_NO_LF = hljs.inherit(VERBATIM_STRING, { illegal: /\n/ });
-    const SUBST = {
-      className: 'subst',
-      begin: /\{/,
-      end: /\}/,
-      keywords: KEYWORDS
-    };
-    const SUBST_NO_LF = hljs.inherit(SUBST, { illegal: /\n/ });
-    const INTERPOLATED_STRING = {
-      className: 'string',
-      begin: /\$"/,
-      end: '"',
-      illegal: /\n/,
-      contains: [
-        { begin: /\{\{/ },
-        { begin: /\}\}/ },
-        hljs.BACKSLASH_ESCAPE,
-        SUBST_NO_LF
-      ]
-    };
-    const INTERPOLATED_VERBATIM_STRING = {
-      className: 'string',
-      begin: /\$@"/,
-      end: '"',
-      contains: [
-        { begin: /\{\{/ },
-        { begin: /\}\}/ },
-        { begin: '""' },
-        SUBST
-      ]
-    };
-    const INTERPOLATED_VERBATIM_STRING_NO_LF = hljs.inherit(INTERPOLATED_VERBATIM_STRING, {
-      illegal: /\n/,
-      contains: [
-        { begin: /\{\{/ },
-        { begin: /\}\}/ },
-        { begin: '""' },
-        SUBST_NO_LF
-      ]
-    });
-    SUBST.contains = [
-      INTERPOLATED_VERBATIM_STRING,
-      INTERPOLATED_STRING,
-      VERBATIM_STRING,
-      hljs.APOS_STRING_MODE,
-      hljs.QUOTE_STRING_MODE,
-      NUMBERS,
-      hljs.C_BLOCK_COMMENT_MODE
-    ];
-    SUBST_NO_LF.contains = [
-      INTERPOLATED_VERBATIM_STRING_NO_LF,
-      INTERPOLATED_STRING,
-      VERBATIM_STRING_NO_LF,
-      hljs.APOS_STRING_MODE,
-      hljs.QUOTE_STRING_MODE,
-      NUMBERS,
-      hljs.inherit(hljs.C_BLOCK_COMMENT_MODE, { illegal: /\n/ })
-    ];
-    const STRING = { variants: [
-      RAW_STRING,
-      INTERPOLATED_VERBATIM_STRING,
-      INTERPOLATED_STRING,
-      VERBATIM_STRING,
-      hljs.APOS_STRING_MODE,
-      hljs.QUOTE_STRING_MODE
-    ] };
-
-    const GENERIC_MODIFIER = {
-      begin: "<",
-      end: ">",
-      contains: [
-        { beginKeywords: "in out" },
-        TITLE_MODE
-      ]
-    };
-    const TYPE_IDENT_RE = hljs.IDENT_RE + '(<' + hljs.IDENT_RE + '(\\s*,\\s*' + hljs.IDENT_RE + ')*>)?(\\[\\])?';
-    const AT_IDENTIFIER = {
-      // prevents expressions like `@class` from incorrect flagging
-      // `class` as a keyword
-      begin: "@" + hljs.IDENT_RE,
-      relevance: 0
-    };
-
-    return {
-      name: 'C#',
-      aliases: [
-        'cs',
-        'c#'
-      ],
-      keywords: KEYWORDS,
-      illegal: /::/,
-      contains: [
-        hljs.COMMENT(
-          '///',
-          '$',
-          {
-            returnBegin: true,
-            contains: [
-              {
-                className: 'doctag',
-                variants: [
-                  {
-                    begin: '///',
-                    relevance: 0
-                  },
-                  { begin: '<!--|-->' },
-                  {
-                    begin: '</?',
-                    end: '>'
-                  }
-                ]
-              }
-            ]
-          }
-        ),
-        hljs.C_LINE_COMMENT_MODE,
-        hljs.C_BLOCK_COMMENT_MODE,
-        {
-          className: 'meta',
-          begin: '#',
-          end: '$',
-          keywords: { keyword: 'if else elif endif define undef warning error line region endregion pragma checksum' }
-        },
-        STRING,
-        NUMBERS,
-        {
-          beginKeywords: 'class interface',
-          relevance: 0,
-          end: /[{;=]/,
-          illegal: /[^\s:,]/,
-          contains: [
-            { beginKeywords: "where class" },
-            TITLE_MODE,
-            GENERIC_MODIFIER,
-            hljs.C_LINE_COMMENT_MODE,
-            hljs.C_BLOCK_COMMENT_MODE
-          ]
-        },
-        {
-          beginKeywords: 'namespace',
-          relevance: 0,
-          end: /[{;=]/,
-          illegal: /[^\s:]/,
-          contains: [
-            TITLE_MODE,
-            hljs.C_LINE_COMMENT_MODE,
-            hljs.C_BLOCK_COMMENT_MODE
-          ]
-        },
-        {
-          beginKeywords: 'record',
-          relevance: 0,
-          end: /[{;=]/,
-          illegal: /[^\s:]/,
-          contains: [
-            TITLE_MODE,
-            GENERIC_MODIFIER,
-            hljs.C_LINE_COMMENT_MODE,
-            hljs.C_BLOCK_COMMENT_MODE
-          ]
-        },
-        {
-          // [Attributes("")]
-          className: 'meta',
-          begin: '^\\s*\\[(?=[\\w])',
-          excludeBegin: true,
-          end: '\\]',
-          excludeEnd: true,
-          contains: [
-            {
-              className: 'string',
-              begin: /"/,
-              end: /"/
-            }
-          ]
-        },
-        {
-          // Expression keywords prevent 'keyword Name(...)' from being
-          // recognized as a function definition
-          beginKeywords: 'new return throw await else',
-          relevance: 0
-        },
-        {
-          className: 'function',
-          begin: '(' + TYPE_IDENT_RE + '\\s+)+' + hljs.IDENT_RE + '\\s*(<[^=]+>\\s*)?\\(',
-          returnBegin: true,
-          end: /\s*[{;=]/,
-          excludeEnd: true,
-          keywords: KEYWORDS,
-          contains: [
-            // prevents these from being highlighted `title`
-            {
-              beginKeywords: FUNCTION_MODIFIERS.join(" "),
-              relevance: 0
-            },
-            {
-              begin: hljs.IDENT_RE + '\\s*(<[^=]+>\\s*)?\\(',
-              returnBegin: true,
-              contains: [
-                hljs.TITLE_MODE,
-                GENERIC_MODIFIER
-              ],
-              relevance: 0
-            },
-            { match: /\(\)/ },
-            {
-              className: 'params',
-              begin: /\(/,
-              end: /\)/,
-              excludeBegin: true,
-              excludeEnd: true,
-              keywords: KEYWORDS,
-              relevance: 0,
-              contains: [
-                STRING,
-                NUMBERS,
-                hljs.C_BLOCK_COMMENT_MODE
-              ]
-            },
-            hljs.C_LINE_COMMENT_MODE,
-            hljs.C_BLOCK_COMMENT_MODE
-          ]
-        },
-        AT_IDENTIFIER
-      ]
-    };
-  }
-
-  return csharp;
-
-})();
-
-    hljs.registerLanguage('csharp', hljsGrammar);
-  })();/*! `csp` grammar compiled for Highlight.js 11.10.0 */
-  (function(){
-    var hljsGrammar = (function () {
-  'use strict';
-
-  /*
-  Language: CSP
-  Description: Content Security Policy definition highlighting
-  Author: Taras <oxdef@oxdef.info>
-  Website: https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
-  Category: web
-
-  vim: ts=2 sw=2 st=2
-  */
-
-  /** @type LanguageFn */
-  function csp(hljs) {
-    const KEYWORDS = [
-      "base-uri",
-      "child-src",
-      "connect-src",
-      "default-src",
-      "font-src",
-      "form-action",
-      "frame-ancestors",
-      "frame-src",
-      "img-src",
-      "manifest-src",
-      "media-src",
-      "object-src",
-      "plugin-types",
-      "report-uri",
-      "sandbox",
-      "script-src",
-      "style-src",
-      "trusted-types",
-      "unsafe-hashes",
-      "worker-src"
-    ];
-    return {
-      name: 'CSP',
-      case_insensitive: false,
-      keywords: {
-        $pattern: '[a-zA-Z][a-zA-Z0-9_-]*',
-        keyword: KEYWORDS
-      },
-      contains: [
-        {
-          className: 'string',
-          begin: "'",
-          end: "'"
-        },
-        {
-          className: 'attribute',
-          begin: '^Content',
-          end: ':',
-          excludeEnd: true
-        }
-      ]
-    };
-  }
-
-  return csp;
-
-})();
-
-    hljs.registerLanguage('csp', hljsGrammar);
   })();/*! `css` grammar compiled for Highlight.js 11.10.0 */
   (function(){
     var hljsGrammar = (function () {
@@ -7541,3220 +6741,6 @@ if (typeof exports === 'object' && typeof module !== 'undefined') { module.expor
 })();
 
     hljs.registerLanguage('ini', hljsGrammar);
-  })();/*! `isbl` grammar compiled for Highlight.js 11.10.0 */
-  (function(){
-    var hljsGrammar = (function () {
-  'use strict';
-
-  /*
-  Language: ISBL
-  Author: Dmitriy Tarasov <dimatar@gmail.com>
-  Description: built-in language DIRECTUM
-  Category: enterprise
-  */
-
-  function isbl(hljs) {
-    // Определение идентификаторов
-    const UNDERSCORE_IDENT_RE = "[A-Za-zА-Яа-яёЁ_!][A-Za-zА-Яа-яёЁ_0-9]*";
-
-    // Определение имен функций
-    const FUNCTION_NAME_IDENT_RE = "[A-Za-zА-Яа-яёЁ_][A-Za-zА-Яа-яёЁ_0-9]*";
-
-    // keyword : ключевые слова
-    const KEYWORD =
-      "and и else иначе endexcept endfinally endforeach конецвсе endif конецесли endwhile конецпока "
-      + "except exitfor finally foreach все if если in в not не or или try while пока ";
-
-    // SYSRES Constants
-    const sysres_constants =
-      "SYSRES_CONST_ACCES_RIGHT_TYPE_EDIT "
-      + "SYSRES_CONST_ACCES_RIGHT_TYPE_FULL "
-      + "SYSRES_CONST_ACCES_RIGHT_TYPE_VIEW "
-      + "SYSRES_CONST_ACCESS_MODE_REQUISITE_CODE "
-      + "SYSRES_CONST_ACCESS_NO_ACCESS_VIEW "
-      + "SYSRES_CONST_ACCESS_NO_ACCESS_VIEW_CODE "
-      + "SYSRES_CONST_ACCESS_RIGHTS_ADD_REQUISITE_CODE "
-      + "SYSRES_CONST_ACCESS_RIGHTS_ADD_REQUISITE_YES_CODE "
-      + "SYSRES_CONST_ACCESS_RIGHTS_CHANGE_REQUISITE_CODE "
-      + "SYSRES_CONST_ACCESS_RIGHTS_CHANGE_REQUISITE_YES_CODE "
-      + "SYSRES_CONST_ACCESS_RIGHTS_DELETE_REQUISITE_CODE "
-      + "SYSRES_CONST_ACCESS_RIGHTS_DELETE_REQUISITE_YES_CODE "
-      + "SYSRES_CONST_ACCESS_RIGHTS_EXECUTE_REQUISITE_CODE "
-      + "SYSRES_CONST_ACCESS_RIGHTS_EXECUTE_REQUISITE_YES_CODE "
-      + "SYSRES_CONST_ACCESS_RIGHTS_NO_ACCESS_REQUISITE_CODE "
-      + "SYSRES_CONST_ACCESS_RIGHTS_NO_ACCESS_REQUISITE_YES_CODE "
-      + "SYSRES_CONST_ACCESS_RIGHTS_RATIFY_REQUISITE_CODE "
-      + "SYSRES_CONST_ACCESS_RIGHTS_RATIFY_REQUISITE_YES_CODE "
-      + "SYSRES_CONST_ACCESS_RIGHTS_REQUISITE_CODE "
-      + "SYSRES_CONST_ACCESS_RIGHTS_VIEW "
-      + "SYSRES_CONST_ACCESS_RIGHTS_VIEW_CODE "
-      + "SYSRES_CONST_ACCESS_RIGHTS_VIEW_REQUISITE_CODE "
-      + "SYSRES_CONST_ACCESS_RIGHTS_VIEW_REQUISITE_YES_CODE "
-      + "SYSRES_CONST_ACCESS_TYPE_CHANGE "
-      + "SYSRES_CONST_ACCESS_TYPE_CHANGE_CODE "
-      + "SYSRES_CONST_ACCESS_TYPE_EXISTS "
-      + "SYSRES_CONST_ACCESS_TYPE_EXISTS_CODE "
-      + "SYSRES_CONST_ACCESS_TYPE_FULL "
-      + "SYSRES_CONST_ACCESS_TYPE_FULL_CODE "
-      + "SYSRES_CONST_ACCESS_TYPE_VIEW "
-      + "SYSRES_CONST_ACCESS_TYPE_VIEW_CODE "
-      + "SYSRES_CONST_ACTION_TYPE_ABORT "
-      + "SYSRES_CONST_ACTION_TYPE_ACCEPT "
-      + "SYSRES_CONST_ACTION_TYPE_ACCESS_RIGHTS "
-      + "SYSRES_CONST_ACTION_TYPE_ADD_ATTACHMENT "
-      + "SYSRES_CONST_ACTION_TYPE_CHANGE_CARD "
-      + "SYSRES_CONST_ACTION_TYPE_CHANGE_KIND "
-      + "SYSRES_CONST_ACTION_TYPE_CHANGE_STORAGE "
-      + "SYSRES_CONST_ACTION_TYPE_CONTINUE "
-      + "SYSRES_CONST_ACTION_TYPE_COPY "
-      + "SYSRES_CONST_ACTION_TYPE_CREATE "
-      + "SYSRES_CONST_ACTION_TYPE_CREATE_VERSION "
-      + "SYSRES_CONST_ACTION_TYPE_DELETE "
-      + "SYSRES_CONST_ACTION_TYPE_DELETE_ATTACHMENT "
-      + "SYSRES_CONST_ACTION_TYPE_DELETE_VERSION "
-      + "SYSRES_CONST_ACTION_TYPE_DISABLE_DELEGATE_ACCESS_RIGHTS "
-      + "SYSRES_CONST_ACTION_TYPE_ENABLE_DELEGATE_ACCESS_RIGHTS "
-      + "SYSRES_CONST_ACTION_TYPE_ENCRYPTION_BY_CERTIFICATE "
-      + "SYSRES_CONST_ACTION_TYPE_ENCRYPTION_BY_CERTIFICATE_AND_PASSWORD "
-      + "SYSRES_CONST_ACTION_TYPE_ENCRYPTION_BY_PASSWORD "
-      + "SYSRES_CONST_ACTION_TYPE_EXPORT_WITH_LOCK "
-      + "SYSRES_CONST_ACTION_TYPE_EXPORT_WITHOUT_LOCK "
-      + "SYSRES_CONST_ACTION_TYPE_IMPORT_WITH_UNLOCK "
-      + "SYSRES_CONST_ACTION_TYPE_IMPORT_WITHOUT_UNLOCK "
-      + "SYSRES_CONST_ACTION_TYPE_LIFE_CYCLE_STAGE "
-      + "SYSRES_CONST_ACTION_TYPE_LOCK "
-      + "SYSRES_CONST_ACTION_TYPE_LOCK_FOR_SERVER "
-      + "SYSRES_CONST_ACTION_TYPE_LOCK_MODIFY "
-      + "SYSRES_CONST_ACTION_TYPE_MARK_AS_READED "
-      + "SYSRES_CONST_ACTION_TYPE_MARK_AS_UNREADED "
-      + "SYSRES_CONST_ACTION_TYPE_MODIFY "
-      + "SYSRES_CONST_ACTION_TYPE_MODIFY_CARD "
-      + "SYSRES_CONST_ACTION_TYPE_MOVE_TO_ARCHIVE "
-      + "SYSRES_CONST_ACTION_TYPE_OFF_ENCRYPTION "
-      + "SYSRES_CONST_ACTION_TYPE_PASSWORD_CHANGE "
-      + "SYSRES_CONST_ACTION_TYPE_PERFORM "
-      + "SYSRES_CONST_ACTION_TYPE_RECOVER_FROM_LOCAL_COPY "
-      + "SYSRES_CONST_ACTION_TYPE_RESTART "
-      + "SYSRES_CONST_ACTION_TYPE_RESTORE_FROM_ARCHIVE "
-      + "SYSRES_CONST_ACTION_TYPE_REVISION "
-      + "SYSRES_CONST_ACTION_TYPE_SEND_BY_MAIL "
-      + "SYSRES_CONST_ACTION_TYPE_SIGN "
-      + "SYSRES_CONST_ACTION_TYPE_START "
-      + "SYSRES_CONST_ACTION_TYPE_UNLOCK "
-      + "SYSRES_CONST_ACTION_TYPE_UNLOCK_FROM_SERVER "
-      + "SYSRES_CONST_ACTION_TYPE_VERSION_STATE "
-      + "SYSRES_CONST_ACTION_TYPE_VERSION_VISIBILITY "
-      + "SYSRES_CONST_ACTION_TYPE_VIEW "
-      + "SYSRES_CONST_ACTION_TYPE_VIEW_SHADOW_COPY "
-      + "SYSRES_CONST_ACTION_TYPE_WORKFLOW_DESCRIPTION_MODIFY "
-      + "SYSRES_CONST_ACTION_TYPE_WRITE_HISTORY "
-      + "SYSRES_CONST_ACTIVE_VERSION_STATE_PICK_VALUE "
-      + "SYSRES_CONST_ADD_REFERENCE_MODE_NAME "
-      + "SYSRES_CONST_ADDITION_REQUISITE_CODE "
-      + "SYSRES_CONST_ADDITIONAL_PARAMS_REQUISITE_CODE "
-      + "SYSRES_CONST_ADITIONAL_JOB_END_DATE_REQUISITE_NAME "
-      + "SYSRES_CONST_ADITIONAL_JOB_READ_REQUISITE_NAME "
-      + "SYSRES_CONST_ADITIONAL_JOB_START_DATE_REQUISITE_NAME "
-      + "SYSRES_CONST_ADITIONAL_JOB_STATE_REQUISITE_NAME "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_ADDING_USER_TO_GROUP_ACTION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_ADDING_USER_TO_GROUP_ACTION_CODE "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_CREATION_COMP_ACTION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_CREATION_COMP_ACTION_CODE "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_CREATION_GROUP_ACTION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_CREATION_GROUP_ACTION_CODE "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_CREATION_USER_ACTION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_CREATION_USER_ACTION_CODE "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_DATABASE_USER_CREATION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_DATABASE_USER_CREATION_ACTION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_DATABASE_USER_DELETION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_DATABASE_USER_DELETION_ACTION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_DELETION_COMP_ACTION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_DELETION_COMP_ACTION_CODE "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_DELETION_GROUP_ACTION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_DELETION_GROUP_ACTION_CODE "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_DELETION_USER_ACTION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_DELETION_USER_ACTION_CODE "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_DELETION_USER_FROM_GROUP_ACTION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_DELETION_USER_FROM_GROUP_ACTION_CODE "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_GRANTING_FILTERER_ACTION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_GRANTING_FILTERER_ACTION_CODE "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_GRANTING_FILTERER_RESTRICTION_ACTION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_GRANTING_FILTERER_RESTRICTION_ACTION_CODE "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_GRANTING_PRIVILEGE_ACTION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_GRANTING_PRIVILEGE_ACTION_CODE "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_GRANTING_RIGHTS_ACTION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_GRANTING_RIGHTS_ACTION_CODE "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_IS_MAIN_SERVER_CHANGED_ACTION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_IS_MAIN_SERVER_CHANGED_ACTION_CODE "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_IS_PUBLIC_CHANGED_ACTION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_IS_PUBLIC_CHANGED_ACTION_CODE "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_REMOVING_FILTERER_ACTION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_REMOVING_FILTERER_ACTION_CODE "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_REMOVING_FILTERER_RESTRICTION_ACTION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_REMOVING_FILTERER_RESTRICTION_ACTION_CODE "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_REMOVING_PRIVILEGE_ACTION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_REMOVING_PRIVILEGE_ACTION_CODE "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_REMOVING_RIGHTS_ACTION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_REMOVING_RIGHTS_ACTION_CODE "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_SERVER_LOGIN_CREATION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_SERVER_LOGIN_CREATION_ACTION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_SERVER_LOGIN_DELETION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_SERVER_LOGIN_DELETION_ACTION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_UPDATING_CATEGORY_ACTION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_UPDATING_CATEGORY_ACTION_CODE "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_UPDATING_COMP_TITLE_ACTION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_UPDATING_COMP_TITLE_ACTION_CODE "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_UPDATING_FULL_NAME_ACTION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_UPDATING_FULL_NAME_ACTION_CODE "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_UPDATING_GROUP_ACTION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_UPDATING_GROUP_ACTION_CODE "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_UPDATING_PARENT_GROUP_ACTION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_UPDATING_PARENT_GROUP_ACTION_CODE "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_UPDATING_USER_AUTH_TYPE_ACTION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_UPDATING_USER_AUTH_TYPE_ACTION_CODE "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_UPDATING_USER_LOGIN_ACTION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_UPDATING_USER_LOGIN_ACTION_CODE "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_UPDATING_USER_STATUS_ACTION "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_UPDATING_USER_STATUS_ACTION_CODE "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_USER_PASSWORD_CHANGE "
-      + "SYSRES_CONST_ADMINISTRATION_HISTORY_USER_PASSWORD_CHANGE_ACTION "
-      + "SYSRES_CONST_ALL_ACCEPT_CONDITION_RUS "
-      + "SYSRES_CONST_ALL_USERS_GROUP "
-      + "SYSRES_CONST_ALL_USERS_GROUP_NAME "
-      + "SYSRES_CONST_ALL_USERS_SERVER_GROUP_NAME "
-      + "SYSRES_CONST_ALLOWED_ACCESS_TYPE_CODE "
-      + "SYSRES_CONST_ALLOWED_ACCESS_TYPE_NAME "
-      + "SYSRES_CONST_APP_VIEWER_TYPE_REQUISITE_CODE "
-      + "SYSRES_CONST_APPROVING_SIGNATURE_NAME "
-      + "SYSRES_CONST_APPROVING_SIGNATURE_REQUISITE_CODE "
-      + "SYSRES_CONST_ASSISTANT_SUBSTITUE_TYPE "
-      + "SYSRES_CONST_ASSISTANT_SUBSTITUE_TYPE_CODE "
-      + "SYSRES_CONST_ATTACH_TYPE_COMPONENT_TOKEN "
-      + "SYSRES_CONST_ATTACH_TYPE_DOC "
-      + "SYSRES_CONST_ATTACH_TYPE_EDOC "
-      + "SYSRES_CONST_ATTACH_TYPE_FOLDER "
-      + "SYSRES_CONST_ATTACH_TYPE_JOB "
-      + "SYSRES_CONST_ATTACH_TYPE_REFERENCE "
-      + "SYSRES_CONST_ATTACH_TYPE_TASK "
-      + "SYSRES_CONST_AUTH_ENCODED_PASSWORD "
-      + "SYSRES_CONST_AUTH_ENCODED_PASSWORD_CODE "
-      + "SYSRES_CONST_AUTH_NOVELL "
-      + "SYSRES_CONST_AUTH_PASSWORD "
-      + "SYSRES_CONST_AUTH_PASSWORD_CODE "
-      + "SYSRES_CONST_AUTH_WINDOWS "
-      + "SYSRES_CONST_AUTHENTICATING_SIGNATURE_NAME "
-      + "SYSRES_CONST_AUTHENTICATING_SIGNATURE_REQUISITE_CODE "
-      + "SYSRES_CONST_AUTO_ENUM_METHOD_FLAG "
-      + "SYSRES_CONST_AUTO_NUMERATION_CODE "
-      + "SYSRES_CONST_AUTO_STRONG_ENUM_METHOD_FLAG "
-      + "SYSRES_CONST_AUTOTEXT_NAME_REQUISITE_CODE "
-      + "SYSRES_CONST_AUTOTEXT_TEXT_REQUISITE_CODE "
-      + "SYSRES_CONST_AUTOTEXT_USAGE_ALL "
-      + "SYSRES_CONST_AUTOTEXT_USAGE_ALL_CODE "
-      + "SYSRES_CONST_AUTOTEXT_USAGE_SIGN "
-      + "SYSRES_CONST_AUTOTEXT_USAGE_SIGN_CODE "
-      + "SYSRES_CONST_AUTOTEXT_USAGE_WORK "
-      + "SYSRES_CONST_AUTOTEXT_USAGE_WORK_CODE "
-      + "SYSRES_CONST_AUTOTEXT_USE_ANYWHERE_CODE "
-      + "SYSRES_CONST_AUTOTEXT_USE_ON_SIGNING_CODE "
-      + "SYSRES_CONST_AUTOTEXT_USE_ON_WORK_CODE "
-      + "SYSRES_CONST_BEGIN_DATE_REQUISITE_CODE "
-      + "SYSRES_CONST_BLACK_LIFE_CYCLE_STAGE_FONT_COLOR "
-      + "SYSRES_CONST_BLUE_LIFE_CYCLE_STAGE_FONT_COLOR "
-      + "SYSRES_CONST_BTN_PART "
-      + "SYSRES_CONST_CALCULATED_ROLE_TYPE_CODE "
-      + "SYSRES_CONST_CALL_TYPE_VARIABLE_BUTTON_VALUE "
-      + "SYSRES_CONST_CALL_TYPE_VARIABLE_PROGRAM_VALUE "
-      + "SYSRES_CONST_CANCEL_MESSAGE_FUNCTION_RESULT "
-      + "SYSRES_CONST_CARD_PART "
-      + "SYSRES_CONST_CARD_REFERENCE_MODE_NAME "
-      + "SYSRES_CONST_CERTIFICATE_TYPE_REQUISITE_ENCRYPT_VALUE "
-      + "SYSRES_CONST_CERTIFICATE_TYPE_REQUISITE_SIGN_AND_ENCRYPT_VALUE "
-      + "SYSRES_CONST_CERTIFICATE_TYPE_REQUISITE_SIGN_VALUE "
-      + "SYSRES_CONST_CHECK_PARAM_VALUE_DATE_PARAM_TYPE "
-      + "SYSRES_CONST_CHECK_PARAM_VALUE_FLOAT_PARAM_TYPE "
-      + "SYSRES_CONST_CHECK_PARAM_VALUE_INTEGER_PARAM_TYPE "
-      + "SYSRES_CONST_CHECK_PARAM_VALUE_PICK_PARAM_TYPE "
-      + "SYSRES_CONST_CHECK_PARAM_VALUE_REEFRENCE_PARAM_TYPE "
-      + "SYSRES_CONST_CLOSED_RECORD_FLAG_VALUE_FEMININE "
-      + "SYSRES_CONST_CLOSED_RECORD_FLAG_VALUE_MASCULINE "
-      + "SYSRES_CONST_CODE_COMPONENT_TYPE_ADMIN "
-      + "SYSRES_CONST_CODE_COMPONENT_TYPE_DEVELOPER "
-      + "SYSRES_CONST_CODE_COMPONENT_TYPE_DOCS "
-      + "SYSRES_CONST_CODE_COMPONENT_TYPE_EDOC_CARDS "
-      + "SYSRES_CONST_CODE_COMPONENT_TYPE_EXTERNAL_EXECUTABLE "
-      + "SYSRES_CONST_CODE_COMPONENT_TYPE_OTHER "
-      + "SYSRES_CONST_CODE_COMPONENT_TYPE_REFERENCE "
-      + "SYSRES_CONST_CODE_COMPONENT_TYPE_REPORT "
-      + "SYSRES_CONST_CODE_COMPONENT_TYPE_SCRIPT "
-      + "SYSRES_CONST_CODE_COMPONENT_TYPE_URL "
-      + "SYSRES_CONST_CODE_REQUISITE_ACCESS "
-      + "SYSRES_CONST_CODE_REQUISITE_CODE "
-      + "SYSRES_CONST_CODE_REQUISITE_COMPONENT "
-      + "SYSRES_CONST_CODE_REQUISITE_DESCRIPTION "
-      + "SYSRES_CONST_CODE_REQUISITE_EXCLUDE_COMPONENT "
-      + "SYSRES_CONST_CODE_REQUISITE_RECORD "
-      + "SYSRES_CONST_COMMENT_REQ_CODE "
-      + "SYSRES_CONST_COMMON_SETTINGS_REQUISITE_CODE "
-      + "SYSRES_CONST_COMP_CODE_GRD "
-      + "SYSRES_CONST_COMPONENT_GROUP_TYPE_REQUISITE_CODE "
-      + "SYSRES_CONST_COMPONENT_TYPE_ADMIN_COMPONENTS "
-      + "SYSRES_CONST_COMPONENT_TYPE_DEVELOPER_COMPONENTS "
-      + "SYSRES_CONST_COMPONENT_TYPE_DOCS "
-      + "SYSRES_CONST_COMPONENT_TYPE_EDOC_CARDS "
-      + "SYSRES_CONST_COMPONENT_TYPE_EDOCS "
-      + "SYSRES_CONST_COMPONENT_TYPE_EXTERNAL_EXECUTABLE "
-      + "SYSRES_CONST_COMPONENT_TYPE_OTHER "
-      + "SYSRES_CONST_COMPONENT_TYPE_REFERENCE_TYPES "
-      + "SYSRES_CONST_COMPONENT_TYPE_REFERENCES "
-      + "SYSRES_CONST_COMPONENT_TYPE_REPORTS "
-      + "SYSRES_CONST_COMPONENT_TYPE_SCRIPTS "
-      + "SYSRES_CONST_COMPONENT_TYPE_URL "
-      + "SYSRES_CONST_COMPONENTS_REMOTE_SERVERS_VIEW_CODE "
-      + "SYSRES_CONST_CONDITION_BLOCK_DESCRIPTION "
-      + "SYSRES_CONST_CONST_FIRM_STATUS_COMMON "
-      + "SYSRES_CONST_CONST_FIRM_STATUS_INDIVIDUAL "
-      + "SYSRES_CONST_CONST_NEGATIVE_VALUE "
-      + "SYSRES_CONST_CONST_POSITIVE_VALUE "
-      + "SYSRES_CONST_CONST_SERVER_STATUS_DONT_REPLICATE "
-      + "SYSRES_CONST_CONST_SERVER_STATUS_REPLICATE "
-      + "SYSRES_CONST_CONTENTS_REQUISITE_CODE "
-      + "SYSRES_CONST_DATA_TYPE_BOOLEAN "
-      + "SYSRES_CONST_DATA_TYPE_DATE "
-      + "SYSRES_CONST_DATA_TYPE_FLOAT "
-      + "SYSRES_CONST_DATA_TYPE_INTEGER "
-      + "SYSRES_CONST_DATA_TYPE_PICK "
-      + "SYSRES_CONST_DATA_TYPE_REFERENCE "
-      + "SYSRES_CONST_DATA_TYPE_STRING "
-      + "SYSRES_CONST_DATA_TYPE_TEXT "
-      + "SYSRES_CONST_DATA_TYPE_VARIANT "
-      + "SYSRES_CONST_DATE_CLOSE_REQ_CODE "
-      + "SYSRES_CONST_DATE_FORMAT_DATE_ONLY_CHAR "
-      + "SYSRES_CONST_DATE_OPEN_REQ_CODE "
-      + "SYSRES_CONST_DATE_REQUISITE "
-      + "SYSRES_CONST_DATE_REQUISITE_CODE "
-      + "SYSRES_CONST_DATE_REQUISITE_NAME "
-      + "SYSRES_CONST_DATE_REQUISITE_TYPE "
-      + "SYSRES_CONST_DATE_TYPE_CHAR "
-      + "SYSRES_CONST_DATETIME_FORMAT_VALUE "
-      + "SYSRES_CONST_DEA_ACCESS_RIGHTS_ACTION_CODE "
-      + "SYSRES_CONST_DESCRIPTION_LOCALIZE_ID_REQUISITE_CODE "
-      + "SYSRES_CONST_DESCRIPTION_REQUISITE_CODE "
-      + "SYSRES_CONST_DET1_PART "
-      + "SYSRES_CONST_DET2_PART "
-      + "SYSRES_CONST_DET3_PART "
-      + "SYSRES_CONST_DET4_PART "
-      + "SYSRES_CONST_DET5_PART "
-      + "SYSRES_CONST_DET6_PART "
-      + "SYSRES_CONST_DETAIL_DATASET_KEY_REQUISITE_CODE "
-      + "SYSRES_CONST_DETAIL_PICK_REQUISITE_CODE "
-      + "SYSRES_CONST_DETAIL_REQ_CODE "
-      + "SYSRES_CONST_DO_NOT_USE_ACCESS_TYPE_CODE "
-      + "SYSRES_CONST_DO_NOT_USE_ACCESS_TYPE_NAME "
-      + "SYSRES_CONST_DO_NOT_USE_ON_VIEW_ACCESS_TYPE_CODE "
-      + "SYSRES_CONST_DO_NOT_USE_ON_VIEW_ACCESS_TYPE_NAME "
-      + "SYSRES_CONST_DOCUMENT_STORAGES_CODE "
-      + "SYSRES_CONST_DOCUMENT_TEMPLATES_TYPE_NAME "
-      + "SYSRES_CONST_DOUBLE_REQUISITE_CODE "
-      + "SYSRES_CONST_EDITOR_CLOSE_FILE_OBSERV_TYPE_CODE "
-      + "SYSRES_CONST_EDITOR_CLOSE_PROCESS_OBSERV_TYPE_CODE "
-      + "SYSRES_CONST_EDITOR_TYPE_REQUISITE_CODE "
-      + "SYSRES_CONST_EDITORS_APPLICATION_NAME_REQUISITE_CODE "
-      + "SYSRES_CONST_EDITORS_CREATE_SEVERAL_PROCESSES_REQUISITE_CODE "
-      + "SYSRES_CONST_EDITORS_EXTENSION_REQUISITE_CODE "
-      + "SYSRES_CONST_EDITORS_OBSERVER_BY_PROCESS_TYPE "
-      + "SYSRES_CONST_EDITORS_REFERENCE_CODE "
-      + "SYSRES_CONST_EDITORS_REPLACE_SPEC_CHARS_REQUISITE_CODE "
-      + "SYSRES_CONST_EDITORS_USE_PLUGINS_REQUISITE_CODE "
-      + "SYSRES_CONST_EDITORS_VIEW_DOCUMENT_OPENED_TO_EDIT_CODE "
-      + "SYSRES_CONST_EDOC_CARD_TYPE_REQUISITE_CODE "
-      + "SYSRES_CONST_EDOC_CARD_TYPES_LINK_REQUISITE_CODE "
-      + "SYSRES_CONST_EDOC_CERTIFICATE_AND_PASSWORD_ENCODE_CODE "
-      + "SYSRES_CONST_EDOC_CERTIFICATE_ENCODE_CODE "
-      + "SYSRES_CONST_EDOC_DATE_REQUISITE_CODE "
-      + "SYSRES_CONST_EDOC_KIND_REFERENCE_CODE "
-      + "SYSRES_CONST_EDOC_KINDS_BY_TEMPLATE_ACTION_CODE "
-      + "SYSRES_CONST_EDOC_MANAGE_ACCESS_CODE "
-      + "SYSRES_CONST_EDOC_NONE_ENCODE_CODE "
-      + "SYSRES_CONST_EDOC_NUMBER_REQUISITE_CODE "
-      + "SYSRES_CONST_EDOC_PASSWORD_ENCODE_CODE "
-      + "SYSRES_CONST_EDOC_READONLY_ACCESS_CODE "
-      + "SYSRES_CONST_EDOC_SHELL_LIFE_TYPE_VIEW_VALUE "
-      + "SYSRES_CONST_EDOC_SIZE_RESTRICTION_PRIORITY_REQUISITE_CODE "
-      + "SYSRES_CONST_EDOC_STORAGE_CHECK_ACCESS_RIGHTS_REQUISITE_CODE "
-      + "SYSRES_CONST_EDOC_STORAGE_COMPUTER_NAME_REQUISITE_CODE "
-      + "SYSRES_CONST_EDOC_STORAGE_DATABASE_NAME_REQUISITE_CODE "
-      + "SYSRES_CONST_EDOC_STORAGE_EDIT_IN_STORAGE_REQUISITE_CODE "
-      + "SYSRES_CONST_EDOC_STORAGE_LOCAL_PATH_REQUISITE_CODE "
-      + "SYSRES_CONST_EDOC_STORAGE_SHARED_SOURCE_NAME_REQUISITE_CODE "
-      + "SYSRES_CONST_EDOC_TEMPLATE_REQUISITE_CODE "
-      + "SYSRES_CONST_EDOC_TYPES_REFERENCE_CODE "
-      + "SYSRES_CONST_EDOC_VERSION_ACTIVE_STAGE_CODE "
-      + "SYSRES_CONST_EDOC_VERSION_DESIGN_STAGE_CODE "
-      + "SYSRES_CONST_EDOC_VERSION_OBSOLETE_STAGE_CODE "
-      + "SYSRES_CONST_EDOC_WRITE_ACCES_CODE "
-      + "SYSRES_CONST_EDOCUMENT_CARD_REQUISITES_REFERENCE_CODE_SELECTED_REQUISITE "
-      + "SYSRES_CONST_ENCODE_CERTIFICATE_TYPE_CODE "
-      + "SYSRES_CONST_END_DATE_REQUISITE_CODE "
-      + "SYSRES_CONST_ENUMERATION_TYPE_REQUISITE_CODE "
-      + "SYSRES_CONST_EXECUTE_ACCESS_RIGHTS_TYPE_CODE "
-      + "SYSRES_CONST_EXECUTIVE_FILE_STORAGE_TYPE "
-      + "SYSRES_CONST_EXIST_CONST "
-      + "SYSRES_CONST_EXIST_VALUE "
-      + "SYSRES_CONST_EXPORT_LOCK_TYPE_ASK "
-      + "SYSRES_CONST_EXPORT_LOCK_TYPE_WITH_LOCK "
-      + "SYSRES_CONST_EXPORT_LOCK_TYPE_WITHOUT_LOCK "
-      + "SYSRES_CONST_EXPORT_VERSION_TYPE_ASK "
-      + "SYSRES_CONST_EXPORT_VERSION_TYPE_LAST "
-      + "SYSRES_CONST_EXPORT_VERSION_TYPE_LAST_ACTIVE "
-      + "SYSRES_CONST_EXTENSION_REQUISITE_CODE "
-      + "SYSRES_CONST_FILTER_NAME_REQUISITE_CODE "
-      + "SYSRES_CONST_FILTER_REQUISITE_CODE "
-      + "SYSRES_CONST_FILTER_TYPE_COMMON_CODE "
-      + "SYSRES_CONST_FILTER_TYPE_COMMON_NAME "
-      + "SYSRES_CONST_FILTER_TYPE_USER_CODE "
-      + "SYSRES_CONST_FILTER_TYPE_USER_NAME "
-      + "SYSRES_CONST_FILTER_VALUE_REQUISITE_NAME "
-      + "SYSRES_CONST_FLOAT_NUMBER_FORMAT_CHAR "
-      + "SYSRES_CONST_FLOAT_REQUISITE_TYPE "
-      + "SYSRES_CONST_FOLDER_AUTHOR_VALUE "
-      + "SYSRES_CONST_FOLDER_KIND_ANY_OBJECTS "
-      + "SYSRES_CONST_FOLDER_KIND_COMPONENTS "
-      + "SYSRES_CONST_FOLDER_KIND_EDOCS "
-      + "SYSRES_CONST_FOLDER_KIND_JOBS "
-      + "SYSRES_CONST_FOLDER_KIND_TASKS "
-      + "SYSRES_CONST_FOLDER_TYPE_COMMON "
-      + "SYSRES_CONST_FOLDER_TYPE_COMPONENT "
-      + "SYSRES_CONST_FOLDER_TYPE_FAVORITES "
-      + "SYSRES_CONST_FOLDER_TYPE_INBOX "
-      + "SYSRES_CONST_FOLDER_TYPE_OUTBOX "
-      + "SYSRES_CONST_FOLDER_TYPE_QUICK_LAUNCH "
-      + "SYSRES_CONST_FOLDER_TYPE_SEARCH "
-      + "SYSRES_CONST_FOLDER_TYPE_SHORTCUTS "
-      + "SYSRES_CONST_FOLDER_TYPE_USER "
-      + "SYSRES_CONST_FROM_DICTIONARY_ENUM_METHOD_FLAG "
-      + "SYSRES_CONST_FULL_SUBSTITUTE_TYPE "
-      + "SYSRES_CONST_FULL_SUBSTITUTE_TYPE_CODE "
-      + "SYSRES_CONST_FUNCTION_CANCEL_RESULT "
-      + "SYSRES_CONST_FUNCTION_CATEGORY_SYSTEM "
-      + "SYSRES_CONST_FUNCTION_CATEGORY_USER "
-      + "SYSRES_CONST_FUNCTION_FAILURE_RESULT "
-      + "SYSRES_CONST_FUNCTION_SAVE_RESULT "
-      + "SYSRES_CONST_GENERATED_REQUISITE "
-      + "SYSRES_CONST_GREEN_LIFE_CYCLE_STAGE_FONT_COLOR "
-      + "SYSRES_CONST_GROUP_ACCOUNT_TYPE_VALUE_CODE "
-      + "SYSRES_CONST_GROUP_CATEGORY_NORMAL_CODE "
-      + "SYSRES_CONST_GROUP_CATEGORY_NORMAL_NAME "
-      + "SYSRES_CONST_GROUP_CATEGORY_SERVICE_CODE "
-      + "SYSRES_CONST_GROUP_CATEGORY_SERVICE_NAME "
-      + "SYSRES_CONST_GROUP_COMMON_CATEGORY_FIELD_VALUE "
-      + "SYSRES_CONST_GROUP_FULL_NAME_REQUISITE_CODE "
-      + "SYSRES_CONST_GROUP_NAME_REQUISITE_CODE "
-      + "SYSRES_CONST_GROUP_RIGHTS_T_REQUISITE_CODE "
-      + "SYSRES_CONST_GROUP_SERVER_CODES_REQUISITE_CODE "
-      + "SYSRES_CONST_GROUP_SERVER_NAME_REQUISITE_CODE "
-      + "SYSRES_CONST_GROUP_SERVICE_CATEGORY_FIELD_VALUE "
-      + "SYSRES_CONST_GROUP_USER_REQUISITE_CODE "
-      + "SYSRES_CONST_GROUPS_REFERENCE_CODE "
-      + "SYSRES_CONST_GROUPS_REQUISITE_CODE "
-      + "SYSRES_CONST_HIDDEN_MODE_NAME "
-      + "SYSRES_CONST_HIGH_LVL_REQUISITE_CODE "
-      + "SYSRES_CONST_HISTORY_ACTION_CREATE_CODE "
-      + "SYSRES_CONST_HISTORY_ACTION_DELETE_CODE "
-      + "SYSRES_CONST_HISTORY_ACTION_EDIT_CODE "
-      + "SYSRES_CONST_HOUR_CHAR "
-      + "SYSRES_CONST_ID_REQUISITE_CODE "
-      + "SYSRES_CONST_IDSPS_REQUISITE_CODE "
-      + "SYSRES_CONST_IMAGE_MODE_COLOR "
-      + "SYSRES_CONST_IMAGE_MODE_GREYSCALE "
-      + "SYSRES_CONST_IMAGE_MODE_MONOCHROME "
-      + "SYSRES_CONST_IMPORTANCE_HIGH "
-      + "SYSRES_CONST_IMPORTANCE_LOW "
-      + "SYSRES_CONST_IMPORTANCE_NORMAL "
-      + "SYSRES_CONST_IN_DESIGN_VERSION_STATE_PICK_VALUE "
-      + "SYSRES_CONST_INCOMING_WORK_RULE_TYPE_CODE "
-      + "SYSRES_CONST_INT_REQUISITE "
-      + "SYSRES_CONST_INT_REQUISITE_TYPE "
-      + "SYSRES_CONST_INTEGER_NUMBER_FORMAT_CHAR "
-      + "SYSRES_CONST_INTEGER_TYPE_CHAR "
-      + "SYSRES_CONST_IS_GENERATED_REQUISITE_NEGATIVE_VALUE "
-      + "SYSRES_CONST_IS_PUBLIC_ROLE_REQUISITE_CODE "
-      + "SYSRES_CONST_IS_REMOTE_USER_NEGATIVE_VALUE "
-      + "SYSRES_CONST_IS_REMOTE_USER_POSITIVE_VALUE "
-      + "SYSRES_CONST_IS_STORED_REQUISITE_NEGATIVE_VALUE "
-      + "SYSRES_CONST_IS_STORED_REQUISITE_STORED_VALUE "
-      + "SYSRES_CONST_ITALIC_LIFE_CYCLE_STAGE_DRAW_STYLE "
-      + "SYSRES_CONST_JOB_BLOCK_DESCRIPTION "
-      + "SYSRES_CONST_JOB_KIND_CONTROL_JOB "
-      + "SYSRES_CONST_JOB_KIND_JOB "
-      + "SYSRES_CONST_JOB_KIND_NOTICE "
-      + "SYSRES_CONST_JOB_STATE_ABORTED "
-      + "SYSRES_CONST_JOB_STATE_COMPLETE "
-      + "SYSRES_CONST_JOB_STATE_WORKING "
-      + "SYSRES_CONST_KIND_REQUISITE_CODE "
-      + "SYSRES_CONST_KIND_REQUISITE_NAME "
-      + "SYSRES_CONST_KINDS_CREATE_SHADOW_COPIES_REQUISITE_CODE "
-      + "SYSRES_CONST_KINDS_DEFAULT_EDOC_LIFE_STAGE_REQUISITE_CODE "
-      + "SYSRES_CONST_KINDS_EDOC_ALL_TEPLATES_ALLOWED_REQUISITE_CODE "
-      + "SYSRES_CONST_KINDS_EDOC_ALLOW_LIFE_CYCLE_STAGE_CHANGING_REQUISITE_CODE "
-      + "SYSRES_CONST_KINDS_EDOC_ALLOW_MULTIPLE_ACTIVE_VERSIONS_REQUISITE_CODE "
-      + "SYSRES_CONST_KINDS_EDOC_SHARE_ACCES_RIGHTS_BY_DEFAULT_CODE "
-      + "SYSRES_CONST_KINDS_EDOC_TEMPLATE_REQUISITE_CODE "
-      + "SYSRES_CONST_KINDS_EDOC_TYPE_REQUISITE_CODE "
-      + "SYSRES_CONST_KINDS_SIGNERS_REQUISITES_CODE "
-      + "SYSRES_CONST_KOD_INPUT_TYPE "
-      + "SYSRES_CONST_LAST_UPDATE_DATE_REQUISITE_CODE "
-      + "SYSRES_CONST_LIFE_CYCLE_START_STAGE_REQUISITE_CODE "
-      + "SYSRES_CONST_LILAC_LIFE_CYCLE_STAGE_FONT_COLOR "
-      + "SYSRES_CONST_LINK_OBJECT_KIND_COMPONENT "
-      + "SYSRES_CONST_LINK_OBJECT_KIND_DOCUMENT "
-      + "SYSRES_CONST_LINK_OBJECT_KIND_EDOC "
-      + "SYSRES_CONST_LINK_OBJECT_KIND_FOLDER "
-      + "SYSRES_CONST_LINK_OBJECT_KIND_JOB "
-      + "SYSRES_CONST_LINK_OBJECT_KIND_REFERENCE "
-      + "SYSRES_CONST_LINK_OBJECT_KIND_TASK "
-      + "SYSRES_CONST_LINK_REF_TYPE_REQUISITE_CODE "
-      + "SYSRES_CONST_LIST_REFERENCE_MODE_NAME "
-      + "SYSRES_CONST_LOCALIZATION_DICTIONARY_MAIN_VIEW_CODE "
-      + "SYSRES_CONST_MAIN_VIEW_CODE "
-      + "SYSRES_CONST_MANUAL_ENUM_METHOD_FLAG "
-      + "SYSRES_CONST_MASTER_COMP_TYPE_REQUISITE_CODE "
-      + "SYSRES_CONST_MASTER_TABLE_REC_ID_REQUISITE_CODE "
-      + "SYSRES_CONST_MAXIMIZED_MODE_NAME "
-      + "SYSRES_CONST_ME_VALUE "
-      + "SYSRES_CONST_MESSAGE_ATTENTION_CAPTION "
-      + "SYSRES_CONST_MESSAGE_CONFIRMATION_CAPTION "
-      + "SYSRES_CONST_MESSAGE_ERROR_CAPTION "
-      + "SYSRES_CONST_MESSAGE_INFORMATION_CAPTION "
-      + "SYSRES_CONST_MINIMIZED_MODE_NAME "
-      + "SYSRES_CONST_MINUTE_CHAR "
-      + "SYSRES_CONST_MODULE_REQUISITE_CODE "
-      + "SYSRES_CONST_MONITORING_BLOCK_DESCRIPTION "
-      + "SYSRES_CONST_MONTH_FORMAT_VALUE "
-      + "SYSRES_CONST_NAME_LOCALIZE_ID_REQUISITE_CODE "
-      + "SYSRES_CONST_NAME_REQUISITE_CODE "
-      + "SYSRES_CONST_NAME_SINGULAR_REQUISITE_CODE "
-      + "SYSRES_CONST_NAMEAN_INPUT_TYPE "
-      + "SYSRES_CONST_NEGATIVE_PICK_VALUE "
-      + "SYSRES_CONST_NEGATIVE_VALUE "
-      + "SYSRES_CONST_NO "
-      + "SYSRES_CONST_NO_PICK_VALUE "
-      + "SYSRES_CONST_NO_SIGNATURE_REQUISITE_CODE "
-      + "SYSRES_CONST_NO_VALUE "
-      + "SYSRES_CONST_NONE_ACCESS_RIGHTS_TYPE_CODE "
-      + "SYSRES_CONST_NONOPERATING_RECORD_FLAG_VALUE "
-      + "SYSRES_CONST_NONOPERATING_RECORD_FLAG_VALUE_MASCULINE "
-      + "SYSRES_CONST_NORMAL_ACCESS_RIGHTS_TYPE_CODE "
-      + "SYSRES_CONST_NORMAL_LIFE_CYCLE_STAGE_DRAW_STYLE "
-      + "SYSRES_CONST_NORMAL_MODE_NAME "
-      + "SYSRES_CONST_NOT_ALLOWED_ACCESS_TYPE_CODE "
-      + "SYSRES_CONST_NOT_ALLOWED_ACCESS_TYPE_NAME "
-      + "SYSRES_CONST_NOTE_REQUISITE_CODE "
-      + "SYSRES_CONST_NOTICE_BLOCK_DESCRIPTION "
-      + "SYSRES_CONST_NUM_REQUISITE "
-      + "SYSRES_CONST_NUM_STR_REQUISITE_CODE "
-      + "SYSRES_CONST_NUMERATION_AUTO_NOT_STRONG "
-      + "SYSRES_CONST_NUMERATION_AUTO_STRONG "
-      + "SYSRES_CONST_NUMERATION_FROM_DICTONARY "
-      + "SYSRES_CONST_NUMERATION_MANUAL "
-      + "SYSRES_CONST_NUMERIC_TYPE_CHAR "
-      + "SYSRES_CONST_NUMREQ_REQUISITE_CODE "
-      + "SYSRES_CONST_OBSOLETE_VERSION_STATE_PICK_VALUE "
-      + "SYSRES_CONST_OPERATING_RECORD_FLAG_VALUE "
-      + "SYSRES_CONST_OPERATING_RECORD_FLAG_VALUE_CODE "
-      + "SYSRES_CONST_OPERATING_RECORD_FLAG_VALUE_FEMININE "
-      + "SYSRES_CONST_OPERATING_RECORD_FLAG_VALUE_MASCULINE "
-      + "SYSRES_CONST_OPTIONAL_FORM_COMP_REQCODE_PREFIX "
-      + "SYSRES_CONST_ORANGE_LIFE_CYCLE_STAGE_FONT_COLOR "
-      + "SYSRES_CONST_ORIGINALREF_REQUISITE_CODE "
-      + "SYSRES_CONST_OURFIRM_REF_CODE "
-      + "SYSRES_CONST_OURFIRM_REQUISITE_CODE "
-      + "SYSRES_CONST_OURFIRM_VAR "
-      + "SYSRES_CONST_OUTGOING_WORK_RULE_TYPE_CODE "
-      + "SYSRES_CONST_PICK_NEGATIVE_RESULT "
-      + "SYSRES_CONST_PICK_POSITIVE_RESULT "
-      + "SYSRES_CONST_PICK_REQUISITE "
-      + "SYSRES_CONST_PICK_REQUISITE_TYPE "
-      + "SYSRES_CONST_PICK_TYPE_CHAR "
-      + "SYSRES_CONST_PLAN_STATUS_REQUISITE_CODE "
-      + "SYSRES_CONST_PLATFORM_VERSION_COMMENT "
-      + "SYSRES_CONST_PLUGINS_SETTINGS_DESCRIPTION_REQUISITE_CODE "
-      + "SYSRES_CONST_POSITIVE_PICK_VALUE "
-      + "SYSRES_CONST_POWER_TO_CREATE_ACTION_CODE "
-      + "SYSRES_CONST_POWER_TO_SIGN_ACTION_CODE "
-      + "SYSRES_CONST_PRIORITY_REQUISITE_CODE "
-      + "SYSRES_CONST_QUALIFIED_TASK_TYPE "
-      + "SYSRES_CONST_QUALIFIED_TASK_TYPE_CODE "
-      + "SYSRES_CONST_RECSTAT_REQUISITE_CODE "
-      + "SYSRES_CONST_RED_LIFE_CYCLE_STAGE_FONT_COLOR "
-      + "SYSRES_CONST_REF_ID_T_REF_TYPE_REQUISITE_CODE "
-      + "SYSRES_CONST_REF_REQUISITE "
-      + "SYSRES_CONST_REF_REQUISITE_TYPE "
-      + "SYSRES_CONST_REF_REQUISITES_REFERENCE_CODE_SELECTED_REQUISITE "
-      + "SYSRES_CONST_REFERENCE_RECORD_HISTORY_CREATE_ACTION_CODE "
-      + "SYSRES_CONST_REFERENCE_RECORD_HISTORY_DELETE_ACTION_CODE "
-      + "SYSRES_CONST_REFERENCE_RECORD_HISTORY_MODIFY_ACTION_CODE "
-      + "SYSRES_CONST_REFERENCE_TYPE_CHAR "
-      + "SYSRES_CONST_REFERENCE_TYPE_REQUISITE_NAME "
-      + "SYSRES_CONST_REFERENCES_ADD_PARAMS_REQUISITE_CODE "
-      + "SYSRES_CONST_REFERENCES_DISPLAY_REQUISITE_REQUISITE_CODE "
-      + "SYSRES_CONST_REMOTE_SERVER_STATUS_WORKING "
-      + "SYSRES_CONST_REMOTE_SERVER_TYPE_MAIN "
-      + "SYSRES_CONST_REMOTE_SERVER_TYPE_SECONDARY "
-      + "SYSRES_CONST_REMOTE_USER_FLAG_VALUE_CODE "
-      + "SYSRES_CONST_REPORT_APP_EDITOR_INTERNAL "
-      + "SYSRES_CONST_REPORT_BASE_REPORT_ID_REQUISITE_CODE "
-      + "SYSRES_CONST_REPORT_BASE_REPORT_REQUISITE_CODE "
-      + "SYSRES_CONST_REPORT_SCRIPT_REQUISITE_CODE "
-      + "SYSRES_CONST_REPORT_TEMPLATE_REQUISITE_CODE "
-      + "SYSRES_CONST_REPORT_VIEWER_CODE_REQUISITE_CODE "
-      + "SYSRES_CONST_REQ_ALLOW_COMPONENT_DEFAULT_VALUE "
-      + "SYSRES_CONST_REQ_ALLOW_RECORD_DEFAULT_VALUE "
-      + "SYSRES_CONST_REQ_ALLOW_SERVER_COMPONENT_DEFAULT_VALUE "
-      + "SYSRES_CONST_REQ_MODE_AVAILABLE_CODE "
-      + "SYSRES_CONST_REQ_MODE_EDIT_CODE "
-      + "SYSRES_CONST_REQ_MODE_HIDDEN_CODE "
-      + "SYSRES_CONST_REQ_MODE_NOT_AVAILABLE_CODE "
-      + "SYSRES_CONST_REQ_MODE_VIEW_CODE "
-      + "SYSRES_CONST_REQ_NUMBER_REQUISITE_CODE "
-      + "SYSRES_CONST_REQ_SECTION_VALUE "
-      + "SYSRES_CONST_REQ_TYPE_VALUE "
-      + "SYSRES_CONST_REQUISITE_FORMAT_BY_UNIT "
-      + "SYSRES_CONST_REQUISITE_FORMAT_DATE_FULL "
-      + "SYSRES_CONST_REQUISITE_FORMAT_DATE_TIME "
-      + "SYSRES_CONST_REQUISITE_FORMAT_LEFT "
-      + "SYSRES_CONST_REQUISITE_FORMAT_RIGHT "
-      + "SYSRES_CONST_REQUISITE_FORMAT_WITHOUT_UNIT "
-      + "SYSRES_CONST_REQUISITE_NUMBER_REQUISITE_CODE "
-      + "SYSRES_CONST_REQUISITE_SECTION_ACTIONS "
-      + "SYSRES_CONST_REQUISITE_SECTION_BUTTON "
-      + "SYSRES_CONST_REQUISITE_SECTION_BUTTONS "
-      + "SYSRES_CONST_REQUISITE_SECTION_CARD "
-      + "SYSRES_CONST_REQUISITE_SECTION_TABLE "
-      + "SYSRES_CONST_REQUISITE_SECTION_TABLE10 "
-      + "SYSRES_CONST_REQUISITE_SECTION_TABLE11 "
-      + "SYSRES_CONST_REQUISITE_SECTION_TABLE12 "
-      + "SYSRES_CONST_REQUISITE_SECTION_TABLE13 "
-      + "SYSRES_CONST_REQUISITE_SECTION_TABLE14 "
-      + "SYSRES_CONST_REQUISITE_SECTION_TABLE15 "
-      + "SYSRES_CONST_REQUISITE_SECTION_TABLE16 "
-      + "SYSRES_CONST_REQUISITE_SECTION_TABLE17 "
-      + "SYSRES_CONST_REQUISITE_SECTION_TABLE18 "
-      + "SYSRES_CONST_REQUISITE_SECTION_TABLE19 "
-      + "SYSRES_CONST_REQUISITE_SECTION_TABLE2 "
-      + "SYSRES_CONST_REQUISITE_SECTION_TABLE20 "
-      + "SYSRES_CONST_REQUISITE_SECTION_TABLE21 "
-      + "SYSRES_CONST_REQUISITE_SECTION_TABLE22 "
-      + "SYSRES_CONST_REQUISITE_SECTION_TABLE23 "
-      + "SYSRES_CONST_REQUISITE_SECTION_TABLE24 "
-      + "SYSRES_CONST_REQUISITE_SECTION_TABLE3 "
-      + "SYSRES_CONST_REQUISITE_SECTION_TABLE4 "
-      + "SYSRES_CONST_REQUISITE_SECTION_TABLE5 "
-      + "SYSRES_CONST_REQUISITE_SECTION_TABLE6 "
-      + "SYSRES_CONST_REQUISITE_SECTION_TABLE7 "
-      + "SYSRES_CONST_REQUISITE_SECTION_TABLE8 "
-      + "SYSRES_CONST_REQUISITE_SECTION_TABLE9 "
-      + "SYSRES_CONST_REQUISITES_PSEUDOREFERENCE_REQUISITE_NUMBER_REQUISITE_CODE "
-      + "SYSRES_CONST_RIGHT_ALIGNMENT_CODE "
-      + "SYSRES_CONST_ROLES_REFERENCE_CODE "
-      + "SYSRES_CONST_ROUTE_STEP_AFTER_RUS "
-      + "SYSRES_CONST_ROUTE_STEP_AND_CONDITION_RUS "
-      + "SYSRES_CONST_ROUTE_STEP_OR_CONDITION_RUS "
-      + "SYSRES_CONST_ROUTE_TYPE_COMPLEX "
-      + "SYSRES_CONST_ROUTE_TYPE_PARALLEL "
-      + "SYSRES_CONST_ROUTE_TYPE_SERIAL "
-      + "SYSRES_CONST_SBDATASETDESC_NEGATIVE_VALUE "
-      + "SYSRES_CONST_SBDATASETDESC_POSITIVE_VALUE "
-      + "SYSRES_CONST_SBVIEWSDESC_POSITIVE_VALUE "
-      + "SYSRES_CONST_SCRIPT_BLOCK_DESCRIPTION "
-      + "SYSRES_CONST_SEARCH_BY_TEXT_REQUISITE_CODE "
-      + "SYSRES_CONST_SEARCHES_COMPONENT_CONTENT "
-      + "SYSRES_CONST_SEARCHES_CRITERIA_ACTION_NAME "
-      + "SYSRES_CONST_SEARCHES_EDOC_CONTENT "
-      + "SYSRES_CONST_SEARCHES_FOLDER_CONTENT "
-      + "SYSRES_CONST_SEARCHES_JOB_CONTENT "
-      + "SYSRES_CONST_SEARCHES_REFERENCE_CODE "
-      + "SYSRES_CONST_SEARCHES_TASK_CONTENT "
-      + "SYSRES_CONST_SECOND_CHAR "
-      + "SYSRES_CONST_SECTION_REQUISITE_ACTIONS_VALUE "
-      + "SYSRES_CONST_SECTION_REQUISITE_CARD_VALUE "
-      + "SYSRES_CONST_SECTION_REQUISITE_CODE "
-      + "SYSRES_CONST_SECTION_REQUISITE_DETAIL_1_VALUE "
-      + "SYSRES_CONST_SECTION_REQUISITE_DETAIL_2_VALUE "
-      + "SYSRES_CONST_SECTION_REQUISITE_DETAIL_3_VALUE "
-      + "SYSRES_CONST_SECTION_REQUISITE_DETAIL_4_VALUE "
-      + "SYSRES_CONST_SECTION_REQUISITE_DETAIL_5_VALUE "
-      + "SYSRES_CONST_SECTION_REQUISITE_DETAIL_6_VALUE "
-      + "SYSRES_CONST_SELECT_REFERENCE_MODE_NAME "
-      + "SYSRES_CONST_SELECT_TYPE_SELECTABLE "
-      + "SYSRES_CONST_SELECT_TYPE_SELECTABLE_ONLY_CHILD "
-      + "SYSRES_CONST_SELECT_TYPE_SELECTABLE_WITH_CHILD "
-      + "SYSRES_CONST_SELECT_TYPE_UNSLECTABLE "
-      + "SYSRES_CONST_SERVER_TYPE_MAIN "
-      + "SYSRES_CONST_SERVICE_USER_CATEGORY_FIELD_VALUE "
-      + "SYSRES_CONST_SETTINGS_USER_REQUISITE_CODE "
-      + "SYSRES_CONST_SIGNATURE_AND_ENCODE_CERTIFICATE_TYPE_CODE "
-      + "SYSRES_CONST_SIGNATURE_CERTIFICATE_TYPE_CODE "
-      + "SYSRES_CONST_SINGULAR_TITLE_REQUISITE_CODE "
-      + "SYSRES_CONST_SQL_SERVER_AUTHENTIFICATION_FLAG_VALUE_CODE "
-      + "SYSRES_CONST_SQL_SERVER_ENCODE_AUTHENTIFICATION_FLAG_VALUE_CODE "
-      + "SYSRES_CONST_STANDART_ROUTE_REFERENCE_CODE "
-      + "SYSRES_CONST_STANDART_ROUTE_REFERENCE_COMMENT_REQUISITE_CODE "
-      + "SYSRES_CONST_STANDART_ROUTES_GROUPS_REFERENCE_CODE "
-      + "SYSRES_CONST_STATE_REQ_NAME "
-      + "SYSRES_CONST_STATE_REQUISITE_ACTIVE_VALUE "
-      + "SYSRES_CONST_STATE_REQUISITE_CLOSED_VALUE "
-      + "SYSRES_CONST_STATE_REQUISITE_CODE "
-      + "SYSRES_CONST_STATIC_ROLE_TYPE_CODE "
-      + "SYSRES_CONST_STATUS_PLAN_DEFAULT_VALUE "
-      + "SYSRES_CONST_STATUS_VALUE_AUTOCLEANING "
-      + "SYSRES_CONST_STATUS_VALUE_BLUE_SQUARE "
-      + "SYSRES_CONST_STATUS_VALUE_COMPLETE "
-      + "SYSRES_CONST_STATUS_VALUE_GREEN_SQUARE "
-      + "SYSRES_CONST_STATUS_VALUE_ORANGE_SQUARE "
-      + "SYSRES_CONST_STATUS_VALUE_PURPLE_SQUARE "
-      + "SYSRES_CONST_STATUS_VALUE_RED_SQUARE "
-      + "SYSRES_CONST_STATUS_VALUE_SUSPEND "
-      + "SYSRES_CONST_STATUS_VALUE_YELLOW_SQUARE "
-      + "SYSRES_CONST_STDROUTE_SHOW_TO_USERS_REQUISITE_CODE "
-      + "SYSRES_CONST_STORAGE_TYPE_FILE "
-      + "SYSRES_CONST_STORAGE_TYPE_SQL_SERVER "
-      + "SYSRES_CONST_STR_REQUISITE "
-      + "SYSRES_CONST_STRIKEOUT_LIFE_CYCLE_STAGE_DRAW_STYLE "
-      + "SYSRES_CONST_STRING_FORMAT_LEFT_ALIGN_CHAR "
-      + "SYSRES_CONST_STRING_FORMAT_RIGHT_ALIGN_CHAR "
-      + "SYSRES_CONST_STRING_REQUISITE_CODE "
-      + "SYSRES_CONST_STRING_REQUISITE_TYPE "
-      + "SYSRES_CONST_STRING_TYPE_CHAR "
-      + "SYSRES_CONST_SUBSTITUTES_PSEUDOREFERENCE_CODE "
-      + "SYSRES_CONST_SUBTASK_BLOCK_DESCRIPTION "
-      + "SYSRES_CONST_SYSTEM_SETTING_CURRENT_USER_PARAM_VALUE "
-      + "SYSRES_CONST_SYSTEM_SETTING_EMPTY_VALUE_PARAM_VALUE "
-      + "SYSRES_CONST_SYSTEM_VERSION_COMMENT "
-      + "SYSRES_CONST_TASK_ACCESS_TYPE_ALL "
-      + "SYSRES_CONST_TASK_ACCESS_TYPE_ALL_MEMBERS "
-      + "SYSRES_CONST_TASK_ACCESS_TYPE_MANUAL "
-      + "SYSRES_CONST_TASK_ENCODE_TYPE_CERTIFICATION "
-      + "SYSRES_CONST_TASK_ENCODE_TYPE_CERTIFICATION_AND_PASSWORD "
-      + "SYSRES_CONST_TASK_ENCODE_TYPE_NONE "
-      + "SYSRES_CONST_TASK_ENCODE_TYPE_PASSWORD "
-      + "SYSRES_CONST_TASK_ROUTE_ALL_CONDITION "
-      + "SYSRES_CONST_TASK_ROUTE_AND_CONDITION "
-      + "SYSRES_CONST_TASK_ROUTE_OR_CONDITION "
-      + "SYSRES_CONST_TASK_STATE_ABORTED "
-      + "SYSRES_CONST_TASK_STATE_COMPLETE "
-      + "SYSRES_CONST_TASK_STATE_CONTINUED "
-      + "SYSRES_CONST_TASK_STATE_CONTROL "
-      + "SYSRES_CONST_TASK_STATE_INIT "
-      + "SYSRES_CONST_TASK_STATE_WORKING "
-      + "SYSRES_CONST_TASK_TITLE "
-      + "SYSRES_CONST_TASK_TYPES_GROUPS_REFERENCE_CODE "
-      + "SYSRES_CONST_TASK_TYPES_REFERENCE_CODE "
-      + "SYSRES_CONST_TEMPLATES_REFERENCE_CODE "
-      + "SYSRES_CONST_TEST_DATE_REQUISITE_NAME "
-      + "SYSRES_CONST_TEST_DEV_DATABASE_NAME "
-      + "SYSRES_CONST_TEST_DEV_SYSTEM_CODE "
-      + "SYSRES_CONST_TEST_EDMS_DATABASE_NAME "
-      + "SYSRES_CONST_TEST_EDMS_MAIN_CODE "
-      + "SYSRES_CONST_TEST_EDMS_MAIN_DB_NAME "
-      + "SYSRES_CONST_TEST_EDMS_SECOND_CODE "
-      + "SYSRES_CONST_TEST_EDMS_SECOND_DB_NAME "
-      + "SYSRES_CONST_TEST_EDMS_SYSTEM_CODE "
-      + "SYSRES_CONST_TEST_NUMERIC_REQUISITE_NAME "
-      + "SYSRES_CONST_TEXT_REQUISITE "
-      + "SYSRES_CONST_TEXT_REQUISITE_CODE "
-      + "SYSRES_CONST_TEXT_REQUISITE_TYPE "
-      + "SYSRES_CONST_TEXT_TYPE_CHAR "
-      + "SYSRES_CONST_TYPE_CODE_REQUISITE_CODE "
-      + "SYSRES_CONST_TYPE_REQUISITE_CODE "
-      + "SYSRES_CONST_UNDEFINED_LIFE_CYCLE_STAGE_FONT_COLOR "
-      + "SYSRES_CONST_UNITS_SECTION_ID_REQUISITE_CODE "
-      + "SYSRES_CONST_UNITS_SECTION_REQUISITE_CODE "
-      + "SYSRES_CONST_UNOPERATING_RECORD_FLAG_VALUE_CODE "
-      + "SYSRES_CONST_UNSTORED_DATA_REQUISITE_CODE "
-      + "SYSRES_CONST_UNSTORED_DATA_REQUISITE_NAME "
-      + "SYSRES_CONST_USE_ACCESS_TYPE_CODE "
-      + "SYSRES_CONST_USE_ACCESS_TYPE_NAME "
-      + "SYSRES_CONST_USER_ACCOUNT_TYPE_VALUE_CODE "
-      + "SYSRES_CONST_USER_ADDITIONAL_INFORMATION_REQUISITE_CODE "
-      + "SYSRES_CONST_USER_AND_GROUP_ID_FROM_PSEUDOREFERENCE_REQUISITE_CODE "
-      + "SYSRES_CONST_USER_CATEGORY_NORMAL "
-      + "SYSRES_CONST_USER_CERTIFICATE_REQUISITE_CODE "
-      + "SYSRES_CONST_USER_CERTIFICATE_STATE_REQUISITE_CODE "
-      + "SYSRES_CONST_USER_CERTIFICATE_SUBJECT_NAME_REQUISITE_CODE "
-      + "SYSRES_CONST_USER_CERTIFICATE_THUMBPRINT_REQUISITE_CODE "
-      + "SYSRES_CONST_USER_COMMON_CATEGORY "
-      + "SYSRES_CONST_USER_COMMON_CATEGORY_CODE "
-      + "SYSRES_CONST_USER_FULL_NAME_REQUISITE_CODE "
-      + "SYSRES_CONST_USER_GROUP_TYPE_REQUISITE_CODE "
-      + "SYSRES_CONST_USER_LOGIN_REQUISITE_CODE "
-      + "SYSRES_CONST_USER_REMOTE_CONTROLLER_REQUISITE_CODE "
-      + "SYSRES_CONST_USER_REMOTE_SYSTEM_REQUISITE_CODE "
-      + "SYSRES_CONST_USER_RIGHTS_T_REQUISITE_CODE "
-      + "SYSRES_CONST_USER_SERVER_NAME_REQUISITE_CODE "
-      + "SYSRES_CONST_USER_SERVICE_CATEGORY "
-      + "SYSRES_CONST_USER_SERVICE_CATEGORY_CODE "
-      + "SYSRES_CONST_USER_STATUS_ADMINISTRATOR_CODE "
-      + "SYSRES_CONST_USER_STATUS_ADMINISTRATOR_NAME "
-      + "SYSRES_CONST_USER_STATUS_DEVELOPER_CODE "
-      + "SYSRES_CONST_USER_STATUS_DEVELOPER_NAME "
-      + "SYSRES_CONST_USER_STATUS_DISABLED_CODE "
-      + "SYSRES_CONST_USER_STATUS_DISABLED_NAME "
-      + "SYSRES_CONST_USER_STATUS_SYSTEM_DEVELOPER_CODE "
-      + "SYSRES_CONST_USER_STATUS_USER_CODE "
-      + "SYSRES_CONST_USER_STATUS_USER_NAME "
-      + "SYSRES_CONST_USER_STATUS_USER_NAME_DEPRECATED "
-      + "SYSRES_CONST_USER_TYPE_FIELD_VALUE_USER "
-      + "SYSRES_CONST_USER_TYPE_REQUISITE_CODE "
-      + "SYSRES_CONST_USERS_CONTROLLER_REQUISITE_CODE "
-      + "SYSRES_CONST_USERS_IS_MAIN_SERVER_REQUISITE_CODE "
-      + "SYSRES_CONST_USERS_REFERENCE_CODE "
-      + "SYSRES_CONST_USERS_REGISTRATION_CERTIFICATES_ACTION_NAME "
-      + "SYSRES_CONST_USERS_REQUISITE_CODE "
-      + "SYSRES_CONST_USERS_SYSTEM_REQUISITE_CODE "
-      + "SYSRES_CONST_USERS_USER_ACCESS_RIGHTS_TYPR_REQUISITE_CODE "
-      + "SYSRES_CONST_USERS_USER_AUTHENTICATION_REQUISITE_CODE "
-      + "SYSRES_CONST_USERS_USER_COMPONENT_REQUISITE_CODE "
-      + "SYSRES_CONST_USERS_USER_GROUP_REQUISITE_CODE "
-      + "SYSRES_CONST_USERS_VIEW_CERTIFICATES_ACTION_NAME "
-      + "SYSRES_CONST_VIEW_DEFAULT_CODE "
-      + "SYSRES_CONST_VIEW_DEFAULT_NAME "
-      + "SYSRES_CONST_VIEWER_REQUISITE_CODE "
-      + "SYSRES_CONST_WAITING_BLOCK_DESCRIPTION "
-      + "SYSRES_CONST_WIZARD_FORM_LABEL_TEST_STRING  "
-      + "SYSRES_CONST_WIZARD_QUERY_PARAM_HEIGHT_ETALON_STRING "
-      + "SYSRES_CONST_WIZARD_REFERENCE_COMMENT_REQUISITE_CODE "
-      + "SYSRES_CONST_WORK_RULES_DESCRIPTION_REQUISITE_CODE "
-      + "SYSRES_CONST_WORK_TIME_CALENDAR_REFERENCE_CODE "
-      + "SYSRES_CONST_WORK_WORKFLOW_HARD_ROUTE_TYPE_VALUE "
-      + "SYSRES_CONST_WORK_WORKFLOW_HARD_ROUTE_TYPE_VALUE_CODE "
-      + "SYSRES_CONST_WORK_WORKFLOW_HARD_ROUTE_TYPE_VALUE_CODE_RUS "
-      + "SYSRES_CONST_WORK_WORKFLOW_SOFT_ROUTE_TYPE_VALUE_CODE_RUS "
-      + "SYSRES_CONST_WORKFLOW_ROUTE_TYPR_HARD "
-      + "SYSRES_CONST_WORKFLOW_ROUTE_TYPR_SOFT "
-      + "SYSRES_CONST_XML_ENCODING "
-      + "SYSRES_CONST_XREC_STAT_REQUISITE_CODE "
-      + "SYSRES_CONST_XRECID_FIELD_NAME "
-      + "SYSRES_CONST_YES "
-      + "SYSRES_CONST_YES_NO_2_REQUISITE_CODE "
-      + "SYSRES_CONST_YES_NO_REQUISITE_CODE "
-      + "SYSRES_CONST_YES_NO_T_REF_TYPE_REQUISITE_CODE "
-      + "SYSRES_CONST_YES_PICK_VALUE "
-      + "SYSRES_CONST_YES_VALUE ";
-
-    // Base constant
-    const base_constants = "CR FALSE nil NO_VALUE NULL TAB TRUE YES_VALUE ";
-
-    // Base group name
-    const base_group_name_constants =
-      "ADMINISTRATORS_GROUP_NAME CUSTOMIZERS_GROUP_NAME DEVELOPERS_GROUP_NAME SERVICE_USERS_GROUP_NAME ";
-
-    // Decision block properties
-    const decision_block_properties_constants =
-      "DECISION_BLOCK_FIRST_OPERAND_PROPERTY DECISION_BLOCK_NAME_PROPERTY DECISION_BLOCK_OPERATION_PROPERTY "
-      + "DECISION_BLOCK_RESULT_TYPE_PROPERTY DECISION_BLOCK_SECOND_OPERAND_PROPERTY ";
-
-    // File extension
-    const file_extension_constants =
-      "ANY_FILE_EXTENTION COMPRESSED_DOCUMENT_EXTENSION EXTENDED_DOCUMENT_EXTENSION "
-      + "SHORT_COMPRESSED_DOCUMENT_EXTENSION SHORT_EXTENDED_DOCUMENT_EXTENSION ";
-
-    // Job block properties
-    const job_block_properties_constants =
-      "JOB_BLOCK_ABORT_DEADLINE_PROPERTY "
-      + "JOB_BLOCK_AFTER_FINISH_EVENT "
-      + "JOB_BLOCK_AFTER_QUERY_PARAMETERS_EVENT "
-      + "JOB_BLOCK_ATTACHMENT_PROPERTY "
-      + "JOB_BLOCK_ATTACHMENTS_RIGHTS_GROUP_PROPERTY "
-      + "JOB_BLOCK_ATTACHMENTS_RIGHTS_TYPE_PROPERTY "
-      + "JOB_BLOCK_BEFORE_QUERY_PARAMETERS_EVENT "
-      + "JOB_BLOCK_BEFORE_START_EVENT "
-      + "JOB_BLOCK_CREATED_JOBS_PROPERTY "
-      + "JOB_BLOCK_DEADLINE_PROPERTY "
-      + "JOB_BLOCK_EXECUTION_RESULTS_PROPERTY "
-      + "JOB_BLOCK_IS_PARALLEL_PROPERTY "
-      + "JOB_BLOCK_IS_RELATIVE_ABORT_DEADLINE_PROPERTY "
-      + "JOB_BLOCK_IS_RELATIVE_DEADLINE_PROPERTY "
-      + "JOB_BLOCK_JOB_TEXT_PROPERTY "
-      + "JOB_BLOCK_NAME_PROPERTY "
-      + "JOB_BLOCK_NEED_SIGN_ON_PERFORM_PROPERTY "
-      + "JOB_BLOCK_PERFORMER_PROPERTY "
-      + "JOB_BLOCK_RELATIVE_ABORT_DEADLINE_TYPE_PROPERTY "
-      + "JOB_BLOCK_RELATIVE_DEADLINE_TYPE_PROPERTY "
-      + "JOB_BLOCK_SUBJECT_PROPERTY ";
-
-    // Language code
-    const language_code_constants = "ENGLISH_LANGUAGE_CODE RUSSIAN_LANGUAGE_CODE ";
-
-    // Launching external applications
-    const launching_external_applications_constants =
-      "smHidden smMaximized smMinimized smNormal wmNo wmYes ";
-
-    // Link kind
-    const link_kind_constants =
-      "COMPONENT_TOKEN_LINK_KIND "
-      + "DOCUMENT_LINK_KIND "
-      + "EDOCUMENT_LINK_KIND "
-      + "FOLDER_LINK_KIND "
-      + "JOB_LINK_KIND "
-      + "REFERENCE_LINK_KIND "
-      + "TASK_LINK_KIND ";
-
-    // Lock type
-    const lock_type_constants =
-      "COMPONENT_TOKEN_LOCK_TYPE EDOCUMENT_VERSION_LOCK_TYPE ";
-
-    // Monitor block properties
-    const monitor_block_properties_constants =
-      "MONITOR_BLOCK_AFTER_FINISH_EVENT "
-      + "MONITOR_BLOCK_BEFORE_START_EVENT "
-      + "MONITOR_BLOCK_DEADLINE_PROPERTY "
-      + "MONITOR_BLOCK_INTERVAL_PROPERTY "
-      + "MONITOR_BLOCK_INTERVAL_TYPE_PROPERTY "
-      + "MONITOR_BLOCK_IS_RELATIVE_DEADLINE_PROPERTY "
-      + "MONITOR_BLOCK_NAME_PROPERTY "
-      + "MONITOR_BLOCK_RELATIVE_DEADLINE_TYPE_PROPERTY "
-      + "MONITOR_BLOCK_SEARCH_SCRIPT_PROPERTY ";
-
-    // Notice block properties
-    const notice_block_properties_constants =
-      "NOTICE_BLOCK_AFTER_FINISH_EVENT "
-      + "NOTICE_BLOCK_ATTACHMENT_PROPERTY "
-      + "NOTICE_BLOCK_ATTACHMENTS_RIGHTS_GROUP_PROPERTY "
-      + "NOTICE_BLOCK_ATTACHMENTS_RIGHTS_TYPE_PROPERTY "
-      + "NOTICE_BLOCK_BEFORE_START_EVENT "
-      + "NOTICE_BLOCK_CREATED_NOTICES_PROPERTY "
-      + "NOTICE_BLOCK_DEADLINE_PROPERTY "
-      + "NOTICE_BLOCK_IS_RELATIVE_DEADLINE_PROPERTY "
-      + "NOTICE_BLOCK_NAME_PROPERTY "
-      + "NOTICE_BLOCK_NOTICE_TEXT_PROPERTY "
-      + "NOTICE_BLOCK_PERFORMER_PROPERTY "
-      + "NOTICE_BLOCK_RELATIVE_DEADLINE_TYPE_PROPERTY "
-      + "NOTICE_BLOCK_SUBJECT_PROPERTY ";
-
-    // Object events
-    const object_events_constants =
-      "dseAfterCancel "
-      + "dseAfterClose "
-      + "dseAfterDelete "
-      + "dseAfterDeleteOutOfTransaction "
-      + "dseAfterInsert "
-      + "dseAfterOpen "
-      + "dseAfterScroll "
-      + "dseAfterUpdate "
-      + "dseAfterUpdateOutOfTransaction "
-      + "dseBeforeCancel "
-      + "dseBeforeClose "
-      + "dseBeforeDelete "
-      + "dseBeforeDetailUpdate "
-      + "dseBeforeInsert "
-      + "dseBeforeOpen "
-      + "dseBeforeUpdate "
-      + "dseOnAnyRequisiteChange "
-      + "dseOnCloseRecord "
-      + "dseOnDeleteError "
-      + "dseOnOpenRecord "
-      + "dseOnPrepareUpdate "
-      + "dseOnUpdateError "
-      + "dseOnUpdateRatifiedRecord "
-      + "dseOnValidDelete "
-      + "dseOnValidUpdate "
-      + "reOnChange "
-      + "reOnChangeValues "
-      + "SELECTION_BEGIN_ROUTE_EVENT "
-      + "SELECTION_END_ROUTE_EVENT ";
-
-    // Object params
-    const object_params_constants =
-      "CURRENT_PERIOD_IS_REQUIRED "
-      + "PREVIOUS_CARD_TYPE_NAME "
-      + "SHOW_RECORD_PROPERTIES_FORM ";
-
-    // Other
-    const other_constants =
-      "ACCESS_RIGHTS_SETTING_DIALOG_CODE "
-      + "ADMINISTRATOR_USER_CODE "
-      + "ANALYTIC_REPORT_TYPE "
-      + "asrtHideLocal "
-      + "asrtHideRemote "
-      + "CALCULATED_ROLE_TYPE_CODE "
-      + "COMPONENTS_REFERENCE_DEVELOPER_VIEW_CODE "
-      + "DCTS_TEST_PROTOCOLS_FOLDER_PATH "
-      + "E_EDOC_VERSION_ALREADY_APPROVINGLY_SIGNED "
-      + "E_EDOC_VERSION_ALREADY_APPROVINGLY_SIGNED_BY_USER "
-      + "E_EDOC_VERSION_ALREDY_SIGNED "
-      + "E_EDOC_VERSION_ALREDY_SIGNED_BY_USER "
-      + "EDOC_TYPES_CODE_REQUISITE_FIELD_NAME "
-      + "EDOCUMENTS_ALIAS_NAME "
-      + "FILES_FOLDER_PATH "
-      + "FILTER_OPERANDS_DELIMITER "
-      + "FILTER_OPERATIONS_DELIMITER "
-      + "FORMCARD_NAME "
-      + "FORMLIST_NAME "
-      + "GET_EXTENDED_DOCUMENT_EXTENSION_CREATION_MODE "
-      + "GET_EXTENDED_DOCUMENT_EXTENSION_IMPORT_MODE "
-      + "INTEGRATED_REPORT_TYPE "
-      + "IS_BUILDER_APPLICATION_ROLE "
-      + "IS_BUILDER_APPLICATION_ROLE2 "
-      + "IS_BUILDER_USERS "
-      + "ISBSYSDEV "
-      + "LOG_FOLDER_PATH "
-      + "mbCancel "
-      + "mbNo "
-      + "mbNoToAll "
-      + "mbOK "
-      + "mbYes "
-      + "mbYesToAll "
-      + "MEMORY_DATASET_DESRIPTIONS_FILENAME "
-      + "mrNo "
-      + "mrNoToAll "
-      + "mrYes "
-      + "mrYesToAll "
-      + "MULTIPLE_SELECT_DIALOG_CODE "
-      + "NONOPERATING_RECORD_FLAG_FEMININE "
-      + "NONOPERATING_RECORD_FLAG_MASCULINE "
-      + "OPERATING_RECORD_FLAG_FEMININE "
-      + "OPERATING_RECORD_FLAG_MASCULINE "
-      + "PROFILING_SETTINGS_COMMON_SETTINGS_CODE_VALUE "
-      + "PROGRAM_INITIATED_LOOKUP_ACTION "
-      + "ratDelete "
-      + "ratEdit "
-      + "ratInsert "
-      + "REPORT_TYPE "
-      + "REQUIRED_PICK_VALUES_VARIABLE "
-      + "rmCard "
-      + "rmList "
-      + "SBRTE_PROGID_DEV "
-      + "SBRTE_PROGID_RELEASE "
-      + "STATIC_ROLE_TYPE_CODE "
-      + "SUPPRESS_EMPTY_TEMPLATE_CREATION "
-      + "SYSTEM_USER_CODE "
-      + "UPDATE_DIALOG_DATASET "
-      + "USED_IN_OBJECT_HINT_PARAM "
-      + "USER_INITIATED_LOOKUP_ACTION "
-      + "USER_NAME_FORMAT "
-      + "USER_SELECTION_RESTRICTIONS "
-      + "WORKFLOW_TEST_PROTOCOLS_FOLDER_PATH "
-      + "ELS_SUBTYPE_CONTROL_NAME "
-      + "ELS_FOLDER_KIND_CONTROL_NAME "
-      + "REPEAT_PROCESS_CURRENT_OBJECT_EXCEPTION_NAME ";
-
-    // Privileges
-    const privileges_constants =
-      "PRIVILEGE_COMPONENT_FULL_ACCESS "
-      + "PRIVILEGE_DEVELOPMENT_EXPORT "
-      + "PRIVILEGE_DEVELOPMENT_IMPORT "
-      + "PRIVILEGE_DOCUMENT_DELETE "
-      + "PRIVILEGE_ESD "
-      + "PRIVILEGE_FOLDER_DELETE "
-      + "PRIVILEGE_MANAGE_ACCESS_RIGHTS "
-      + "PRIVILEGE_MANAGE_REPLICATION "
-      + "PRIVILEGE_MANAGE_SESSION_SERVER "
-      + "PRIVILEGE_OBJECT_FULL_ACCESS "
-      + "PRIVILEGE_OBJECT_VIEW "
-      + "PRIVILEGE_RESERVE_LICENSE "
-      + "PRIVILEGE_SYSTEM_CUSTOMIZE "
-      + "PRIVILEGE_SYSTEM_DEVELOP "
-      + "PRIVILEGE_SYSTEM_INSTALL "
-      + "PRIVILEGE_TASK_DELETE "
-      + "PRIVILEGE_USER_PLUGIN_SETTINGS_CUSTOMIZE "
-      + "PRIVILEGES_PSEUDOREFERENCE_CODE ";
-
-    // Pseudoreference code
-    const pseudoreference_code_constants =
-      "ACCESS_TYPES_PSEUDOREFERENCE_CODE "
-      + "ALL_AVAILABLE_COMPONENTS_PSEUDOREFERENCE_CODE "
-      + "ALL_AVAILABLE_PRIVILEGES_PSEUDOREFERENCE_CODE "
-      + "ALL_REPLICATE_COMPONENTS_PSEUDOREFERENCE_CODE "
-      + "AVAILABLE_DEVELOPERS_COMPONENTS_PSEUDOREFERENCE_CODE "
-      + "COMPONENTS_PSEUDOREFERENCE_CODE "
-      + "FILTRATER_SETTINGS_CONFLICTS_PSEUDOREFERENCE_CODE "
-      + "GROUPS_PSEUDOREFERENCE_CODE "
-      + "RECEIVE_PROTOCOL_PSEUDOREFERENCE_CODE "
-      + "REFERENCE_REQUISITE_PSEUDOREFERENCE_CODE "
-      + "REFERENCE_REQUISITES_PSEUDOREFERENCE_CODE "
-      + "REFTYPES_PSEUDOREFERENCE_CODE "
-      + "REPLICATION_SEANCES_DIARY_PSEUDOREFERENCE_CODE "
-      + "SEND_PROTOCOL_PSEUDOREFERENCE_CODE "
-      + "SUBSTITUTES_PSEUDOREFERENCE_CODE "
-      + "SYSTEM_SETTINGS_PSEUDOREFERENCE_CODE "
-      + "UNITS_PSEUDOREFERENCE_CODE "
-      + "USERS_PSEUDOREFERENCE_CODE "
-      + "VIEWERS_PSEUDOREFERENCE_CODE ";
-
-    // Requisite ISBCertificateType values
-    const requisite_ISBCertificateType_values_constants =
-      "CERTIFICATE_TYPE_ENCRYPT "
-      + "CERTIFICATE_TYPE_SIGN "
-      + "CERTIFICATE_TYPE_SIGN_AND_ENCRYPT ";
-
-    // Requisite ISBEDocStorageType values
-    const requisite_ISBEDocStorageType_values_constants =
-      "STORAGE_TYPE_FILE "
-      + "STORAGE_TYPE_NAS_CIFS "
-      + "STORAGE_TYPE_SAPERION "
-      + "STORAGE_TYPE_SQL_SERVER ";
-
-    // Requisite CompType2 values
-    const requisite_compType2_values_constants =
-      "COMPTYPE2_REQUISITE_DOCUMENTS_VALUE "
-      + "COMPTYPE2_REQUISITE_TASKS_VALUE "
-      + "COMPTYPE2_REQUISITE_FOLDERS_VALUE "
-      + "COMPTYPE2_REQUISITE_REFERENCES_VALUE ";
-
-    // Requisite name
-    const requisite_name_constants =
-      "SYSREQ_CODE "
-      + "SYSREQ_COMPTYPE2 "
-      + "SYSREQ_CONST_AVAILABLE_FOR_WEB "
-      + "SYSREQ_CONST_COMMON_CODE "
-      + "SYSREQ_CONST_COMMON_VALUE "
-      + "SYSREQ_CONST_FIRM_CODE "
-      + "SYSREQ_CONST_FIRM_STATUS "
-      + "SYSREQ_CONST_FIRM_VALUE "
-      + "SYSREQ_CONST_SERVER_STATUS "
-      + "SYSREQ_CONTENTS "
-      + "SYSREQ_DATE_OPEN "
-      + "SYSREQ_DATE_CLOSE "
-      + "SYSREQ_DESCRIPTION "
-      + "SYSREQ_DESCRIPTION_LOCALIZE_ID "
-      + "SYSREQ_DOUBLE "
-      + "SYSREQ_EDOC_ACCESS_TYPE "
-      + "SYSREQ_EDOC_AUTHOR "
-      + "SYSREQ_EDOC_CREATED "
-      + "SYSREQ_EDOC_DELEGATE_RIGHTS_REQUISITE_CODE "
-      + "SYSREQ_EDOC_EDITOR "
-      + "SYSREQ_EDOC_ENCODE_TYPE "
-      + "SYSREQ_EDOC_ENCRYPTION_PLUGIN_NAME "
-      + "SYSREQ_EDOC_ENCRYPTION_PLUGIN_VERSION "
-      + "SYSREQ_EDOC_EXPORT_DATE "
-      + "SYSREQ_EDOC_EXPORTER "
-      + "SYSREQ_EDOC_KIND "
-      + "SYSREQ_EDOC_LIFE_STAGE_NAME "
-      + "SYSREQ_EDOC_LOCKED_FOR_SERVER_CODE "
-      + "SYSREQ_EDOC_MODIFIED "
-      + "SYSREQ_EDOC_NAME "
-      + "SYSREQ_EDOC_NOTE "
-      + "SYSREQ_EDOC_QUALIFIED_ID "
-      + "SYSREQ_EDOC_SESSION_KEY "
-      + "SYSREQ_EDOC_SESSION_KEY_ENCRYPTION_PLUGIN_NAME "
-      + "SYSREQ_EDOC_SESSION_KEY_ENCRYPTION_PLUGIN_VERSION "
-      + "SYSREQ_EDOC_SIGNATURE_TYPE "
-      + "SYSREQ_EDOC_SIGNED "
-      + "SYSREQ_EDOC_STORAGE "
-      + "SYSREQ_EDOC_STORAGES_ARCHIVE_STORAGE "
-      + "SYSREQ_EDOC_STORAGES_CHECK_RIGHTS "
-      + "SYSREQ_EDOC_STORAGES_COMPUTER_NAME "
-      + "SYSREQ_EDOC_STORAGES_EDIT_IN_STORAGE "
-      + "SYSREQ_EDOC_STORAGES_EXECUTIVE_STORAGE "
-      + "SYSREQ_EDOC_STORAGES_FUNCTION "
-      + "SYSREQ_EDOC_STORAGES_INITIALIZED "
-      + "SYSREQ_EDOC_STORAGES_LOCAL_PATH "
-      + "SYSREQ_EDOC_STORAGES_SAPERION_DATABASE_NAME "
-      + "SYSREQ_EDOC_STORAGES_SEARCH_BY_TEXT "
-      + "SYSREQ_EDOC_STORAGES_SERVER_NAME "
-      + "SYSREQ_EDOC_STORAGES_SHARED_SOURCE_NAME "
-      + "SYSREQ_EDOC_STORAGES_TYPE "
-      + "SYSREQ_EDOC_TEXT_MODIFIED "
-      + "SYSREQ_EDOC_TYPE_ACT_CODE "
-      + "SYSREQ_EDOC_TYPE_ACT_DESCRIPTION "
-      + "SYSREQ_EDOC_TYPE_ACT_DESCRIPTION_LOCALIZE_ID "
-      + "SYSREQ_EDOC_TYPE_ACT_ON_EXECUTE "
-      + "SYSREQ_EDOC_TYPE_ACT_ON_EXECUTE_EXISTS "
-      + "SYSREQ_EDOC_TYPE_ACT_SECTION "
-      + "SYSREQ_EDOC_TYPE_ADD_PARAMS "
-      + "SYSREQ_EDOC_TYPE_COMMENT "
-      + "SYSREQ_EDOC_TYPE_EVENT_TEXT "
-      + "SYSREQ_EDOC_TYPE_NAME_IN_SINGULAR "
-      + "SYSREQ_EDOC_TYPE_NAME_IN_SINGULAR_LOCALIZE_ID "
-      + "SYSREQ_EDOC_TYPE_NAME_LOCALIZE_ID "
-      + "SYSREQ_EDOC_TYPE_NUMERATION_METHOD "
-      + "SYSREQ_EDOC_TYPE_PSEUDO_REQUISITE_CODE "
-      + "SYSREQ_EDOC_TYPE_REQ_CODE "
-      + "SYSREQ_EDOC_TYPE_REQ_DESCRIPTION "
-      + "SYSREQ_EDOC_TYPE_REQ_DESCRIPTION_LOCALIZE_ID "
-      + "SYSREQ_EDOC_TYPE_REQ_IS_LEADING "
-      + "SYSREQ_EDOC_TYPE_REQ_IS_REQUIRED "
-      + "SYSREQ_EDOC_TYPE_REQ_NUMBER "
-      + "SYSREQ_EDOC_TYPE_REQ_ON_CHANGE "
-      + "SYSREQ_EDOC_TYPE_REQ_ON_CHANGE_EXISTS "
-      + "SYSREQ_EDOC_TYPE_REQ_ON_SELECT "
-      + "SYSREQ_EDOC_TYPE_REQ_ON_SELECT_KIND "
-      + "SYSREQ_EDOC_TYPE_REQ_SECTION "
-      + "SYSREQ_EDOC_TYPE_VIEW_CARD "
-      + "SYSREQ_EDOC_TYPE_VIEW_CODE "
-      + "SYSREQ_EDOC_TYPE_VIEW_COMMENT "
-      + "SYSREQ_EDOC_TYPE_VIEW_IS_MAIN "
-      + "SYSREQ_EDOC_TYPE_VIEW_NAME "
-      + "SYSREQ_EDOC_TYPE_VIEW_NAME_LOCALIZE_ID "
-      + "SYSREQ_EDOC_VERSION_AUTHOR "
-      + "SYSREQ_EDOC_VERSION_CRC "
-      + "SYSREQ_EDOC_VERSION_DATA "
-      + "SYSREQ_EDOC_VERSION_EDITOR "
-      + "SYSREQ_EDOC_VERSION_EXPORT_DATE "
-      + "SYSREQ_EDOC_VERSION_EXPORTER "
-      + "SYSREQ_EDOC_VERSION_HIDDEN "
-      + "SYSREQ_EDOC_VERSION_LIFE_STAGE "
-      + "SYSREQ_EDOC_VERSION_MODIFIED "
-      + "SYSREQ_EDOC_VERSION_NOTE "
-      + "SYSREQ_EDOC_VERSION_SIGNATURE_TYPE "
-      + "SYSREQ_EDOC_VERSION_SIGNED "
-      + "SYSREQ_EDOC_VERSION_SIZE "
-      + "SYSREQ_EDOC_VERSION_SOURCE "
-      + "SYSREQ_EDOC_VERSION_TEXT_MODIFIED "
-      + "SYSREQ_EDOCKIND_DEFAULT_VERSION_STATE_CODE "
-      + "SYSREQ_FOLDER_KIND "
-      + "SYSREQ_FUNC_CATEGORY "
-      + "SYSREQ_FUNC_COMMENT "
-      + "SYSREQ_FUNC_GROUP "
-      + "SYSREQ_FUNC_GROUP_COMMENT "
-      + "SYSREQ_FUNC_GROUP_NUMBER "
-      + "SYSREQ_FUNC_HELP "
-      + "SYSREQ_FUNC_PARAM_DEF_VALUE "
-      + "SYSREQ_FUNC_PARAM_IDENT "
-      + "SYSREQ_FUNC_PARAM_NUMBER "
-      + "SYSREQ_FUNC_PARAM_TYPE "
-      + "SYSREQ_FUNC_TEXT "
-      + "SYSREQ_GROUP_CATEGORY "
-      + "SYSREQ_ID "
-      + "SYSREQ_LAST_UPDATE "
-      + "SYSREQ_LEADER_REFERENCE "
-      + "SYSREQ_LINE_NUMBER "
-      + "SYSREQ_MAIN_RECORD_ID "
-      + "SYSREQ_NAME "
-      + "SYSREQ_NAME_LOCALIZE_ID "
-      + "SYSREQ_NOTE "
-      + "SYSREQ_ORIGINAL_RECORD "
-      + "SYSREQ_OUR_FIRM "
-      + "SYSREQ_PROFILING_SETTINGS_BATCH_LOGING "
-      + "SYSREQ_PROFILING_SETTINGS_BATCH_SIZE "
-      + "SYSREQ_PROFILING_SETTINGS_PROFILING_ENABLED "
-      + "SYSREQ_PROFILING_SETTINGS_SQL_PROFILING_ENABLED "
-      + "SYSREQ_PROFILING_SETTINGS_START_LOGGED "
-      + "SYSREQ_RECORD_STATUS "
-      + "SYSREQ_REF_REQ_FIELD_NAME "
-      + "SYSREQ_REF_REQ_FORMAT "
-      + "SYSREQ_REF_REQ_GENERATED "
-      + "SYSREQ_REF_REQ_LENGTH "
-      + "SYSREQ_REF_REQ_PRECISION "
-      + "SYSREQ_REF_REQ_REFERENCE "
-      + "SYSREQ_REF_REQ_SECTION "
-      + "SYSREQ_REF_REQ_STORED "
-      + "SYSREQ_REF_REQ_TOKENS "
-      + "SYSREQ_REF_REQ_TYPE "
-      + "SYSREQ_REF_REQ_VIEW "
-      + "SYSREQ_REF_TYPE_ACT_CODE "
-      + "SYSREQ_REF_TYPE_ACT_DESCRIPTION "
-      + "SYSREQ_REF_TYPE_ACT_DESCRIPTION_LOCALIZE_ID "
-      + "SYSREQ_REF_TYPE_ACT_ON_EXECUTE "
-      + "SYSREQ_REF_TYPE_ACT_ON_EXECUTE_EXISTS "
-      + "SYSREQ_REF_TYPE_ACT_SECTION "
-      + "SYSREQ_REF_TYPE_ADD_PARAMS "
-      + "SYSREQ_REF_TYPE_COMMENT "
-      + "SYSREQ_REF_TYPE_COMMON_SETTINGS "
-      + "SYSREQ_REF_TYPE_DISPLAY_REQUISITE_NAME "
-      + "SYSREQ_REF_TYPE_EVENT_TEXT "
-      + "SYSREQ_REF_TYPE_MAIN_LEADING_REF "
-      + "SYSREQ_REF_TYPE_NAME_IN_SINGULAR "
-      + "SYSREQ_REF_TYPE_NAME_IN_SINGULAR_LOCALIZE_ID "
-      + "SYSREQ_REF_TYPE_NAME_LOCALIZE_ID "
-      + "SYSREQ_REF_TYPE_NUMERATION_METHOD "
-      + "SYSREQ_REF_TYPE_REQ_CODE "
-      + "SYSREQ_REF_TYPE_REQ_DESCRIPTION "
-      + "SYSREQ_REF_TYPE_REQ_DESCRIPTION_LOCALIZE_ID "
-      + "SYSREQ_REF_TYPE_REQ_IS_CONTROL "
-      + "SYSREQ_REF_TYPE_REQ_IS_FILTER "
-      + "SYSREQ_REF_TYPE_REQ_IS_LEADING "
-      + "SYSREQ_REF_TYPE_REQ_IS_REQUIRED "
-      + "SYSREQ_REF_TYPE_REQ_NUMBER "
-      + "SYSREQ_REF_TYPE_REQ_ON_CHANGE "
-      + "SYSREQ_REF_TYPE_REQ_ON_CHANGE_EXISTS "
-      + "SYSREQ_REF_TYPE_REQ_ON_SELECT "
-      + "SYSREQ_REF_TYPE_REQ_ON_SELECT_KIND "
-      + "SYSREQ_REF_TYPE_REQ_SECTION "
-      + "SYSREQ_REF_TYPE_VIEW_CARD "
-      + "SYSREQ_REF_TYPE_VIEW_CODE "
-      + "SYSREQ_REF_TYPE_VIEW_COMMENT "
-      + "SYSREQ_REF_TYPE_VIEW_IS_MAIN "
-      + "SYSREQ_REF_TYPE_VIEW_NAME "
-      + "SYSREQ_REF_TYPE_VIEW_NAME_LOCALIZE_ID "
-      + "SYSREQ_REFERENCE_TYPE_ID "
-      + "SYSREQ_STATE "
-      + "SYSREQ_STATЕ "
-      + "SYSREQ_SYSTEM_SETTINGS_VALUE "
-      + "SYSREQ_TYPE "
-      + "SYSREQ_UNIT "
-      + "SYSREQ_UNIT_ID "
-      + "SYSREQ_USER_GROUPS_GROUP_FULL_NAME "
-      + "SYSREQ_USER_GROUPS_GROUP_NAME "
-      + "SYSREQ_USER_GROUPS_GROUP_SERVER_NAME "
-      + "SYSREQ_USERS_ACCESS_RIGHTS "
-      + "SYSREQ_USERS_AUTHENTICATION "
-      + "SYSREQ_USERS_CATEGORY "
-      + "SYSREQ_USERS_COMPONENT "
-      + "SYSREQ_USERS_COMPONENT_USER_IS_PUBLIC "
-      + "SYSREQ_USERS_DOMAIN "
-      + "SYSREQ_USERS_FULL_USER_NAME "
-      + "SYSREQ_USERS_GROUP "
-      + "SYSREQ_USERS_IS_MAIN_SERVER "
-      + "SYSREQ_USERS_LOGIN "
-      + "SYSREQ_USERS_REFERENCE_USER_IS_PUBLIC "
-      + "SYSREQ_USERS_STATUS "
-      + "SYSREQ_USERS_USER_CERTIFICATE "
-      + "SYSREQ_USERS_USER_CERTIFICATE_INFO "
-      + "SYSREQ_USERS_USER_CERTIFICATE_PLUGIN_NAME "
-      + "SYSREQ_USERS_USER_CERTIFICATE_PLUGIN_VERSION "
-      + "SYSREQ_USERS_USER_CERTIFICATE_STATE "
-      + "SYSREQ_USERS_USER_CERTIFICATE_SUBJECT_NAME "
-      + "SYSREQ_USERS_USER_CERTIFICATE_THUMBPRINT "
-      + "SYSREQ_USERS_USER_DEFAULT_CERTIFICATE "
-      + "SYSREQ_USERS_USER_DESCRIPTION "
-      + "SYSREQ_USERS_USER_GLOBAL_NAME "
-      + "SYSREQ_USERS_USER_LOGIN "
-      + "SYSREQ_USERS_USER_MAIN_SERVER "
-      + "SYSREQ_USERS_USER_TYPE "
-      + "SYSREQ_WORK_RULES_FOLDER_ID ";
-
-    // Result
-    const result_constants = "RESULT_VAR_NAME RESULT_VAR_NAME_ENG ";
-
-    // Rule identification
-    const rule_identification_constants =
-      "AUTO_NUMERATION_RULE_ID "
-      + "CANT_CHANGE_ID_REQUISITE_RULE_ID "
-      + "CANT_CHANGE_OURFIRM_REQUISITE_RULE_ID "
-      + "CHECK_CHANGING_REFERENCE_RECORD_USE_RULE_ID "
-      + "CHECK_CODE_REQUISITE_RULE_ID "
-      + "CHECK_DELETING_REFERENCE_RECORD_USE_RULE_ID "
-      + "CHECK_FILTRATER_CHANGES_RULE_ID "
-      + "CHECK_RECORD_INTERVAL_RULE_ID "
-      + "CHECK_REFERENCE_INTERVAL_RULE_ID "
-      + "CHECK_REQUIRED_DATA_FULLNESS_RULE_ID "
-      + "CHECK_REQUIRED_REQUISITES_FULLNESS_RULE_ID "
-      + "MAKE_RECORD_UNRATIFIED_RULE_ID "
-      + "RESTORE_AUTO_NUMERATION_RULE_ID "
-      + "SET_FIRM_CONTEXT_FROM_RECORD_RULE_ID "
-      + "SET_FIRST_RECORD_IN_LIST_FORM_RULE_ID "
-      + "SET_IDSPS_VALUE_RULE_ID "
-      + "SET_NEXT_CODE_VALUE_RULE_ID "
-      + "SET_OURFIRM_BOUNDS_RULE_ID "
-      + "SET_OURFIRM_REQUISITE_RULE_ID ";
-
-    // Script block properties
-    const script_block_properties_constants =
-      "SCRIPT_BLOCK_AFTER_FINISH_EVENT "
-      + "SCRIPT_BLOCK_BEFORE_START_EVENT "
-      + "SCRIPT_BLOCK_EXECUTION_RESULTS_PROPERTY "
-      + "SCRIPT_BLOCK_NAME_PROPERTY "
-      + "SCRIPT_BLOCK_SCRIPT_PROPERTY ";
-
-    // Subtask block properties
-    const subtask_block_properties_constants =
-      "SUBTASK_BLOCK_ABORT_DEADLINE_PROPERTY "
-      + "SUBTASK_BLOCK_AFTER_FINISH_EVENT "
-      + "SUBTASK_BLOCK_ASSIGN_PARAMS_EVENT "
-      + "SUBTASK_BLOCK_ATTACHMENTS_PROPERTY "
-      + "SUBTASK_BLOCK_ATTACHMENTS_RIGHTS_GROUP_PROPERTY "
-      + "SUBTASK_BLOCK_ATTACHMENTS_RIGHTS_TYPE_PROPERTY "
-      + "SUBTASK_BLOCK_BEFORE_START_EVENT "
-      + "SUBTASK_BLOCK_CREATED_TASK_PROPERTY "
-      + "SUBTASK_BLOCK_CREATION_EVENT "
-      + "SUBTASK_BLOCK_DEADLINE_PROPERTY "
-      + "SUBTASK_BLOCK_IMPORTANCE_PROPERTY "
-      + "SUBTASK_BLOCK_INITIATOR_PROPERTY "
-      + "SUBTASK_BLOCK_IS_RELATIVE_ABORT_DEADLINE_PROPERTY "
-      + "SUBTASK_BLOCK_IS_RELATIVE_DEADLINE_PROPERTY "
-      + "SUBTASK_BLOCK_JOBS_TYPE_PROPERTY "
-      + "SUBTASK_BLOCK_NAME_PROPERTY "
-      + "SUBTASK_BLOCK_PARALLEL_ROUTE_PROPERTY "
-      + "SUBTASK_BLOCK_PERFORMERS_PROPERTY "
-      + "SUBTASK_BLOCK_RELATIVE_ABORT_DEADLINE_TYPE_PROPERTY "
-      + "SUBTASK_BLOCK_RELATIVE_DEADLINE_TYPE_PROPERTY "
-      + "SUBTASK_BLOCK_REQUIRE_SIGN_PROPERTY "
-      + "SUBTASK_BLOCK_STANDARD_ROUTE_PROPERTY "
-      + "SUBTASK_BLOCK_START_EVENT "
-      + "SUBTASK_BLOCK_STEP_CONTROL_PROPERTY "
-      + "SUBTASK_BLOCK_SUBJECT_PROPERTY "
-      + "SUBTASK_BLOCK_TASK_CONTROL_PROPERTY "
-      + "SUBTASK_BLOCK_TEXT_PROPERTY "
-      + "SUBTASK_BLOCK_UNLOCK_ATTACHMENTS_ON_STOP_PROPERTY "
-      + "SUBTASK_BLOCK_USE_STANDARD_ROUTE_PROPERTY "
-      + "SUBTASK_BLOCK_WAIT_FOR_TASK_COMPLETE_PROPERTY ";
-
-    // System component
-    const system_component_constants =
-      "SYSCOMP_CONTROL_JOBS "
-      + "SYSCOMP_FOLDERS "
-      + "SYSCOMP_JOBS "
-      + "SYSCOMP_NOTICES "
-      + "SYSCOMP_TASKS ";
-
-    // System dialogs
-    const system_dialogs_constants =
-      "SYSDLG_CREATE_EDOCUMENT "
-      + "SYSDLG_CREATE_EDOCUMENT_VERSION "
-      + "SYSDLG_CURRENT_PERIOD "
-      + "SYSDLG_EDIT_FUNCTION_HELP "
-      + "SYSDLG_EDOCUMENT_KINDS_FOR_TEMPLATE "
-      + "SYSDLG_EXPORT_MULTIPLE_EDOCUMENTS "
-      + "SYSDLG_EXPORT_SINGLE_EDOCUMENT "
-      + "SYSDLG_IMPORT_EDOCUMENT "
-      + "SYSDLG_MULTIPLE_SELECT "
-      + "SYSDLG_SETUP_ACCESS_RIGHTS "
-      + "SYSDLG_SETUP_DEFAULT_RIGHTS "
-      + "SYSDLG_SETUP_FILTER_CONDITION "
-      + "SYSDLG_SETUP_SIGN_RIGHTS "
-      + "SYSDLG_SETUP_TASK_OBSERVERS "
-      + "SYSDLG_SETUP_TASK_ROUTE "
-      + "SYSDLG_SETUP_USERS_LIST "
-      + "SYSDLG_SIGN_EDOCUMENT "
-      + "SYSDLG_SIGN_MULTIPLE_EDOCUMENTS ";
-
-    // System reference names
-    const system_reference_names_constants =
-      "SYSREF_ACCESS_RIGHTS_TYPES "
-      + "SYSREF_ADMINISTRATION_HISTORY "
-      + "SYSREF_ALL_AVAILABLE_COMPONENTS "
-      + "SYSREF_ALL_AVAILABLE_PRIVILEGES "
-      + "SYSREF_ALL_REPLICATING_COMPONENTS "
-      + "SYSREF_AVAILABLE_DEVELOPERS_COMPONENTS "
-      + "SYSREF_CALENDAR_EVENTS "
-      + "SYSREF_COMPONENT_TOKEN_HISTORY "
-      + "SYSREF_COMPONENT_TOKENS "
-      + "SYSREF_COMPONENTS "
-      + "SYSREF_CONSTANTS "
-      + "SYSREF_DATA_RECEIVE_PROTOCOL "
-      + "SYSREF_DATA_SEND_PROTOCOL "
-      + "SYSREF_DIALOGS "
-      + "SYSREF_DIALOGS_REQUISITES "
-      + "SYSREF_EDITORS "
-      + "SYSREF_EDOC_CARDS "
-      + "SYSREF_EDOC_TYPES "
-      + "SYSREF_EDOCUMENT_CARD_REQUISITES "
-      + "SYSREF_EDOCUMENT_CARD_TYPES "
-      + "SYSREF_EDOCUMENT_CARD_TYPES_REFERENCE "
-      + "SYSREF_EDOCUMENT_CARDS "
-      + "SYSREF_EDOCUMENT_HISTORY "
-      + "SYSREF_EDOCUMENT_KINDS "
-      + "SYSREF_EDOCUMENT_REQUISITES "
-      + "SYSREF_EDOCUMENT_SIGNATURES "
-      + "SYSREF_EDOCUMENT_TEMPLATES "
-      + "SYSREF_EDOCUMENT_TEXT_STORAGES "
-      + "SYSREF_EDOCUMENT_VIEWS "
-      + "SYSREF_FILTERER_SETUP_CONFLICTS "
-      + "SYSREF_FILTRATER_SETTING_CONFLICTS "
-      + "SYSREF_FOLDER_HISTORY "
-      + "SYSREF_FOLDERS "
-      + "SYSREF_FUNCTION_GROUPS "
-      + "SYSREF_FUNCTION_PARAMS "
-      + "SYSREF_FUNCTIONS "
-      + "SYSREF_JOB_HISTORY "
-      + "SYSREF_LINKS "
-      + "SYSREF_LOCALIZATION_DICTIONARY "
-      + "SYSREF_LOCALIZATION_LANGUAGES "
-      + "SYSREF_MODULES "
-      + "SYSREF_PRIVILEGES "
-      + "SYSREF_RECORD_HISTORY "
-      + "SYSREF_REFERENCE_REQUISITES "
-      + "SYSREF_REFERENCE_TYPE_VIEWS "
-      + "SYSREF_REFERENCE_TYPES "
-      + "SYSREF_REFERENCES "
-      + "SYSREF_REFERENCES_REQUISITES "
-      + "SYSREF_REMOTE_SERVERS "
-      + "SYSREF_REPLICATION_SESSIONS_LOG "
-      + "SYSREF_REPLICATION_SESSIONS_PROTOCOL "
-      + "SYSREF_REPORTS "
-      + "SYSREF_ROLES "
-      + "SYSREF_ROUTE_BLOCK_GROUPS "
-      + "SYSREF_ROUTE_BLOCKS "
-      + "SYSREF_SCRIPTS "
-      + "SYSREF_SEARCHES "
-      + "SYSREF_SERVER_EVENTS "
-      + "SYSREF_SERVER_EVENTS_HISTORY "
-      + "SYSREF_STANDARD_ROUTE_GROUPS "
-      + "SYSREF_STANDARD_ROUTES "
-      + "SYSREF_STATUSES "
-      + "SYSREF_SYSTEM_SETTINGS "
-      + "SYSREF_TASK_HISTORY "
-      + "SYSREF_TASK_KIND_GROUPS "
-      + "SYSREF_TASK_KINDS "
-      + "SYSREF_TASK_RIGHTS "
-      + "SYSREF_TASK_SIGNATURES "
-      + "SYSREF_TASKS "
-      + "SYSREF_UNITS "
-      + "SYSREF_USER_GROUPS "
-      + "SYSREF_USER_GROUPS_REFERENCE "
-      + "SYSREF_USER_SUBSTITUTION "
-      + "SYSREF_USERS "
-      + "SYSREF_USERS_REFERENCE "
-      + "SYSREF_VIEWERS "
-      + "SYSREF_WORKING_TIME_CALENDARS ";
-
-    // Table name
-    const table_name_constants =
-      "ACCESS_RIGHTS_TABLE_NAME "
-      + "EDMS_ACCESS_TABLE_NAME "
-      + "EDOC_TYPES_TABLE_NAME ";
-
-    // Test
-    const test_constants =
-      "TEST_DEV_DB_NAME "
-      + "TEST_DEV_SYSTEM_CODE "
-      + "TEST_EDMS_DB_NAME "
-      + "TEST_EDMS_MAIN_CODE "
-      + "TEST_EDMS_MAIN_DB_NAME "
-      + "TEST_EDMS_SECOND_CODE "
-      + "TEST_EDMS_SECOND_DB_NAME "
-      + "TEST_EDMS_SYSTEM_CODE "
-      + "TEST_ISB5_MAIN_CODE "
-      + "TEST_ISB5_SECOND_CODE "
-      + "TEST_SQL_SERVER_2005_NAME "
-      + "TEST_SQL_SERVER_NAME ";
-
-    // Using the dialog windows
-    const using_the_dialog_windows_constants =
-      "ATTENTION_CAPTION "
-      + "cbsCommandLinks "
-      + "cbsDefault "
-      + "CONFIRMATION_CAPTION "
-      + "ERROR_CAPTION "
-      + "INFORMATION_CAPTION "
-      + "mrCancel "
-      + "mrOk ";
-
-    // Using the document
-    const using_the_document_constants =
-      "EDOC_VERSION_ACTIVE_STAGE_CODE "
-      + "EDOC_VERSION_DESIGN_STAGE_CODE "
-      + "EDOC_VERSION_OBSOLETE_STAGE_CODE ";
-
-    // Using the EA and encryption
-    const using_the_EA_and_encryption_constants =
-      "cpDataEnciphermentEnabled "
-      + "cpDigitalSignatureEnabled "
-      + "cpID "
-      + "cpIssuer "
-      + "cpPluginVersion "
-      + "cpSerial "
-      + "cpSubjectName "
-      + "cpSubjSimpleName "
-      + "cpValidFromDate "
-      + "cpValidToDate ";
-
-    // Using the ISBL-editor
-    const using_the_ISBL_editor_constants =
-      "ISBL_SYNTAX " + "NO_SYNTAX " + "XML_SYNTAX ";
-
-    // Wait block properties
-    const wait_block_properties_constants =
-      "WAIT_BLOCK_AFTER_FINISH_EVENT "
-      + "WAIT_BLOCK_BEFORE_START_EVENT "
-      + "WAIT_BLOCK_DEADLINE_PROPERTY "
-      + "WAIT_BLOCK_IS_RELATIVE_DEADLINE_PROPERTY "
-      + "WAIT_BLOCK_NAME_PROPERTY "
-      + "WAIT_BLOCK_RELATIVE_DEADLINE_TYPE_PROPERTY ";
-
-    // SYSRES Common
-    const sysres_common_constants =
-      "SYSRES_COMMON "
-      + "SYSRES_CONST "
-      + "SYSRES_MBFUNC "
-      + "SYSRES_SBDATA "
-      + "SYSRES_SBGUI "
-      + "SYSRES_SBINTF "
-      + "SYSRES_SBREFDSC "
-      + "SYSRES_SQLERRORS "
-      + "SYSRES_SYSCOMP ";
-
-    // Константы ==> built_in
-    const CONSTANTS =
-      sysres_constants
-      + base_constants
-      + base_group_name_constants
-      + decision_block_properties_constants
-      + file_extension_constants
-      + job_block_properties_constants
-      + language_code_constants
-      + launching_external_applications_constants
-      + link_kind_constants
-      + lock_type_constants
-      + monitor_block_properties_constants
-      + notice_block_properties_constants
-      + object_events_constants
-      + object_params_constants
-      + other_constants
-      + privileges_constants
-      + pseudoreference_code_constants
-      + requisite_ISBCertificateType_values_constants
-      + requisite_ISBEDocStorageType_values_constants
-      + requisite_compType2_values_constants
-      + requisite_name_constants
-      + result_constants
-      + rule_identification_constants
-      + script_block_properties_constants
-      + subtask_block_properties_constants
-      + system_component_constants
-      + system_dialogs_constants
-      + system_reference_names_constants
-      + table_name_constants
-      + test_constants
-      + using_the_dialog_windows_constants
-      + using_the_document_constants
-      + using_the_EA_and_encryption_constants
-      + using_the_ISBL_editor_constants
-      + wait_block_properties_constants
-      + sysres_common_constants;
-
-    // enum TAccountType
-    const TAccountType = "atUser atGroup atRole ";
-
-    // enum TActionEnabledMode
-    const TActionEnabledMode =
-      "aemEnabledAlways "
-      + "aemDisabledAlways "
-      + "aemEnabledOnBrowse "
-      + "aemEnabledOnEdit "
-      + "aemDisabledOnBrowseEmpty ";
-
-    // enum TAddPosition
-    const TAddPosition = "apBegin apEnd ";
-
-    // enum TAlignment
-    const TAlignment = "alLeft alRight ";
-
-    // enum TAreaShowMode
-    const TAreaShowMode =
-      "asmNever "
-      + "asmNoButCustomize "
-      + "asmAsLastTime "
-      + "asmYesButCustomize "
-      + "asmAlways ";
-
-    // enum TCertificateInvalidationReason
-    const TCertificateInvalidationReason = "cirCommon cirRevoked ";
-
-    // enum TCertificateType
-    const TCertificateType = "ctSignature ctEncode ctSignatureEncode ";
-
-    // enum TCheckListBoxItemState
-    const TCheckListBoxItemState = "clbUnchecked clbChecked clbGrayed ";
-
-    // enum TCloseOnEsc
-    const TCloseOnEsc = "ceISB ceAlways ceNever ";
-
-    // enum TCompType
-    const TCompType =
-      "ctDocument "
-      + "ctReference "
-      + "ctScript "
-      + "ctUnknown "
-      + "ctReport "
-      + "ctDialog "
-      + "ctFunction "
-      + "ctFolder "
-      + "ctEDocument "
-      + "ctTask "
-      + "ctJob "
-      + "ctNotice "
-      + "ctControlJob ";
-
-    // enum TConditionFormat
-    const TConditionFormat = "cfInternal cfDisplay ";
-
-    // enum TConnectionIntent
-    const TConnectionIntent = "ciUnspecified ciWrite ciRead ";
-
-    // enum TContentKind
-    const TContentKind =
-      "ckFolder "
-      + "ckEDocument "
-      + "ckTask "
-      + "ckJob "
-      + "ckComponentToken "
-      + "ckAny "
-      + "ckReference "
-      + "ckScript "
-      + "ckReport "
-      + "ckDialog ";
-
-    // enum TControlType
-    const TControlType =
-      "ctISBLEditor "
-      + "ctBevel "
-      + "ctButton "
-      + "ctCheckListBox "
-      + "ctComboBox "
-      + "ctComboEdit "
-      + "ctGrid "
-      + "ctDBCheckBox "
-      + "ctDBComboBox "
-      + "ctDBEdit "
-      + "ctDBEllipsis "
-      + "ctDBMemo "
-      + "ctDBNavigator "
-      + "ctDBRadioGroup "
-      + "ctDBStatusLabel "
-      + "ctEdit "
-      + "ctGroupBox "
-      + "ctInplaceHint "
-      + "ctMemo "
-      + "ctPanel "
-      + "ctListBox "
-      + "ctRadioButton "
-      + "ctRichEdit "
-      + "ctTabSheet "
-      + "ctWebBrowser "
-      + "ctImage "
-      + "ctHyperLink "
-      + "ctLabel "
-      + "ctDBMultiEllipsis "
-      + "ctRibbon "
-      + "ctRichView "
-      + "ctInnerPanel "
-      + "ctPanelGroup "
-      + "ctBitButton ";
-
-    // enum TCriterionContentType
-    const TCriterionContentType =
-      "cctDate "
-      + "cctInteger "
-      + "cctNumeric "
-      + "cctPick "
-      + "cctReference "
-      + "cctString "
-      + "cctText ";
-
-    // enum TCultureType
-    const TCultureType = "cltInternal cltPrimary cltGUI ";
-
-    // enum TDataSetEventType
-    const TDataSetEventType =
-      "dseBeforeOpen "
-      + "dseAfterOpen "
-      + "dseBeforeClose "
-      + "dseAfterClose "
-      + "dseOnValidDelete "
-      + "dseBeforeDelete "
-      + "dseAfterDelete "
-      + "dseAfterDeleteOutOfTransaction "
-      + "dseOnDeleteError "
-      + "dseBeforeInsert "
-      + "dseAfterInsert "
-      + "dseOnValidUpdate "
-      + "dseBeforeUpdate "
-      + "dseOnUpdateRatifiedRecord "
-      + "dseAfterUpdate "
-      + "dseAfterUpdateOutOfTransaction "
-      + "dseOnUpdateError "
-      + "dseAfterScroll "
-      + "dseOnOpenRecord "
-      + "dseOnCloseRecord "
-      + "dseBeforeCancel "
-      + "dseAfterCancel "
-      + "dseOnUpdateDeadlockError "
-      + "dseBeforeDetailUpdate "
-      + "dseOnPrepareUpdate "
-      + "dseOnAnyRequisiteChange ";
-
-    // enum TDataSetState
-    const TDataSetState = "dssEdit dssInsert dssBrowse dssInActive ";
-
-    // enum TDateFormatType
-    const TDateFormatType = "dftDate dftShortDate dftDateTime dftTimeStamp ";
-
-    // enum TDateOffsetType
-    const TDateOffsetType = "dotDays dotHours dotMinutes dotSeconds ";
-
-    // enum TDateTimeKind
-    const TDateTimeKind = "dtkndLocal dtkndUTC ";
-
-    // enum TDeaAccessRights
-    const TDeaAccessRights = "arNone arView arEdit arFull ";
-
-    // enum TDocumentDefaultAction
-    const TDocumentDefaultAction = "ddaView ddaEdit ";
-
-    // enum TEditMode
-    const TEditMode =
-      "emLock "
-      + "emEdit "
-      + "emSign "
-      + "emExportWithLock "
-      + "emImportWithUnlock "
-      + "emChangeVersionNote "
-      + "emOpenForModify "
-      + "emChangeLifeStage "
-      + "emDelete "
-      + "emCreateVersion "
-      + "emImport "
-      + "emUnlockExportedWithLock "
-      + "emStart "
-      + "emAbort "
-      + "emReInit "
-      + "emMarkAsReaded "
-      + "emMarkAsUnreaded "
-      + "emPerform "
-      + "emAccept "
-      + "emResume "
-      + "emChangeRights "
-      + "emEditRoute "
-      + "emEditObserver "
-      + "emRecoveryFromLocalCopy "
-      + "emChangeWorkAccessType "
-      + "emChangeEncodeTypeToCertificate "
-      + "emChangeEncodeTypeToPassword "
-      + "emChangeEncodeTypeToNone "
-      + "emChangeEncodeTypeToCertificatePassword "
-      + "emChangeStandardRoute "
-      + "emGetText "
-      + "emOpenForView "
-      + "emMoveToStorage "
-      + "emCreateObject "
-      + "emChangeVersionHidden "
-      + "emDeleteVersion "
-      + "emChangeLifeCycleStage "
-      + "emApprovingSign "
-      + "emExport "
-      + "emContinue "
-      + "emLockFromEdit "
-      + "emUnLockForEdit "
-      + "emLockForServer "
-      + "emUnlockFromServer "
-      + "emDelegateAccessRights "
-      + "emReEncode ";
-
-    // enum TEditorCloseObservType
-    const TEditorCloseObservType = "ecotFile ecotProcess ";
-
-    // enum TEdmsApplicationAction
-    const TEdmsApplicationAction = "eaGet eaCopy eaCreate eaCreateStandardRoute ";
-
-    // enum TEDocumentLockType
-    const TEDocumentLockType = "edltAll edltNothing edltQuery ";
-
-    // enum TEDocumentStepShowMode
-    const TEDocumentStepShowMode = "essmText essmCard ";
-
-    // enum TEDocumentStepVersionType
-    const TEDocumentStepVersionType = "esvtLast esvtLastActive esvtSpecified ";
-
-    // enum TEDocumentStorageFunction
-    const TEDocumentStorageFunction = "edsfExecutive edsfArchive ";
-
-    // enum TEDocumentStorageType
-    const TEDocumentStorageType = "edstSQLServer edstFile ";
-
-    // enum TEDocumentVersionSourceType
-    const TEDocumentVersionSourceType =
-      "edvstNone edvstEDocumentVersionCopy edvstFile edvstTemplate edvstScannedFile ";
-
-    // enum TEDocumentVersionState
-    const TEDocumentVersionState = "vsDefault vsDesign vsActive vsObsolete ";
-
-    // enum TEncodeType
-    const TEncodeType = "etNone etCertificate etPassword etCertificatePassword ";
-
-    // enum TExceptionCategory
-    const TExceptionCategory = "ecException ecWarning ecInformation ";
-
-    // enum TExportedSignaturesType
-    const TExportedSignaturesType = "estAll estApprovingOnly ";
-
-    // enum TExportedVersionType
-    const TExportedVersionType = "evtLast evtLastActive evtQuery ";
-
-    // enum TFieldDataType
-    const TFieldDataType =
-      "fdtString "
-      + "fdtNumeric "
-      + "fdtInteger "
-      + "fdtDate "
-      + "fdtText "
-      + "fdtUnknown "
-      + "fdtWideString "
-      + "fdtLargeInteger ";
-
-    // enum TFolderType
-    const TFolderType =
-      "ftInbox "
-      + "ftOutbox "
-      + "ftFavorites "
-      + "ftCommonFolder "
-      + "ftUserFolder "
-      + "ftComponents "
-      + "ftQuickLaunch "
-      + "ftShortcuts "
-      + "ftSearch ";
-
-    // enum TGridRowHeight
-    const TGridRowHeight = "grhAuto " + "grhX1 " + "grhX2 " + "grhX3 ";
-
-    // enum THyperlinkType
-    const THyperlinkType = "hltText " + "hltRTF " + "hltHTML ";
-
-    // enum TImageFileFormat
-    const TImageFileFormat =
-      "iffBMP "
-      + "iffJPEG "
-      + "iffMultiPageTIFF "
-      + "iffSinglePageTIFF "
-      + "iffTIFF "
-      + "iffPNG ";
-
-    // enum TImageMode
-    const TImageMode = "im8bGrayscale " + "im24bRGB " + "im1bMonochrome ";
-
-    // enum TImageType
-    const TImageType = "itBMP " + "itJPEG " + "itWMF " + "itPNG ";
-
-    // enum TInplaceHintKind
-    const TInplaceHintKind =
-      "ikhInformation " + "ikhWarning " + "ikhError " + "ikhNoIcon ";
-
-    // enum TISBLContext
-    const TISBLContext =
-      "icUnknown "
-      + "icScript "
-      + "icFunction "
-      + "icIntegratedReport "
-      + "icAnalyticReport "
-      + "icDataSetEventHandler "
-      + "icActionHandler "
-      + "icFormEventHandler "
-      + "icLookUpEventHandler "
-      + "icRequisiteChangeEventHandler "
-      + "icBeforeSearchEventHandler "
-      + "icRoleCalculation "
-      + "icSelectRouteEventHandler "
-      + "icBlockPropertyCalculation "
-      + "icBlockQueryParamsEventHandler "
-      + "icChangeSearchResultEventHandler "
-      + "icBlockEventHandler "
-      + "icSubTaskInitEventHandler "
-      + "icEDocDataSetEventHandler "
-      + "icEDocLookUpEventHandler "
-      + "icEDocActionHandler "
-      + "icEDocFormEventHandler "
-      + "icEDocRequisiteChangeEventHandler "
-      + "icStructuredConversionRule "
-      + "icStructuredConversionEventBefore "
-      + "icStructuredConversionEventAfter "
-      + "icWizardEventHandler "
-      + "icWizardFinishEventHandler "
-      + "icWizardStepEventHandler "
-      + "icWizardStepFinishEventHandler "
-      + "icWizardActionEnableEventHandler "
-      + "icWizardActionExecuteEventHandler "
-      + "icCreateJobsHandler "
-      + "icCreateNoticesHandler "
-      + "icBeforeLookUpEventHandler "
-      + "icAfterLookUpEventHandler "
-      + "icTaskAbortEventHandler "
-      + "icWorkflowBlockActionHandler "
-      + "icDialogDataSetEventHandler "
-      + "icDialogActionHandler "
-      + "icDialogLookUpEventHandler "
-      + "icDialogRequisiteChangeEventHandler "
-      + "icDialogFormEventHandler "
-      + "icDialogValidCloseEventHandler "
-      + "icBlockFormEventHandler "
-      + "icTaskFormEventHandler "
-      + "icReferenceMethod "
-      + "icEDocMethod "
-      + "icDialogMethod "
-      + "icProcessMessageHandler ";
-
-    // enum TItemShow
-    const TItemShow = "isShow " + "isHide " + "isByUserSettings ";
-
-    // enum TJobKind
-    const TJobKind = "jkJob " + "jkNotice " + "jkControlJob ";
-
-    // enum TJoinType
-    const TJoinType = "jtInner " + "jtLeft " + "jtRight " + "jtFull " + "jtCross ";
-
-    // enum TLabelPos
-    const TLabelPos = "lbpAbove " + "lbpBelow " + "lbpLeft " + "lbpRight ";
-
-    // enum TLicensingType
-    const TLicensingType = "eltPerConnection " + "eltPerUser ";
-
-    // enum TLifeCycleStageFontColor
-    const TLifeCycleStageFontColor =
-      "sfcUndefined "
-      + "sfcBlack "
-      + "sfcGreen "
-      + "sfcRed "
-      + "sfcBlue "
-      + "sfcOrange "
-      + "sfcLilac ";
-
-    // enum TLifeCycleStageFontStyle
-    const TLifeCycleStageFontStyle = "sfsItalic " + "sfsStrikeout " + "sfsNormal ";
-
-    // enum TLockableDevelopmentComponentType
-    const TLockableDevelopmentComponentType =
-      "ldctStandardRoute "
-      + "ldctWizard "
-      + "ldctScript "
-      + "ldctFunction "
-      + "ldctRouteBlock "
-      + "ldctIntegratedReport "
-      + "ldctAnalyticReport "
-      + "ldctReferenceType "
-      + "ldctEDocumentType "
-      + "ldctDialog "
-      + "ldctServerEvents ";
-
-    // enum TMaxRecordCountRestrictionType
-    const TMaxRecordCountRestrictionType =
-      "mrcrtNone " + "mrcrtUser " + "mrcrtMaximal " + "mrcrtCustom ";
-
-    // enum TRangeValueType
-    const TRangeValueType =
-      "vtEqual " + "vtGreaterOrEqual " + "vtLessOrEqual " + "vtRange ";
-
-    // enum TRelativeDate
-    const TRelativeDate =
-      "rdYesterday "
-      + "rdToday "
-      + "rdTomorrow "
-      + "rdThisWeek "
-      + "rdThisMonth "
-      + "rdThisYear "
-      + "rdNextMonth "
-      + "rdNextWeek "
-      + "rdLastWeek "
-      + "rdLastMonth ";
-
-    // enum TReportDestination
-    const TReportDestination = "rdWindow " + "rdFile " + "rdPrinter ";
-
-    // enum TReqDataType
-    const TReqDataType =
-      "rdtString "
-      + "rdtNumeric "
-      + "rdtInteger "
-      + "rdtDate "
-      + "rdtReference "
-      + "rdtAccount "
-      + "rdtText "
-      + "rdtPick "
-      + "rdtUnknown "
-      + "rdtLargeInteger "
-      + "rdtDocument ";
-
-    // enum TRequisiteEventType
-    const TRequisiteEventType = "reOnChange " + "reOnChangeValues ";
-
-    // enum TSBTimeType
-    const TSBTimeType = "ttGlobal " + "ttLocal " + "ttUser " + "ttSystem ";
-
-    // enum TSearchShowMode
-    const TSearchShowMode =
-      "ssmBrowse " + "ssmSelect " + "ssmMultiSelect " + "ssmBrowseModal ";
-
-    // enum TSelectMode
-    const TSelectMode = "smSelect " + "smLike " + "smCard ";
-
-    // enum TSignatureType
-    const TSignatureType = "stNone " + "stAuthenticating " + "stApproving ";
-
-    // enum TSignerContentType
-    const TSignerContentType = "sctString " + "sctStream ";
-
-    // enum TStringsSortType
-    const TStringsSortType = "sstAnsiSort " + "sstNaturalSort ";
-
-    // enum TStringValueType
-    const TStringValueType = "svtEqual " + "svtContain ";
-
-    // enum TStructuredObjectAttributeType
-    const TStructuredObjectAttributeType =
-      "soatString "
-      + "soatNumeric "
-      + "soatInteger "
-      + "soatDatetime "
-      + "soatReferenceRecord "
-      + "soatText "
-      + "soatPick "
-      + "soatBoolean "
-      + "soatEDocument "
-      + "soatAccount "
-      + "soatIntegerCollection "
-      + "soatNumericCollection "
-      + "soatStringCollection "
-      + "soatPickCollection "
-      + "soatDatetimeCollection "
-      + "soatBooleanCollection "
-      + "soatReferenceRecordCollection "
-      + "soatEDocumentCollection "
-      + "soatAccountCollection "
-      + "soatContents "
-      + "soatUnknown ";
-
-    // enum TTaskAbortReason
-    const TTaskAbortReason = "tarAbortByUser " + "tarAbortByWorkflowException ";
-
-    // enum TTextValueType
-    const TTextValueType = "tvtAllWords " + "tvtExactPhrase " + "tvtAnyWord ";
-
-    // enum TUserObjectStatus
-    const TUserObjectStatus =
-      "usNone "
-      + "usCompleted "
-      + "usRedSquare "
-      + "usBlueSquare "
-      + "usYellowSquare "
-      + "usGreenSquare "
-      + "usOrangeSquare "
-      + "usPurpleSquare "
-      + "usFollowUp ";
-
-    // enum TUserType
-    const TUserType =
-      "utUnknown "
-      + "utUser "
-      + "utDeveloper "
-      + "utAdministrator "
-      + "utSystemDeveloper "
-      + "utDisconnected ";
-
-    // enum TValuesBuildType
-    const TValuesBuildType =
-      "btAnd " + "btDetailAnd " + "btOr " + "btNotOr " + "btOnly ";
-
-    // enum TViewMode
-    const TViewMode = "vmView " + "vmSelect " + "vmNavigation ";
-
-    // enum TViewSelectionMode
-    const TViewSelectionMode =
-      "vsmSingle " + "vsmMultiple " + "vsmMultipleCheck " + "vsmNoSelection ";
-
-    // enum TWizardActionType
-    const TWizardActionType =
-      "wfatPrevious " + "wfatNext " + "wfatCancel " + "wfatFinish ";
-
-    // enum TWizardFormElementProperty
-    const TWizardFormElementProperty =
-      "wfepUndefined "
-      + "wfepText3 "
-      + "wfepText6 "
-      + "wfepText9 "
-      + "wfepSpinEdit "
-      + "wfepDropDown "
-      + "wfepRadioGroup "
-      + "wfepFlag "
-      + "wfepText12 "
-      + "wfepText15 "
-      + "wfepText18 "
-      + "wfepText21 "
-      + "wfepText24 "
-      + "wfepText27 "
-      + "wfepText30 "
-      + "wfepRadioGroupColumn1 "
-      + "wfepRadioGroupColumn2 "
-      + "wfepRadioGroupColumn3 ";
-
-    // enum TWizardFormElementType
-    const TWizardFormElementType =
-      "wfetQueryParameter " + "wfetText " + "wfetDelimiter " + "wfetLabel ";
-
-    // enum TWizardParamType
-    const TWizardParamType =
-      "wptString "
-      + "wptInteger "
-      + "wptNumeric "
-      + "wptBoolean "
-      + "wptDateTime "
-      + "wptPick "
-      + "wptText "
-      + "wptUser "
-      + "wptUserList "
-      + "wptEDocumentInfo "
-      + "wptEDocumentInfoList "
-      + "wptReferenceRecordInfo "
-      + "wptReferenceRecordInfoList "
-      + "wptFolderInfo "
-      + "wptTaskInfo "
-      + "wptContents "
-      + "wptFileName "
-      + "wptDate ";
-
-    // enum TWizardStepResult
-    const TWizardStepResult =
-      "wsrComplete "
-      + "wsrGoNext "
-      + "wsrGoPrevious "
-      + "wsrCustom "
-      + "wsrCancel "
-      + "wsrGoFinal ";
-
-    // enum TWizardStepType
-    const TWizardStepType =
-      "wstForm "
-      + "wstEDocument "
-      + "wstTaskCard "
-      + "wstReferenceRecordCard "
-      + "wstFinal ";
-
-    // enum TWorkAccessType
-    const TWorkAccessType = "waAll " + "waPerformers " + "waManual ";
-
-    // enum TWorkflowBlockType
-    const TWorkflowBlockType =
-      "wsbStart "
-      + "wsbFinish "
-      + "wsbNotice "
-      + "wsbStep "
-      + "wsbDecision "
-      + "wsbWait "
-      + "wsbMonitor "
-      + "wsbScript "
-      + "wsbConnector "
-      + "wsbSubTask "
-      + "wsbLifeCycleStage "
-      + "wsbPause ";
-
-    // enum TWorkflowDataType
-    const TWorkflowDataType =
-      "wdtInteger "
-      + "wdtFloat "
-      + "wdtString "
-      + "wdtPick "
-      + "wdtDateTime "
-      + "wdtBoolean "
-      + "wdtTask "
-      + "wdtJob "
-      + "wdtFolder "
-      + "wdtEDocument "
-      + "wdtReferenceRecord "
-      + "wdtUser "
-      + "wdtGroup "
-      + "wdtRole "
-      + "wdtIntegerCollection "
-      + "wdtFloatCollection "
-      + "wdtStringCollection "
-      + "wdtPickCollection "
-      + "wdtDateTimeCollection "
-      + "wdtBooleanCollection "
-      + "wdtTaskCollection "
-      + "wdtJobCollection "
-      + "wdtFolderCollection "
-      + "wdtEDocumentCollection "
-      + "wdtReferenceRecordCollection "
-      + "wdtUserCollection "
-      + "wdtGroupCollection "
-      + "wdtRoleCollection "
-      + "wdtContents "
-      + "wdtUserList "
-      + "wdtSearchDescription "
-      + "wdtDeadLine "
-      + "wdtPickSet "
-      + "wdtAccountCollection ";
-
-    // enum TWorkImportance
-    const TWorkImportance = "wiLow " + "wiNormal " + "wiHigh ";
-
-    // enum TWorkRouteType
-    const TWorkRouteType = "wrtSoft " + "wrtHard ";
-
-    // enum TWorkState
-    const TWorkState =
-      "wsInit "
-      + "wsRunning "
-      + "wsDone "
-      + "wsControlled "
-      + "wsAborted "
-      + "wsContinued ";
-
-    // enum TWorkTextBuildingMode
-    const TWorkTextBuildingMode =
-      "wtmFull " + "wtmFromCurrent " + "wtmOnlyCurrent ";
-
-    // Перечисления
-    const ENUMS =
-      TAccountType
-      + TActionEnabledMode
-      + TAddPosition
-      + TAlignment
-      + TAreaShowMode
-      + TCertificateInvalidationReason
-      + TCertificateType
-      + TCheckListBoxItemState
-      + TCloseOnEsc
-      + TCompType
-      + TConditionFormat
-      + TConnectionIntent
-      + TContentKind
-      + TControlType
-      + TCriterionContentType
-      + TCultureType
-      + TDataSetEventType
-      + TDataSetState
-      + TDateFormatType
-      + TDateOffsetType
-      + TDateTimeKind
-      + TDeaAccessRights
-      + TDocumentDefaultAction
-      + TEditMode
-      + TEditorCloseObservType
-      + TEdmsApplicationAction
-      + TEDocumentLockType
-      + TEDocumentStepShowMode
-      + TEDocumentStepVersionType
-      + TEDocumentStorageFunction
-      + TEDocumentStorageType
-      + TEDocumentVersionSourceType
-      + TEDocumentVersionState
-      + TEncodeType
-      + TExceptionCategory
-      + TExportedSignaturesType
-      + TExportedVersionType
-      + TFieldDataType
-      + TFolderType
-      + TGridRowHeight
-      + THyperlinkType
-      + TImageFileFormat
-      + TImageMode
-      + TImageType
-      + TInplaceHintKind
-      + TISBLContext
-      + TItemShow
-      + TJobKind
-      + TJoinType
-      + TLabelPos
-      + TLicensingType
-      + TLifeCycleStageFontColor
-      + TLifeCycleStageFontStyle
-      + TLockableDevelopmentComponentType
-      + TMaxRecordCountRestrictionType
-      + TRangeValueType
-      + TRelativeDate
-      + TReportDestination
-      + TReqDataType
-      + TRequisiteEventType
-      + TSBTimeType
-      + TSearchShowMode
-      + TSelectMode
-      + TSignatureType
-      + TSignerContentType
-      + TStringsSortType
-      + TStringValueType
-      + TStructuredObjectAttributeType
-      + TTaskAbortReason
-      + TTextValueType
-      + TUserObjectStatus
-      + TUserType
-      + TValuesBuildType
-      + TViewMode
-      + TViewSelectionMode
-      + TWizardActionType
-      + TWizardFormElementProperty
-      + TWizardFormElementType
-      + TWizardParamType
-      + TWizardStepResult
-      + TWizardStepType
-      + TWorkAccessType
-      + TWorkflowBlockType
-      + TWorkflowDataType
-      + TWorkImportance
-      + TWorkRouteType
-      + TWorkState
-      + TWorkTextBuildingMode;
-
-    // Системные функции ==> SYSFUNCTIONS
-    const system_functions =
-      "AddSubString "
-      + "AdjustLineBreaks "
-      + "AmountInWords "
-      + "Analysis "
-      + "ArrayDimCount "
-      + "ArrayHighBound "
-      + "ArrayLowBound "
-      + "ArrayOf "
-      + "ArrayReDim "
-      + "Assert "
-      + "Assigned "
-      + "BeginOfMonth "
-      + "BeginOfPeriod "
-      + "BuildProfilingOperationAnalysis "
-      + "CallProcedure "
-      + "CanReadFile "
-      + "CArrayElement "
-      + "CDataSetRequisite "
-      + "ChangeDate "
-      + "ChangeReferenceDataset "
-      + "Char "
-      + "CharPos "
-      + "CheckParam "
-      + "CheckParamValue "
-      + "CompareStrings "
-      + "ConstantExists "
-      + "ControlState "
-      + "ConvertDateStr "
-      + "Copy "
-      + "CopyFile "
-      + "CreateArray "
-      + "CreateCachedReference "
-      + "CreateConnection "
-      + "CreateDialog "
-      + "CreateDualListDialog "
-      + "CreateEditor "
-      + "CreateException "
-      + "CreateFile "
-      + "CreateFolderDialog "
-      + "CreateInputDialog "
-      + "CreateLinkFile "
-      + "CreateList "
-      + "CreateLock "
-      + "CreateMemoryDataSet "
-      + "CreateObject "
-      + "CreateOpenDialog "
-      + "CreateProgress "
-      + "CreateQuery "
-      + "CreateReference "
-      + "CreateReport "
-      + "CreateSaveDialog "
-      + "CreateScript "
-      + "CreateSQLPivotFunction "
-      + "CreateStringList "
-      + "CreateTreeListSelectDialog "
-      + "CSelectSQL "
-      + "CSQL "
-      + "CSubString "
-      + "CurrentUserID "
-      + "CurrentUserName "
-      + "CurrentVersion "
-      + "DataSetLocateEx "
-      + "DateDiff "
-      + "DateTimeDiff "
-      + "DateToStr "
-      + "DayOfWeek "
-      + "DeleteFile "
-      + "DirectoryExists "
-      + "DisableCheckAccessRights "
-      + "DisableCheckFullShowingRestriction "
-      + "DisableMassTaskSendingRestrictions "
-      + "DropTable "
-      + "DupeString "
-      + "EditText "
-      + "EnableCheckAccessRights "
-      + "EnableCheckFullShowingRestriction "
-      + "EnableMassTaskSendingRestrictions "
-      + "EndOfMonth "
-      + "EndOfPeriod "
-      + "ExceptionExists "
-      + "ExceptionsOff "
-      + "ExceptionsOn "
-      + "Execute "
-      + "ExecuteProcess "
-      + "Exit "
-      + "ExpandEnvironmentVariables "
-      + "ExtractFileDrive "
-      + "ExtractFileExt "
-      + "ExtractFileName "
-      + "ExtractFilePath "
-      + "ExtractParams "
-      + "FileExists "
-      + "FileSize "
-      + "FindFile "
-      + "FindSubString "
-      + "FirmContext "
-      + "ForceDirectories "
-      + "Format "
-      + "FormatDate "
-      + "FormatNumeric "
-      + "FormatSQLDate "
-      + "FormatString "
-      + "FreeException "
-      + "GetComponent "
-      + "GetComponentLaunchParam "
-      + "GetConstant "
-      + "GetLastException "
-      + "GetReferenceRecord "
-      + "GetRefTypeByRefID "
-      + "GetTableID "
-      + "GetTempFolder "
-      + "IfThen "
-      + "In "
-      + "IndexOf "
-      + "InputDialog "
-      + "InputDialogEx "
-      + "InteractiveMode "
-      + "IsFileLocked "
-      + "IsGraphicFile "
-      + "IsNumeric "
-      + "Length "
-      + "LoadString "
-      + "LoadStringFmt "
-      + "LocalTimeToUTC "
-      + "LowerCase "
-      + "Max "
-      + "MessageBox "
-      + "MessageBoxEx "
-      + "MimeDecodeBinary "
-      + "MimeDecodeString "
-      + "MimeEncodeBinary "
-      + "MimeEncodeString "
-      + "Min "
-      + "MoneyInWords "
-      + "MoveFile "
-      + "NewID "
-      + "Now "
-      + "OpenFile "
-      + "Ord "
-      + "Precision "
-      + "Raise "
-      + "ReadCertificateFromFile "
-      + "ReadFile "
-      + "ReferenceCodeByID "
-      + "ReferenceNumber "
-      + "ReferenceRequisiteMode "
-      + "ReferenceRequisiteValue "
-      + "RegionDateSettings "
-      + "RegionNumberSettings "
-      + "RegionTimeSettings "
-      + "RegRead "
-      + "RegWrite "
-      + "RenameFile "
-      + "Replace "
-      + "Round "
-      + "SelectServerCode "
-      + "SelectSQL "
-      + "ServerDateTime "
-      + "SetConstant "
-      + "SetManagedFolderFieldsState "
-      + "ShowConstantsInputDialog "
-      + "ShowMessage "
-      + "Sleep "
-      + "Split "
-      + "SQL "
-      + "SQL2XLSTAB "
-      + "SQLProfilingSendReport "
-      + "StrToDate "
-      + "SubString "
-      + "SubStringCount "
-      + "SystemSetting "
-      + "Time "
-      + "TimeDiff "
-      + "Today "
-      + "Transliterate "
-      + "Trim "
-      + "UpperCase "
-      + "UserStatus "
-      + "UTCToLocalTime "
-      + "ValidateXML "
-      + "VarIsClear "
-      + "VarIsEmpty "
-      + "VarIsNull "
-      + "WorkTimeDiff "
-      + "WriteFile "
-      + "WriteFileEx "
-      + "WriteObjectHistory "
-      + "Анализ "
-      + "БазаДанных "
-      + "БлокЕсть "
-      + "БлокЕстьРасш "
-      + "БлокИнфо "
-      + "БлокСнять "
-      + "БлокСнятьРасш "
-      + "БлокУстановить "
-      + "Ввод "
-      + "ВводМеню "
-      + "ВедС "
-      + "ВедСпр "
-      + "ВерхняяГраницаМассива "
-      + "ВнешПрогр "
-      + "Восст "
-      + "ВременнаяПапка "
-      + "Время "
-      + "ВыборSQL "
-      + "ВыбратьЗапись "
-      + "ВыделитьСтр "
-      + "Вызвать "
-      + "Выполнить "
-      + "ВыпПрогр "
-      + "ГрафическийФайл "
-      + "ГруппаДополнительно "
-      + "ДатаВремяСерв "
-      + "ДеньНедели "
-      + "ДиалогДаНет "
-      + "ДлинаСтр "
-      + "ДобПодстр "
-      + "ЕПусто "
-      + "ЕслиТо "
-      + "ЕЧисло "
-      + "ЗамПодстр "
-      + "ЗаписьСправочника "
-      + "ЗначПоляСпр "
-      + "ИДТипСпр "
-      + "ИзвлечьДиск "
-      + "ИзвлечьИмяФайла "
-      + "ИзвлечьПуть "
-      + "ИзвлечьРасширение "
-      + "ИзмДат "
-      + "ИзменитьРазмерМассива "
-      + "ИзмеренийМассива "
-      + "ИмяОрг "
-      + "ИмяПоляСпр "
-      + "Индекс "
-      + "ИндикаторЗакрыть "
-      + "ИндикаторОткрыть "
-      + "ИндикаторШаг "
-      + "ИнтерактивныйРежим "
-      + "ИтогТблСпр "
-      + "КодВидВедСпр "
-      + "КодВидСпрПоИД "
-      + "КодПоAnalit "
-      + "КодСимвола "
-      + "КодСпр "
-      + "КолПодстр "
-      + "КолПроп "
-      + "КонМес "
-      + "Конст "
-      + "КонстЕсть "
-      + "КонстЗнач "
-      + "КонТран "
-      + "КопироватьФайл "
-      + "КопияСтр "
-      + "КПериод "
-      + "КСтрТблСпр "
-      + "Макс "
-      + "МаксСтрТблСпр "
-      + "Массив "
-      + "Меню "
-      + "МенюРасш "
-      + "Мин "
-      + "НаборДанныхНайтиРасш "
-      + "НаимВидСпр "
-      + "НаимПоAnalit "
-      + "НаимСпр "
-      + "НастроитьПереводыСтрок "
-      + "НачМес "
-      + "НачТран "
-      + "НижняяГраницаМассива "
-      + "НомерСпр "
-      + "НПериод "
-      + "Окно "
-      + "Окр "
-      + "Окружение "
-      + "ОтлИнфДобавить "
-      + "ОтлИнфУдалить "
-      + "Отчет "
-      + "ОтчетАнал "
-      + "ОтчетИнт "
-      + "ПапкаСуществует "
-      + "Пауза "
-      + "ПВыборSQL "
-      + "ПереименоватьФайл "
-      + "Переменные "
-      + "ПереместитьФайл "
-      + "Подстр "
-      + "ПоискПодстр "
-      + "ПоискСтр "
-      + "ПолучитьИДТаблицы "
-      + "ПользовательДополнительно "
-      + "ПользовательИД "
-      + "ПользовательИмя "
-      + "ПользовательСтатус "
-      + "Прервать "
-      + "ПроверитьПараметр "
-      + "ПроверитьПараметрЗнач "
-      + "ПроверитьУсловие "
-      + "РазбСтр "
-      + "РазнВремя "
-      + "РазнДат "
-      + "РазнДатаВремя "
-      + "РазнРабВремя "
-      + "РегУстВрем "
-      + "РегУстДат "
-      + "РегУстЧсл "
-      + "РедТекст "
-      + "РеестрЗапись "
-      + "РеестрСписокИменПарам "
-      + "РеестрЧтение "
-      + "РеквСпр "
-      + "РеквСпрПр "
-      + "Сегодня "
-      + "Сейчас "
-      + "Сервер "
-      + "СерверПроцессИД "
-      + "СертификатФайлСчитать "
-      + "СжПроб "
-      + "Символ "
-      + "СистемаДиректумКод "
-      + "СистемаИнформация "
-      + "СистемаКод "
-      + "Содержит "
-      + "СоединениеЗакрыть "
-      + "СоединениеОткрыть "
-      + "СоздатьДиалог "
-      + "СоздатьДиалогВыбораИзДвухСписков "
-      + "СоздатьДиалогВыбораПапки "
-      + "СоздатьДиалогОткрытияФайла "
-      + "СоздатьДиалогСохраненияФайла "
-      + "СоздатьЗапрос "
-      + "СоздатьИндикатор "
-      + "СоздатьИсключение "
-      + "СоздатьКэшированныйСправочник "
-      + "СоздатьМассив "
-      + "СоздатьНаборДанных "
-      + "СоздатьОбъект "
-      + "СоздатьОтчет "
-      + "СоздатьПапку "
-      + "СоздатьРедактор "
-      + "СоздатьСоединение "
-      + "СоздатьСписок "
-      + "СоздатьСписокСтрок "
-      + "СоздатьСправочник "
-      + "СоздатьСценарий "
-      + "СоздСпр "
-      + "СостСпр "
-      + "Сохр "
-      + "СохрСпр "
-      + "СписокСистем "
-      + "Спр "
-      + "Справочник "
-      + "СпрБлокЕсть "
-      + "СпрБлокСнять "
-      + "СпрБлокСнятьРасш "
-      + "СпрБлокУстановить "
-      + "СпрИзмНабДан "
-      + "СпрКод "
-      + "СпрНомер "
-      + "СпрОбновить "
-      + "СпрОткрыть "
-      + "СпрОтменить "
-      + "СпрПарам "
-      + "СпрПолеЗнач "
-      + "СпрПолеИмя "
-      + "СпрРекв "
-      + "СпрРеквВведЗн "
-      + "СпрРеквНовые "
-      + "СпрРеквПр "
-      + "СпрРеквПредЗн "
-      + "СпрРеквРежим "
-      + "СпрРеквТипТекст "
-      + "СпрСоздать "
-      + "СпрСост "
-      + "СпрСохранить "
-      + "СпрТблИтог "
-      + "СпрТблСтр "
-      + "СпрТблСтрКол "
-      + "СпрТблСтрМакс "
-      + "СпрТблСтрМин "
-      + "СпрТблСтрПред "
-      + "СпрТблСтрСлед "
-      + "СпрТблСтрСозд "
-      + "СпрТблСтрУд "
-      + "СпрТекПредст "
-      + "СпрУдалить "
-      + "СравнитьСтр "
-      + "СтрВерхРегистр "
-      + "СтрНижнРегистр "
-      + "СтрТблСпр "
-      + "СумПроп "
-      + "Сценарий "
-      + "СценарийПарам "
-      + "ТекВерсия "
-      + "ТекОрг "
-      + "Точн "
-      + "Тран "
-      + "Транслитерация "
-      + "УдалитьТаблицу "
-      + "УдалитьФайл "
-      + "УдСпр "
-      + "УдСтрТблСпр "
-      + "Уст "
-      + "УстановкиКонстант "
-      + "ФайлАтрибутСчитать "
-      + "ФайлАтрибутУстановить "
-      + "ФайлВремя "
-      + "ФайлВремяУстановить "
-      + "ФайлВыбрать "
-      + "ФайлЗанят "
-      + "ФайлЗаписать "
-      + "ФайлИскать "
-      + "ФайлКопировать "
-      + "ФайлМожноЧитать "
-      + "ФайлОткрыть "
-      + "ФайлПереименовать "
-      + "ФайлПерекодировать "
-      + "ФайлПереместить "
-      + "ФайлПросмотреть "
-      + "ФайлРазмер "
-      + "ФайлСоздать "
-      + "ФайлСсылкаСоздать "
-      + "ФайлСуществует "
-      + "ФайлСчитать "
-      + "ФайлУдалить "
-      + "ФмтSQLДат "
-      + "ФмтДат "
-      + "ФмтСтр "
-      + "ФмтЧсл "
-      + "Формат "
-      + "ЦМассивЭлемент "
-      + "ЦНаборДанныхРеквизит "
-      + "ЦПодстр ";
-
-    // Предопределенные переменные ==> built_in
-    const predefined_variables =
-      "AltState "
-      + "Application "
-      + "CallType "
-      + "ComponentTokens "
-      + "CreatedJobs "
-      + "CreatedNotices "
-      + "ControlState "
-      + "DialogResult "
-      + "Dialogs "
-      + "EDocuments "
-      + "EDocumentVersionSource "
-      + "Folders "
-      + "GlobalIDs "
-      + "Job "
-      + "Jobs "
-      + "InputValue "
-      + "LookUpReference "
-      + "LookUpRequisiteNames "
-      + "LookUpSearch "
-      + "Object "
-      + "ParentComponent "
-      + "Processes "
-      + "References "
-      + "Requisite "
-      + "ReportName "
-      + "Reports "
-      + "Result "
-      + "Scripts "
-      + "Searches "
-      + "SelectedAttachments "
-      + "SelectedItems "
-      + "SelectMode "
-      + "Sender "
-      + "ServerEvents "
-      + "ServiceFactory "
-      + "ShiftState "
-      + "SubTask "
-      + "SystemDialogs "
-      + "Tasks "
-      + "Wizard "
-      + "Wizards "
-      + "Work "
-      + "ВызовСпособ "
-      + "ИмяОтчета "
-      + "РеквЗнач ";
-
-    // Интерфейсы ==> type
-    const interfaces =
-      "IApplication "
-      + "IAccessRights "
-      + "IAccountRepository "
-      + "IAccountSelectionRestrictions "
-      + "IAction "
-      + "IActionList "
-      + "IAdministrationHistoryDescription "
-      + "IAnchors "
-      + "IApplication "
-      + "IArchiveInfo "
-      + "IAttachment "
-      + "IAttachmentList "
-      + "ICheckListBox "
-      + "ICheckPointedList "
-      + "IColumn "
-      + "IComponent "
-      + "IComponentDescription "
-      + "IComponentToken "
-      + "IComponentTokenFactory "
-      + "IComponentTokenInfo "
-      + "ICompRecordInfo "
-      + "IConnection "
-      + "IContents "
-      + "IControl "
-      + "IControlJob "
-      + "IControlJobInfo "
-      + "IControlList "
-      + "ICrypto "
-      + "ICrypto2 "
-      + "ICustomJob "
-      + "ICustomJobInfo "
-      + "ICustomListBox "
-      + "ICustomObjectWizardStep "
-      + "ICustomWork "
-      + "ICustomWorkInfo "
-      + "IDataSet "
-      + "IDataSetAccessInfo "
-      + "IDataSigner "
-      + "IDateCriterion "
-      + "IDateRequisite "
-      + "IDateRequisiteDescription "
-      + "IDateValue "
-      + "IDeaAccessRights "
-      + "IDeaObjectInfo "
-      + "IDevelopmentComponentLock "
-      + "IDialog "
-      + "IDialogFactory "
-      + "IDialogPickRequisiteItems "
-      + "IDialogsFactory "
-      + "IDICSFactory "
-      + "IDocRequisite "
-      + "IDocumentInfo "
-      + "IDualListDialog "
-      + "IECertificate "
-      + "IECertificateInfo "
-      + "IECertificates "
-      + "IEditControl "
-      + "IEditorForm "
-      + "IEdmsExplorer "
-      + "IEdmsObject "
-      + "IEdmsObjectDescription "
-      + "IEdmsObjectFactory "
-      + "IEdmsObjectInfo "
-      + "IEDocument "
-      + "IEDocumentAccessRights "
-      + "IEDocumentDescription "
-      + "IEDocumentEditor "
-      + "IEDocumentFactory "
-      + "IEDocumentInfo "
-      + "IEDocumentStorage "
-      + "IEDocumentVersion "
-      + "IEDocumentVersionListDialog "
-      + "IEDocumentVersionSource "
-      + "IEDocumentWizardStep "
-      + "IEDocVerSignature "
-      + "IEDocVersionState "
-      + "IEnabledMode "
-      + "IEncodeProvider "
-      + "IEncrypter "
-      + "IEvent "
-      + "IEventList "
-      + "IException "
-      + "IExternalEvents "
-      + "IExternalHandler "
-      + "IFactory "
-      + "IField "
-      + "IFileDialog "
-      + "IFolder "
-      + "IFolderDescription "
-      + "IFolderDialog "
-      + "IFolderFactory "
-      + "IFolderInfo "
-      + "IForEach "
-      + "IForm "
-      + "IFormTitle "
-      + "IFormWizardStep "
-      + "IGlobalIDFactory "
-      + "IGlobalIDInfo "
-      + "IGrid "
-      + "IHasher "
-      + "IHistoryDescription "
-      + "IHyperLinkControl "
-      + "IImageButton "
-      + "IImageControl "
-      + "IInnerPanel "
-      + "IInplaceHint "
-      + "IIntegerCriterion "
-      + "IIntegerList "
-      + "IIntegerRequisite "
-      + "IIntegerValue "
-      + "IISBLEditorForm "
-      + "IJob "
-      + "IJobDescription "
-      + "IJobFactory "
-      + "IJobForm "
-      + "IJobInfo "
-      + "ILabelControl "
-      + "ILargeIntegerCriterion "
-      + "ILargeIntegerRequisite "
-      + "ILargeIntegerValue "
-      + "ILicenseInfo "
-      + "ILifeCycleStage "
-      + "IList "
-      + "IListBox "
-      + "ILocalIDInfo "
-      + "ILocalization "
-      + "ILock "
-      + "IMemoryDataSet "
-      + "IMessagingFactory "
-      + "IMetadataRepository "
-      + "INotice "
-      + "INoticeInfo "
-      + "INumericCriterion "
-      + "INumericRequisite "
-      + "INumericValue "
-      + "IObject "
-      + "IObjectDescription "
-      + "IObjectImporter "
-      + "IObjectInfo "
-      + "IObserver "
-      + "IPanelGroup "
-      + "IPickCriterion "
-      + "IPickProperty "
-      + "IPickRequisite "
-      + "IPickRequisiteDescription "
-      + "IPickRequisiteItem "
-      + "IPickRequisiteItems "
-      + "IPickValue "
-      + "IPrivilege "
-      + "IPrivilegeList "
-      + "IProcess "
-      + "IProcessFactory "
-      + "IProcessMessage "
-      + "IProgress "
-      + "IProperty "
-      + "IPropertyChangeEvent "
-      + "IQuery "
-      + "IReference "
-      + "IReferenceCriterion "
-      + "IReferenceEnabledMode "
-      + "IReferenceFactory "
-      + "IReferenceHistoryDescription "
-      + "IReferenceInfo "
-      + "IReferenceRecordCardWizardStep "
-      + "IReferenceRequisiteDescription "
-      + "IReferencesFactory "
-      + "IReferenceValue "
-      + "IRefRequisite "
-      + "IReport "
-      + "IReportFactory "
-      + "IRequisite "
-      + "IRequisiteDescription "
-      + "IRequisiteDescriptionList "
-      + "IRequisiteFactory "
-      + "IRichEdit "
-      + "IRouteStep "
-      + "IRule "
-      + "IRuleList "
-      + "ISchemeBlock "
-      + "IScript "
-      + "IScriptFactory "
-      + "ISearchCriteria "
-      + "ISearchCriterion "
-      + "ISearchDescription "
-      + "ISearchFactory "
-      + "ISearchFolderInfo "
-      + "ISearchForObjectDescription "
-      + "ISearchResultRestrictions "
-      + "ISecuredContext "
-      + "ISelectDialog "
-      + "IServerEvent "
-      + "IServerEventFactory "
-      + "IServiceDialog "
-      + "IServiceFactory "
-      + "ISignature "
-      + "ISignProvider "
-      + "ISignProvider2 "
-      + "ISignProvider3 "
-      + "ISimpleCriterion "
-      + "IStringCriterion "
-      + "IStringList "
-      + "IStringRequisite "
-      + "IStringRequisiteDescription "
-      + "IStringValue "
-      + "ISystemDialogsFactory "
-      + "ISystemInfo "
-      + "ITabSheet "
-      + "ITask "
-      + "ITaskAbortReasonInfo "
-      + "ITaskCardWizardStep "
-      + "ITaskDescription "
-      + "ITaskFactory "
-      + "ITaskInfo "
-      + "ITaskRoute "
-      + "ITextCriterion "
-      + "ITextRequisite "
-      + "ITextValue "
-      + "ITreeListSelectDialog "
-      + "IUser "
-      + "IUserList "
-      + "IValue "
-      + "IView "
-      + "IWebBrowserControl "
-      + "IWizard "
-      + "IWizardAction "
-      + "IWizardFactory "
-      + "IWizardFormElement "
-      + "IWizardParam "
-      + "IWizardPickParam "
-      + "IWizardReferenceParam "
-      + "IWizardStep "
-      + "IWorkAccessRights "
-      + "IWorkDescription "
-      + "IWorkflowAskableParam "
-      + "IWorkflowAskableParams "
-      + "IWorkflowBlock "
-      + "IWorkflowBlockResult "
-      + "IWorkflowEnabledMode "
-      + "IWorkflowParam "
-      + "IWorkflowPickParam "
-      + "IWorkflowReferenceParam "
-      + "IWorkState "
-      + "IWorkTreeCustomNode "
-      + "IWorkTreeJobNode "
-      + "IWorkTreeTaskNode "
-      + "IXMLEditorForm "
-      + "SBCrypto ";
-
-    // built_in : встроенные или библиотечные объекты (константы, перечисления)
-    const BUILTIN = CONSTANTS + ENUMS;
-
-    // class: встроенные наборы значений, системные объекты, фабрики
-    const CLASS = predefined_variables;
-
-    // literal : примитивные типы
-    const LITERAL = "null true false nil ";
-
-    // number : числа
-    const NUMBERS = {
-      className: "number",
-      begin: hljs.NUMBER_RE,
-      relevance: 0
-    };
-
-    // string : строки
-    const STRINGS = {
-      className: "string",
-      variants: [
-        {
-          begin: '"',
-          end: '"'
-        },
-        {
-          begin: "'",
-          end: "'"
-        }
-      ]
-    };
-
-    // Токены
-    const DOCTAGS = {
-      className: "doctag",
-      begin: "\\b(?:TODO|DONE|BEGIN|END|STUB|CHG|FIXME|NOTE|BUG|XXX)\\b",
-      relevance: 0
-    };
-
-    // Однострочный комментарий
-    const ISBL_LINE_COMMENT_MODE = {
-      className: "comment",
-      begin: "//",
-      end: "$",
-      relevance: 0,
-      contains: [
-        hljs.PHRASAL_WORDS_MODE,
-        DOCTAGS
-      ]
-    };
-
-    // Многострочный комментарий
-    const ISBL_BLOCK_COMMENT_MODE = {
-      className: "comment",
-      begin: "/\\*",
-      end: "\\*/",
-      relevance: 0,
-      contains: [
-        hljs.PHRASAL_WORDS_MODE,
-        DOCTAGS
-      ]
-    };
-
-    // comment : комментарии
-    const COMMENTS = { variants: [
-      ISBL_LINE_COMMENT_MODE,
-      ISBL_BLOCK_COMMENT_MODE
-    ] };
-
-    // keywords : ключевые слова
-    const KEYWORDS = {
-      $pattern: UNDERSCORE_IDENT_RE,
-      keyword: KEYWORD,
-      built_in: BUILTIN,
-      class: CLASS,
-      literal: LITERAL
-    };
-
-    // methods : методы
-    const METHODS = {
-      begin: "\\.\\s*" + hljs.UNDERSCORE_IDENT_RE,
-      keywords: KEYWORDS,
-      relevance: 0
-    };
-
-    // type : встроенные типы
-    const TYPES = {
-      className: "type",
-      begin: ":[ \\t]*(" + interfaces.trim().replace(/\s/g, "|") + ")",
-      end: "[ \\t]*=",
-      excludeEnd: true
-    };
-
-    // variables : переменные
-    const VARIABLES = {
-      className: "variable",
-      keywords: KEYWORDS,
-      begin: UNDERSCORE_IDENT_RE,
-      relevance: 0,
-      contains: [
-        TYPES,
-        METHODS
-      ]
-    };
-
-    // Имена функций
-    const FUNCTION_TITLE = FUNCTION_NAME_IDENT_RE + "\\(";
-
-    const TITLE_MODE = {
-      className: "title",
-      keywords: {
-        $pattern: UNDERSCORE_IDENT_RE,
-        built_in: system_functions
-      },
-      begin: FUNCTION_TITLE,
-      end: "\\(",
-      returnBegin: true,
-      excludeEnd: true
-    };
-
-    // function : функции
-    const FUNCTIONS = {
-      className: "function",
-      begin: FUNCTION_TITLE,
-      end: "\\)$",
-      returnBegin: true,
-      keywords: KEYWORDS,
-      illegal: "[\\[\\]\\|\\$\\?%,~#@]",
-      contains: [
-        TITLE_MODE,
-        METHODS,
-        VARIABLES,
-        STRINGS,
-        NUMBERS,
-        COMMENTS
-      ]
-    };
-
-    return {
-      name: 'ISBL',
-      case_insensitive: true,
-      keywords: KEYWORDS,
-      illegal: "\\$|\\?|%|,|;$|~|#|@|</",
-      contains: [
-        FUNCTIONS,
-        TYPES,
-        METHODS,
-        VARIABLES,
-        STRINGS,
-        NUMBERS,
-        COMMENTS
-      ]
-    };
-  }
-
-  return isbl;
-
-})();
-
-    hljs.registerLanguage('isbl', hljsGrammar);
   })();/*! `java` grammar compiled for Highlight.js 11.10.0 */
   (function(){
     var hljsGrammar = (function () {
@@ -12245,268 +8231,6 @@ if (typeof exports === 'object' && typeof module !== 'undefined') { module.expor
 })();
 
     hljs.registerLanguage('markdown', hljsGrammar);
-  })();/*! `objectivec` grammar compiled for Highlight.js 11.10.0 */
-  (function(){
-    var hljsGrammar = (function () {
-  'use strict';
-
-  /*
-  Language: Objective-C
-  Author: Valerii Hiora <valerii.hiora@gmail.com>
-  Contributors: Angel G. Olloqui <angelgarcia.mail@gmail.com>, Matt Diephouse <matt@diephouse.com>, Andrew Farmer <ahfarmer@gmail.com>, Minh Nguyễn <mxn@1ec5.org>
-  Website: https://developer.apple.com/documentation/objectivec
-  Category: common
-  */
-
-  function objectivec(hljs) {
-    const API_CLASS = {
-      className: 'built_in',
-      begin: '\\b(AV|CA|CF|CG|CI|CL|CM|CN|CT|MK|MP|MTK|MTL|NS|SCN|SK|UI|WK|XC)\\w+'
-    };
-    const IDENTIFIER_RE = /[a-zA-Z@][a-zA-Z0-9_]*/;
-    const TYPES = [
-      "int",
-      "float",
-      "char",
-      "unsigned",
-      "signed",
-      "short",
-      "long",
-      "double",
-      "wchar_t",
-      "unichar",
-      "void",
-      "bool",
-      "BOOL",
-      "id|0",
-      "_Bool"
-    ];
-    const KWS = [
-      "while",
-      "export",
-      "sizeof",
-      "typedef",
-      "const",
-      "struct",
-      "for",
-      "union",
-      "volatile",
-      "static",
-      "mutable",
-      "if",
-      "do",
-      "return",
-      "goto",
-      "enum",
-      "else",
-      "break",
-      "extern",
-      "asm",
-      "case",
-      "default",
-      "register",
-      "explicit",
-      "typename",
-      "switch",
-      "continue",
-      "inline",
-      "readonly",
-      "assign",
-      "readwrite",
-      "self",
-      "@synchronized",
-      "id",
-      "typeof",
-      "nonatomic",
-      "IBOutlet",
-      "IBAction",
-      "strong",
-      "weak",
-      "copy",
-      "in",
-      "out",
-      "inout",
-      "bycopy",
-      "byref",
-      "oneway",
-      "__strong",
-      "__weak",
-      "__block",
-      "__autoreleasing",
-      "@private",
-      "@protected",
-      "@public",
-      "@try",
-      "@property",
-      "@end",
-      "@throw",
-      "@catch",
-      "@finally",
-      "@autoreleasepool",
-      "@synthesize",
-      "@dynamic",
-      "@selector",
-      "@optional",
-      "@required",
-      "@encode",
-      "@package",
-      "@import",
-      "@defs",
-      "@compatibility_alias",
-      "__bridge",
-      "__bridge_transfer",
-      "__bridge_retained",
-      "__bridge_retain",
-      "__covariant",
-      "__contravariant",
-      "__kindof",
-      "_Nonnull",
-      "_Nullable",
-      "_Null_unspecified",
-      "__FUNCTION__",
-      "__PRETTY_FUNCTION__",
-      "__attribute__",
-      "getter",
-      "setter",
-      "retain",
-      "unsafe_unretained",
-      "nonnull",
-      "nullable",
-      "null_unspecified",
-      "null_resettable",
-      "class",
-      "instancetype",
-      "NS_DESIGNATED_INITIALIZER",
-      "NS_UNAVAILABLE",
-      "NS_REQUIRES_SUPER",
-      "NS_RETURNS_INNER_POINTER",
-      "NS_INLINE",
-      "NS_AVAILABLE",
-      "NS_DEPRECATED",
-      "NS_ENUM",
-      "NS_OPTIONS",
-      "NS_SWIFT_UNAVAILABLE",
-      "NS_ASSUME_NONNULL_BEGIN",
-      "NS_ASSUME_NONNULL_END",
-      "NS_REFINED_FOR_SWIFT",
-      "NS_SWIFT_NAME",
-      "NS_SWIFT_NOTHROW",
-      "NS_DURING",
-      "NS_HANDLER",
-      "NS_ENDHANDLER",
-      "NS_VALUERETURN",
-      "NS_VOIDRETURN"
-    ];
-    const LITERALS = [
-      "false",
-      "true",
-      "FALSE",
-      "TRUE",
-      "nil",
-      "YES",
-      "NO",
-      "NULL"
-    ];
-    const BUILT_INS = [
-      "dispatch_once_t",
-      "dispatch_queue_t",
-      "dispatch_sync",
-      "dispatch_async",
-      "dispatch_once"
-    ];
-    const KEYWORDS = {
-      "variable.language": [
-        "this",
-        "super"
-      ],
-      $pattern: IDENTIFIER_RE,
-      keyword: KWS,
-      literal: LITERALS,
-      built_in: BUILT_INS,
-      type: TYPES
-    };
-    const CLASS_KEYWORDS = {
-      $pattern: IDENTIFIER_RE,
-      keyword: [
-        "@interface",
-        "@class",
-        "@protocol",
-        "@implementation"
-      ]
-    };
-    return {
-      name: 'Objective-C',
-      aliases: [
-        'mm',
-        'objc',
-        'obj-c',
-        'obj-c++',
-        'objective-c++'
-      ],
-      keywords: KEYWORDS,
-      illegal: '</',
-      contains: [
-        API_CLASS,
-        hljs.C_LINE_COMMENT_MODE,
-        hljs.C_BLOCK_COMMENT_MODE,
-        hljs.C_NUMBER_MODE,
-        hljs.QUOTE_STRING_MODE,
-        hljs.APOS_STRING_MODE,
-        {
-          className: 'string',
-          variants: [
-            {
-              begin: '@"',
-              end: '"',
-              illegal: '\\n',
-              contains: [ hljs.BACKSLASH_ESCAPE ]
-            }
-          ]
-        },
-        {
-          className: 'meta',
-          begin: /#\s*[a-z]+\b/,
-          end: /$/,
-          keywords: { keyword:
-              'if else elif endif define undef warning error line '
-              + 'pragma ifdef ifndef include' },
-          contains: [
-            {
-              begin: /\\\n/,
-              relevance: 0
-            },
-            hljs.inherit(hljs.QUOTE_STRING_MODE, { className: 'string' }),
-            {
-              className: 'string',
-              begin: /<.*?>/,
-              end: /$/,
-              illegal: '\\n'
-            },
-            hljs.C_LINE_COMMENT_MODE,
-            hljs.C_BLOCK_COMMENT_MODE
-          ]
-        },
-        {
-          className: 'class',
-          begin: '(' + CLASS_KEYWORDS.keyword.join('|') + ')\\b',
-          end: /(\{|$)/,
-          excludeEnd: true,
-          keywords: CLASS_KEYWORDS,
-          contains: [ hljs.UNDERSCORE_TITLE_MODE ]
-        },
-        {
-          begin: '\\.' + hljs.UNDERSCORE_IDENT_RE,
-          relevance: 0
-        }
-      ]
-    };
-  }
-
-  return objectivec;
-
-})();
-
-    hljs.registerLanguage('objectivec', hljsGrammar);
   })();/*! `perl` grammar compiled for Highlight.js 11.10.0 */
   (function(){
     var hljsGrammar = (function () {
@@ -13020,75 +8744,6 @@ if (typeof exports === 'object' && typeof module !== 'undefined') { module.expor
 })();
 
     hljs.registerLanguage('perl', hljsGrammar);
-  })();/*! `pf` grammar compiled for Highlight.js 11.10.0 */
-  (function(){
-    var hljsGrammar = (function () {
-  'use strict';
-
-  /*
-  Language: Packet Filter config
-  Description: pf.conf — packet filter configuration file (OpenBSD)
-  Author: Peter Piwowarski <oldlaptop654@aol.com>
-  Website: http://man.openbsd.org/pf.conf
-  Category: config
-  */
-
-  function pf(hljs) {
-    const MACRO = {
-      className: 'variable',
-      begin: /\$[\w\d#@][\w\d_]*/,
-      relevance: 0
-    };
-    const TABLE = {
-      className: 'variable',
-      begin: /<(?!\/)/,
-      end: />/
-    };
-
-    return {
-      name: 'Packet Filter config',
-      aliases: [ 'pf.conf' ],
-      keywords: {
-        $pattern: /[a-z0-9_<>-]+/,
-        built_in: /* block match pass are "actions" in pf.conf(5), the rest are
-                   * lexically similar top-level commands.
-                   */
-          'block match pass load anchor|5 antispoof|10 set table',
-        keyword:
-          'in out log quick on rdomain inet inet6 proto from port os to route '
-          + 'allow-opts divert-packet divert-reply divert-to flags group icmp-type '
-          + 'icmp6-type label once probability recieved-on rtable prio queue '
-          + 'tos tag tagged user keep fragment for os drop '
-          + 'af-to|10 binat-to|10 nat-to|10 rdr-to|10 bitmask least-stats random round-robin '
-          + 'source-hash static-port '
-          + 'dup-to reply-to route-to '
-          + 'parent bandwidth default min max qlimit '
-          + 'block-policy debug fingerprints hostid limit loginterface optimization '
-          + 'reassemble ruleset-optimization basic none profile skip state-defaults '
-          + 'state-policy timeout '
-          + 'const counters persist '
-          + 'no modulate synproxy state|5 floating if-bound no-sync pflow|10 sloppy '
-          + 'source-track global rule max-src-nodes max-src-states max-src-conn '
-          + 'max-src-conn-rate overload flush '
-          + 'scrub|5 max-mss min-ttl no-df|10 random-id',
-        literal:
-          'all any no-route self urpf-failed egress|5 unknown'
-      },
-      contains: [
-        hljs.HASH_COMMENT_MODE,
-        hljs.NUMBER_MODE,
-        hljs.QUOTE_STRING_MODE,
-        MACRO,
-        TABLE
-      ]
-    };
-  }
-
-  return pf;
-
-})();
-
-    hljs.registerLanguage('pf', hljsGrammar);
   })();/*! `pgsql` grammar compiled for Highlight.js 11.10.0 */
   (function(){
     var hljsGrammar = (function () {
@@ -14245,69 +9900,6 @@ if (typeof exports === 'object' && typeof module !== 'undefined') { module.expor
 })();
 
     hljs.registerLanguage('php', hljsGrammar);
-  })();/*! `php-template` grammar compiled for Highlight.js 11.10.0 */
-  (function(){
-    var hljsGrammar = (function () {
-  'use strict';
-
-  /*
-  Language: PHP Template
-  Requires: xml.js, php.js
-  Author: Josh Goebel <hello@joshgoebel.com>
-  Website: https://www.php.net
-  Category: common
-  */
-
-  function phpTemplate(hljs) {
-    return {
-      name: "PHP template",
-      subLanguage: 'xml',
-      contains: [
-        {
-          begin: /<\?(php|=)?/,
-          end: /\?>/,
-          subLanguage: 'php',
-          contains: [
-            // We don't want the php closing tag ?> to close the PHP block when
-            // inside any of the following blocks:
-            {
-              begin: '/\\*',
-              end: '\\*/',
-              skip: true
-            },
-            {
-              begin: 'b"',
-              end: '"',
-              skip: true
-            },
-            {
-              begin: 'b\'',
-              end: '\'',
-              skip: true
-            },
-            hljs.inherit(hljs.APOS_STRING_MODE, {
-              illegal: null,
-              className: null,
-              contains: null,
-              skip: true
-            }),
-            hljs.inherit(hljs.QUOTE_STRING_MODE, {
-              illegal: null,
-              className: null,
-              contains: null,
-              skip: true
-            })
-          ]
-        }
-      ]
-    };
-  }
-
-  return phpTemplate;
-
-})();
-
-    hljs.registerLanguage('php-template', hljsGrammar);
   })();/*! `plaintext` grammar compiled for Highlight.js 11.10.0 */
   (function(){
     var hljsGrammar = (function () {
@@ -15107,164 +10699,6 @@ if (typeof exports === 'object' && typeof module !== 'undefined') { module.expor
 })();
 
     hljs.registerLanguage('python', hljsGrammar);
-  })();/*! `rsl` grammar compiled for Highlight.js 11.10.0 */
-  (function(){
-    var hljsGrammar = (function () {
-  'use strict';
-
-  /*
-  Language: RenderMan RSL
-  Author: Konstantin Evdokimenko <qewerty@gmail.com>
-  Contributors: Shuen-Huei Guan <drake.guan@gmail.com>
-  Website: https://renderman.pixar.com/resources/RenderMan_20/shadingLanguage.html
-  Category: graphics
-  */
-
-  function rsl(hljs) {
-    const BUILT_INS = [
-      "abs",
-      "acos",
-      "ambient",
-      "area",
-      "asin",
-      "atan",
-      "atmosphere",
-      "attribute",
-      "calculatenormal",
-      "ceil",
-      "cellnoise",
-      "clamp",
-      "comp",
-      "concat",
-      "cos",
-      "degrees",
-      "depth",
-      "Deriv",
-      "diffuse",
-      "distance",
-      "Du",
-      "Dv",
-      "environment",
-      "exp",
-      "faceforward",
-      "filterstep",
-      "floor",
-      "format",
-      "fresnel",
-      "incident",
-      "length",
-      "lightsource",
-      "log",
-      "match",
-      "max",
-      "min",
-      "mod",
-      "noise",
-      "normalize",
-      "ntransform",
-      "opposite",
-      "option",
-      "phong",
-      "pnoise",
-      "pow",
-      "printf",
-      "ptlined",
-      "radians",
-      "random",
-      "reflect",
-      "refract",
-      "renderinfo",
-      "round",
-      "setcomp",
-      "setxcomp",
-      "setycomp",
-      "setzcomp",
-      "shadow",
-      "sign",
-      "sin",
-      "smoothstep",
-      "specular",
-      "specularbrdf",
-      "spline",
-      "sqrt",
-      "step",
-      "tan",
-      "texture",
-      "textureinfo",
-      "trace",
-      "transform",
-      "vtransform",
-      "xcomp",
-      "ycomp",
-      "zcomp"
-    ];
-
-    const TYPES = [
-      "matrix",
-      "float",
-      "color",
-      "point",
-      "normal",
-      "vector"
-    ];
-
-    const KEYWORDS = [
-      "while",
-      "for",
-      "if",
-      "do",
-      "return",
-      "else",
-      "break",
-      "extern",
-      "continue"
-    ];
-
-    const CLASS_DEFINITION = {
-      match: [
-        /(surface|displacement|light|volume|imager)/,
-        /\s+/,
-        hljs.IDENT_RE,
-      ],
-      scope: {
-        1: "keyword",
-        3: "title.class",
-      }
-    };
-
-    return {
-      name: 'RenderMan RSL',
-      keywords: {
-        keyword: KEYWORDS,
-        built_in: BUILT_INS,
-        type: TYPES
-      },
-      illegal: '</',
-      contains: [
-        hljs.C_LINE_COMMENT_MODE,
-        hljs.C_BLOCK_COMMENT_MODE,
-        hljs.QUOTE_STRING_MODE,
-        hljs.APOS_STRING_MODE,
-        hljs.C_NUMBER_MODE,
-        {
-          className: 'meta',
-          begin: '#',
-          end: '$'
-        },
-        CLASS_DEFINITION,
-        {
-          beginKeywords: 'illuminate illuminance gather',
-          end: '\\('
-        }
-      ]
-    };
-  }
-
-  return rsl;
-
-})();
-
-    hljs.registerLanguage('rsl', hljsGrammar);
   })();/*! `shell` grammar compiled for Highlight.js 11.10.0 */
   (function(){
     var hljsGrammar = (function () {
@@ -18089,39 +13523,6 @@ if (typeof exports === 'object' && typeof module !== 'undefined') { module.expor
 })();
 
     hljs.registerLanguage('vbscript', hljsGrammar);
-  })();/*! `vbscript-html` grammar compiled for Highlight.js 11.10.0 */
-  (function(){
-    var hljsGrammar = (function () {
-  'use strict';
-
-  /*
-  Language: VBScript in HTML
-  Requires: xml.js, vbscript.js
-  Author: Ivan Sagalaev <maniac@softwaremaniacs.org>
-  Description: "Bridge" language defining fragments of VBScript in HTML within <% .. %>
-  Website: https://en.wikipedia.org/wiki/VBScript
-  Category: scripting
-  */
-
-  function vbscriptHtml(hljs) {
-    return {
-      name: 'VBScript in HTML',
-      subLanguage: 'xml',
-      contains: [
-        {
-          begin: '<%',
-          end: '%>',
-          subLanguage: 'vbscript'
-        }
-      ]
-    };
-  }
-
-  return vbscriptHtml;
-
-})();
-
-    hljs.registerLanguage('vbscript-html', hljsGrammar);
   })();/*! `vim` grammar compiled for Highlight.js 11.10.0 */
   (function(){
     var hljsGrammar = (function () {
@@ -18260,4 +13661,458 @@ if (typeof exports === 'object' && typeof module !== 'undefined') { module.expor
 })();
 
     hljs.registerLanguage('vim', hljsGrammar);
+  })();/*! `xml` grammar compiled for Highlight.js 11.10.0 */
+  (function(){
+    var hljsGrammar = (function () {
+  'use strict';
+
+  /*
+  Language: HTML, XML
+  Website: https://www.w3.org/XML/
+  Category: common, web
+  Audit: 2020
+  */
+
+  /** @type LanguageFn */
+  function xml(hljs) {
+    const regex = hljs.regex;
+    // XML names can have the following additional letters: https://www.w3.org/TR/xml/#NT-NameChar
+    // OTHER_NAME_CHARS = /[:\-.0-9\u00B7\u0300-\u036F\u203F-\u2040]/;
+    // Element names start with NAME_START_CHAR followed by optional other Unicode letters, ASCII digits, hyphens, underscores, and periods
+    // const TAG_NAME_RE = regex.concat(/[A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD]/, regex.optional(/[A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\-.0-9\u00B7\u0300-\u036F\u203F-\u2040]*:/), /[A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\-.0-9\u00B7\u0300-\u036F\u203F-\u2040]*/);;
+    // const XML_IDENT_RE = /[A-Z_a-z:\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\-.0-9\u00B7\u0300-\u036F\u203F-\u2040]+/;
+    // const TAG_NAME_RE = regex.concat(/[A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD]/, regex.optional(/[A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\-.0-9\u00B7\u0300-\u036F\u203F-\u2040]*:/), /[A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\-.0-9\u00B7\u0300-\u036F\u203F-\u2040]*/);
+    // however, to cater for performance and more Unicode support rely simply on the Unicode letter class
+    const TAG_NAME_RE = regex.concat(/[\p{L}_]/u, regex.optional(/[\p{L}0-9_.-]*:/u), /[\p{L}0-9_.-]*/u);
+    const XML_IDENT_RE = /[\p{L}0-9._:-]+/u;
+    const XML_ENTITIES = {
+      className: 'symbol',
+      begin: /&[a-z]+;|&#[0-9]+;|&#x[a-f0-9]+;/
+    };
+    const XML_META_KEYWORDS = {
+      begin: /\s/,
+      contains: [
+        {
+          className: 'keyword',
+          begin: /#?[a-z_][a-z1-9_-]+/,
+          illegal: /\n/
+        }
+      ]
+    };
+    const XML_META_PAR_KEYWORDS = hljs.inherit(XML_META_KEYWORDS, {
+      begin: /\(/,
+      end: /\)/
+    });
+    const APOS_META_STRING_MODE = hljs.inherit(hljs.APOS_STRING_MODE, { className: 'string' });
+    const QUOTE_META_STRING_MODE = hljs.inherit(hljs.QUOTE_STRING_MODE, { className: 'string' });
+    const TAG_INTERNALS = {
+      endsWithParent: true,
+      illegal: /</,
+      relevance: 0,
+      contains: [
+        {
+          className: 'attr',
+          begin: XML_IDENT_RE,
+          relevance: 0
+        },
+        {
+          begin: /=\s*/,
+          relevance: 0,
+          contains: [
+            {
+              className: 'string',
+              endsParent: true,
+              variants: [
+                {
+                  begin: /"/,
+                  end: /"/,
+                  contains: [ XML_ENTITIES ]
+                },
+                {
+                  begin: /'/,
+                  end: /'/,
+                  contains: [ XML_ENTITIES ]
+                },
+                { begin: /[^\s"'=<>`]+/ }
+              ]
+            }
+          ]
+        }
+      ]
+    };
+    return {
+      name: 'HTML, XML',
+      aliases: [
+        'html',
+        'xhtml',
+        'rss',
+        'atom',
+        'xjb',
+        'xsd',
+        'xsl',
+        'plist',
+        'wsf',
+        'svg'
+      ],
+      case_insensitive: true,
+      unicodeRegex: true,
+      contains: [
+        {
+          className: 'meta',
+          begin: /<![a-z]/,
+          end: />/,
+          relevance: 10,
+          contains: [
+            XML_META_KEYWORDS,
+            QUOTE_META_STRING_MODE,
+            APOS_META_STRING_MODE,
+            XML_META_PAR_KEYWORDS,
+            {
+              begin: /\[/,
+              end: /\]/,
+              contains: [
+                {
+                  className: 'meta',
+                  begin: /<![a-z]/,
+                  end: />/,
+                  contains: [
+                    XML_META_KEYWORDS,
+                    XML_META_PAR_KEYWORDS,
+                    QUOTE_META_STRING_MODE,
+                    APOS_META_STRING_MODE
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        hljs.COMMENT(
+          /<!--/,
+          /-->/,
+          { relevance: 10 }
+        ),
+        {
+          begin: /<!\[CDATA\[/,
+          end: /\]\]>/,
+          relevance: 10
+        },
+        XML_ENTITIES,
+        // xml processing instructions
+        {
+          className: 'meta',
+          end: /\?>/,
+          variants: [
+            {
+              begin: /<\?xml/,
+              relevance: 10,
+              contains: [
+                QUOTE_META_STRING_MODE
+              ]
+            },
+            {
+              begin: /<\?[a-z][a-z0-9]+/,
+            }
+          ]
+
+        },
+        {
+          className: 'tag',
+          /*
+          The lookahead pattern (?=...) ensures that 'begin' only matches
+          '<style' as a single word, followed by a whitespace or an
+          ending bracket.
+          */
+          begin: /<style(?=\s|>)/,
+          end: />/,
+          keywords: { name: 'style' },
+          contains: [ TAG_INTERNALS ],
+          starts: {
+            end: /<\/style>/,
+            returnEnd: true,
+            subLanguage: [
+              'css',
+              'xml'
+            ]
+          }
+        },
+        {
+          className: 'tag',
+          // See the comment in the <style tag about the lookahead pattern
+          begin: /<script(?=\s|>)/,
+          end: />/,
+          keywords: { name: 'script' },
+          contains: [ TAG_INTERNALS ],
+          starts: {
+            end: /<\/script>/,
+            returnEnd: true,
+            subLanguage: [
+              'javascript',
+              'handlebars',
+              'xml'
+            ]
+          }
+        },
+        // we need this for now for jSX
+        {
+          className: 'tag',
+          begin: /<>|<\/>/
+        },
+        // open tag
+        {
+          className: 'tag',
+          begin: regex.concat(
+            /</,
+            regex.lookahead(regex.concat(
+              TAG_NAME_RE,
+              // <tag/>
+              // <tag>
+              // <tag ...
+              regex.either(/\/>/, />/, /\s/)
+            ))
+          ),
+          end: /\/?>/,
+          contains: [
+            {
+              className: 'name',
+              begin: TAG_NAME_RE,
+              relevance: 0,
+              starts: TAG_INTERNALS
+            }
+          ]
+        },
+        // close tag
+        {
+          className: 'tag',
+          begin: regex.concat(
+            /<\//,
+            regex.lookahead(regex.concat(
+              TAG_NAME_RE, />/
+            ))
+          ),
+          contains: [
+            {
+              className: 'name',
+              begin: TAG_NAME_RE,
+              relevance: 0
+            },
+            {
+              begin: />/,
+              relevance: 0,
+              endsParent: true
+            }
+          ]
+        }
+      ]
+    };
+  }
+
+  return xml;
+
+})();
+
+    hljs.registerLanguage('xml', hljsGrammar);
+  })();/*! `yaml` grammar compiled for Highlight.js 11.10.0 */
+  (function(){
+    var hljsGrammar = (function () {
+  'use strict';
+
+  /*
+  Language: YAML
+  Description: Yet Another Markdown Language
+  Author: Stefan Wienert <stwienert@gmail.com>
+  Contributors: Carl Baxter <carl@cbax.tech>
+  Requires: ruby.js
+  Website: https://yaml.org
+  Category: common, config
+  */
+  function yaml(hljs) {
+    const LITERALS = 'true false yes no null';
+
+    // YAML spec allows non-reserved URI characters in tags.
+    const URI_CHARACTERS = '[\\w#;/?:@&=+$,.~*\'()[\\]]+';
+
+    // Define keys as starting with a word character
+    // ...containing word chars, spaces, colons, forward-slashes, hyphens and periods
+    // ...and ending with a colon followed immediately by a space, tab or newline.
+    // The YAML spec allows for much more than this, but this covers most use-cases.
+    const KEY = {
+      className: 'attr',
+      variants: [
+        // added brackets support 
+        { begin: /\w[\w :()\./-]*:(?=[ \t]|$)/ },
+        { // double quoted keys - with brackets
+          begin: /"\w[\w :()\./-]*":(?=[ \t]|$)/ },
+        { // single quoted keys - with brackets
+          begin: /'\w[\w :()\./-]*':(?=[ \t]|$)/ },
+      ]
+    };
+
+    const TEMPLATE_VARIABLES = {
+      className: 'template-variable',
+      variants: [
+        { // jinja templates Ansible
+          begin: /\{\{/,
+          end: /\}\}/
+        },
+        { // Ruby i18n
+          begin: /%\{/,
+          end: /\}/
+        }
+      ]
+    };
+    const STRING = {
+      className: 'string',
+      relevance: 0,
+      variants: [
+        {
+          begin: /'/,
+          end: /'/
+        },
+        {
+          begin: /"/,
+          end: /"/
+        },
+        { begin: /\S+/ }
+      ],
+      contains: [
+        hljs.BACKSLASH_ESCAPE,
+        TEMPLATE_VARIABLES
+      ]
+    };
+
+    // Strings inside of value containers (objects) can't contain braces,
+    // brackets, or commas
+    const CONTAINER_STRING = hljs.inherit(STRING, { variants: [
+      {
+        begin: /'/,
+        end: /'/
+      },
+      {
+        begin: /"/,
+        end: /"/
+      },
+      { begin: /[^\s,{}[\]]+/ }
+    ] });
+
+    const DATE_RE = '[0-9]{4}(-[0-9][0-9]){0,2}';
+    const TIME_RE = '([Tt \\t][0-9][0-9]?(:[0-9][0-9]){2})?';
+    const FRACTION_RE = '(\\.[0-9]*)?';
+    const ZONE_RE = '([ \\t])*(Z|[-+][0-9][0-9]?(:[0-9][0-9])?)?';
+    const TIMESTAMP = {
+      className: 'number',
+      begin: '\\b' + DATE_RE + TIME_RE + FRACTION_RE + ZONE_RE + '\\b'
+    };
+
+    const VALUE_CONTAINER = {
+      end: ',',
+      endsWithParent: true,
+      excludeEnd: true,
+      keywords: LITERALS,
+      relevance: 0
+    };
+    const OBJECT = {
+      begin: /\{/,
+      end: /\}/,
+      contains: [ VALUE_CONTAINER ],
+      illegal: '\\n',
+      relevance: 0
+    };
+    const ARRAY = {
+      begin: '\\[',
+      end: '\\]',
+      contains: [ VALUE_CONTAINER ],
+      illegal: '\\n',
+      relevance: 0
+    };
+
+    const MODES = [
+      KEY,
+      {
+        className: 'meta',
+        begin: '^---\\s*$',
+        relevance: 10
+      },
+      { // multi line string
+        // Blocks start with a | or > followed by a newline
+        //
+        // Indentation of subsequent lines must be the same to
+        // be considered part of the block
+        className: 'string',
+        begin: '[\\|>]([1-9]?[+-])?[ ]*\\n( +)[^ ][^\\n]*\\n(\\2[^\\n]+\\n?)*'
+      },
+      { // Ruby/Rails erb
+        begin: '<%[%=-]?',
+        end: '[%-]?%>',
+        subLanguage: 'ruby',
+        excludeBegin: true,
+        excludeEnd: true,
+        relevance: 0
+      },
+      { // named tags
+        className: 'type',
+        begin: '!\\w+!' + URI_CHARACTERS
+      },
+      // https://yaml.org/spec/1.2/spec.html#id2784064
+      { // verbatim tags
+        className: 'type',
+        begin: '!<' + URI_CHARACTERS + ">"
+      },
+      { // primary tags
+        className: 'type',
+        begin: '!' + URI_CHARACTERS
+      },
+      { // secondary tags
+        className: 'type',
+        begin: '!!' + URI_CHARACTERS
+      },
+      { // fragment id &ref
+        className: 'meta',
+        begin: '&' + hljs.UNDERSCORE_IDENT_RE + '$'
+      },
+      { // fragment reference *ref
+        className: 'meta',
+        begin: '\\*' + hljs.UNDERSCORE_IDENT_RE + '$'
+      },
+      { // array listing
+        className: 'bullet',
+        // TODO: remove |$ hack when we have proper look-ahead support
+        begin: '-(?=[ ]|$)',
+        relevance: 0
+      },
+      hljs.HASH_COMMENT_MODE,
+      {
+        beginKeywords: LITERALS,
+        keywords: { literal: LITERALS }
+      },
+      TIMESTAMP,
+      // numbers are any valid C-style number that
+      // sit isolated from other words
+      {
+        className: 'number',
+        begin: hljs.C_NUMBER_RE + '\\b',
+        relevance: 0
+      },
+      OBJECT,
+      ARRAY,
+      STRING
+    ];
+
+    const VALUE_MODES = [ ...MODES ];
+    VALUE_MODES.pop();
+    VALUE_MODES.push(CONTAINER_STRING);
+    VALUE_CONTAINER.contains = VALUE_MODES;
+
+    return {
+      name: 'YAML',
+      case_insensitive: true,
+      aliases: [ 'yml' ],
+      contains: MODES
+    };
+  }
+
+  return yaml;
+
+})();
+
+    hljs.registerLanguage('yaml', hljsGrammar);
   })();

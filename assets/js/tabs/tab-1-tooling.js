@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let formatJsonTextarea = document.getElementById("input-json-text")
 
     formatJsonTextarea.addEventListener("input", function () {
-        if (isValidJSON(formatJsonTextarea.value)){
+        if (isValidJSON(formatJsonTextarea.value)) {
             formatJsonTextarea.classList.add("is-valid")
             formatJsonTextarea.classList.remove("is-invalid")
         } else {
@@ -59,8 +59,36 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     // #### Formatter tab end #### //
 
+    // #### Code highlighter tab START #### //
+    let codeHighlightSelectMenu = document.getElementById("general-tooling-code-highlighter-options")
+    let codeHighlightInput = document.getElementById("general-tooling-code-highlighter-input")
+    let codeHighlightOutput = document.getElementById("general-tooling-code-highlighter-output-pre")
+
+    codeHighlightInput.addEventListener("input", function () {
+        let oldCodeElement = codeHighlightOutput.querySelector("code")
+
+        if (oldCodeElement) {
+            oldCodeElement.textContent = codeHighlightInput.value
+            let newCodeElement = buildCodeElement(oldCodeElement, codeHighlightSelectMenu.value)
+            oldCodeElement.parentNode.replaceChild(newCodeElement, oldCodeElement)
+            hljs.highlightElement(newCodeElement)
+        }
+    })
+
+    // #### Code highlighter tab END #### //
+
 })
 
+
+// CODE HIGHLIGHT START
+function buildCodeElement(oldCodeElement, language) {
+    const codeElement = document.createElement("code");
+    codeElement.className = `rounded ${language} h-100 p-2`;
+    codeElement.textContent = oldCodeElement.innerText;
+    return codeElement;
+}
+
+// CODE HIGHLIGHT END
 
 // FORMATTER TAB START
 
@@ -242,6 +270,7 @@ function identifyHash(hash) {
 
     return JSON.stringify(possibleMatches);
 }
+
 // HASHING TAB END
 
 // DECODING/ENCODING TAB START

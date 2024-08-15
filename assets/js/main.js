@@ -35,10 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // init/build the persistDataMonitor
     persistDataMonitor()
 
-    // highlight all code elements
-    document.querySelectorAll('code').forEach((el) => {
-        hljs.highlightElement(el);
-    });
+    hljs.highlightAll()
 });
 
 /**
