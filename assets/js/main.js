@@ -475,3 +475,29 @@ function buildDisabledSelectOption(textContent) {
     option.disabled = true;
     return option;
 }
+
+/**
+ * screenshotElement()
+ *
+ * screenshot an element with html2canvas
+ */
+function captureAndCopyToClipboard(element) {
+    // Get the element to capture
+
+    // Use html2canvas to capture the element
+    html2canvas(element).then(function (canvas) {
+        // Convert the canvas to a Blob
+        canvas.toBlob(function (blob) {
+            // Use the Clipboard API to write the Blob to the clipboard
+            navigator.clipboard.write([
+                new ClipboardItem({
+                    'image/png': blob
+                })
+            ]).then(function () {
+                console.log('Image copied to clipboard');
+            }).catch(function (error) {
+                console.error('Error copying image to clipboard:', error);
+            });
+        });
+    });
+}

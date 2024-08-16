@@ -63,6 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let codeHighlightSelectMenu = document.getElementById("general-tooling-code-highlighter-options")
     let codeHighlightInput = document.getElementById("general-tooling-code-highlighter-input")
     let codeHighlightOutput = document.getElementById("general-tooling-code-highlighter-output-pre")
+    let screenshotElement = document.getElementById("general-tooling-code-highlighting-screenshot")
 
     codeHighlightInput.addEventListener("input", function () {
         let oldCodeElement = codeHighlightOutput.querySelector("code")
@@ -84,6 +85,15 @@ document.addEventListener("DOMContentLoaded", function () {
             oldCodeElement.parentNode.replaceChild(newCodeElement, oldCodeElement)
             hljs.highlightElement(newCodeElement)
         }
+    })
+
+    screenshotElement.addEventListener("click", function () {
+        captureAndCopyToClipboard(codeHighlightOutput.querySelector("code"))
+        screenshotElement.src = "assets/icons/general/screenshot-success.png"
+
+        setTimeout(() => {
+            screenshotElement.src = "assets/icons/general/screenshot.png"
+        }, 2000)
     })
     // #### Code highlighter tab END #### //
 
