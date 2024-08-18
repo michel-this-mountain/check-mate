@@ -107,8 +107,8 @@ function buildChecklistRows(checklist, tbodyId) {
         let tdContent = createElement("td", []);
 
         // set the tdInnerHTML to the current check content
-        tdContent.innerHTML += buildCheckbox(i + 1, `${encodeBase64(currentCheck.title)}`, currentCheck.description);
-        tdContent.innerHTML += buildTextArea(`${encodeBase64(currentCheck.title)}-check`, currentCheck.rows);
+        tdContent.innerHTML += buildCheckbox(i + 1, `${EncoderDecoder.encodeBase64(currentCheck.title)}`, currentCheck.description);
+        tdContent.innerHTML += buildTextArea(`${EncoderDecoder.encodeBase64(currentCheck.title)}-check`, currentCheck.rows);
 
         // append the elements to the tr
         tr.appendChild(tdContent)

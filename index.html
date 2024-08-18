@@ -4,6 +4,7 @@
     <title>Check-mate</title>
     <link rel="stylesheet" href="assets/css/main.css">
     <link href="assets/css/libs/bootstrap.min.css" rel="stylesheet"/>
+
     <script src="assets/js/persistence/tabsPersistence.js"></script>
     <script src="assets/js/persistence/mutationObserver.js"></script>
 
@@ -471,13 +472,13 @@
                                     </div>
                                 </div>
 
-                                <div class="mb-4 mt-1" style="height:160px;">
-                                    <span>Output</span>
+                                <span> Output </span>
+                                <div class="mb-4 mt-1" style="min-height:160px;">
                                     <div class="d-flex justify-content-between rounded border h-100">
-                                        <pre class="p-0 h-100 w-100" style="overflow-y: scroll;"
+                                        <pre class="p-0 w-100 h-100"
                                              id="general-tooling-code-highlighter-output-pre"><code
-                                                class="h-100 w-100 p-2 language-plaintext rounded"
-                                                style="width: 100%; white-space: pre-wrap"></code></pre>
+                                                class="p-2 language-plaintext rounded"
+                                                style="white-space: pre-wrap;"></code></pre>
                                         <a href="#" class="d-flex flex-column justify-content-end" style="width: 6%">
 
                                             <img id="general-tooling-code-highlighting-screenshot"
@@ -1527,12 +1528,19 @@
 <!-- general JS used over all tabs END -->
 
 <!-- tab specific script start -->
-<script src="assets/js/tabs/tab-1-tooling.js"></script>
-<script src="assets/js/tabs/tab-2-enum-tooling.js"></script>
-<script src="assets/js/tabs/tab-3-exploit-assistant.js"></script>
+<!-- CLASSES START-->
+<script src="assets/js/tabs/classes/EncoderDecoder.js"></script>
+<script src="assets/js/tabs/classes/Hashing.js"></script>
+
+<!-- CLASSES END-->
+
+<!-- TABS START -->
+<script src="assets/js/tabs/tab-1-general-tooling/tab-1-tooling.js"></script>
+<script src="assets/js/tabs/tab-2-enum-tooling/tab-2-enum-tooling.js"></script>
+<script src="assets/js/tabs/tab-3-exploit-assistant/tab-3-exploit-assistant.js"></script>
 <script src="assets/js/tabs/tab-4-shell-assistant/shells.js"></script>
 <script src="assets/js/tabs/tab-5-checklist-assistant/checklist.js"></script>
-<!-- tab specific scripts end -->
+<!-- TABS END -->
 
 </body>
 </html>

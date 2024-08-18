@@ -34,8 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // init/build the persistDataMonitor
     persistDataMonitor()
-
-    hljs.highlightAll()
 });
 
 /**
@@ -207,11 +205,6 @@ function makeAllTablesSortable() {
 /**
  * applySeeMoreToTableCells()
  *
- * updates the table cells to have a max length of 300, if longer, the "see-more" will be shown
- */
-/**
- * applySeeMoreToTableCells()
- *
  * updates the table cells in the given table body to have a max length of 300, if longer, the "see-more" will be shown
  *
  * @param {HTMLElement} tableBody - The table body element to apply the "see more" functionality to.
@@ -283,7 +276,6 @@ function escapeHTML(str) {
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;")
-        .replace(/\n/g, "<br>");
 }
 
 /**
@@ -476,16 +468,33 @@ function buildDisabledSelectOption(textContent) {
     return option;
 }
 
-/**
- * screenshotElement()
- *
- * screenshot an element with html2canvas
- */
-function captureAndCopyToClipboard(element) {
-    // Get the element to capture
 
-    // Use html2canvas to capture the element
-    html2canvas(element).then(function (canvas) {
+/**
+ * captureAndCopyCodeElementToClipboard()
+ *
+ * screenshot an code element with html2canvas
+ */
+function captureAndCopyCodeElementToClipboard(element, language) {
+    // Create a deep clone of the original element
+    const clone = buildCodeElement(element, language);
+
+    // Apply styles to the clone to ensure all content is visible
+    clone.style.position += 'fixed';
+    clone.style.top += '0';
+    clone.style.left += '0';
+    clone.style.width += '125%';
+    clone.style.overflow += 'visible'; // Ensure no content is hidden
+    clone.style.zIndex += '-9999'; // Make sure the clone doesn't interfere with the layout
+    clone.style.whiteSpace = 'pre-wrap'; // Preserve whitespace and wrap long lines
+
+    // Append the clone to the body (off-screen)
+    document.body.appendChild(clone);
+
+    // Use html2canvas to capture the clone
+    html2canvas(clone, {
+        width: clone.scrollWidth,
+        height: clone.scrollHeight
+    }).then(function (canvas) {
         // Convert the canvas to a Blob
         canvas.toBlob(function (blob) {
             // Use the Clipboard API to write the Blob to the clipboard
@@ -499,5 +508,13 @@ function captureAndCopyToClipboard(element) {
                 console.error('Error copying image to clipboard:', error);
             });
         });
+
+        // Remove the clone after capturing
+        document.body.removeChild(clone);
+    }).catch(function (error) {
+        console.error('Error capturing the element:', error);
+
+        // Ensure the clone is removed even in case of an error
+        document.body.removeChild(clone);
     });
-}
+};
