@@ -1,120 +1,25 @@
 const checklist = {
     windows: {
-        base_checklist: {
-            title: "General checklist - windows pentesting",
+        checklist_privesc: [{
+            chapter: "1. Enumeration",
             checks: [
                 {
-                    title: "Check for C:\\Users",
-                    description: "Is the C:\\Users directory present?",
+                    title: "System enumeration: systeminfo",
+                    description: "Execute the command: '<code>systeminfo</code>'. What is the architecture (x86/x64), the OS name and OS version?",
                     notes: "",
-                    checkbox: true,
-                    textarea: true,
-                    rows: 2
+                    rows: 2,
+                    reference: "https://academy.tcm-sec.com/courses/1154361/lectures/24794929"
                 },
                 {
-                    title: "Check for C:\\Windows",
-                    description: "Is the C:\\Windows directory present?",
+                    title: "System enumeration: wmic qfe",
+                    description: "Execute the command: '<code>wmic qfe</code>' (if possible). What is the latest hotfixID?",
+                    code: "wmic qfe",
                     notes: "",
-                    checkbox: true,
-                    textarea: true,
-                    rows: 2
-                }
-            ]
-        }
-    },
-    linux: {
-        base_checklist: {
-            title: "General checklist - linux pentesting",
-            checks: [
-                {
-                    title: "Check for /etc/passwd",
-                    description: "Is the /etc/passwd file present?",
-                    notes: "",
-                    checkbox: true,
-                    textarea: true,
-                    rows: 2
+                    rows: 2,
+                    reference: "https://academy.tcm-sec.com/courses/1154361/lectures/24794929"
                 },
-                {
-                    title: "Check for /etc/shadow",
-                    description: "Is the /etc/shadow file present?",
-                    notes: "",
-                    checkbox: true,
-                    textarea: true,
-                    rows: 2
-                }
             ]
-        }
-    },
-    web: {
-        base_checklist: {
-            title: "General checklist - web pentesting",
-            checks: [
-                {
-                    title: "Check for robots.txt/ sitemap.xml",
-                    description: "From the website url, check for the files '/robots.txt' and '/sitemap.xml'. Are they present?",
-                    notes: "",
-                    checkbox: true,
-                    textarea: true,
-                    rows: 2
-                },
-                {
-                    title: "Check for admin panel",
-                    description: "Is an admin panel present? If yes, what is the URL?",
-                    notes: "",
-                    checkbox: true,
-                    textarea: true,
-                    rows: 2
-                }
-            ]
-        },
-        wordpress_checklist: {
-            title: "Wordpress checklist - web pentesting",
-            checks: [
-                {
-                    title: "Check for wp-config.php",
-                    description: "Is the wp-config.php file present?",
-                    notes: "",
-                    checkbox: true,
-                    textarea: true,
-                    rows: 2
-                },
-                {
-                    title: "Check for wp-admin",
-                    description: "Is the wp-admin directory present?",
-                    notes: "",
-                    checkbox: true,
-                    textarea: true,
-                    rows: 2
-                }
-            ]
-        }
-    }
-}
-
-function initChecklistAssistantContent(){
-    buildChecklistRows(checklist.web.base_checklist, "web-general-pentest-checklist");
-    buildChecklistRows(checklist.web.wordpress_checklist, "web-wordpress-pentest-checklist");
-    buildChecklistRows(checklist.linux.base_checklist, "linux-general-privesc-checklist");
-    buildChecklistRows(checklist.windows.base_checklist, "windows-general-privesc-checklist");
-}
-
-function buildChecklistRows(checklist, tbodyId) {
-    for (let i = 0; i < checklist.checks.length; i++) {
-
-        // retrieve the current check element, id and content
-        let currentCheck = checklist.checks[i];
-        let tr = createElement("tr", []);
-        let tdContent = createElement("td", []);
-
-        // set the tdInnerHTML to the current check content
-        tdContent.innerHTML += buildCheckbox(i + 1, `${EncoderDecoder.encodeBase64(currentCheck.title)}`, currentCheck.description);
-        tdContent.innerHTML += buildTextArea(`${EncoderDecoder.encodeBase64(currentCheck.title)}-check`, currentCheck.rows);
-
-        // append the elements to the tr
-        tr.appendChild(tdContent)
-
-        // append the tr to the tbody
-        document.getElementById(tbodyId).appendChild(tr);
+        }]
     }
 }
 
@@ -127,31 +32,31 @@ function buildChecklistRows(checklist, tbodyId) {
  * @param id = the id of the textarea
  * @returns {string} html of a textarea with copy button
  */
-function buildTextArea(id, rows) {
-    let textarea = `
-        <div class="form-group">
-            <!-- start textarea and copybutton-->
-            <div class="position-relative d-flex">
-                <textarea
-                        class="form-control"
-                        rows="${rows}"
-                        id="${id}"
-                        style="width: 100%; padding-right: 40px;"></textarea>
-                <a href="#">
-                    <img class="copy-icon"
-                         src="assets/icons/general/copy.png"
-                         style="position: absolute; bottom: 5px; right: 5px;"
-                         height="25px"
-                         width="25px"
-                         alt="Copy">
-                </a>
-            </div>
-        </div>`;
-
-
-    return textarea;
-}
-
+// function buildTextArea(id, rows) {
+//     let textarea = `
+//         <div class="form-group">
+//             <!-- start textarea and copybutton-->
+//             <div class="position-relative d-flex">
+//                 <textarea
+//                         class="form-control"
+//                         rows="${rows}"
+//                         id="${id}"
+//                         style="width: 100%; padding-right: 40px;"></textarea>
+//                 <a href="#">
+//                     <img class="copy-icon"
+//                          src="assets/icons/general/copy.png"
+//                          style="position: absolute; bottom: 5px; right: 5px;"
+//                          height="25px"
+//                          width="25px"
+//                          alt="Copy">
+//                 </a>
+//             </div>
+//         </div>`;
+//
+//
+//     return textarea;
+// }
+//
 /**
  * buildCheckbox()
  *
@@ -162,19 +67,139 @@ function buildTextArea(id, rows) {
  * @param index index of the checkbox
  * @returns {string}
  */
-function buildCheckbox(index, id, command) {
+function buildCheckbox(index, id) {
     let checkbox = `
         <div>
-            
+
             <div class="d-flex justify-content-left">
                 <span>${index})&nbsp;</span>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="${id}">
-                </div> 
+                </div>
             </div>
-            
-            <div>${command}</div>
         </div>`;
 
     return checkbox;
 }
+
+/**
+ * initChecklistAssistantContent()
+ *
+ * initiates all the checklists
+ */
+function initChecklistAssistantContent() {
+    buildChecklistWithChapters(checklist.windows.checklist_privesc, document.getElementById('checklist-assistant-windows-privesc-accordion'));
+}
+
+/**
+ * buildChecklistWithChapters()
+ *
+ * build a checklist with chapters
+ * @param checklist
+ * @param appendElement
+ */
+function buildChecklistWithChapters(checklist, appendElement) {
+    // retrieve the accordionId
+    let accordionContainerId = appendElement.getAttribute("id");
+    appendElement.classList.add("accordion");
+
+    // loop through the checklist for the number of chapters
+    for (let i = 0; i < checklist.length; i++) {
+        const chapter = checklist[i].chapter;
+        const hashedChapter = Hashing.hashMD5(chapter);
+
+        // accordion item is build here
+        let accordionItem = buildAccordionItem(hashedChapter, chapter)
+        let accordionContent = buildAccordionContent(hashedChapter, chapter, accordionContainerId, checklist[i].checks)
+
+        // append the accordion item to the accordion container
+        appendElement.appendChild(accordionItem);
+        appendElement.appendChild(accordionContent);
+    }
+}
+
+/**
+ * buildAccordionContentElement()
+ *
+ * build the accordion content element, which contains a checkbox, the description and additional functionality
+ * @param check
+ * @param accordionContentElement
+ * @param hashedChapter
+ * @param index
+ * @returns {*}
+ */
+function buildAccordionContentElement(check, accordionContentElement, hashedChapter, index) {
+    // create a new list item
+    let listItem = createElement("li", ["list-group-item"]);
+    listItem.innerHTML = buildCheckbox(check.title, `check-${hashedChapter}-${index}`);
+
+    // append the list item to the accordion content element
+    accordionContentElement.appendChild(listItem)
+
+    // return the accordion content element
+    return accordionContentElement;
+}
+
+/**
+ * buildAccordionContent()
+ *
+ * build the content of the accordion
+ * @param hashedChapter
+ * @param chapter
+ * @param containerId
+ * @param checks
+ * @returns {HTMLElement}
+ */
+function buildAccordionContent(hashedChapter, chapter, containerId, checks) {
+    let accordionCollapse = createElement("div", ["accordion-collapse", "collapse"]);
+    accordionCollapse.setAttribute("id", `collapse-${hashedChapter}`);
+    accordionCollapse.setAttribute("aria-labelledby", `heading-${hashedChapter}`);
+    accordionCollapse.setAttribute("data-bs-parent", `#${containerId}`);
+
+    let accordionBody = createElement("div", ["accordion-body"]);
+    let accordionContentElement = createElement("ul", [])
+
+    for (let i = 0; i < checks.length; i++) {
+        accordionContentElement = buildAccordionContentElement(checks[i], accordionContentElement, hashedChapter, i+1);
+    }
+
+    accordionBody.appendChild(accordionContentElement);
+    accordionCollapse.appendChild(accordionBody);
+
+    return accordionCollapse
+}
+
+
+/**
+ * build a clickable accordion item
+ *
+ * @param hashedChapter
+ * @param chapter
+ * @returns {HTMLElement}
+ */
+function buildAccordionItem(hashedChapter, chapter) {
+    // accordion item container
+    let accordionItem = createElement("div", ["accordion-item"]);
+
+    // header if tge accordion item
+    let accordionHeader = createElement("h2", ["accordion-header"]);
+    accordionHeader.setAttribute("id", `heading-${hashedChapter}`);
+
+    // button to click on
+    let accordionButton = createElement("button", ["accordion-button", "collapsed"]);
+    accordionButton.setAttribute("type", "button");
+    accordionButton.setAttribute("data-bs-toggle", "collapse");
+    accordionButton.setAttribute("data-bs-target", `#collapse-${hashedChapter}`);
+    accordionButton.setAttribute("aria-expanded", "false");
+    accordionButton.setAttribute("aria-controls", `collapse-${hashedChapter}`);
+    accordionButton.innerText = chapter;
+
+    // append the button to the header
+    accordionHeader.appendChild(accordionButton);
+    accordionItem.appendChild(accordionHeader);
+
+    // return the accordion header
+    return accordionItem
+}
+
+

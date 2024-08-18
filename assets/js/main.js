@@ -1,24 +1,6 @@
 // main.js is used for building up the functionality of the plugin, and is the base for methods that are globally used
 // across the plugin
 
-document.addEventListener('DOMContentLoaded', async () => {
-    try {
-        // Query the active tab in the current window
-        const [tab] = await browser.tabs.query({active: true, currentWindow: true});
-
-        // Create a new URL object
-        currentTab = String(new URL(tab.url));
-
-        // adjust the tab url
-        document.querySelectorAll(".current-tab-url").forEach(function (element) {
-            // Set the innerText of each element to the current URL
-            element.innerText = currentTab;
-        });
-    } catch (error) {
-        console.error('Error querying active tab:', error);
-    }
-});
-
 document.addEventListener('DOMContentLoaded', () => {
 
     // init/build the content for the shell assistant tabs (reverse, bind, transfer)
@@ -31,6 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
     makeAllTablesSortable()
     searchTable("search-postmessage-input", "postmessage-monitor-table")
     searchTable("search-cookie-monitor-input", "cookie-monitor-table")
+
+    //
+    manageAllAccordions();
 
     // init/build the persistDataMonitor
     persistDataMonitor()

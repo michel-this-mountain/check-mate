@@ -71,8 +71,11 @@ document.addEventListener("DOMContentLoaded", function () {
     screenshotElement.addEventListener("click", () => {
         captureAndCopyCodeElementToClipboard(codeHighlightOutput.querySelector("code"), codeHighlightSelect.value);
         screenshotElement.src = "assets/icons/general/screenshot-success.png";
+        screenshotElement.closest("a").classList.add("inactive-link");
+
         setTimeout(() => {
             screenshotElement.src = "assets/icons/general/screenshot.png";
+            screenshotElement.closest("a").classList.remove("inactive-link");
         }, 2000);
     });
 

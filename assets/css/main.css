@@ -90,3 +90,8 @@ textarea {
     cursor: pointer;
     text-decoration: underline;
 }
+
+.inactive-link {
+   pointer-events: none;
+   cursor: default;
+}
