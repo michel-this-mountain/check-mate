@@ -5,6 +5,16 @@
     <link rel="stylesheet" href="assets/css/main.css">
     <link href="assets/css/libs/bootstrap.min.css" rel="stylesheet"/>
 
+    <!-- classes START -->
+    <script src="assets/js/tabs/classes/builder/CheckList.js"></script>
+    <script src="assets/js/tabs/classes/builder/elements/CheckBox.js"></script>
+    <script src="assets/js/tabs/classes/builder/elements/CodeElement.js"></script>
+    <script src="assets/js/tabs/classes/builder/elements/TextArea.js"></script>
+
+    <script src="assets/js/tabs/classes/EncoderDecoder.js"></script>
+    <script src="assets/js/tabs/classes/Hashing.js"></script>
+
+    <!-- classes END -->
     <script src="assets/js/persistence/tabsPersistence.js"></script>
     <script src="assets/js/persistence/mutationObserver.js"></script>
     <script src="assets/js/persistence/accordionPersistence.js"></script>
@@ -203,7 +213,6 @@
                                 <div class="mt-2 mb-2">
                                     <h4> Encoding/ Decoding </h4>
                                 </div>
-
                                 <div>
                                     <div class="form-group mb-2">
                                         <label for="encoding-select-technique">Algorithm</label>
@@ -458,7 +467,7 @@
                                     <span>Input</span>
                                     <!-- start textarea and copybutton-->
                                     <div class="position-relative d-flex">
-                                    <textarea
+                                        <label for="general-tooling-code-highlighter-input"></label><textarea
                                             id="general-tooling-code-highlighter-input"
                                             class="form-control"
                                             style="width: 100%; padding-right: 40px; height:160px"></textarea>
@@ -478,6 +487,7 @@
                                     <div class="d-flex justify-content-between rounded border h-100">
                                         <pre class="p-0 w-100 h-100"
                                              id="general-tooling-code-highlighter-output-pre"><code
+                                                id="general-tooling-code-highlighter-output-code"
                                                 class="p-2 language-plaintext rounded h-100"
                                                 style="white-space: pre-wrap;"></code></pre>
                                         <a href="#" class="d-flex flex-column justify-content-end" style="width: 6%">
@@ -1432,61 +1442,61 @@
 
                                         </div>
 
-<!--                                        &lt;!&ndash; checklist accordion START &ndash;&gt;-->
-<!--                                        <div class="accordion" id="accordionExample">-->
-<!--                                            <div class="accordion-item">-->
-<!--                                                <h2 class="accordion-header" id="headingOne">-->
-<!--                                                    <button class="accordion-button collapsed" type="button"-->
-<!--                                                            data-bs-toggle="collapse" data-bs-target="#collapseOne"-->
-<!--                                                            aria-expanded="false" aria-controls="collapseOne">-->
-<!--                                                        Accordion Item #1-->
-<!--                                                    </button>-->
-<!--                                                </h2>-->
-<!--                                                <div id="collapseOne" class="accordion-collapse collapse"-->
-<!--                                                     aria-labelledby="headingOne" data-bs-parent="#accordionExample">-->
-<!--                                                    <div class="accordion-body">-->
-<!--                                                        Content for the first accordion item. This is some placeholder-->
-<!--                                                        content for the accordion. You can use this space to describe-->
-<!--                                                        your content.-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                            <div class="accordion-item">-->
-<!--                                                <h2 class="accordion-header" id="headingTwo">-->
-<!--                                                    <button class="accordion-button collapsed" type="button"-->
-<!--                                                            data-bs-toggle="collapse" data-bs-target="#collapseTwo"-->
-<!--                                                            aria-expanded="false" aria-controls="collapseTwo">-->
-<!--                                                        Accordion Item #2-->
-<!--                                                    </button>-->
-<!--                                                </h2>-->
-<!--                                                <div id="collapseTwo" class="accordion-collapse collapse"-->
-<!--                                                     aria-labelledby="headingTwo" data-bs-parent="#accordionExample">-->
-<!--                                                    <div class="accordion-body">-->
-<!--                                                        Content for the second accordion item. This is another piece of-->
-<!--                                                        placeholder content for the accordion. You can use this space to-->
-<!--                                                        describe your content.-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                            <div class="accordion-item">-->
-<!--                                                <h2 class="accordion-header" id="headingThree">-->
-<!--                                                    <button class="accordion-button collapsed" type="button"-->
-<!--                                                            data-bs-toggle="collapse" data-bs-target="#collapseThree"-->
-<!--                                                            aria-expanded="false" aria-controls="collapseThree">-->
-<!--                                                        Accordion Item #3-->
-<!--                                                    </button>-->
-<!--                                                </h2>-->
-<!--                                                <div id="collapseThree" class="accordion-collapse collapse"-->
-<!--                                                     aria-labelledby="headingThree" data-bs-parent="#accordionExample">-->
-<!--                                                    <div class="accordion-body">-->
-<!--                                                        Content for the third accordion item. This is yet another piece-->
-<!--                                                        of placeholder content for the accordion. You can use this space-->
-<!--                                                        to describe your content.-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                        &lt;!&ndash; checklist accordion END&ndash;&gt;-->
+                                        <!--                                        &lt;!&ndash; checklist accordion START &ndash;&gt;-->
+                                        <!--                                        <div class="accordion" id="accordionExample">-->
+                                        <!--                                            <div class="accordion-item">-->
+                                        <!--                                                <h2 class="accordion-header" id="headingOne">-->
+                                        <!--                                                    <button class="accordion-button collapsed" type="button"-->
+                                        <!--                                                            data-bs-toggle="collapse" data-bs-target="#collapseOne"-->
+                                        <!--                                                            aria-expanded="false" aria-controls="collapseOne">-->
+                                        <!--                                                        Accordion Item #1-->
+                                        <!--                                                    </button>-->
+                                        <!--                                                </h2>-->
+                                        <!--                                                <div id="collapseOne" class="accordion-collapse collapse"-->
+                                        <!--                                                     aria-labelledby="headingOne" data-bs-parent="#accordionExample">-->
+                                        <!--                                                    <div class="accordion-body">-->
+                                        <!--                                                        Content for the first accordion item. This is some placeholder-->
+                                        <!--                                                        content for the accordion. You can use this space to describe-->
+                                        <!--                                                        your content.-->
+                                        <!--                                                    </div>-->
+                                        <!--                                                </div>-->
+                                        <!--                                            </div>-->
+                                        <!--                                            <div class="accordion-item">-->
+                                        <!--                                                <h2 class="accordion-header" id="headingTwo">-->
+                                        <!--                                                    <button class="accordion-button collapsed" type="button"-->
+                                        <!--                                                            data-bs-toggle="collapse" data-bs-target="#collapseTwo"-->
+                                        <!--                                                            aria-expanded="false" aria-controls="collapseTwo">-->
+                                        <!--                                                        Accordion Item #2-->
+                                        <!--                                                    </button>-->
+                                        <!--                                                </h2>-->
+                                        <!--                                                <div id="collapseTwo" class="accordion-collapse collapse"-->
+                                        <!--                                                     aria-labelledby="headingTwo" data-bs-parent="#accordionExample">-->
+                                        <!--                                                    <div class="accordion-body">-->
+                                        <!--                                                        Content for the second accordion item. This is another piece of-->
+                                        <!--                                                        placeholder content for the accordion. You can use this space to-->
+                                        <!--                                                        describe your content.-->
+                                        <!--                                                    </div>-->
+                                        <!--                                                </div>-->
+                                        <!--                                            </div>-->
+                                        <!--                                            <div class="accordion-item">-->
+                                        <!--                                                <h2 class="accordion-header" id="headingThree">-->
+                                        <!--                                                    <button class="accordion-button collapsed" type="button"-->
+                                        <!--                                                            data-bs-toggle="collapse" data-bs-target="#collapseThree"-->
+                                        <!--                                                            aria-expanded="false" aria-controls="collapseThree">-->
+                                        <!--                                                        Accordion Item #3-->
+                                        <!--                                                    </button>-->
+                                        <!--                                                </h2>-->
+                                        <!--                                                <div id="collapseThree" class="accordion-collapse collapse"-->
+                                        <!--                                                     aria-labelledby="headingThree" data-bs-parent="#accordionExample">-->
+                                        <!--                                                    <div class="accordion-body">-->
+                                        <!--                                                        Content for the third accordion item. This is yet another piece-->
+                                        <!--                                                        of placeholder content for the accordion. You can use this space-->
+                                        <!--                                                        to describe your content.-->
+                                        <!--                                                    </div>-->
+                                        <!--                                                </div>-->
+                                        <!--                                            </div>-->
+                                        <!--                                        </div>-->
+                                        <!--                                        &lt;!&ndash; checklist accordion END&ndash;&gt;-->
 
 
                                     </div>
@@ -1579,11 +1589,6 @@
 <!-- general JS used over all tabs END -->
 
 <!-- tab specific script start -->
-<!-- CLASSES START-->
-<script src="assets/js/tabs/classes/EncoderDecoder.js"></script>
-<script src="assets/js/tabs/classes/Hashing.js"></script>
-
-<!-- CLASSES END-->
 
 <!-- TABS START -->
 <script src="assets/js/tabs/tab-1-general-tooling/tab-1-general-tooling.js"></script>

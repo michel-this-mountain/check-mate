@@ -92,6 +92,17 @@ textarea {
 }
 
 .inactive-link {
-   pointer-events: none;
-   cursor: default;
+    pointer-events: none;
+    cursor: default;
+}
+
+ul {
+    padding-left: 0;
+    margin-left: 0;
+    list-style-type: none; /* Remove bullet points */
+}
+
+li {
+    padding-left: 0;
+    margin-left: 0;
 }
