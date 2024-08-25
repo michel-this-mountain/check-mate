@@ -78,19 +78,25 @@ class CheckList {
     #buildCheckElement(check, accordionContentElement, hashedChapter, index) {
         // create a new list item
         let listItem = createElement("li", ["list-group-item", "p-2", "w-100"]);
-        listItem.appendChild(new CheckBox(`check-checkbox-${hashedChapter}-${index}`, `${index}) ${check.title}`).buildCheckBox())
+        listItem.style.cssText = "overflow-x: scroll;"
+
+        let codeElement = new CodeElement(`check-code-element-${hashedChapter}-${index}`, check.code_language, check.code).buildCodeElement();
+        let checkBox = new CheckBox(`check-checkbox-${hashedChapter}-${index}`, `${index}) ${check.title}`, check.description).buildCheckBox();
+        let modal = new Modal(`check-modal-${hashedChapter}-${index}`, 'assets/icons/navbar/tab-5-checklist-assistant/general/code.png', 25, 25, 'Associated code').buildModal(codeElement);
+
+        let divContainer = createElement("div", ["d-flex", "justify-content-between"])
+        divContainer.appendChild(checkBox)
+        divContainer.appendChild(modal)
+
+        listItem.appendChild(divContainer);
         listItem.appendChild(new TextArea(`check-textarea-${hashedChapter}-${index}`,  check.rows).buildTextArea());
+
 
         // append the list item to the accordion content element
         return listItem
     }
 
-    #buildCheckElementHeader() {
+    #buildCheckElementCodeModal(check) {
 
     }
-
-    #buildCheckElementBody() {
-
-    }
-
 }

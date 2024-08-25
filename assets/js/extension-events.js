@@ -52,9 +52,17 @@ document.addEventListener("DOMContentLoaded", function () {
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl, {
-            delay: {"hide": 50}
+            delay: {"show": 50, "hide": 50}
         });
     });
+
+    document.addEventListener('show.bs.tooltip', function () {
+        var activeTooltips = document.querySelectorAll('.tooltip.show');
+        activeTooltips.forEach(function (tooltip) {
+            tooltip.tooltip('hide');
+        });
+    });
+
 });
 
 /**
@@ -148,6 +156,7 @@ function initCopyContentByClass() {
         }
     });
 }
+
 let activeCopyIcon = null;
 
 /**
