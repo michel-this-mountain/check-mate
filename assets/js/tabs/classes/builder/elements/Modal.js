@@ -1,7 +1,8 @@
 class Modal {
-    constructor(modalId, imgSrc, width, height, hoverText) {
+    constructor(modalId, imgSrc, imgSrcHover, width, height, hoverText) {
         this.modalId = modalId;
         this.imgSrc = imgSrc;
+        this.imgSrcHover = imgSrcHover;
         this.width = width;
         this.height = height;
         this.hoverText = hoverText;
@@ -40,7 +41,7 @@ class Modal {
      */
     buildModal(modalBodyContent) {
         let divContainer = createElement("div", ["modal", "fade"])
-        let modalDialog = createElement("div", ["modal-dialog", "modal-dialog-centered", "w-50"])
+        let modalDialog = createElement("div", ["modal-dialog", "modal-dialog-centered", "w-75"])
         let modalContent = createElement("div", ["modal-content"])
         let modalHeader = createElement("div", ["modal-header"])
         let modalBody = createElement("div", ["modal-body", "p-1"])
