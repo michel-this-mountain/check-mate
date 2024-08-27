@@ -118,7 +118,9 @@ function saveElementsToLocalStorage() {
 
     for (const selector in selectors) {
         document.querySelectorAll(selector).forEach(element => {
-            localStorage.setItem(element.id, element[selectors[selector]]);
+            if (element.id.length > 0) {
+                localStorage.setItem(element.id, element[selectors[selector]]);
+            }
         });
     }
 }

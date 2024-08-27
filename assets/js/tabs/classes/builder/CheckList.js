@@ -16,7 +16,9 @@ class CheckList {
         // loop through the checklist for the number of chapters
         for (let i = 0; i < this.jsonChecklist.length; i++) {
             const chapter = this.jsonChecklist[i].chapter;
-            const hashedChapter = Hashing.hashMD5(chapter);
+            const hashedChapter = Hashing.hashMD5(JSON.stringify(this.jsonChecklist[i]));
+
+            console.log(JSON.stringify(this.jsonChecklist[i]))
 
             // accordion item is build here
             let checklistChapter = this.#buildChecklistChapter(hashedChapter, chapter)
@@ -82,13 +84,20 @@ class CheckList {
         let codeElement = new CodeElement(`check-code-element-${hashedChapter}-${index}`, check.code_language, check.code).buildCodeElement();
         let checkBox = new CheckBox(`check-checkbox-${hashedChapter}-${index}`, `${index}) ${check.title}`, check.description).buildCheckBox();
         let modal = new Modal(`check-modal-${hashedChapter}-${index}`, 'assets/icons/navbar/tab-5-checklist-assistant/general/code.png', 'assets/icons/navbar/tab-5-checklist-assistant/general/code-hover.png', 25, 25, 'Associated code').buildModal(codeElement);
+        modal.classList.add("me-1");
+        let reference = new AnchorTag('', check.reference, 'assets/icons/navbar/tab-5-checklist-assistant/general/link.png', 'assets/icons/navbar/tab-5-checklist-assistant/general/link-hover.png', 20, 20).buildAnchorTagWithImageHover();
 
         let divContainer = createElement("div", ["d-flex", "justify-content-between"])
         divContainer.appendChild(checkBox)
-        divContainer.appendChild(modal)
 
+        let divContainerCodeAndReference = createElement("div", ["d-flex", "justify-content-end"])
+        divContainerCodeAndReference.appendChild(modal)
+        divContainerCodeAndReference.appendChild(reference)
+        divContainerCodeAndReference.classList.add("ms-1", "mb-2")
+
+        divContainer.appendChild(divContainerCodeAndReference)
         listItem.appendChild(divContainer);
-        listItem.appendChild(new TextArea(`check-textarea-${hashedChapter}-${index}`,  check.rows).buildTextArea());
+        listItem.appendChild(new TextArea(`check-textarea-xoxo-${hashedChapter}-${index}`,  check.rows).buildTextArea());
 
 
         // append the list item to the accordion content element

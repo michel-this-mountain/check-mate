@@ -6,11 +6,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // init/build the content for the shell assistant tabs (reverse, bind, transfer)
     initShellAssistantContent()
 
-    new CheckList(checklist.windows.checklist_privesc, "checklist-assistant-windows-privesc-accordion").buildChecklist()
+    // init checklist assistant content
+    initChecklistAssistantContent()
 
-
-    // make all tables sortable & set up search functionality for tables
+    // make all tables sortable
     makeAllTablesSortable()
+
+    // search functionality for tabkes
     searchTable("search-postmessage-input", "postmessage-monitor-table")
     searchTable("search-cookie-monitor-input", "cookie-monitor-table")
 
@@ -18,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     manageAllAccordions();
 
     // init/build the persistDataMonitor
-    persistDataMonitor()
+    persistDataMonitor();
 });
 
 /**

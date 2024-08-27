@@ -18,8 +18,9 @@ class Modal {
         a.setAttribute("href", `#${this.modalId}`)
         a.setAttribute("data-bs-target", `#${this.modalId}`)
         a.setAttribute("data-bs-toggle", "modal")
+        a.style.cssText = `height: ${this.height}px !important; width: ${this.width}px !important;`
 
-        let img = createElement("img", ["ms-2"])
+        let img = createElement("img", [])
         img.setAttribute("src", this.imgSrc)
         img.style.cssText = `width: ${this.width}px !important; height: ${this.height}px !important;`
 
@@ -28,6 +29,13 @@ class Modal {
             img.setAttribute("data-bs-placement", "right")
             img.setAttribute("title", this.hoverText)
         }
+
+        img.addEventListener("mouseover", () => {
+            img.src = this.imgSrcHover
+        })
+        img.addEventListener("mouseout", () => {
+            img.src= this.imgSrc
+        })
 
         a.appendChild(img)
 

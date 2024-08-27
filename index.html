@@ -11,10 +11,10 @@
     <script src="assets/js/tabs/classes/builder/elements/CodeElement.js"></script>
     <script src="assets/js/tabs/classes/builder/elements/TextArea.js"></script>
     <script src="assets/js/tabs/classes/builder/elements/Modal.js"></script>
+    <script src="assets/js/tabs/classes/builder/elements/AnchorTag.js"></script>
 
     <script src="assets/js/tabs/classes/EncoderDecoder.js"></script>
     <script src="assets/js/tabs/classes/Hashing.js"></script>
-
     <!-- classes END -->
     <script src="assets/js/persistence/tabsPersistence.js"></script>
     <script src="assets/js/persistence/mutationObserver.js"></script>
@@ -1325,14 +1325,8 @@
                                             Web-pentest checklist (general)
                                         </h6>
 
-                                        <div class="d-flex flex-column justify-content-between h-100">
-                                            <table class="table table-responsive-sm table-hover table-striped">
-                                                <thead>
-                                                <th>Check</th>
-                                                </thead>
-                                                <tbody id="web-general-pentest-checklist">
-                                                </tbody>
-                                            </table>
+                                        <div id="checklist-assistant-web-pentest-general-accordion">
+
                                         </div>
 
                                     </div>
@@ -1344,14 +1338,8 @@
                                             Wordpress pentest checklist
                                         </h6>
 
-                                        <div class="d-flex flex-column justify-content-between h-100">
-                                            <table class="table table-responsive-sm table-hover table-striped">
-                                                <thead>
-                                                <th>Check</th>
-                                                </thead>
-                                                <tbody id="web-wordpress-pentest-checklist">
-                                                </tbody>
-                                            </table>
+                                        <div id="checklist-assistant-web-wordpress-accordion">
+
                                         </div>
 
                                     </div>
@@ -1392,14 +1380,8 @@
                                             Linux privilege escalation checklist (general)
                                         </h6>
 
-                                        <div class="d-flex flex-column justify-content-between h-100">
-                                            <table class="table table-responsive-sm table-hover table-striped">
-                                                <thead>
-                                                <th>Check</th>
-                                                </thead>
-                                                <tbody id="linux-general-privesc-checklist">
-                                                </tbody>
-                                            </table>
+                                        <div id="checklist-assistant-linux-privesc-accordion">
+
                                         </div>
 
                                     </div>
@@ -1543,7 +1525,7 @@
 <script src="assets/js/tabs/tab-2-enum-tooling/tab-2-enum-tooling.js"></script>
 <script src="assets/js/tabs/tab-3-exploit-assistant/tab-3-exploit-assistant.js"></script>
 <script src="assets/js/tabs/tab-4-shell-assistant/shells.js"></script>
-<script src="assets/js/tabs/tab-5-checklist-assistant/checklist.js"></script>
+<script src="assets/js/tabs/tab-5-checklist-assistant/checklist-all.js"></script>
 <!-- TABS END -->
 
 </body>

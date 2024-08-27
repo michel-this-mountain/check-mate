@@ -26,7 +26,7 @@ class CodeElement{
         let containerDiv = createElement("div", ["d-flex", "justify-content-between", "rounded", "border"])
 
         this.c.textContent = this.code;
-        this.c.id = this.idCode;
+        // this.c.id = this.idCode;
         this.c.style.cssText = 'white-space: pre-wrap; max-height: 50vh; overflow-y: auto;';
 
         this.p.appendChild(this.c);
