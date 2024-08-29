@@ -131,16 +131,55 @@ whatweb -a 3 <IP> # aggressive
                     title: "Is there any specialised scanner that can be ran on it? wpscan, joomscan etc.",
                     description: "check for specialised scanners",
                     code: `# wpscan - https://github.com/wpscanteam/wpscan 
-# https://wpscan.org
-wpscan --url <URL> --enumerate u
-
-# joomscan
-//TODO !!
+# joomscan - https://github.com/OWASP/joomscan
+# cmsmap - https://github.com/dionach/CMSmap
 `,
                     code_language: "language-bash",
                     rows: 2,
                     reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
+                },{
+                    title: "Run automated scanners, any interesting results?",
+                    description: "Run automated scanners",
+                    code: `nikto -h <URL>
+whatweb -a 4 <URL>
+wapiti -u <URL>
+zaproxy #You can use an API
+nuclei -ut && nuclei -target <URL>`,
+                    code_language: "#",
+                    rows: 2,
+                    reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
                 },
+                {
+                    title: "Search for interesting files, check the 'associated code' for more info.",
+                    description: "search for interesting files",
+                    code: `/robots.txt
+/sitemap.xml
+/crossdomain.xml
+/clientaccesspolicy.xml
+/.well-known/`,
+                    code_language: "language-bash",
+                    rows: 2,
+                    reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
+                },
+                {
+                    title: "Check for comments on the main and secondary pages. Anything interesting?",
+                    description: "search for comments",
+                    code: `# use the comment extractor tool under the 'enumeration tooling' tab`,
+                    code_language: "language-bash",
+                    rows: 2,
+                    reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
+                },
+                {
+                    title: "Spider the website, any interesting files/folders?",
+                    description: "retrieve all the files/ folders that are present on the webserver.",
+                    code: `# using gospider
+gospider -s https://something.com | tee output.txt`,
+                    code_language: "language-bash",
+                    rows: 2,
+                    reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
+                },
+
+
             ]
         }],
     },

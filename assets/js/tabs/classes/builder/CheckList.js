@@ -103,8 +103,4 @@ class CheckList {
         // append the list item to the accordion content element
         return listItem
     }
-
-    #buildCheckElementCodeModal(check) {
-
-    }
 }
