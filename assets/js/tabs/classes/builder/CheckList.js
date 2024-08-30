@@ -18,8 +18,6 @@ class CheckList {
             const chapter = this.jsonChecklist[i].chapter;
             const hashedChapter = Hashing.hashMD5(JSON.stringify(this.jsonChecklist[i]));
 
-            console.log(JSON.stringify(this.jsonChecklist[i]))
-
             // accordion item is build here
             let checklistChapter = this.#buildChecklistChapter(hashedChapter, chapter)
             let checklistContent = this.#buildChecklistContent(hashedChapter, chapter, this.jsonChecklist[i].checks)

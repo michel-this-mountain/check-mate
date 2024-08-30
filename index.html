@@ -217,7 +217,7 @@
                                 <div>
                                     <div class="form-group mb-2">
                                         <label for="encoding-select-technique">Algorithm</label>
-                                        <select class="form-control" id="encoding-select-technique">
+                                        <select class="form-select" id="encoding-select-technique">
                                             <option value="b64-e" selected>Base64 encode</option>
                                             <option value="b64-d">Base64 decode</option>
                                             <option value="uri-e">URI encode</option>
@@ -282,7 +282,7 @@
                                 <div>
                                     <div class="form-group mb-1">
                                         <label for="encoding-select-technique">Hashing algorithm</label>
-                                        <select class="form-control" id="hash-select-algorithm">
+                                        <select class="form-select" id="hash-select-algorithm">
                                             <option value="md5" selected>MD5</option>
                                             <option value="bcrypt">BCRYPT</option>
                                             <option value="sha1">SHA1</option>
@@ -630,12 +630,22 @@
                                 <div>
                                     <span>Act on current page</span>
                                     <div class="d-flex justify-content-between">
-                                        <button class="btn btn-outline-primary w-50 me-1"
-                                                id="enum-tooling-highlight-forms-cp" value="highlightForms">Highlight
-                                            <small class="consolas-text">&lt;form&gt;</small></button>
-                                        <button class="btn btn-outline-primary w-50 me-1"
-                                                id="enum-tooling-highlight-inputs-cp" value="highlightInputs">Highlight
-                                            <small class="consolas-text">&lt;input&gt;</small></button>
+                                        <button class="btn btn-sm btn-outline-primary w-50 me-1"
+                                                id="enum-tooling-highlight-forms-cp" value="highlightForms"> Highlight
+                                            <br>
+                                            <small class="consolas-text">&lt;form&gt;</small>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-primary w-50 me-1"
+                                                id="enum-tooling-view-hidden-input"
+                                                value="convertAndHighlightHiddenInputs">Convert and highlight
+                                            <br>
+                                            <small class="consolas-text">&lt;input type="hidden"&gt;</small>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-primary w-50 me-1"
+                                                id="enum-tooling-highlight-inputs-cp" value="highlightInputs"> Highlight
+                                            <br>
+                                            <small class="consolas-text">&lt;input type="*"&gt;</small>
+                                        </button>
                                     </div>
                                 </div>
 
@@ -666,7 +676,7 @@
                                                 readonly
                                                 id="enum-tooling-output-textarea"
                                                 class="form-control"
-                                                rows="11"
+                                                rows="10"
                                                 style="width: 100%; padding-right: 40px;"></textarea>
                                         <a href="#">
                                             <img class="copy-icon"

@@ -6,12 +6,6 @@ function initChecklistAssistantContent() {
     new CheckList(checklist.windows.checklist_privesc, "checklist-assistant-windows-privesc-accordion").buildChecklist()
 }
 
-/**
- * initChecklistAssistantContent()
- *
- * initiates all the checklists
- */
-
 const noCodeAvailable = "# no code available"
 const noCodeAvailableLanguage = "language-bash"
 
@@ -173,7 +167,7 @@ nuclei -ut && nuclei -target <URL>`,
                     title: "Spider the website, any interesting files/folders?",
                     description: "retrieve all the files/ folders that are present on the webserver.",
                     code: `# using gospider
-gospider -s https://something.com | tee output.txt`,
+gospider -s <URL> | tee output.txt`,
                     code_language: "language-bash",
                     rows: 2,
                     reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"

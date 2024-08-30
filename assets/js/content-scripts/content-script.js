@@ -15,6 +15,10 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
         case "highlightForms":
             document.querySelectorAll('form').forEach(form => form.style.border = '5px solid red');
             break;
+
+        case "convertAndHighlightHiddenInputs":
+            document.querySelectorAll('input[type=hidden]').forEach(input => {input.setAttribute('type', 'text');input.style.cssText = 'border: 5px dotted purple';});
+            break;
         case "highlightInputs":
             document.querySelectorAll('input').forEach(input => input.style.border = '5px solid red');
             break;

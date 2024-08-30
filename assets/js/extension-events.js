@@ -227,6 +227,7 @@ function initMessageManager() {
         "enum-tooling-extract-url-cp",
         "enum-tooling-extract-headers",
         "enum-tooling-iframe-get-current-url",
+        "enum-tooling-view-hidden-input",
         "exploit-assistant-csrf-checker-load-form"
     ];
 

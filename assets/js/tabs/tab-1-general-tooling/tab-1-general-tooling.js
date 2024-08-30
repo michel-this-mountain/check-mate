@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const formatJsonTextarea = document.getElementById("input-json-text");
 
     formatJsonTextarea.addEventListener("input", () => {
+        formatJsonTextarea.value = formatJsonTextarea.value.replaceAll("'", "\"");
         if (isValidJSON(formatJsonTextarea.value)) {
             formatJsonTextarea.classList.add("is-valid");
             formatJsonTextarea.classList.remove("is-invalid");
@@ -52,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     formatJsonButton.addEventListener("click", () => {
-        formatJsonTextarea.value = formatJSON(formatJsonTextarea.value, 2);
+        formatJsonTextarea.value = formatJSON(formatJsonTextarea.value.replaceAll("'", "\""), 4);
     });
 
     // Code Highlight
@@ -129,7 +130,8 @@ function isValidJSON(jsonString) {
 }
 
 // method that formats a json object
-function formatJSON(jsonString, depth = 2) {
+function formatJSON(jsonString, depth = 4) {
+
     if (!isValidJSON(jsonString)) {
         throw new Error('Invalid JSON string');
     }
