@@ -1,95 +1,4 @@
-let cookieChangesJson = null;
 let postMessageEventsJson = null;
-
-/**
- * cookieMonitor()
- *
- * Monitors changes made to all cookies on the page.
- *
- * This IIFE (Immediately Invoked Function Expression) sets up a monitoring system for cookies.
- * It tracks additions, updates, and deletions of cookies and logs these changes.
- */
-(function cookieMonitor() {
-    // Array to store cookie changes
-    const cookieChanges = [];
-
-    // Map to store the original state of cookies
-    let originalCookies = new Map(document.cookie.split('; ').map(cookie => {
-        const [name, val = ''] = cookie.split('=');
-        return [name.trim(), val.trim()];
-    }));
-
-    /**
-     * pollCookies()
-     *
-     * Function to poll cookies and detect changes.
-     * This function compares the current state of cookies with the original state and logs any changes.
-     */
-    function pollCookies() {
-        const currentCookies = new Map(document.cookie.split('; ').map(cookie => {
-            const [name, val = ''] = cookie.split('=');
-            return [name.trim(), val.trim()];
-        }));
-
-        // Check for added or updated cookies
-        currentCookies.forEach((value, name) => {
-            if (!originalCookies.has(name)) {
-                const change = {
-                    action: 'set',
-                    cookie: `${name}=${value}`,
-                    path: location.pathname,
-                    timestamp: new Date().toISOString()
-                };
-                cookieChanges.push(change);
-            } else if (originalCookies.get(name) !== value) {
-                const change = {
-                    action: 'update',
-                    cookie: `${name}=${value}`,
-                    path: location.pathname,
-                    timestamp: new Date().toISOString()
-                };
-                cookieChanges.push(change);
-            }
-        });
-
-        // Check for deleted cookies
-        originalCookies.forEach((value, name) => {
-            if (!currentCookies.has(name)) {
-                const change = {
-                    action: 'delete',
-                    cookie: name,
-                    path: location.pathname,
-                    timestamp: new Date().toISOString()
-                };
-                cookieChanges.push(change);
-            }
-        });
-
-        // Update the original cookies to the current state
-        originalCookies = currentCookies;
-
-        // Continue polling
-        setTimeout(pollCookies, 1000);
-    }
-
-    /**
-     * getCookieChanges()
-     *
-     * Exposes a function to get all cookie changes as a JSON string.
-     * This function can be called from the global `window` object.
-     *
-     * @returns {string} JSON string representing all cookie changes.
-     */
-    window.getCookieChanges = function () {
-        return JSON.stringify(cookieChanges, getCircularReplacer(), 2);
-    };
-
-    // Automatically start polling on page load
-    window.addEventListener('load', function () {
-        console.log('[*][CM] Cookie monitor initialized');
-        pollCookies();
-    });
-})();
 
 /**
  * interceptPostMessages()
@@ -181,12 +90,9 @@ function sanitizeMessage(message) {
  */
 function logAllChanges() {
     try {
-        cookieChangesJson = JSON.parse(window.getCookieChanges());
         postMessageEventsJson = JSON.parse(window.getPostMessageEvents());
 
         if (postMessageEventsJson.length > 0) {
-            // console.log('[*][CM] Detected Postmessage changes:', postMessageEventsJson);
-
             let msg = {
                 postMessage: {
                     [`${window.location.href}`]: postMessageEventsJson
@@ -196,15 +102,6 @@ function logAllChanges() {
             browser.runtime.sendMessage(msg);
         }
 
-        if (cookieChangesJson.length > 0) {
-            let msg = {
-                cookieChange: {
-                    [window.location.href]: cookieChangesJson
-                },
-                id: "enum-tooling-altered-cookie-messages"
-            };
-            browser.runtime.sendMessage(msg);
-        }
     } catch (error) {
         console.error('Error logging changes:', error);
     }

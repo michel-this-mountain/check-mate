@@ -1,4 +1,4 @@
-function manageAllAccordions() {
+function initAccordionPersistence() {
     const allAccordions = document.querySelectorAll('.accordion');
 
     function handleItemClick(event) {

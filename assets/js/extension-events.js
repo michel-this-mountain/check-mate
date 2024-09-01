@@ -2,6 +2,8 @@
 // it works close together with: main.js, background.js and the content scripts
 
 let currentTab = null;
+let currentDomain = null;
+
 let loaderElementIds = ["enum-tooling-spider-start-button", "enum-tooling-extract-headers"]
 let totalScriptsProcessing = 0;
 
@@ -11,60 +13,38 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Query the active tab in the current window
         const [tab] = await browser.tabs.query({active: true, currentWindow: true});
 
-        // Create a new URL object
-        currentTab = String(new URL(tab.url));
+        // Create a new URL object from the tab's URL
+        currentTab = new URL(tab.url);
+        currentDomain = currentTab.hostname;  // Extract the hostname (domain)
 
-        // adjust the tab url
+        // Adjust the tab URL display
         document.querySelectorAll(".current-tab-url").forEach(function (element) {
-            // Set the innerText of each element to the current URL
-            element.innerText = currentTab;
+            // Set the innerText of each element to the current URL as a string
+            element.innerText = currentTab.href; // .href gives the full URL
+            printAllCookies()
         });
     } catch (error) {
         console.error('Error querying active tab:', error);
     }
 });
 
-// event listener for the document to load and load the scripts that are important to the plugin
-document.addEventListener("DOMContentLoaded", function () {
 
-    // init the event listeners for the nav menu on the left (global)
-    initReplaceHoverNavbar()
-
-    // init the tab persistence (global)
-    initTabPersistence()
-
-    // init the copy content by class (global)
-    initCopyContentByClass();
-
-    // init the logo control, for acting with the logo (global)
-    initLogoControl();
-
-    // init the message manager (global)
-    initMessageManager();
-
-    // init the refresh control (global, but for now only applies to: message listener tab - enum tooling)
-    initRefreshControl();
-
-    // persist data monitor (global)
-    persistDataMonitor()
-
-    // tooltip bootstrap init (global)
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl, {
-            delay: {"show": 50, "hide": 50}
+// Function to print all cookies for the monitored domain
+function printAllCookies() {
+    browser.cookies.getAll({ domain: currentDomain }).then((cookies) => {
+        cookies.forEach(cookie => {
+            console.log(`Cookie Name: ${cookie.name}`);
+            console.log(`Value: ${cookie.httpOnly ? 'HttpOnly' : cookie.value}`);
+            console.log(`Domain: ${cookie.domain}`);
+            console.log(`Path: ${cookie.path}`);
+            console.log(`Secure: ${cookie.secure}`);
+            console.log(`HttpOnly: ${cookie.httpOnly}`);
+            console.log(`SameSite: ${cookie.sameSite}`);
+            console.log(`Expiration Date: ${cookie.expirationDate}`);
+            console.log('--------------------------');
         });
     });
-
-    document.addEventListener('show.bs.tooltip', function () {
-        var activeTooltips = document.querySelectorAll('.tooltip.show');
-        activeTooltips.forEach(function (tooltip) {
-            tooltip.tooltip('hide');
-        });
-    });
-
-});
-
+}
 /**
  * initReplaceHover()
  *
@@ -156,7 +136,6 @@ function initCopyContentByClass() {
         }
     });
 }
-
 let activeCopyIcon = null;
 
 /**
@@ -402,6 +381,27 @@ function initMessageManager() {
         // ## TAB 6 START ## //
         // ## TAB 6 END ## //
 
+    });
+}
+
+/**
+ * initToolTip()
+ *
+ * initializes the bootstrap tooltip
+ */
+function initTooltip() {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl, {
+            delay: {"show": 50, "hide": 50}
+        });
+    });
+
+    document.addEventListener('show.bs.tooltip', function () {
+        var activeTooltips = document.querySelectorAll('.tooltip.show');
+        activeTooltips.forEach(function (tooltip) {
+            tooltip.tooltip('hide');
+        });
     });
 }
 

@@ -17,7 +17,7 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
             break;
 
         case "convertAndHighlightHiddenInputs":
-            document.querySelectorAll('input[type=hidden]').forEach(input => {input.setAttribute('type', 'text');input.style.cssText = 'border: 5px dotted purple';});
+            document.querySelectorAll('input[type=hidden]').forEach(input => {input.setAttribute('type', 'text');input.style.cssText = 'border: 10px dotted purple';});
             break;
         case "highlightInputs":
             document.querySelectorAll('input').forEach(input => input.style.border = '5px solid red');

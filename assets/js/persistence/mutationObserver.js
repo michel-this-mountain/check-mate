@@ -3,7 +3,7 @@
  *
  * Monitor the persist data switch and setup a mutation observer to save elements to local storage when they change.
  */
-function persistDataMonitor() {
+function initPersistDataMonitor() {
     const persistDataSwitch = document.getElementById("persist-data-checkbox");
 
     if (localStorage.getItem("persistDataSwitch") === "true") {
