@@ -304,36 +304,12 @@ function initMessageManager() {
         }
 
         if (message.hasOwnProperty("postMessage")) {
-            document.getElementById("enum-tooling-postmessage-monitor-count").innerText = message.postMessage[currentTab].length;
-            let tbody = document.getElementById("postmessage-monitor-table-table-body");
-            let tbodyUpdate = tbody.getAttribute("data-control-update")
-
-            message.postMessage[currentTab].forEach((postMessageObject, index) => {
-                let postMessageTr = createElement("tr", [])
-
-                for (let key of Object.keys(postMessageObject)) {
-                    let postMessageChangeTd = createElement("td", [])
-                    postMessageChangeTd.style.cssText = "overflow-wrap: break-word; max-width: 200px;"
-                    if (key === "message") {
-                        postMessageChangeTd.innerText = JSON.stringify(postMessageObject[key])
-                    } else {
-                        postMessageChangeTd.innerText = postMessageObject[key]
-                    }
-                    postMessageTr.appendChild(postMessageChangeTd)
-                }
-                if (tbodyUpdate === "true") {
-                    if (index === 0) {
-                        tbody.innerHTML = ""
-                    }
-                    tbody.appendChild(postMessageTr)
-                    applySeeMoreToTableCells(tbody)
-                }
-            })
+            console.log(message.postMessage[currentTab])
+            buildTableBodyFromObject(message.postMessage[currentTab], "postmessage-monitor-table-table-body", "enum-tooling-postmessage-monitor-count", false, true);
         }
 
         if (message.hasOwnProperty("cookieChange")) {
-            console.log(message.cookieChange[currentDomain])
-            populateCookieMonitorTable(message.cookieChange[currentDomain], "cookie-monitor-table-table-body", "enum-tooling-cookie-monitor-count");
+            buildTableBodyFromObject(message.cookieChange[currentDomain], "cookie-monitor-table-table-body", "enum-tooling-cookie-monitor-count", true);
 
         }
         // ## TAB 2 'enum tooling' END ## //
@@ -412,7 +388,7 @@ function initMessageManager() {
 }
 
 
-function populateCookieMonitorTable(dataObject, tableBodyId, countId) {
+function buildTableBodyFromObject(dataObject, tableBodyId, countId, includeHierarchy = false, jsonValue = false) {
     // Update the count element
     document.getElementById(countId).innerText = dataObject.length;
 
@@ -423,93 +399,111 @@ function populateCookieMonitorTable(dataObject, tableBodyId, countId) {
     if (tbodyUpdate === "true") {
         tbody.innerHTML = ""; // Clear the table body if update is true
 
-        // Remove the first record and save it
-        let firstRecord = dataObject.splice(0, 1)[0];
+        // If includeHierarchy is true, sort and group the data
+        if (includeHierarchy) {
+            // Remove the first record and save it
+            let firstRecord = dataObject.splice(0, 1)[0];
 
-        // Sort the remaining cookies in descending order based on the first element (assumed to be a key)
-        let sortedCookies = dataObject.sort((a, b) => {
-            let keyA = Object.values(a)[0];
-            let keyB = Object.values(b)[0];
-            return keyB.localeCompare(keyA); // Descending order
-        });
+            // Sort the remaining cookies in descending order based on the first element (assumed to be a key)
+            let sortedCookies = dataObject.sort((a, b) => {
+                let keyA = Object.values(a)[0];
+                let keyB = Object.values(b)[0];
+                return keyB.localeCompare(keyA); // Descending order
+            });
 
-        // Reinsert the first record at the beginning
-        sortedCookies.unshift(firstRecord);
+            // Reinsert the first record at the beginning
+            sortedCookies.unshift(firstRecord);
 
-        // Group cookies by the first element (key)
-        let groupedCookies = {};
-        sortedCookies.forEach(cookieChangeObject => {
-            let key = Object.values(cookieChangeObject)[0];
-            if (!groupedCookies[key]) {
-                groupedCookies[key] = [];
-            }
-            groupedCookies[key].unshift(cookieChangeObject);
-        });
+            // Group cookies by the first element (key)
+            let groupedCookies = {};
+            sortedCookies.forEach(cookieChangeObject => {
+                let key = Object.values(cookieChangeObject)[0];
+                if (!groupedCookies[key]) {
+                    groupedCookies[key] = [];
+                }
+                groupedCookies[key].unshift(cookieChangeObject);
+            });
 
-        // Create rows and accordion structure
-        Object.keys(groupedCookies).forEach(key => {
-            let group = groupedCookies[key];
+            // Create rows and accordion structure
+            Object.keys(groupedCookies).forEach(key => {
+                let group = groupedCookies[key];
 
-            // Create a row for the first element
-            let mainRow = createElement("tr", []);
-            let mainCell = createElement("td", ["btn-link"]);
-            mainCell.style.cssText = "overflow-wrap: break-word; max-width: 200px; cursor: pointer;";
-            mainCell.colSpan = Object.keys(group[0]).length; // Span across all columns
-            mainCell.innerText = key;
+                // Create a row for the first element
+                let mainRow = createElement("tr", []);
+                let mainCell = createElement("td", ["btn-link"]);
+                mainCell.style.cssText = "overflow-wrap: break-word; max-width: 200px; cursor: pointer;";
+                mainCell.colSpan = Object.keys(group[0]).length; // Span across all columns
+                mainCell.innerText = key;
 
-            // Store the group in a data attribute for later retrieval
-            mainCell.dataset.group = JSON.stringify(group);
-            mainRow.appendChild(mainCell);
-            tbody.appendChild(mainRow);
+                // Store the group in a data attribute for later retrieval
+                mainCell.dataset.group = JSON.stringify(group);
+                mainRow.appendChild(mainCell);
+                tbody.appendChild(mainRow);
 
-            // Add click event to toggle visibility of hidden rows and keep headers untouched
-            mainCell.addEventListener("click", () => {
-                let isExpanded = mainCell.dataset.expanded === "true";
+                // Add click event to toggle visibility of hidden rows and keep headers untouched
+                mainCell.addEventListener("click", () => {
+                    let isExpanded = mainCell.dataset.expanded === "true";
 
-                // Toggle stripe classes to maintain the striped appearance
-                let toggleStripeClass = () => {
-                    let rows = tbody.querySelectorAll("tr");
-                    rows.forEach((row, index) => {
-                        row.classList.toggle("striped", index % 2 === 0);
-                    });
-                };
+                    // Toggle stripe classes to maintain the striped appearance
+                    let toggleStripeClass = () => {
+                        let rows = tbody.querySelectorAll("tr");
+                        rows.forEach((row, index) => {
+                            row.classList.toggle("striped", index % 2 === 0);
+                        });
+                    };
 
-                if (isExpanded) {
-                    // If expanded, remove the additional rows
-                    let nextRow = mainRow.nextElementSibling;
-                    while (nextRow && nextRow.classList.contains("additional-row")) {
-                        tbody.removeChild(nextRow);
-                        nextRow = mainRow.nextElementSibling;
-                    }
-
-                    mainCell.dataset.expanded = "false";
-                } else {
-                    let groupData = JSON.parse(mainCell.dataset.group);
-                    groupData.forEach(cookieChangeObject => {
-                        let additionalRow = createElement("tr", ["additional-row"]);
-
-                        for (let [key, value] of Object.entries(cookieChangeObject)) {
-                            let cell = createElement("td", []);
-                            cell.style.cssText = "overflow-wrap: break-word; max-width: 200px;";
-                            cell.innerText = `${value}`;
-                            additionalRow.appendChild(cell);
+                    if (isExpanded) {
+                        // If expanded, remove the additional rows
+                        let nextRow = mainRow.nextElementSibling;
+                        while (nextRow && nextRow.classList.contains("additional-row")) {
+                            tbody.removeChild(nextRow);
+                            nextRow = mainRow.nextElementSibling;
                         }
 
-                        // Insert the additional row after the main row
-                        tbody.insertBefore(additionalRow, mainRow.nextSibling);
-                    });
+                        mainCell.dataset.expanded = "false";
+                    } else {
+                        let groupData = JSON.parse(mainCell.dataset.group);
+                        groupData.forEach(cookieChangeObject => {
+                            let additionalRow = createElement("tr", ["additional-row"]);
 
-                    mainCell.dataset.expanded = "true";
-                }
+                            for (let [key, value] of Object.entries(cookieChangeObject)) {
+                                let cell = createElement("td", []);
+                                cell.style.cssText = "overflow-wrap: break-word; max-width: 200px;";
+                                cell.innerText = jsonValue ? JSON.stringify(value) : value;
+                                additionalRow.appendChild(cell);
+                            }
 
-                // Apply the striping again
-                toggleStripeClass();
+                            // Insert the additional row after the main row
+                            tbody.insertBefore(additionalRow, mainRow.nextSibling);
+                        });
+
+                        mainCell.dataset.expanded = "true";
+                    }
+
+                    // Apply the striping again
+                    toggleStripeClass();
+                });
             });
-        });
+        } else {
+            // If includeHierarchy is false, simply add the rows without grouping
+            dataObject.forEach(cookieChangeObject => {
+                let row = createElement("tr", []);
+
+                Object.values(cookieChangeObject).forEach(value => {
+                    let cell = createElement("td", []);
+                    cell.style.cssText = "overflow-wrap: break-word; max-width: 200px;";
+                    cell.innerText = jsonValue ? JSON.stringify(value) : value;
+                    row.appendChild(cell);
+                });
+
+                tbody.appendChild(row);
+            });
+        }
 
         applySeeMoreToTableCells(tbody);
     }
 }
+
 
 
 

@@ -1,25 +1,31 @@
 /* Hide scrollbars for all elements */
 * {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
 }
 
 /* Hide scrollbars for Webkit-based browsers (Chrome, Safari, etc.) */
 *::-webkit-scrollbar {
-  width: 0; /* No scrollbar width */
-  height: 0; /* No scrollbar height */
-  background: transparent; /* Make the background transparent */
+    width: 0; /* No scrollbar width */
+    height: 0; /* No scrollbar height */
+    background: transparent; /* Make the background transparent */
 }
 
 /* Optional: Further remove any scrollbar background */
 *::-webkit-scrollbar-track {
-  background: none; /* No background for the scrollbar track */
+    background: none; /* No background for the scrollbar track */
 }
 
 *::-webkit-scrollbar-thumb {
-  background: none; /* No background for the scrollbar thumb */
+    background: none; /* No background for the scrollbar thumb */
 }
 
+.table-container {
+    max-width: 100%;
+    max-height: 100%;
+    overflow-x: scroll; /* Enables horizontal scrolling */
+    overflow-y:scroll;
+}
 
 :root {
     --custom-middle-blue: #1C2d4A;
