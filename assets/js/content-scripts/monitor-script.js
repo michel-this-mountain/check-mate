@@ -68,13 +68,14 @@ function getCircularReplacer() {
  */
 function sanitizeMessage(message) {
     if (typeof message !== "object" || message === null) {
-        return {message};
+        message = {message}
     }
-    const sanitized = {message: {}};
+
+    const sanitized = {cm_wrap: {}};
     for (const key in message) {
         if (message.hasOwnProperty(key)) {
             try {
-                sanitized.message[key] = message[key];
+                sanitized.cm_wrap[key] = message[key];
             } catch (e) {
                 console.warn(`Unable to access property ${key}:`, e);
             }

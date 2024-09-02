@@ -31,7 +31,8 @@
     }
   ],
   "background": {
-    "scripts": ["assets/js/background.js"]
+    "scripts": ["assets/js/background.js"],
+    "persistent": true
   },
   "web_accessible_resources": [
     "assets/icons/logo.png"

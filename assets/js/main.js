@@ -217,7 +217,7 @@ function initTableSortable() {
  * @param {HTMLElement} tableBody - The table body element to apply the "see more" functionality to.
  */
 function applySeeMoreToTableCells(tableBody) {
-    const maxLength = 300;
+    const maxLength = 150;
 
     // Function to create "see more" and "see less" elements
     function createSeeMoreElement(fullText) {

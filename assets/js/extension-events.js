@@ -16,35 +16,23 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Create a new URL object from the tab's URL
         currentTab = new URL(tab.url);
         currentDomain = currentTab.hostname;  // Extract the hostname (domain)
+        browser.runtime.sendMessage({command: "ping"});
 
         // Adjust the tab URL display
         document.querySelectorAll(".current-tab-url").forEach(function (element) {
             // Set the innerText of each element to the current URL as a string
             element.innerText = currentTab.href; // .href gives the full URL
-            printAllCookies()
+        });
+
+        document.querySelectorAll(".current-domain-url").forEach(function (element) {
+            // Set the innerText of each element to the current URL as a string
+            element.innerText = currentDomain; // .href gives the full URL
         });
     } catch (error) {
         console.error('Error querying active tab:', error);
     }
 });
 
-
-// Function to print all cookies for the monitored domain
-function printAllCookies() {
-    browser.cookies.getAll({ domain: currentDomain }).then((cookies) => {
-        cookies.forEach(cookie => {
-            console.log(`Cookie Name: ${cookie.name}`);
-            console.log(`Value: ${cookie.httpOnly ? 'HttpOnly' : cookie.value}`);
-            console.log(`Domain: ${cookie.domain}`);
-            console.log(`Path: ${cookie.path}`);
-            console.log(`Secure: ${cookie.secure}`);
-            console.log(`HttpOnly: ${cookie.httpOnly}`);
-            console.log(`SameSite: ${cookie.sameSite}`);
-            console.log(`Expiration Date: ${cookie.expirationDate}`);
-            console.log('--------------------------');
-        });
-    });
-}
 /**
  * initReplaceHover()
  *
@@ -136,6 +124,7 @@ function initCopyContentByClass() {
         }
     });
 }
+
 let activeCopyIcon = null;
 
 /**
@@ -188,6 +177,62 @@ function initLogoControl() {
             }, 5330);
         }
     });
+}
+
+/**
+ * initToolTip()
+ *
+ * initializes the bootstrap tooltip
+ */
+function initTooltip() {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl, {
+            delay: {"show": 50, "hide": 50}
+        });
+    });
+
+    document.addEventListener('show.bs.tooltip', function () {
+        var activeTooltips = document.querySelectorAll('.tooltip.show');
+        activeTooltips.forEach(function (tooltip) {
+            tooltip.tooltip('hide');
+        });
+    });
+}
+
+
+// Function to print all cookies for the monitored domain
+
+
+/**
+ * loaderCheck()
+ *
+ * checks if the loader element should be shown or should be hidden, based on the total scripts that are being processed.
+ *
+ * @param currentId
+ * @param incrementTotalScriptsProcessing
+ */
+function loaderCheck(currentId, incrementTotalScriptsProcessing) {
+    // loader element and see if there is a match
+    let loaderElement = document.getElementById("loader")
+    let match = loaderElementIds.includes(currentId)
+
+    // decrement the total scripts processing | loader icon will hide if it reaches 0
+    if (incrementTotalScriptsProcessing === false && match) {
+        if (totalScriptsProcessing > 0) {
+            totalScriptsProcessing -= 1;
+            if (totalScriptsProcessing === 0) {
+                loaderElement.classList.add("d-none")
+            }
+        }
+
+        // increment the total scripts processing | loader icon will show if totalScriptsProcessing is >  0
+    } else if (incrementTotalScriptsProcessing === true && match) {
+        if (totalScriptsProcessing >= 0) {
+            totalScriptsProcessing += 1
+            loaderElement.classList.remove("d-none")
+        }
+    }
 }
 
 /**
@@ -268,6 +313,7 @@ function initMessageManager() {
 
                 for (let key of Object.keys(postMessageObject)) {
                     let postMessageChangeTd = createElement("td", [])
+                    postMessageChangeTd.style.cssText = "overflow-wrap: break-word; max-width: 200px;"
                     if (key === "message") {
                         postMessageChangeTd.innerText = JSON.stringify(postMessageObject[key])
                     } else {
@@ -283,31 +329,12 @@ function initMessageManager() {
                     applySeeMoreToTableCells(tbody)
                 }
             })
-
         }
 
         if (message.hasOwnProperty("cookieChange")) {
-            document.getElementById("enum-tooling-cookie-monitor-count").innerText = message.cookieChange[currentTab].length;
-            let tbody = document.getElementById("cookie-monitor-table-table-body");
-            let tbodyUpdate = tbody.getAttribute("data-control-update")
+            console.log(message.cookieChange[currentDomain])
+            populateCookieMonitorTable(message.cookieChange[currentDomain], "cookie-monitor-table-table-body", "enum-tooling-cookie-monitor-count");
 
-            message.cookieChange[currentTab].forEach((cookieChangeObject, index) => {
-                let cookieChangeTr = createElement("tr", [])
-
-                for (let key of Object.keys(cookieChangeObject)) {
-                    let cookieChangeTd = createElement("td", [])
-                    cookieChangeTd.innerText = cookieChangeObject[key]
-                    cookieChangeTr.appendChild(cookieChangeTd)
-                }
-
-                if (tbodyUpdate === "true") {
-                    if (index === 0) {
-                        tbody.innerHTML = ""
-                    }
-                    tbody.appendChild(cookieChangeTr)
-                    applySeeMoreToTableCells(tbody)
-                }
-            })
         }
         // ## TAB 2 'enum tooling' END ## //
 
@@ -384,54 +411,108 @@ function initMessageManager() {
     });
 }
 
-/**
- * initToolTip()
- *
- * initializes the bootstrap tooltip
- */
-function initTooltip() {
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl, {
-            delay: {"show": 50, "hide": 50}
+
+function populateCookieMonitorTable(dataObject, tableBodyId, countId) {
+    // Update the count element
+    document.getElementById(countId).innerText = dataObject.length;
+
+    // Get the table body element and its update attribute
+    let tbody = document.getElementById(tableBodyId);
+    let tbodyUpdate = tbody.getAttribute("data-control-update");
+
+    if (tbodyUpdate === "true") {
+        tbody.innerHTML = ""; // Clear the table body if update is true
+
+        // Remove the first record and save it
+        let firstRecord = dataObject.splice(0, 1)[0];
+
+        // Sort the remaining cookies in descending order based on the first element (assumed to be a key)
+        let sortedCookies = dataObject.sort((a, b) => {
+            let keyA = Object.values(a)[0];
+            let keyB = Object.values(b)[0];
+            return keyB.localeCompare(keyA); // Descending order
         });
-    });
 
-    document.addEventListener('show.bs.tooltip', function () {
-        var activeTooltips = document.querySelectorAll('.tooltip.show');
-        activeTooltips.forEach(function (tooltip) {
-            tooltip.tooltip('hide');
-        });
-    });
-}
+        // Reinsert the first record at the beginning
+        sortedCookies.unshift(firstRecord);
 
-/**
- * loaderCheck()
- *
- * checks if the loader element should be shown or should be hidden, based on the total scripts that are being processed.
- *
- * @param currentId
- * @param incrementTotalScriptsProcessing
- */
-function loaderCheck(currentId, incrementTotalScriptsProcessing) {
-    // loader element and see if there is a match
-    let loaderElement = document.getElementById("loader")
-    let match = loaderElementIds.includes(currentId)
-
-    // decrement the total scripts processing | loader icon will hide if it reaches 0
-    if (incrementTotalScriptsProcessing === false && match) {
-        if (totalScriptsProcessing > 0) {
-            totalScriptsProcessing -= 1;
-            if (totalScriptsProcessing === 0) {
-                loaderElement.classList.add("d-none")
+        // Group cookies by the first element (key)
+        let groupedCookies = {};
+        sortedCookies.forEach(cookieChangeObject => {
+            let key = Object.values(cookieChangeObject)[0];
+            if (!groupedCookies[key]) {
+                groupedCookies[key] = [];
             }
-        }
+            groupedCookies[key].unshift(cookieChangeObject);
+        });
 
-        // increment the total scripts processing | loader icon will show if totalScriptsProcessing is >  0
-    } else if (incrementTotalScriptsProcessing === true && match) {
-        if (totalScriptsProcessing >= 0) {
-            totalScriptsProcessing += 1
-            loaderElement.classList.remove("d-none")
-        }
+        // Create rows and accordion structure
+        Object.keys(groupedCookies).forEach(key => {
+            let group = groupedCookies[key];
+
+            // Create a row for the first element
+            let mainRow = createElement("tr", []);
+            let mainCell = createElement("td", ["btn-link"]);
+            mainCell.style.cssText = "overflow-wrap: break-word; max-width: 200px; cursor: pointer;";
+            mainCell.colSpan = Object.keys(group[0]).length; // Span across all columns
+            mainCell.innerText = key;
+
+            // Store the group in a data attribute for later retrieval
+            mainCell.dataset.group = JSON.stringify(group);
+            mainRow.appendChild(mainCell);
+            tbody.appendChild(mainRow);
+
+            // Add click event to toggle visibility of hidden rows and keep headers untouched
+            mainCell.addEventListener("click", () => {
+                let isExpanded = mainCell.dataset.expanded === "true";
+
+                // Toggle stripe classes to maintain the striped appearance
+                let toggleStripeClass = () => {
+                    let rows = tbody.querySelectorAll("tr");
+                    rows.forEach((row, index) => {
+                        row.classList.toggle("striped", index % 2 === 0);
+                    });
+                };
+
+                if (isExpanded) {
+                    // If expanded, remove the additional rows
+                    let nextRow = mainRow.nextElementSibling;
+                    while (nextRow && nextRow.classList.contains("additional-row")) {
+                        tbody.removeChild(nextRow);
+                        nextRow = mainRow.nextElementSibling;
+                    }
+
+                    mainCell.dataset.expanded = "false";
+                } else {
+                    let groupData = JSON.parse(mainCell.dataset.group);
+                    groupData.forEach(cookieChangeObject => {
+                        let additionalRow = createElement("tr", ["additional-row"]);
+
+                        for (let [key, value] of Object.entries(cookieChangeObject)) {
+                            let cell = createElement("td", []);
+                            cell.style.cssText = "overflow-wrap: break-word; max-width: 200px;";
+                            cell.innerText = `${value}`;
+                            additionalRow.appendChild(cell);
+                        }
+
+                        // Insert the additional row after the main row
+                        tbody.insertBefore(additionalRow, mainRow.nextSibling);
+                    });
+
+                    mainCell.dataset.expanded = "true";
+                }
+
+                // Apply the striping again
+                toggleStripeClass();
+            });
+        });
+
+        applySeeMoreToTableCells(tbody);
     }
 }
+
+
+
+
+
+
