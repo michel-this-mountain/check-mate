@@ -62,18 +62,23 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 })();
 
 (function sendBackgroundMessage() {
-    if (cookieChangesJson !== null && cookieChangesJson.hasOwnProperty(currentDomainOpened) && cookieChangesJson !== undefined) {
-        if (cookieChangesJson[currentDomainOpened].length > 0) {
-            let msg = {
-                cookieChange: {
-                    [currentDomainOpened]: cookieChangesJson[currentDomainOpened]
-                },
-                id: "enum-tooling-altered-cookie-messages"
-            };
+    try {
+        if (cookieChangesJson !== null && cookieChangesJson.hasOwnProperty(currentDomainOpened) && cookieChangesJson !== undefined) {
+            if (cookieChangesJson[currentDomainOpened].length > 0) {
+                let msg = {
+                    cookieChange: {
+                        [currentDomainOpened]: cookieChangesJson[currentDomainOpened]
+                    },
+                    id: "enum-tooling-altered-cookie-messages"
+                };
 
-            browser.runtime.sendMessage(msg);
+                browser.runtime.sendMessage(msg);
+            }
         }
+    } catch (e) {
+        console.log(e);
+    } finally {
+        setTimeout(sendBackgroundMessage, 5000)
     }
-    setTimeout(sendBackgroundMessage, 3000)
 })();
 

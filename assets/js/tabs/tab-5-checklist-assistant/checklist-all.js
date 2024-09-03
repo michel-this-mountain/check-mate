@@ -172,6 +172,31 @@ gospider -s <URL> | tee output.txt`,
                     rows: 2,
                     reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
                 },
+                {
+                    title: "Bruteforce the website using gobuster/ dirbuster. Any interesting files or folders?",
+                    description: "Look for directories that are interesting, text for extension that are relevant to the webapp, save things about: development, backups, testing, everything that stands out of the ordinary",
+                    code: `# using gobuster
+gobuster dir -u <URL> -x txt,jsp,html,js -w /usr/share/wordlists/dirb/common.txt -o test.txt`,
+                    code_language: "language-bash",
+                    rows: 2,
+                    reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
+                },
+                {
+                    title: "Bruteforce parameters, to to find hidden parameters",
+                    description: "TODO",
+                    code: `TODO`,
+                    code_language: "language-bash",
+                    rows: 2,
+                    reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
+                },
+                {
+                    title: "Once you have identified all the possible endpoints accepting user input, check for all kind of vulnerabilities related to it",
+                    description: "TODO",
+                    code: `TODO`,
+                    code_language: "language-bash",
+                    rows: 2,
+                    reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
+                },
 
 
             ]

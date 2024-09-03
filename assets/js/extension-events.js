@@ -304,8 +304,7 @@ function initMessageManager() {
         }
 
         if (message.hasOwnProperty("postMessage")) {
-            console.log(message.postMessage[currentTab])
-            buildTableBodyFromObject(message.postMessage[currentTab], "postmessage-monitor-table-table-body", "enum-tooling-postmessage-monitor-count", false, true);
+            buildTableBodyFromObject(message.postMessage[currentTab], "postmessage-monitor-table-table-body", "enum-tooling-postmessage-monitor-count", false);
         }
 
         if (message.hasOwnProperty("cookieChange")) {
@@ -387,10 +386,20 @@ function initMessageManager() {
     });
 }
 
-
-function buildTableBodyFromObject(dataObject, tableBodyId, countId, includeHierarchy = false, jsonValue = false) {
+/**
+ * build a table based of a object with the following structure:
+ * if includehierarchy is
+ *
+ *
+ *
+ * @param dataArray array of objects : [{k:v, k2:v2}, {k:v, k2:v2}, {k:v, k2:v2}]
+ * @param tableBodyId id of the tbody element
+ * @param countId the count id of the object
+ * @param includeHierarchy Hierarchy that is based off the
+ */
+function buildTableBodyFromObject(dataArray, tableBodyId, countId, includeHierarchy = false) {
     // Update the count element
-    document.getElementById(countId).innerText = dataObject.length;
+    document.getElementById(countId).innerText = dataArray.length;
 
     // Get the table body element and its update attribute
     let tbody = document.getElementById(tableBodyId);
@@ -399,41 +408,44 @@ function buildTableBodyFromObject(dataObject, tableBodyId, countId, includeHiera
     if (tbodyUpdate === "true") {
         tbody.innerHTML = ""; // Clear the table body if update is true
 
-        // If includeHierarchy is true, sort and group the data
+        const removeQuotes = str => {
+            return str.replace(/^"|"$/g, '');
+        };
+
         if (includeHierarchy) {
             // Remove the first record and save it
-            let firstRecord = dataObject.splice(0, 1)[0];
+            let firstRecord = dataArray.splice(0, 1)[0];
 
-            // Sort the remaining cookies in descending order based on the first element (assumed to be a key)
-            let sortedCookies = dataObject.sort((a, b) => {
-                let keyA = Object.values(a)[0];
-                let keyB = Object.values(b)[0];
+            // Sort the remaining items based on the first key's value in descending order
+            let sortedItems = dataArray.sort((a, b) => {
+                let keyA = removeQuotes(JSON.stringify(Object.values(a)[0])); // Convert to string and remove quotes
+                let keyB = removeQuotes(JSON.stringify(Object.values(b)[0])); // Convert to string and remove quotes
                 return keyB.localeCompare(keyA); // Descending order
             });
 
             // Reinsert the first record at the beginning
-            sortedCookies.unshift(firstRecord);
+            sortedItems.unshift(firstRecord);
 
-            // Group cookies by the first element (key)
-            let groupedCookies = {};
-            sortedCookies.forEach(cookieChangeObject => {
-                let key = Object.values(cookieChangeObject)[0];
-                if (!groupedCookies[key]) {
-                    groupedCookies[key] = [];
+            // Group items by the first key's value
+            let groupedItems = {};
+            sortedItems.forEach(item => {
+                let key = removeQuotes(JSON.stringify(Object.values(item)[0])); // Convert to string and remove quotes
+                if (!groupedItems[key]) {
+                    groupedItems[key] = [];
                 }
-                groupedCookies[key].unshift(cookieChangeObject);
+                groupedItems[key].unshift(item);
             });
 
             // Create rows and accordion structure
-            Object.keys(groupedCookies).forEach(key => {
-                let group = groupedCookies[key];
+            Object.keys(groupedItems).forEach(key => {
+                let group = groupedItems[key];
 
                 // Create a row for the first element
                 let mainRow = createElement("tr", []);
                 let mainCell = createElement("td", ["btn-link"]);
                 mainCell.style.cssText = "overflow-wrap: break-word; max-width: 200px; cursor: pointer;";
                 mainCell.colSpan = Object.keys(group[0]).length; // Span across all columns
-                mainCell.innerText = key;
+                mainCell.innerText = key; // key is already processed to remove quotes
 
                 // Store the group in a data attribute for later retrieval
                 mainCell.dataset.group = JSON.stringify(group);
@@ -463,15 +475,15 @@ function buildTableBodyFromObject(dataObject, tableBodyId, countId, includeHiera
                         mainCell.dataset.expanded = "false";
                     } else {
                         let groupData = JSON.parse(mainCell.dataset.group);
-                        groupData.forEach(cookieChangeObject => {
+                        groupData.forEach(item => {
                             let additionalRow = createElement("tr", ["additional-row"]);
 
-                            for (let [key, value] of Object.entries(cookieChangeObject)) {
+                            Object.entries(item).forEach(([key, value]) => {
                                 let cell = createElement("td", []);
                                 cell.style.cssText = "overflow-wrap: break-word; max-width: 200px;";
-                                cell.innerText = jsonValue ? JSON.stringify(value) : value;
+                                cell.innerText = removeQuotes(JSON.stringify(value)); // Convert value to string and remove quotes
                                 additionalRow.appendChild(cell);
-                            }
+                            });
 
                             // Insert the additional row after the main row
                             tbody.insertBefore(additionalRow, mainRow.nextSibling);
@@ -486,13 +498,13 @@ function buildTableBodyFromObject(dataObject, tableBodyId, countId, includeHiera
             });
         } else {
             // If includeHierarchy is false, simply add the rows without grouping
-            dataObject.forEach(cookieChangeObject => {
+            dataArray.forEach(item => {
                 let row = createElement("tr", []);
 
-                Object.values(cookieChangeObject).forEach(value => {
+                Object.entries(item).forEach(([key, value]) => {
                     let cell = createElement("td", []);
                     cell.style.cssText = "overflow-wrap: break-word; max-width: 200px;";
-                    cell.innerText = jsonValue ? JSON.stringify(value) : value;
+                    cell.innerText = removeQuotes(JSON.stringify(value)); // Convert value to string and remove quotes
                     row.appendChild(cell);
                 });
 
@@ -503,6 +515,8 @@ function buildTableBodyFromObject(dataObject, tableBodyId, countId, includeHiera
         applySeeMoreToTableCells(tbody);
     }
 }
+
+
 
 
 
