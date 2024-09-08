@@ -6,10 +6,13 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
     // Query the active tab and send a command to the content script
     const tabs = await browser.tabs.query({active: true, currentWindow: true});
     if (tabs.length > 0) {
-        if (message.command === "ping") {
+        if (message.command === "background-ping") {
             currentTabOpened = new URL(tabs[0].url);
             currentDomainOpened = currentTabOpened.hostname
-        } else {
+        } else if (message.command === "background-reset-cookies") {
+            cookieChangesJson = {};
+        }
+        else {
             let activeTabId = tabs[0].id;
             browser.tabs.sendMessage(activeTabId, {command: message.command, id: message.id});
         }
@@ -72,7 +75,11 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
                     id: "enum-tooling-altered-cookie-messages"
                 };
 
-                browser.runtime.sendMessage(msg);
+                browser.runtime.sendMessage(msg)
+                    .catch(error => {
+                        // Handle any errors that occurred, if any error is triggered, it is most likely due to the plugin being closed
+                        // console.log("Error sending message (Plugin is closed):", error);
+                    });
             }
         }
     } catch (e) {

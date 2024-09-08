@@ -1,6 +1,11 @@
 // script that gets injected in the specified urls (manifest.json)
 browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
+    console.log(message.command)
     switch (message.command) {
+        // ## GENERAL START ## //
+
+        // ## GENERAL START ## //
+
         // ## TAB 1 'general tooling' START ## //
         // ## TAB 1 'general tooling' END ## //
 

@@ -182,9 +182,14 @@ gobuster dir -u <URL> -x txt,jsp,html,js -w /usr/share/wordlists/dirb/common.txt
                     reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
                 },
                 {
-                    title: "Bruteforce parameters, to to find hidden parameters",
-                    description: "TODO",
-                    code: `TODO`,
+                    title: "Bruteforce for hidden parameters, what parameters are returning a response that differes in comparison to others?",
+                    description: "Bruteforce for hidden parameters",
+                    code: `# using gobuster
+gobuster fuzz -u <URL>/FUZZ -w /usr/share/wordlists/dirb/common.txt --exclude-length 6821
+
+# wordlist
+# https://github.com/xsscx/Commodity-Injection-Signatures/blob/master/parameter/well-known-parameter-names-brute-force.txt
+`,
                     code_language: "language-bash",
                     rows: 2,
                     reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"

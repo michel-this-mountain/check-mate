@@ -1,2 +1,0 @@
-white: #FFFFFF
-gray: #7e7e7e

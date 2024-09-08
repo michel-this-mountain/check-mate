@@ -9,6 +9,7 @@ let postMessageEventsJson = null;
 (function interceptPostMessages() {
     const originalPostMessage = window.postMessage;
     console.log('[*][CM] Postmessage monitor initialized');
+
     // Array to store postMessage events
     const postMessageEvents = [];
 
@@ -30,9 +31,10 @@ let postMessageEventsJson = null;
     // Intercept received messages
     window.addEventListener("message", function (event) {
         const sanitizedMessage = sanitizeMessage(event.data);
+        const timestamp = new Date().toISOString().replace('T', ' ').replace('Z', '');
         const eventDetails = {
             message: sanitizedMessage,
-            timestamp: new Date().toISOString()
+            timestamp: timestamp
         };
         postMessageEvents.push(eventDetails);
     });

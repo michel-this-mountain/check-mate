@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Create a new URL object from the tab's URL
         currentTab = new URL(tab.url);
         currentDomain = currentTab.hostname;  // Extract the hostname (domain)
-        browser.runtime.sendMessage({command: "ping"});
+        browser.runtime.sendMessage({command: "background-ping"});
 
         // Adjust the tab URL display
         document.querySelectorAll(".current-tab-url").forEach(function (element) {
@@ -32,6 +32,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('Error querying active tab:', error);
     }
 });
+
+/**
+ * initEventListeners()
+ *
+ * initializes all the event listeners - see main.js
+ */
+function initEventListeners(methods) {
+    methods.forEach(method => {
+        method();
+    });
+}
 
 /**
  * initReplaceHover()
@@ -126,6 +137,44 @@ function initCopyContentByClass() {
 }
 
 let activeCopyIcon = null;
+
+/**
+ * initCopyContentByClass
+ *
+ * reset the content given in by class
+ */
+function initResetContentByClass() {
+    document.querySelectorAll(".reset-button").forEach(element => {
+
+        // retrieve the img element inside the 'element'
+        let imgElement = element.querySelector('img');
+        if (!imgElement) return; // Ensure img element exists before continuing
+
+        // add an event listener for when it is clicked
+        element.addEventListener("click", function () {
+            browser.runtime.sendMessage({command: imgElement.getAttribute("data-reset-command")});
+
+            if (imgElement.hasAttribute("data-reset-target")) {
+                document.getElementById(imgElement.getAttribute("data-reset-target")).innerHTML = "";
+            }
+
+            if (imgElement.hasAttribute("data-reset-count-target")) {
+                document.getElementById(imgElement.getAttribute("data-reset-count-target")).innerHTML = 0;
+            }
+        });
+
+        // replace the image when a user enters
+        element.addEventListener("mouseenter", function () {
+            imgElement.src = "assets/icons/general/reset-hover.png";
+        });
+
+        // replace the image when a user leaves
+        element.addEventListener("mouseout", function () {
+            imgElement.src = "assets/icons/general/reset.png";
+        });
+    });
+}
+
 
 /**
  * initRefreshControl()
@@ -299,7 +348,7 @@ function initMessageManager() {
 
         if (message.hasOwnProperty("enumToolingGetCurrentUrlIframe")) {
             // Relay the message back to the popup script
-            document.getElementById("enum-tooling-iframe-url-input").innerText = message.enumToolingGetCurrentUrlIframe
+            document.getElementById("enum-tooling-iframe-url-input").innerText = message.enumToolingGetCurrentUrlIframe;
             document.getElementById("enum-tooling-iframe-url-input").value = message.enumToolingGetCurrentUrlIframe
         }
 
@@ -423,6 +472,9 @@ function buildTableBodyFromObject(dataArray, tableBodyId, countId, includeHierar
                 return keyB.localeCompare(keyA); // Descending order
             });
 
+            // Reverse the order for DESCENDING insert (from latest to oldest)
+            sortedItems.reverse();
+
             // Reinsert the first record at the beginning
             sortedItems.unshift(firstRecord);
 
@@ -440,7 +492,7 @@ function buildTableBodyFromObject(dataArray, tableBodyId, countId, includeHierar
             Object.keys(groupedItems).forEach(key => {
                 let group = groupedItems[key];
 
-                // Create a row for the first element
+                // Create a row for the clickable element
                 let mainRow = createElement("tr", []);
                 let mainCell = createElement("td", ["btn-link"]);
                 mainCell.style.cssText = "overflow-wrap: break-word; max-width: 200px; cursor: pointer;";
@@ -452,7 +504,7 @@ function buildTableBodyFromObject(dataArray, tableBodyId, countId, includeHierar
                 mainRow.appendChild(mainCell);
                 tbody.appendChild(mainRow);
 
-                // Add click event to toggle visibility of hidden rows and keep headers untouched
+                // Add click event to toggle visibility of hidden rows and display table headers
                 mainCell.addEventListener("click", () => {
                     let isExpanded = mainCell.dataset.expanded === "true";
 
@@ -475,9 +527,22 @@ function buildTableBodyFromObject(dataArray, tableBodyId, countId, includeHierar
                         mainCell.dataset.expanded = "false";
                     } else {
                         let groupData = JSON.parse(mainCell.dataset.group);
+
+                        // Add the table header (keys) first
+                        let headerRow = createElement("tr", ["header-row", "additional-row"]);
+                        Object.keys(groupData[0]).forEach(key => {
+                            let headerCell = createElement("th", []);
+                            headerCell.style.cssText = "overflow-wrap: break-word; max-width: 200px;";
+                            headerCell.innerText = key;
+                            headerRow.appendChild(headerCell);
+                        });
+
+                        // Insert the header row directly after the clicked row (mainRow)
+                        tbody.insertBefore(headerRow, mainRow.nextSibling);
+
+                        // Add the table content for each item
                         groupData.forEach(item => {
                             let additionalRow = createElement("tr", ["additional-row"]);
-
                             Object.entries(item).forEach(([key, value]) => {
                                 let cell = createElement("td", []);
                                 cell.style.cssText = "overflow-wrap: break-word; max-width: 200px;";
@@ -485,9 +550,13 @@ function buildTableBodyFromObject(dataArray, tableBodyId, countId, includeHierar
                                 additionalRow.appendChild(cell);
                             });
 
-                            // Insert the additional row after the main row
-                            tbody.insertBefore(additionalRow, mainRow.nextSibling);
+                            // Insert the additional row after the header row
+                            tbody.insertBefore(additionalRow, headerRow.nextSibling);
+                            headerRow = additionalRow; // Update headerRow to insert the next row after the current row
                         });
+
+                        // Apply "see more" functionality to the newly added rows
+                        applySeeMoreToTableCells(tbody);
 
                         mainCell.dataset.expanded = "true";
                     }
@@ -498,6 +567,7 @@ function buildTableBodyFromObject(dataArray, tableBodyId, countId, includeHierar
             });
         } else {
             // If includeHierarchy is false, simply add the rows without grouping
+            dataArray.reverse();
             dataArray.forEach(item => {
                 let row = createElement("tr", []);
 
@@ -510,11 +580,15 @@ function buildTableBodyFromObject(dataArray, tableBodyId, countId, includeHierar
 
                 tbody.appendChild(row);
             });
-        }
 
-        applySeeMoreToTableCells(tbody);
+            // Apply "see more" functionality
+            applySeeMoreToTableCells(tbody);
+        }
     }
 }
+
+
+
 
 
 

@@ -791,15 +791,18 @@
                                      style="height: 420px"
                                      role="tabpanel">
 
-                                    <h6>
-                                        Postmessage monitor: <br>
-                                        <small>
-                                            <span class="current-tab-url"></span>
-                                        </small>
-                                    </h6>
+                                    <div class="d-flex justify-content-start">
+                                        <h6 class="mt-1">
+                                            Postmessage monitor&nbsp;
+                                        </h6>
+                                    </div>
 
-                                    <div class="form-group d-flex justify-content-between">
-                                        <input class="form-control w-75 me-1" type="text" id="search-postmessage-input"
+                                    <small>
+                                        <span class="current-tab-url"></span>
+                                    </small>
+
+                                    <div class="input-group d-flex justify-content-between">
+                                        <input class="form-control w-75" type="text" id="search-postmessage-input"
                                                placeholder="Search...">
                                         <button class="refresh-control btn btn-outline-danger w-25"
                                                 id="refresh-button-postmessage-monitor-table-body"
@@ -825,22 +828,36 @@
                                 <div class="tab-pane fade mt-1" id="enum-tooling-cookie-monitor-tab"
                                      style="height: 420px" role="tabpanel">
 
-                                    <h6>
-                                        Cookie monitor:
-                                        <br>
-                                        <small>
-                                            <span class="current-domain-url"></span>
-                                        </small>
-                                    </h6>
+                                    <div class="d-flex justify-content-start">
+                                        <h6 class="mt-1">
+                                            Cookie monitor&nbsp;
+                                        </h6>
+                                        <a class="reset-button" href="#">
+                                            <img
+                                                    value="reset-cookies"
+                                                    data-reset-command="background-reset-cookies"
+                                                    data-reset-target="cookie-monitor-table-table-body"
+                                                    data-reset-count-target="enum-tooling-cookie-monitor-count"
+                                                    data-bs-toggle="tooltip"
+                                                    data-bs-placement="right" title="Reset cookies"
+                                                    src="assets/icons/general/reset.png" width="20px"
+                                                    height="20px;">
+                                        </a>
+                                    </div>
 
-                                    <div class="form-group d-flex justify-content-between">
-                                        <input class="form-control w-75 me-1" type="text"
+                                    <small>
+                                        <span class="current-domain-url"></span>
+                                    </small>
+
+                                    <div class="input-group d-flex justify-content-between">
+                                        <input class="form-control w-75" type="text"
                                                id="search-cookie-monitor-input"
                                                placeholder="Search...">
-                                        <button class="refresh-control btn btn-outline-danger w-25"
+
+                                        <button class="refresh-control w-25 btn btn-outline-danger"
                                                 id="refresh-button-cookie-monitor-table-body"
                                                 value="cookie-monitor-table-table-body"
-                                                data-control-refresh-active="true">Stop refresh
+                                                data-control-refresh-active="true">Stop&nbsp;refresh
                                         </button>
                                     </div>
 
@@ -848,16 +865,7 @@
                                         <table id="cookie-monitor-table"
                                                class="table table-responsive-sm table-hover table-striped">
                                             <thead>
-                                            <th>Name</th>
-                                            <th>Value</th>
-                                            <th>Domain</th>
-                                            <th>Path</th>
-                                            <th>Httponly</th>
-                                            <th>Secure</th>
-                                            <th>Samesite</th>
-                                            <th>Cause</th>
-                                            <th>Removed</th>
-                                            <th>Timestamp</th>
+                                            <th class="w-50" colspan="10">Cookie name</th>
                                             </thead>
                                             <tbody id="cookie-monitor-table-table-body" data-control-update="true">
 

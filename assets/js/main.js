@@ -3,25 +3,19 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     // init the event listeners for the nav menu on the left (global)
-    initReplaceHoverNavbar()
-
-    // init the tab persistence (global)
-    initTabPersistence()
-
-    // init the copy content by class (global)
-    initCopyContentByClass();
-
-    // init the logo control, for acting with the logo (global)
-    initLogoControl();
+    initEventListeners([
+        initReplaceHoverNavbar,
+        initTabPersistence,
+        initCopyContentByClass,
+        initResetContentByClass,
+        initLogoControl,
+        initRefreshControl,
+        initTooltip
+        ]
+    )
 
     // init the message manager (global)
     initMessageManager();
-
-    // init the refresh control (global, but for now only applies to: message listener tab - enum tooling)
-    initRefreshControl();
-
-    // tooltip bootstrap init (global)
-    initTooltip()
 
     // init/build the content for the shell assistant tabs (reverse, bind, transfer)
     initShellAssistantContent()
