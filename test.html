@@ -1,1 +1,22 @@
-<input type="hidden" value="yooooo">
+<body id="content">
+test
+</body>
+
+<script>
+// Open a new tab
+const newTab = window.open('https://www.example.com', '_blank');
+
+// Wait for the tab to load
+newTab.onload = function() {
+  // Print the HTML content of the new tab
+  const htmlContent = newTab.document.documentElement.outerHTML;
+  console.log('HTML content:', htmlContent);
+
+  // Optionally, wait a short period before closing the tab
+  setTimeout(() => {
+    if (newTab) {
+      newTab.close();
+    }
+  }, 1000); // Adjust the delay as needed (in milliseconds)
+};
+</script>

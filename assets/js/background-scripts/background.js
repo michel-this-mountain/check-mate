@@ -11,8 +11,7 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
             currentDomainOpened = currentTabOpened.hostname
         } else if (message.command === "background-reset-cookies") {
             cookieChangesJson = {};
-        }
-        else {
+        } else {
             let activeTabId = tabs[0].id;
             browser.tabs.sendMessage(activeTabId, {command: message.command, id: message.id});
         }

@@ -31,7 +31,7 @@
     }
   ],
   "background": {
-    "scripts": ["assets/js/background.js"],
+    "scripts": ["assets/js/background-scripts/background.js", "assets/js/background-scripts/webrequest.js"],
     "persistent": true
   },
   "web_accessible_resources": [
