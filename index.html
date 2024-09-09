@@ -811,7 +811,7 @@
                                         </button>
                                     </div>
 
-                                    <div class="table-container">
+                                    <div class="table-container" style="max-height: 350px;">
                                         <table id="postmessage-monitor-table"
                                                class="table table-responsive-sm table-hover table-striped">
                                             <thead>
@@ -861,7 +861,7 @@
                                         </button>
                                     </div>
 
-                                    <div class="table-container">
+                                    <div class="table-container" style="max-height: 350px;">
                                         <table id="cookie-monitor-table"
                                                class="table table-responsive-sm table-hover table-striped">
                                             <thead>
@@ -1020,17 +1020,6 @@
                                      width="25px" height="25px;">
                             </a>
                         </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" id="shell-assistant-MSF-tab" data-bs-toggle="tab"
-                               href="#shell-assistant-msf-content" role="tab">
-                                <img data-bs-toggle="tooltip"
-                                     data-bs-placement="right" title="MSF-venom shells"
-                                     src="assets/icons/navbar/tab-4-shell-assistant/metasploit.png"
-                                     width="25px" height="25px;">
-                            </a>
-                        </li>
-
                     </ul>
                     <!-- shell assistant subtab navigation END -->
 
@@ -1194,7 +1183,9 @@
                              id="shell-assistant-transfer-methods"
                              role="tabpanel" style="height: 485px">
                             <div class="d-flex flex-column justify-content-between h-100">
-                                <h4 class="mt-1">Transfer methods</h4>
+                                <div id="test123">
+                                    <h4 class="mt-1">Transfer methods</h4>
+                                </div>
                                 <!-- local IP and PORT START-->
                                 <div class="form-group d-flex justify-content-between">
                                     <div class="position-relative d-flex w-50">
@@ -1301,18 +1292,6 @@
                             </div>
                         </div>
                         <!-- SHELL ASSISTANT - TRANSFER METHODS END -->
-
-                        <!-- SHELL ASSISTANT - MSF-VENOM SHELLS START -->
-                        <div class="tab-pane fade"
-                             id="shell-assistant-msf-content"
-                             role="tabpanel" style="height: 485px">
-                            <div class="d-flex flex-column justify-content-between h-100">
-                                <div class="mt-2 mb-2">
-                                    <h4> MSF-venom shells </h4>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- SHELL ASSISTANT - MSF-VENOM SHELLS END -->
                     </div>
                 </div>
                 <!-- tab 4 (shell assistant) end -->
@@ -1569,36 +1548,37 @@
                         </div>
                     </div>
                 </div>
-                <!-- tab 7 & 8 (unused) START -->
+                <!-- main content END -->
 
             </div>
-            <!-- main content END -->
-
         </div>
     </div>
-</div>
 
-<!-- modal container -->
-<div id="modal-container">
-    <!-- reserved for modals e.g.: code modals etc.-->
-</div>
-<!-- modal container -->
+    <!-- modal container -->
+    <div id="modal-container">
+        <!-- stabilize shell modal START -->
 
-<!-- general JS used over all tabs START -->
-<script src="assets/js/extension-events.js"></script>
-<script src="assets/js/main.js"></script>
-<!-- general JS used over all tabs END -->
+        <!-- stabilize shell modal END -->
 
-<!-- tab specific script start -->
+        <!-- reserved for modals e.g.: code modals etc.-->
+    </div>
+    <!-- modal container -->
 
-<!-- TABS START -->
-<script src="assets/js/tabs/tab-1-general-tooling/tab-1-general-tooling.js"></script>
-<script src="assets/js/tabs/tab-2-enum-tooling/tab-2-enum-tooling.js"></script>
-<script src="assets/js/tabs/tab-3-exploit-assistant/tab-3-exploit-assistant.js"></script>
-<script src="assets/js/tabs/tab-4-shell-assistant/tab-4-shell-assistant.js"></script>
-<script src="assets/js/tabs/tab-4-shell-assistant/shells.js"></script>
-<script src="assets/js/tabs/tab-5-checklist-assistant/checklist-all.js"></script>
-<!-- TABS END -->
+    <!-- general JS used over all tabs START -->
+    <script src="assets/js/extension-events.js"></script>
+    <script src="assets/js/main.js"></script>
+    <!-- general JS used over all tabs END -->
+
+    <!-- tab specific script start -->
+
+    <!-- TABS START -->
+    <script src="assets/js/tabs/tab-1-general-tooling/tab-1-general-tooling.js"></script>
+    <script src="assets/js/tabs/tab-2-enum-tooling/tab-2-enum-tooling.js"></script>
+    <script src="assets/js/tabs/tab-3-exploit-assistant/tab-3-exploit-assistant.js"></script>
+    <script src="assets/js/tabs/tab-4-shell-assistant/tab-4-shell-assistant.js"></script>
+    <script src="assets/js/tabs/tab-4-shell-assistant/shells.js"></script>
+    <script src="assets/js/tabs/tab-5-checklist-assistant/checklist-all.js"></script>
+    <!-- TABS END -->
 
 </body>
 </html>

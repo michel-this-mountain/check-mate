@@ -44,6 +44,8 @@ function initShellAssistantContent() {
         "shell-assistant-tm-filepath",
         "shell-assistant-tm-filename"
     );
+
+    buildStabilizeShellModal()
 }
 
 /**
@@ -126,6 +128,9 @@ function buildShellAssistantContent(localIpId, localPortId, selectMenuLanguageTo
     localIp.addEventListener("input", replaceAndBuildCodeElement);
     localPort.addEventListener("input", replaceAndBuildCodeElement);
 
+    // at startup, highlight the code
+    setTimeout(replaceAndBuildCodeElement, 100)
+
     function populateShellTypeOptions(shells) {
         shells.forEach(shell => {
             const option = new Option(shell.title, shell.command);
@@ -172,4 +177,18 @@ function buildShellAssistantContent(localIpId, localPortId, selectMenuLanguageTo
         codeElement.textContent = oldCodeElement.textContent;
         return codeElement;
     }
+}
+
+/**
+ * buildStabilizeShellModal()
+ *
+ * Method that builds the modal with info of how to stabilize your tty shell
+ */
+function buildStabilizeShellModal() {
+    let codeElement = new CodeElement('shell-assistant-stabilize-shell-code', "language-bash", `# test
+    `).buildCodeElement();
+
+    let modalButton = new Modal('shell-assistant-stabilize-shell-modal', 'assets/icons/navbar/tab-4-shell-assistant/stabilize-shell.png', 'assets/icons/navbar/tab-4-shell-assistant/stabilize-shell-hover.png', '30', '30', 'Stabilize shell modal').buildModal(codeElement);
+    document.getElementById("test123").appendChild(modalButton);
+
 }
