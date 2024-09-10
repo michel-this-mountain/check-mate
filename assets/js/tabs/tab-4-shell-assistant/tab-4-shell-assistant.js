@@ -185,10 +185,27 @@ function buildShellAssistantContent(localIpId, localPortId, selectMenuLanguageTo
  * Method that builds the modal with info of how to stabilize your tty shell
  */
 function buildStabilizeShellModal() {
-    let codeElement = new CodeElement('shell-assistant-stabilize-shell-code', "language-bash", `# test
-    `).buildCodeElement();
+    const elements = document.querySelectorAll(".shell-assistant-stabilize-shell-modal");
 
-    let modalButton = new Modal('shell-assistant-stabilize-shell-modal', 'assets/icons/navbar/tab-4-shell-assistant/stabilize-shell.png', 'assets/icons/navbar/tab-4-shell-assistant/stabilize-shell-hover.png', '30', '30', 'Stabilize shell modal').buildModal(codeElement);
-    document.getElementById("test123").appendChild(modalButton);
+    elements.forEach(element => {
+        let codeElement = new CodeElement('shell-assistant-stabilize-shell-code', "language-bash", `# step 1 (victim tty)
+python3 -c 'import pty;pty.spawn("/bin/bash")'
+
+# step 2 (victim tty)
+export TERM=xterm
+
+# step 3 (victim tty)
+ctrl + z
+
+# step 4 (your own tty)
+stty raw -echo; fg
+
+# step 5 (victim tty)
+stty rows 38 columns 116
+
+`).buildCodeElement();
+        let modalButton = new Modal('shell-assistant-stabilize-shell-modal', 'assets/icons/navbar/tab-4-shell-assistant/stabilize-shell.png', 'assets/icons/navbar/tab-4-shell-assistant/stabilize-shell-hover.png', '20', '20', 'Fully interactive TTY').buildModal(codeElement);
+        element.appendChild(modalButton);
+    });
 
 }
