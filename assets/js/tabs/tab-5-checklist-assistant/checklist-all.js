@@ -208,12 +208,3 @@ gobuster fuzz -u <URL>/FUZZ -w /usr/share/wordlists/dirb/common.txt --exclude-le
         }],
     },
 }
-
-// {
-//     title: "",
-//     description: "",
-//     code: "",
-//     code_language: "",
-//     rows: 2,
-//     reference: ""
-// },

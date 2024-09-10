@@ -281,7 +281,7 @@
 
                                 <div>
                                     <div class="form-group mb-1">
-                                        <label for="encoding-select-technique">Hashing algorithm</label>
+                                        <label for="encoding-select-technique">Algorithm</label>
                                         <select class="form-select" id="hash-select-algorithm">
                                             <option value="md5" selected>MD5</option>
                                             <option value="bcrypt">BCRYPT</option>
@@ -887,15 +887,6 @@
 
                     <!-- Nested tabs for Enum 3 -->
                     <ul class="nav nav-tabs" id="exploit-assistant-tab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link" id="exploit-assistant-csrf-checker-nav-item" data-bs-toggle="tab"
-                               href="#exploit-assistant-csrf-checker" role="tab">
-                                <img data-bs-toggle="tooltip"
-                                     data-bs-placement="right" title="CSRF assistant"
-                                     src="assets/icons/navbar/tab-3-exploit-assistant/csrf.png"
-                                     width="25px" height="25px">
-                            </a>
-                        </li>
 
                         <li class="nav-item">
                             <a class="nav-link" id="exploit-assistant-xss-nav-item" data-bs-toggle="tab"
@@ -916,11 +907,74 @@
                                      width="25px" height="25px">
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" id="exploit-assistant-csrf-checker-nav-item" data-bs-toggle="tab"
+                               href="#exploit-assistant-csrf-checker" role="tab">
+                                <img data-bs-toggle="tooltip"
+                                     data-bs-placement="right" title="CSRF assistant"
+                                     src="assets/icons/navbar/tab-3-exploit-assistant/csrf.png"
+                                     width="25px" height="25px">
+                            </a>
+                        </li>
+
                     </ul>
 
                     <div class="tab-content" id="exploit-assistant-tab-content">
-                        <!-- tab 1 - csrf checker START -->
-                        <div class="tab-pane fade show active" id="exploit-assistant-csrf-checker"
+
+
+                        <!-- tab 1 - XSS checker START -->
+                        <div class="tab-pane fade show active" id="exploit-assistant-xss"
+                             role="tabpanel" style="height: 485px">
+                            <div class="d-flex flex-column justify-content-between h-100">
+                                <div class="mt-2 mb-2">
+                                    <h4 class="text-dark"> XSS assistant </h4>
+                                </div>
+
+                                <div>
+                                    <div class="form-group mb-1">
+                                        URL
+                                        <!-- start textarea and copybutton-->
+                                        <div class="position-relative d-flex">
+                                        <textarea
+                                                class="form-control"
+                                                rows="1"
+                                                style="width: 100%; padding-right: 40px;"></textarea>
+                                            <a href="#">
+                                                <img class="copy-icon"
+                                                     src="assets/icons/general/copy.png"
+                                                     style="position: absolute; bottom: 5px; right: 5px;"
+                                                     height="25px"
+                                                     width="25px"
+                                                     alt="Copy">
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <button class="btn btn-sm btn-outline-primary w-50"> test for reflected XSS </button>
+                                        <button class="btn btn-sm btn-outline-primary w-50 ms-1"> generate payloads  </button>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- tab 1 - XSS checker END -->
+
+                        <!-- tab 2 - sql-injection checker START -->
+                        <div class="tab-pane fade" id="exploit-assistant-sql-injection"
+                             role="tabpanel" style="height: 485px">
+                            <div class="d-flex flex-column justify-content-between h-100">
+                                <div class="mt-2 mb-2">
+                                    <h4 class="text-dark"> SQL-injection assistant </h4>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- tab 2 - sql-injection checker END -->
+
+                        <!-- tab 3 - csrf checker START -->
+                        <div class="tab-pane fade" id="exploit-assistant-csrf-checker"
                              role="tabpanel" style="height: 485px">
                             <div class="d-flex flex-column justify-content-between h-100">
                                 <div class="mt-2 mb-2">
@@ -951,35 +1005,7 @@
 
                             </div>
                         </div>
-                        <!-- tab 1 - csrf checker END -->
-
-                        <!-- tab 2 - XSS checker START -->
-                        <div class="tab-pane fade" id="exploit-assistant-xss"
-                             role="tabpanel" style="height: 485px">
-                            <div class="d-flex flex-column justify-content-between h-100">
-                                <div class="mt-2 mb-2">
-                                    <h4 class="text-dark"> XSS assistant </h4>
-                                </div>
-
-
-                            </div>
-                        </div>
-
-                        <!-- tab 2 - XSS checker END -->
-
-                        <!-- tab 3 - sql-injection checker START -->
-                        <div class="tab-pane fade" id="exploit-assistant-sql-injection"
-                             role="tabpanel" style="height: 485px">
-                            <div class="d-flex flex-column justify-content-between h-100">
-                                <div class="mt-2 mb-2">
-                                    <h4 class="text-dark"> SQL-injection assistant </h4>
-                                </div>
-
-
-                            </div>
-                        </div>
-                        <!-- tab 3 - sql-injection checker END -->
-
+                        <!-- tab 3 - csrf checker END -->
 
                     </div>
                 </div>
@@ -1560,10 +1586,6 @@
 
     <!-- modal container -->
     <div id="modal-container">
-        <!-- stabilize shell modal START -->
-
-        <!-- stabilize shell modal END -->
-
         <!-- reserved for modals e.g.: code modals etc.-->
     </div>
     <!-- modal container -->
