@@ -310,7 +310,8 @@ function captureAndCopyCodeElementToClipboard(element, language) {
     clone.style.position += 'fixed';
     clone.style.top += '0';
     clone.style.left += '0';
-    clone.style.width += '125%';
+    clone.style.padding = '0';
+    clone.style.margin = '0';
     clone.style.overflow += 'visible'; // Ensure no content is hidden
     clone.style.zIndex += '-9999'; // Make sure the clone doesn't interfere with the layout
     clone.style.whiteSpace = 'pre-wrap'; // Preserve whitespace and wrap long lines
@@ -320,7 +321,6 @@ function captureAndCopyCodeElementToClipboard(element, language) {
 
     // Use html2canvas to capture the clone
     html2canvas(clone, {
-        width: clone.scrollWidth,
         height: clone.scrollHeight
     }).then(function (canvas) {
         // Convert the canvas to a Blob
