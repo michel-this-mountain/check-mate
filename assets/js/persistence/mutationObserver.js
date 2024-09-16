@@ -52,6 +52,7 @@ function setupMutationObserver() {
 
     // Use addGlobalEventListener for dynamic elements
     addGlobalEventListener('change', 'input[type="checkbox"], select', saveElementsToLocalStorage);
+    addGlobalEventListener('change', 'textarea', saveElementsToLocalStorage);
     addGlobalEventListener('input', 'textarea, button', saveElementsToLocalStorage);
 
     saveElementsToLocalStorage();

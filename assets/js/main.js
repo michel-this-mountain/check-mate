@@ -2,6 +2,9 @@
 // across the plugin
 
 document.addEventListener('DOMContentLoaded', () => {
+    // highlight all code elements if it is possible (those that do not require an event listener)
+    hljs.highlightAll();
+
     // init the event listeners for the nav menu on the left (global)
     initEventListeners([
         initReplaceHoverNavbar,
@@ -11,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initLogoControl,
         initRefreshControl,
         initTooltip
-        ]
+    ]
     )
 
     // init the message manager (global)
@@ -89,20 +92,37 @@ function createElement(elementName, classes) {
     return e;
 }
 
+
 /**
  * generateDynamicId()
- *
- * @returns a random dynamic ID
+ * 
+ * Genereert een unieke dynamische ID string.
+ * 
+ * Deze functie creëert een willekeurige ID door het combineren van:
+ * - Willekeurige getallen tussen 1 en 1.000.000
+ * - Willekeurige alfanumerieke strings
+ * 
+ * De resulterende ID is zeer onwaarschijnlijk om te dupliceren,
+ * wat het geschikt maakt voor gebruik als unieke identifier.
+ * 
+ * @returns {string} Een unieke dynamisch gegenereerde ID string
  */
 function generateDynamicId() {
     return `${Math.floor((Math.random() * 999999) + 1)}${Math.random().toString(36)}${Math.floor((Math.random() * 999999) + 1)}${Math.random().toString(36)}${Math.floor((Math.random() * 999999) + 1)}`
 }
 
+
 /**
- * searchTable : searches for a value specific in a table. The number of columns or rows do not matter
+ * searchTable()
  *
- * @param {*} inputFieldId id of the input field (no hashtag)
- * @param {*} tableId id of the table (no hashtag)
+ * Zoekt naar een specifieke waarde in een tabel. Het aantal kolommen of rijen maakt niet uit.
+ *
+ * Deze functie voegt een 'keyup' event listener toe aan het invoerveld met het opgegeven ID.
+ * Wanneer de gebruiker tekst invoert, wordt de waarde vergeleken met de tekst in elke rij van de tabel.
+ * Rijen die de ingevoerde waarde bevatten, worden weergegeven, terwijl andere rijen worden verborgen.
+ *
+ * @param {string} inputFieldId - Het ID van het invoerveld (zonder hashtag).
+ * @param {string} tableId - Het ID van de tabel (zonder hashtag).
  */
 function searchTable(inputFieldId, tableId) {
     $(document).ready(function () {
@@ -305,13 +325,13 @@ function buildDisabledSelectOption(textContent) {
 function captureAndCopyCodeElementToClipboard(element, language) {
     // Create a deep clone of the original element
     const clone = buildCodeElement(element, language);
+    clone.classList.remove("p-2")
+    clone.classList.add("p-0")
 
     // Apply styles to the clone to ensure all content is visible
     clone.style.position += 'fixed';
     clone.style.top += '0';
     clone.style.left += '0';
-    clone.style.padding = '0';
-    clone.style.margin = '0';
     clone.style.overflow += 'visible'; // Ensure no content is hidden
     clone.style.zIndex += '-9999'; // Make sure the clone doesn't interfere with the layout
     clone.style.whiteSpace = 'pre-wrap'; // Preserve whitespace and wrap long lines
@@ -346,3 +366,29 @@ function captureAndCopyCodeElementToClipboard(element, language) {
         document.body.removeChild(clone);
     });
 };
+
+/**
+ * copyElementContent()
+ *
+ * copy the content of an element, including the styles it has applied.
+ *
+ * @param text
+ */
+function copyElementContent(text) {
+    try {
+        navigator.clipboard.writeText(text);
+        console.log('Content copied to clipboard');
+    } catch (err) {
+        console.error('Failed to copy: ', err);
+    }
+}
+
+/**
+ * dispatchInputEvent()
+ *
+ *
+ */
+function dispatchInputEvent(element) {
+    element.dispatchEvent(new Event("input", { bubbles: true, cancelable: true }));
+}
+

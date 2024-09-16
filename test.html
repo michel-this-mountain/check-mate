@@ -1,22 +1,60 @@
-<body id="content">
-test
-</body>
+<!-- HTML entities -->
+&lt;h1&gt; TEST &lt;/h1&gt;
+<br>
 
+<!-- Decimal entities -->
+&#60;h1&#62; TEST &#60;/h1&#62;
+<br>
+
+<!-- Hexadecimal entities -->
+&#x3C;h1&#x3E; TEST &#x3C;/h1&#x3E;
+<br>
+
+<!-- URL encoding -->
+%3Ch1%3E%20TEST%20%3C/h1%3E
+<br>
+
+<!-- Base64 encoding -->
+<script>document.write(atob('PGgxPiBURVNUIDwvaDE+'));</script>
+<br>
+
+<!-- Unicode escapes -->
+\u003Ch1\u003E TEST \u003C/h1\u003E
+<br>
+
+<!-- ASCII codes -->
 <script>
-// Open a new tab
-const newTab = window.open('https://www.example.com', '_blank');
+    document.write(
+        String.fromCharCode(60) + 'h1' + String.fromCharCode(62) +
+        ' TEST ' +
+        String.fromCharCode(60) + '/h1' + String.fromCharCode(62)
+    );
+</script>
+<br>
 
-// Wait for the tab to load
-newTab.onload = function() {
-  // Print the HTML content of the new tab
-  const htmlContent = newTab.document.documentElement.outerHTML;
-  console.log('HTML content:', htmlContent);
+<!-- Binary to char -->
+<script>
+    document.write(
+        String.fromCharCode(parseInt('111100', 2)) + 'h1' +
+        String.fromCharCode(parseInt('111110', 2)) + ' TEST ' +
+        String.fromCharCode(parseInt('111100', 2)) + '/h1' +
+        String.fromCharCode(parseInt('111110', 2))
+    );
+</script>
+<br>
 
-  // Optionally, wait a short period before closing the tab
-  setTimeout(() => {
-    if (newTab) {
-      newTab.close();
-    }
-  }, 1000); // Adjust the delay as needed (in milliseconds)
-};
+<!-- Octal escape sequences (Note: deprecated in strict mode) -->
+\74h1\76 TEST \74/h1\76
+<br>
+
+$(function() {
+$('#backLink').attr("href", (new URLSearchParams(window.location.search)).get('returnPath'));
+});decodeURIComponent('window.location.hash.slice(1)'';prompt(1)//) + ')'
+
+what does this do?
+<script>
+    $(window).on('hashchange', function () {
+        var post = $('section.blog-list h2:contains(' + decodeURIComponent(window.location.hash.slice(1)));window.alert(1)//  " ) + ')');
+        if (post) post.get(0).scrollIntoView();
+    });
 </script>

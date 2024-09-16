@@ -369,7 +369,7 @@ async function extractHeadersAsJson() {
     const url = window.location.href;
     const response = await fetch(url, {method: 'HEAD'});
 
-    const headers = {};
+    const headers = [];
     const interestingHeaders = [
         'access-control-allow-credentials',
         'access-control-allow-headers',
@@ -583,17 +583,20 @@ async function extractHeadersAsJson() {
         if (headerExplanations[lowerName]) {
             foundExplanation = true;
         }
-        headers[name] = {
+
+        headers.push({
+            name: name,
             value: headerValue,
             explanation: headerExplanations[lowerName] || 'N/A.'
-        };
+        })
     });
 
     if (foundExplanation) {
-        headers["Additional Information"] = {
+        headers.push({
+            name: "Additional information",
             value: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web/special-http-headers",
             explanation: "A reference guide for special HTTP headers."
-        };
+        })
     }
 
     return JSON.stringify(headers, null, 2);

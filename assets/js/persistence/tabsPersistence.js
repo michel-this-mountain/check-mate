@@ -105,6 +105,7 @@ const tabs = {
 
     "layer_3": ["#enum-tooling-cookie-monitor-tab", "#enum-tooling-postmessage-monitor-tab",
                 "#checklist-assistant-web-wordpress-check-content", "#checklist-assistant-web-general-check-content",
-                "#checklist-assistant-linux-privesc-content", "#checklist-assistant-windows-privesc-content"
+                "#checklist-assistant-linux-privesc-content", "#checklist-assistant-windows-privesc-content", "#exploit-assistant-xss-assistant-test-tab",
+                "#exploit-assistant-payload-generator-tab"
     ]
 }

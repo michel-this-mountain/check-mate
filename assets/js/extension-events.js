@@ -103,7 +103,7 @@ function initCopyContentByClass() {
                 if (img.classList.contains('copy-icon')) {
                     let textarea = container.querySelector('textarea');
                     if (textarea) {
-                        contentToCopy = textarea.value;
+                        contentToCopy = textarea.value
                     }
                 } else if (img.classList.contains('copy-icon-code')) {
                     let preElement = container.querySelector('pre');
@@ -331,25 +331,35 @@ function initMessageManager() {
             if (isValidJSON(message.enumSpider)) {
                 let simplified = JSON.stringify(JSON.parse(message.enumSpider).simpleTree)
                 let detailed = JSON.stringify(JSON.parse(message.enumSpider).siteTree)
+                let enumToolingSpiderOutput = document.getElementById("enum-tooling-spider-output-textarea");
 
                 document.getElementById("enum-tooling-spider-simplified-view").value = formatJSON(simplified)
                 document.getElementById("enum-tooling-spider-detailed-view").value = formatJSON(detailed)
-                document.getElementById("enum-tooling-spider-output-textarea").innerText = formatJSON(simplified)
-                document.getElementById("enum-tooling-spider-output-textarea").value = formatJSON(simplified)
+
+                enumToolingSpiderOutput.innerText = formatJSON(simplified)
+                enumToolingSpiderOutput.value = formatJSON(simplified)
+
+                dispatchInputEvent(enumToolingSpiderOutput)
             }
         }
 
         if (message.hasOwnProperty("toolboxJson")) {
             if (isValidJSON(message.toolboxJson)) {
-                document.getElementById("enum-tooling-output-textarea").innerText = formatJSON(message.toolboxJson);
-                document.getElementById("enum-tooling-output-textarea").value = formatJSON(message.toolboxJson);
+                let enumToolingToolBoxJsonTextArea = document.getElementById("enum-tooling-output-textarea");
+                enumToolingToolBoxJsonTextArea.innerText = formatJSON(message.toolboxJson);
+                enumToolingToolBoxJsonTextArea.value = formatJSON(message.toolboxJson);
+
+                dispatchInputEvent(enumToolingToolBoxJsonTextArea)
             }
         }
 
         if (message.hasOwnProperty("enumToolingGetCurrentUrlIframe")) {
             // Relay the message back to the popup script
-            document.getElementById("enum-tooling-iframe-url-input").innerText = message.enumToolingGetCurrentUrlIframe;
-            document.getElementById("enum-tooling-iframe-url-input").value = message.enumToolingGetCurrentUrlIframe
+            let enumToolingIframeCheckerInput = document.getElementById("enum-tooling-iframe-url-input")
+            enumToolingIframeCheckerInput.innerText = message.enumToolingGetCurrentUrlIframe;
+            enumToolingIframeCheckerInput.value = message.enumToolingGetCurrentUrlIframe
+
+            dispatchInputEvent(enumToolingIframeCheckerInput)
         }
 
         if (message.hasOwnProperty("postMessage")) {
@@ -358,7 +368,6 @@ function initMessageManager() {
 
         if (message.hasOwnProperty("cookieChange")) {
             buildTableBodyFromObject(message.cookieChange[currentDomain], "cookie-monitor-table-table-body", "enum-tooling-cookie-monitor-count", true);
-
         }
         // ## TAB 2 'enum tooling' END ## //
 
