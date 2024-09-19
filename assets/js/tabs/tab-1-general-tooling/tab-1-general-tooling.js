@@ -183,8 +183,8 @@ function decideEncodingOrDecoding(technique, text) {
         case "b64-d":
             return EncoderDecoder.decodeBase64(text);
         case "uri-e":
-            return EncoderDecoder.decodeURI(text);
-        case "uri-d":
             return EncoderDecoder.encodeURI(text);
+        case "uri-d":
+            return EncoderDecoder.decodeURI(text);
     }
 }
