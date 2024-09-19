@@ -186,5 +186,25 @@ function decideEncodingOrDecoding(technique, text) {
             return EncoderDecoder.encodeURI(text);
         case "uri-d":
             return EncoderDecoder.decodeURI(text);
+        case "decimal-e":
+            return EncoderDecoder.encodeDecimal(text);
+        case "decimal-d":
+            return EncoderDecoder.decodeDecimal(text);
+        case "hex-e":
+            return EncoderDecoder.encodeHex(text);
+        case "hex-d":
+            return EncoderDecoder.decodeHex(text);
+        case "html-e":
+            return EncoderDecoder.encodeHTML(text);
+        case "html-d":
+            return EncoderDecoder.decodeHTML(text);
+        case "unicode-e":
+            return EncoderDecoder.encodeUnicode(text);
+        case "unicode-d":
+            return EncoderDecoder.decodeUnicode(text);
+        case "hexjs-e":
+            return EncoderDecoder.encodeHexJS(text);
+        case "hexjs-d":
+            return EncoderDecoder.decodeHexJS(text);
     }
 }
