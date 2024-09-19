@@ -880,54 +880,33 @@
 
                                             <h6>XSS Payload generator</h6>
 
-                                            <div style="height: 415px;">
-                                                
-                                                <div class="d-flex mb-2 align-items-end">
-                                                    <div class="w-50 me-2">
-                                                        <label for="xssTypeDropdown">1. Where is the value
-                                                            displayed?</label>
-                                                        <select id="xssTypeDropdown" class="form-select">
-                                                            <option value="xssAttributes"
-                                                                data-content='<span class="d-flex align-items-start"><pre class="language-xml"><code class="p-0">&lt;p value=&quot;within an attribute&quot;&gt;&lt;/p&gt;</code></pre></span>'>
-                                                                &lt;p value=&quot;within an
-                                                                attribute&quot;&gt;&lt;/p&gt;
-                                                            </option>
-                                                            <option value="xssTags"
-                                                                data-content='<span class="d-flex align-items-start"><pre class="language-xml"><code class="p-0">&lt;p&gt; within a tag &lt;/p&gt;</code></pre></span>'>
-                                                                &lt;p&gt; within a tag &lt;/p&gt;
-                                                            </option>
-                                                            <option value="xssJavaScript"
-                                                                data-content='<span class="d-flex align-items-start"><pre class="language-javascript"><code class="p-0">let userInput = "within javascript"</code></pre></span>'>
-                                                                let userInput = "within javascript"
-                                                            </option>
-                                                            <option value="xssNoClue"
-                                                                data-content='<span class="d-flex align-items-start"><pre class="language-plaintext"><code class="p-0">No clue</code></pre></span>'>
-                                                                No clue
-                                                            </option>
-                                                        </select>
-                                                    </div>
+                                            <div style="max-height: 100px;">
 
-                                                    <div class="w-50">
-                                                        <label for="xssPayloadType">2. Select payload type</label>
-                                                        <select class="form-select" id="xssPayloadType">
-                                                            <option value="static-payloads">Static payloads</option>
-                                                            <option value="dynamic-payloads">Dynamic payloads</option>
-                                                        </select>
-                                                    </div>
+                                                <div class="d-flex mb-2 align-items-end">
+
                                                 </div>
 
-                                                <div class="d-flex justify-content-between mb-2">
-                                                    <div class="w-50">
-                                                        <label for="exploit-assistant-xss-payloads">3. Select criteria</label>
-                                                        <select class="form-select" id="exploit-assistant-xss-payloads">
-                                                            <option value="hex">Hex</option> <!-- Gewijzigd naar 'hex' voor consistentie -->
-                                                            <option value="dynamic-payloads">Dynamic payloads</option> <!-- Gewijzigd voor duidelijkheid -->
-                                                            <option value="blabla">Blabla</option> <!-- Voorbeeldoptie -->
+                                                <div class="d-flex flex-wrap justify-content-between mb-2">
+                                                    <div class="w-100">
+                                                        <select id="enum-tooling-xss-type-dropdown" class="form-select">
+                                                            <option disabled selected>1. What is the context?</option>
+                                                            <option value="enum-tooling-xss-attribute">
+                                                                2. Within an attribute: &lt;p value=&quot;within an attribute&quot;&gt;&lt;/p&gt;
+                                                            </option>
+                                                            <option value="enum-tooling-xss-tag">
+                                                                3. Within a tag: &lt;pre&gt;within a tag&lt;/pre&gt;
+                                                            </option>
+                                                            <option value="enum-tooling-xss-script">
+                                                                4. Within a script tag: &lt;script&gt;let userInput = &quot;within javascript&quot;;&lt;/script&gt;
+                                                            </option> 
+                                                            <option value="enum-tooling-xss-javascript">
+                                                                5. Within JavaScript: let userInput = &quot;within javascript&quot;;
+                                                            </option>
                                                         </select>
                                                     </div>
-                                                    <div class="w-50 me-2">
-                                                        <label class="ms-2">4. Generate</label>
-                                                        <button class="w-100 btn btn-outline-primary ms-2" id="generateButton">
+                                                    <div class="w-100 mt-2">
+                                                        <button class="w-100 btn btn-outline-primary"
+                                                            id="generateButton">
                                                             Generate
                                                         </button>
                                                     </div>
@@ -936,8 +915,8 @@
                                                 <div class="form-group">
                                                     <!-- start textarea and copybutton-->
                                                     <div class="position-relative d-flex">
-                                                        <textarea class="form-control" rows="11"
-                                                            style="width: 100%; padding-right: 40px;"></textarea>
+                                                        <textarea class="form-control" id="enum-tooling-xss-payload-textarea-output"
+                                                            style="width: 100%; padding-right: 40px; height: 310px;"></textarea>
                                                         <a href="#">
                                                             <img class="copy-icon" src="assets/icons/general/copy.png"
                                                                 style="position: absolute; bottom: 5px; right: 5px;"

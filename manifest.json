@@ -2,14 +2,12 @@
   "manifest_version": 2,
   "name": "Check-mate",
   "version": "1.0",
-  "description": "A Firefox extension that helps you with various tooling and quick recon",
+  "description": "A Firefox extension for tooling and quick recon",
   "icons": {
     "48": "assets/icons/logo.png"
   },
   "browser_action": {
-    "default_icon": {
-      "48": "assets/icons/logo.png"
-    },
+    "default_icon": "assets/icons/logo.png",
     "default_title": "Check-mate",
     "default_popup": "index.html"
   },
@@ -18,8 +16,7 @@
     "cookies",
     "activeTab",
     "storage",
-    "http://*/",
-    "https://*/",
+    "<all_urls>",
     "webNavigation",
     "webRequest",
     "webRequestBlocking"
@@ -34,8 +31,6 @@
     "scripts": ["assets/js/background-scripts/background.js", "assets/js/background-scripts/webrequest.js"],
     "persistent": true
   },
-  "web_accessible_resources": [
-    "assets/icons/logo.png"
-  ],
+  "web_accessible_resources": ["assets/icons/logo.png"],
   "content_security_policy": "script-src 'self'; object-src 'self'"
 }

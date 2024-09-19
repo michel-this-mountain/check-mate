@@ -91,16 +91,16 @@ echo $var
             chapter: "1. Enumeration",
             checks: [
                 {
-                    title: "Where is the system used for? get Context.",
-                    description: "Questions you can ask yourself: 1. what is a usecase of this system? 2. what is the purpose of this system? 3. what is the system used for?",
+                    title: "Understand System Context",
+                    description: "Identify the system's purpose, use cases, and functionality.",
                     code: noCodeAvailable,
                     code_language: noCodeAvailableLanguage,
                     rows: 2,
                     reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
                 },
                 {
-                    title: "What technologies are being used by the web server?",
-                    description: "Wappalyzer plugin, check headers, check sourcecode",
+                    title: "Identify Web Server Technologies",
+                    description: "Use Wappalyzer, check headers and source code to determine technologies in use.",
                     code: `# 1
 whatweb -a 1 <IP> # stealthy
 
@@ -114,16 +114,16 @@ whatweb -a 3 <IP> # aggressive
                     reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
                 },
                 {
-                    title: "Any known vulnerability of the version of the technology?",
-                    description: "Think about public available PoC's",
+                    title: "Check for Known Vulnerabilities",
+                    description: "Research and identify any public PoCs for the detected technologies.",
                     code: noCodeAvailable,
                     code_language: noCodeAvailableLanguage,
                     rows: 2,
                     reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
                 },
                 {
-                    title: "Is there any specialised scanner that can be ran on it? wpscan, joomscan etc.",
-                    description: "check for specialised scanners",
+                    title: "Run Specialized Scanners",
+                    description: "Utilize technology-specific scanners like wpscan, joomscan, etc.",
                     code: `# wpscan - https://github.com/wpscanteam/wpscan 
 # joomscan - https://github.com/OWASP/joomscan
 # cmsmap - https://github.com/dionach/CMSmap
@@ -132,8 +132,8 @@ whatweb -a 3 <IP> # aggressive
                     rows: 2,
                     reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
                 },{
-                    title: "Run automated scanners, any interesting results?",
-                    description: "Run automated scanners",
+                    title: "Execute Automated Scans",
+                    description: "Run various automated scanners and analyze results for vulnerabilities.",
                     code: `nikto -h <URL>
 whatweb -a 4 <URL>
 wapiti -u <URL>
@@ -144,8 +144,8 @@ nuclei -ut && nuclei -target <URL>`,
                     reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
                 },
                 {
-                    title: "Search for interesting files, check the 'associated code' for more info.",
-                    description: "search for interesting files",
+                    title: "Locate Interesting Files",
+                    description: "Search for common files that may contain sensitive information.",
                     code: `/robots.txt
 /sitemap.xml
 /crossdomain.xml
@@ -156,16 +156,16 @@ nuclei -ut && nuclei -target <URL>`,
                     reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
                 },
                 {
-                    title: "Check for comments on the main and secondary pages. Anything interesting?",
-                    description: "search for comments",
+                    title: "Analyze Page Comments",
+                    description: "Examine HTML comments on main and secondary pages for sensitive data.",
                     code: `# use the comment extractor tool under the 'enumeration tooling' tab`,
                     code_language: "language-bash",
                     rows: 2,
                     reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
                 },
                 {
-                    title: "Spider the website, any interesting files/folders?",
-                    description: "retrieve all the files/ folders that are present on the webserver.",
+                    title: "Spider the Website",
+                    description: "Map out the website structure and identify potentially interesting files/folders.",
                     code: `# using gospider
 gospider -s <URL> | tee output.txt`,
                     code_language: "language-bash",
@@ -173,8 +173,8 @@ gospider -s <URL> | tee output.txt`,
                     reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
                 },
                 {
-                    title: "Bruteforce the website using gobuster/ dirbuster. Any interesting files or folders?",
-                    description: "Look for directories that are interesting, text for extension that are relevant to the webapp, save things about: development, backups, testing, everything that stands out of the ordinary",
+                    title: "Directory and File Brute-forcing",
+                    description: "Use tools like gobuster to discover hidden directories and files, focusing on development, backups, and testing areas.",
                     code: `# using gobuster
 gobuster dir -u <URL> -x txt,jsp,html,js -w /usr/share/wordlists/dirb/common.txt -o test.txt`,
                     code_language: "language-bash",
@@ -182,14 +182,14 @@ gobuster dir -u <URL> -x txt,jsp,html,js -w /usr/share/wordlists/dirb/common.txt
                     reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
                 },
                 {
-                    title: "Bruteforce for hidden parameters, what parameters are returning a response that differes in comparison to others?",
-                    description: "Bruteforce for hidden parameters",
-                    code: `# using gobuster
-gobuster fuzz -u <URL>/FUZZ -w /usr/share/wordlists/dirb/common.txt --exclude-length 6821
+                    title: "Bruteforce for hidden parameters",
+                    description: "Identify parameters that return different responses compared to others",
+                    code: `# Using Gobuster for parameter fuzzing
+gobuster fuzz -u <URL>?FUZZ=test -w /path/to/parameter/wordlist.txt -b 200
 
-# wordlist
-# https://github.com/xsscx/Commodity-Injection-Signatures/blob/master/parameter/well-known-parameter-names-brute-force.txt
-`,
+# Using Arjun for parameter discovery
+# https://github.com/s0md3v/Arjun
+arjun -u <URL> -w /path/to/parameter/wordlist.txt`,
                     code_language: "language-bash",
                     rows: 2,
                     reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
