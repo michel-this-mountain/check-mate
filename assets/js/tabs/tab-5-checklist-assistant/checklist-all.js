@@ -86,9 +86,118 @@ echo $var
                 ]
             }]
     },
+
+
     web_pentest_general: {
-        checklist_general: [{
-            chapter: "1. Enumeration",
+        checklist_general: [
+            {
+                chapter: "1. Recon",
+                checks: [
+                    {
+                        title: "OSINT - Gather subdomains",
+                        description: "Gather subdomains of the target domain.",
+                        code: `# more tools can be found in the link
+# navigate to the following website to find subdomains
+https://crt.sh
+
+# subfinder
+subfinder -d example.com
+
+# sublist3r
+sublist3r -d example.com
+
+# bbot (https://github.com/blacklanternsecurity/bbot)
+bbot -t example.com -f subdomain-enum
+
+# bbot (passive only)
+bbot -t example.com -f subdomain-enum -rf passive
+                        
+# using theHarvester
+theHarvester -d example.com -b all -l 200`,
+                        code_language: "language-bash",
+                        rows: 2,
+                        reference: "https://book.hacktricks.xyz/generic-methodologies-and-resources/external-recon-methodology#osint"
+                    },
+                    {
+                        title: "OSINT - Google Dork",
+                        description: "Try to find information about the target domain.",
+                        code: `# use the build-in tool/ query the following commands
+# find exposed directories
+site:example.com intitle:"index of"
+
+# search for specific file types
+site:example.com filetype:pdf | filetype:doc | filetype:xls
+
+# locate configuration files
+site:example.com ext:conf | ext:cnf | ext:config | ext:ini | ext:env
+
+# find pages containing sensitive keywords
+site:example.com intext:"password" | intext:"username" | intext:"login"
+
+# discover publicy accessible backup and old files
+site:example.com ext:bak | ext:old | ext:backup | ext:sql
+                        `,
+                        code_language: "language-bash",
+                        rows: 2,
+                        reference: "https://www.exploit-db.com/google-hacking-database"
+                    },
+                    {
+                        title: "OSINT - Metadata extraction",
+                        description: "Retrieve PDFs, images, or documents from the target's website.",
+                        code: `# Use tools like ExifTool to extract 
+# metadata which may reveal usernames, 
+# software versions, or internal paths.
+exiftool <file>
+                        `,
+                        code_language: "language-bash",
+                        rows: 2,
+                        reference: "https://exiftool.org/"
+                    },
+                    {
+                        title: "OSINT - Public Code Repositories",
+                        description: "Search public code repositories like GitHub or GitLab for information related to the target organization.",
+                        code: `# Search GitHub for repositories belonging to the target organization
+# Replace 'exampleorg' with the organization's GitHub username
+https://github.com/exampleorg
+
+# Use GitHub's advanced search to find mentions of the target domain
+# Replace 'example.com' with the target domain
+https://github.com/search?q=example.com&type=Code
+
+# Clone a repository of interest
+git clone https://github.com/exampleorg/repository-name.git
+
+# Use tools like 'gitdumper' to dump exposed '.git' directories from websites
+# Install GitTools: https://github.com/internetwache/GitTools
+gitdumper https://example.com/.git/ /path/to/dump/
+                        `,
+                        code_language: "language-bash",
+                        rows: 2,
+                        reference: "https://book.hacktricks.xyz/generic-methodologies-and-resources/external-recon-methodology#code-repositories"
+                    },
+                    {
+                        title: "OSINT - Gather email addresses",
+                        description: "Use tools like email-finder to find email addresses related to the target domain.",
+                        code: `# anymailfinder
+https://newapp.anymailfinder.com/search/single
+
+# using theHarvester
+theHarvester -d example.com -b all -l 200`,
+                        code_language: noCodeAvailableLanguage,
+                        rows: 2,
+                        reference: ""
+                    },
+                    {
+                        title: "",
+                        description: "",
+                        code: noCodeAvailable,
+                        code_language: noCodeAvailableLanguage,
+                        rows: 2,
+                        reference: ""
+                    }
+                ]
+            },{
+            chapter: "2. Enumeration",
             checks: [
                 {
                     title: "Understand System Context",
@@ -208,3 +317,14 @@ arjun -u <URL> -w /path/to/parameter/wordlist.txt`,
         }],
     },
 }
+
+
+// ,
+//                     {
+//                         title: "",
+//                         description: "",
+//                         code: noCodeAvailable,
+//                         code_language: noCodeAvailableLanguage,
+//                         rows: 2,
+//                         reference: ""
+//                     }
