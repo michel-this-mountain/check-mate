@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // highlight all code elements if it is possible (those that do not require an event listener)
     hljs.highlightAll();
 
+    // init the virtual select elements
+    initVirtualSelect();
+
     // init the event listeners for the nav menu on the left (global)
     initEventListeners([
         initReplaceHoverNavbar,
@@ -38,9 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // init/build the persistDataMonitor
     initPersistDataMonitor();
-
-    // init the virtual select elements
-    initVirtualSelect();
 });
 
 /**

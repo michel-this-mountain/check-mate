@@ -531,17 +531,18 @@
                                 <div class="d-flex flex-column justify-content-between h-100">
                                     <div class="mt-2 mb-2">
                                         <h4> Google dork query builder </h4>
-
-                                        <select class="virtual-select" data-custom-object="true" id="select-test" multiple name="native-select" placeholder="Native Select"
-                                            data-search="true" data-silent-initial-value-set="true">
-                                            <option value="1" disabled>Option 1</option>
-                                            <option value="2">Option 2</option>
-                                            <option value="3">Option 3</option>
-                                            <option value="4">Option 4</option>
-                                            <option value="5">Option 5</option>
-                                            <option value="6">Option 6</option>
-                                        </select>
-
+                                        <div id="virtual-select-container">
+                                            <select class="virtual-select" data-custom-object="true" id="select-test"
+                                                multiple="true" name="native-select" placeholder="Native Select"
+                                                data-search="true" data-silent-initial-value-set="true">
+                                                <option value="1" disabled>Option 1</option>
+                                                <option value="2">Option 2</option>
+                                                <option value="3">Option 3</option>
+                                                <option value="4">Option 4</option>
+                                                <option value="5">Option 5</option>
+                                                <option value="6">Option 6</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

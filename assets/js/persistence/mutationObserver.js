@@ -65,7 +65,7 @@ function setupMutationObserver() {
  * Remove all elements from local storage.
  */
 function removeElementsFromLocalStorage() {
-    const selectors = ['textarea', 'input[type="checkbox"]:not(#persist-data-checkbox)', 'button', 'select', 'code'];
+    const selectors = ['textarea', 'input[type="checkbox"]:not(#persist-data-checkbox)', 'button', 'select', 'code', '.virtual-select'];
     selectors.forEach(selector => {
         document.querySelectorAll(selector).forEach(element => {
             localStorage.removeItem(element.id);
@@ -84,24 +84,22 @@ function loadElementsFromLocalStorage() {
         'input[type="checkbox"]:not(#persist-data-checkbox)': 'checked',
         'button': 'value',
         'select': 'value',
-        'code': 'textContent'
+        'code': 'textContent',
+        '.virtual-select': 'value'
     };
+
 
     for (const selector in selectors) { 
         document.querySelectorAll(selector).forEach(element => {
+
             const savedValue = localStorage.getItem(element.id);
+
             if (savedValue !== null) {
                 if (selector === 'input[type="checkbox"]:not(#persist-data-checkbox)') {
                     element.checked = savedValue === 'true';
-                } else if (element.classList.contains("virtual-select") === true && savedValue !== null && savedValue !== "") {
+                } else if (element.classList.contains("virtual-select") && savedValue !== "") {
                     if (isValidJSON(savedValue)) {
-                        parsedValue = JSON.parse(savedValue);
-                        console.log(parsedValue);
-                        // for (let i = 0; i < element.options.length; i++) {
-                        //     if (parsedValue.includes(element.options[i].value)) {
-                        //         element.options[i].selected = true;  // Select the option if it matches a value in savedValues
-                        //     }
-                        // }
+                        element.setValue(JSON.parse(savedValue))
                     }
                 } else {
                     element[selectors[selector]] = savedValue;
