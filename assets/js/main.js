@@ -38,6 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // init/build the persistDataMonitor
     initPersistDataMonitor();
+
+    // init the virtual select elements
+    initVirtualSelect();
 });
 
 /**

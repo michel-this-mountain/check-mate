@@ -5,6 +5,7 @@
     <title>Check-mate</title>
     <link rel="stylesheet" href="assets/css/main.css">
     <link href="assets/css/libs/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/libs/virtual-select.min.css" rel="stylesheet" />
 
     <!-- classes START -->
     <script src="assets/js/tabs/classes/builder/CheckList.js"></script>
@@ -17,15 +18,17 @@
     <script src="assets/js/tabs/classes/EncoderDecoder.js"></script>
     <script src="assets/js/tabs/classes/Hashing.js"></script>
     <!-- classes END -->
-    <script src="assets/js/persistence/tabsPersistence.js"></script>
-    <script src="assets/js/persistence/mutationObserver.js"></script>
-    <script src="assets/js/persistence/accordionPersistence.js"></script>
 
     <script src="assets/js/libs/bootstrap.bundle.min.js"></script>
     <script src="assets/js/libs/jquery.js"></script>
     <script src="assets/js/libs/crypto.min.js"></script>
     <script src="assets/js/libs/bcrypt.min.js"></script>
     <script src="assets/js/libs/html2canvas.js"></script>
+    <script src="assets/js/libs/virtual-select.min.js"></script>
+
+    <script src="assets/js/persistence/tabsPersistence.js"></script>
+    <script src="assets/js/persistence/mutationObserver.js"></script>
+    <script src="assets/js/persistence/accordionPersistence.js"></script>
 
     <!-- hightlightjs START -->
     <link rel="stylesheet" href="assets/js/libs/highlightjs/styles/github.min.css">
@@ -472,6 +475,16 @@
                         <ul class="nav nav-tabs" id="enum-tooling-tab" role="tablist">
 
                             <li class="nav-item">
+                                <a class="nav-link" id="enum-tooling-google-dork-tab" data-bs-toggle="tab"
+                                    href="#enum-tooling-google-dork-content" role="tab">
+                                    <img data-bs-toggle="tooltip" data-bs-placement="right"
+                                        title="Google dork query builder"
+                                        src="assets/icons/navbar/tab-2-enum-tooling/google-dork.png" width="25px"
+                                        height="25px;">
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
                                 <a class="nav-link active" id="enum-tooling-spider-nav-item" data-bs-toggle="tab"
                                     href="#enum-tooling-spider" role="tab">
                                     <img data-bs-toggle="tooltip" data-bs-placement="right" title="Website spider"
@@ -512,10 +525,30 @@
 
                         <!-- tab content START -->
                         <div class="tab-content" id="enum-tooling-tab-content">
+                            <!-- tab 1 - google dork START -->
+                            <div class="tab-pane fade show active" id="enum-tooling-google-dork-content"
+                                role="tabpanel">
+                                <div class="d-flex flex-column justify-content-between h-100">
+                                    <div class="mt-2 mb-2">
+                                        <h4> Google dork query builder </h4>
 
-                            <!-- tab 1 - spider START -->
-                            <div class="tab-pane fade show active" id="enum-tooling-spider" role="tabpanel"
-                                style="height: 485px">
+                                        <select class="virtual-select" data-custom-object="true" id="select-test" multiple name="native-select" placeholder="Native Select"
+                                            data-search="true" data-silent-initial-value-set="true">
+                                            <option value="1" disabled>Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="3">Option 3</option>
+                                            <option value="4">Option 4</option>
+                                            <option value="5">Option 5</option>
+                                            <option value="6">Option 6</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- tab 1 - google dork END -->
+
+                            <!-- tab 2 - spider START -->
+                            <div class="tab-pane fade" id="enum-tooling-spider" role="tabpanel" style="height: 485px">
                                 <div class="d-flex flex-column justify-content-between h-100">
                                     <div class="mt-2 mb-2">
                                         <h4> Website spider </h4>
@@ -556,9 +589,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- tab 1 - spider END -->
+                            <!-- tab 2 - spider END -->
 
-                            <!-- tab 2 - toolbox START -->
+                            <!-- tab 3 - toolbox START -->
                             <div class="tab-pane fade" id="enum-tooling-toolbox" role="tabpanel" style="height: 485px">
                                 <div class="d-flex flex-column justify-content-between h-100">
                                     <div class="mt-2 mb-2">
@@ -622,9 +655,9 @@
 
                                 </div>
                             </div>
-                            <!-- tab 2 - toolbox END -->
+                            <!-- tab 3 - toolbox END -->
 
-                            <!-- tab 3 - iframe checker START -->
+                            <!-- tab 4 - iframe checker START -->
                             <div class="tab-pane fade" id="enum-tooling-iframe-checker" role="tabpanel"
                                 style="height: 485px">
                                 <div class="d-flex flex-column justify-content-between h-100">
@@ -666,9 +699,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- tab 3 - iframe checker END -->
+                            <!-- tab 4 - iframe checker END -->
 
-                            <!-- tab 4 - message listener START -->
+                            <!-- tab 5 - message listener START -->
                             <div class="tab-pane fade" id="enum-tooling-message-listener" role="tabpanel">
 
                                 <!-- tab switcher Message listener START -->
@@ -795,7 +828,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- tab 4 - message listener END -->
+                            <!-- tab 5 - message listener END -->
                         </div>
                         <!-- tab content END -->
 
@@ -901,16 +934,19 @@
                                                         <select id="enum-tooling-xss-type-dropdown" class="form-select">
                                                             <option disabled selected>1. What is the context?</option>
                                                             <option value="enum-tooling-xss-attribute">
-                                                                2. Within an attribute: &lt;p value=&quot;within an attribute&quot;&gt;&lt;/p&gt;
+                                                                2. Within an attribute: &lt;p value=&quot;within an
+                                                                attribute&quot;&gt;&lt;/p&gt;
                                                             </option>
                                                             <option value="enum-tooling-xss-tag">
                                                                 3. Within a tag: &lt;pre&gt;within a tag&lt;/pre&gt;
                                                             </option>
                                                             <option value="enum-tooling-xss-script">
-                                                                4. Within a script tag: &lt;script&gt;let userInput = &quot;within javascript&quot;;&lt;/script&gt;
-                                                            </option> 
+                                                                4. Within a script tag: &lt;script&gt;let userInput =
+                                                                &quot;within javascript&quot;;&lt;/script&gt;
+                                                            </option>
                                                             <option value="enum-tooling-xss-javascript">
-                                                                5. Within JavaScript: let userInput = &quot;within javascript&quot;;
+                                                                5. Within JavaScript: let userInput = &quot;within
+                                                                javascript&quot;;
                                                             </option>
                                                         </select>
                                                     </div>
@@ -925,7 +961,8 @@
                                                 <div class="form-group">
                                                     <!-- start textarea and copybutton-->
                                                     <div class="position-relative d-flex">
-                                                        <textarea class="form-control" id="enum-tooling-xss-payload-textarea-output"
+                                                        <textarea class="form-control"
+                                                            id="enum-tooling-xss-payload-textarea-output"
                                                             style="width: 100%; padding-right: 40px; height: 310px;"></textarea>
                                                         <a href="#">
                                                             <img class="copy-icon" src="assets/icons/general/copy.png"
@@ -1431,29 +1468,39 @@
                     </div>
                     <!-- tab 5 (checklist assistant) end -->
 
-                    <!-- tab 6 (usefull commands) start -->
+                    <!-- tab 6 (Useful commands) start -->
                     <div class="tab-pane fade" id="tab6">
                         <!-- Nested tabs for Enum 6 -->
                         <ul class="nav nav-tabs" id="useful-commands-tab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link text-custom-dark-blue" id="enum6-sub1-tab" data-bs-toggle="tab"
-                                    href="#enum6-sub1" role="tab">Enum 6 Sub 1</a>
+                                <a class="nav-link" id="useful-commands-linux-tab" data-bs-toggle="tab"
+                                    href="#useful-commands-linux-content" role="tab">
+                                    <img data-bs-toggle="tooltip" data-bs-placement="right"
+                                        title="Useful Linux commands"
+                                        src="assets/icons/navbar/tab-6-useful-commands/linux.png" width="25px"
+                                        height="25px;">
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-custom-dark-blue" id="enum6-sub2-tab" data-bs-toggle="tab"
-                                    href="#enum6-sub2" role="tab">Enum 6 Sub 2</a>
+                                <a class="nav-link" id="useful-commands-windows-tab" data-bs-toggle="tab"
+                                    href="#useful-commands-windows-content" role="tab">
+                                    <img data-bs-toggle="tooltip" data-bs-placement="right"
+                                        title="Useful Windows commands"
+                                        src="assets/icons/navbar/tab-6-useful-commands/windows.png" width="25px"
+                                        height="25px;">
+                                </a>
                             </li>
                         </ul>
-                        <div class="tab-content" id="enum6TabContent">
-                            <div class="tab-pane fade" id="enum6-sub1" role="tabpanel">
+                        <div class="tab-content" id="useful-commands-tab-content">
+                            <div class="tab-pane fade active show" id="useful-commands-linux-content" role="tabpanel">
                                 <h4>Enum 6 Sub 1 Content</h4>
                             </div>
-                            <div class="tab-pane fade" id="enum6-sub2" role="tabpanel">
+                            <div class="tab-pane fade" id="useful-commands-windows-content" role="tabpanel">
                                 <h4>Enum 6 Sub 2 Content</h4>
                             </div>
                         </div>
                     </div>
-                    <!-- tab 6 (usefull commands) end -->
+                    <!-- tab 6 (Useful commands) end -->
 
                     <!-- tab 7 & 8 (unused) START -->
                     <div class="tab-pane fade" id="tab7">

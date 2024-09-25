@@ -596,6 +596,14 @@ function buildTableBodyFromObject(dataArray, tableBodyId, countId, includeHierar
     }
 }
 
+/**
+ * initVirtualSelect()
+ * 
+ * initialize the virtual select element
+ */
+function initVirtualSelect() {
+    VirtualSelect.init({ ele: '.virtual-select' });
+}
 
 
 

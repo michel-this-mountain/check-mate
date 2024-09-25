@@ -54,6 +54,7 @@ function setupMutationObserver() {
     addGlobalEventListener('change', 'input[type="checkbox"], select', saveElementsToLocalStorage);
     addGlobalEventListener('change', 'textarea', saveElementsToLocalStorage);
     addGlobalEventListener('input', 'textarea, button', saveElementsToLocalStorage);
+    addGlobalEventListener('change', '.virtual-select', (event) => { localStorage.setItem(event.target.id, JSON.stringify(event.target.value)) });
 
     saveElementsToLocalStorage();
 }
@@ -86,12 +87,22 @@ function loadElementsFromLocalStorage() {
         'code': 'textContent'
     };
 
-    for (const selector in selectors) {
+    for (const selector in selectors) { 
         document.querySelectorAll(selector).forEach(element => {
             const savedValue = localStorage.getItem(element.id);
             if (savedValue !== null) {
                 if (selector === 'input[type="checkbox"]:not(#persist-data-checkbox)') {
                     element.checked = savedValue === 'true';
+                } else if (element.classList.contains("virtual-select") === true && savedValue !== null && savedValue !== "") {
+                    if (isValidJSON(savedValue)) {
+                        parsedValue = JSON.parse(savedValue);
+                        console.log(parsedValue);
+                        // for (let i = 0; i < element.options.length; i++) {
+                        //     if (parsedValue.includes(element.options[i].value)) {
+                        //         element.options[i].selected = true;  // Select the option if it matches a value in savedValues
+                        //     }
+                        // }
+                    }
                 } else {
                     element[selectors[selector]] = savedValue;
                 }
@@ -119,8 +130,10 @@ function saveElementsToLocalStorage() {
 
     for (const selector in selectors) {
         document.querySelectorAll(selector).forEach(element => {
+
             if (element.id.length > 0) {
-                localStorage.setItem(element.id, element[selectors[selector]]);
+                value = element[selectors[selector]];
+                localStorage.setItem(element.id, value);
             }
         });
     }
@@ -141,4 +154,3 @@ function addGlobalEventListener(type, selector, callback) {
         }
     });
 }
-

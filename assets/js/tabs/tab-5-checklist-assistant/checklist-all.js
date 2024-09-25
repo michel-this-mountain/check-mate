@@ -9,6 +9,8 @@ function initChecklistAssistantContent() {
 const noCodeAvailable = "# no code available"
 const noCodeAvailableLanguage = "language-bash"
 
+const bash = "language-bash"
+
 const checklist = {
     windows: {
         checklist_privesc: [{
@@ -78,7 +80,7 @@ done
 var=\`df -h | grep tmpfs\`
 echo $var
 `,
-                        code_language: "language-bash",
+                        code_language: bash,
                         code_available: true,
                         rows: 2,
                         reference: "https://academy.tcm-sec.com/courses/1154361/lectures/24794929"
@@ -91,7 +93,7 @@ echo $var
     web_pentest_general: {
         checklist_general: [
             {
-                chapter: "1. Recon",
+                chapter: "1. Recon (OSINT)",
                 checks: [
                     {
                         title: "OSINT - Gather subdomains",
@@ -113,10 +115,37 @@ bbot -t example.com -f subdomain-enum
 bbot -t example.com -f subdomain-enum -rf passive
                         
 # using theHarvester
-theHarvester -d example.com -b all -l 200`,
-                        code_language: "language-bash",
+theHarvester -d example.com -b all -l 200
+`,
+                        code_language: bash,
                         rows: 2,
                         reference: "https://book.hacktricks.xyz/generic-methodologies-and-resources/external-recon-methodology#osint"
+                    },
+
+                    {
+                        title: "OSINT - Gather SPF/DKIM/DMARC records of the target domain(s)",
+                        description: "Gather SPF/DKIM/DMARC records of the target domain(s)",
+                        code: `# using dig 
+domain="example.com"
+dig +short TXT \${domain} | grep 'v=spf1'
+dig +short TXT _dmarc.\${domain} | grep 'v=DMARC1'
+dig +short TXT default._domainkey.\${domain} | grep 'v=DKIM1'
+
+# using mxtoolbox
+https://mxtoolbox.com/
+                        `,
+                        code_language: bash,
+                        rows: 2,
+                        reference: "https://mxtoolbox.com/"
+                    },
+                    {
+                        title: "OSINT - Check technologies used",
+                        description: "Use either a online tool to check which technologies are used.",
+                        code: `# builtwith
+https://builtwith.com/`,
+                        code_language: bash,
+                        rows: 2,
+                        reference: "https://builtwith.com/"
                     },
                     {
                         title: "OSINT - Google Dork",
@@ -137,7 +166,7 @@ site:example.com intext:"password" | intext:"username" | intext:"login"
 # discover publicy accessible backup and old files
 site:example.com ext:bak | ext:old | ext:backup | ext:sql
                         `,
-                        code_language: "language-bash",
+                        code_language: bash,
                         rows: 2,
                         reference: "https://www.exploit-db.com/google-hacking-database"
                     },
@@ -149,7 +178,7 @@ site:example.com ext:bak | ext:old | ext:backup | ext:sql
 # software versions, or internal paths.
 exiftool <file>
                         `,
-                        code_language: "language-bash",
+                        code_language: bash,
                         rows: 2,
                         reference: "https://exiftool.org/"
                     },
@@ -171,29 +200,52 @@ git clone https://github.com/exampleorg/repository-name.git
 # Install GitTools: https://github.com/internetwache/GitTools
 gitdumper https://example.com/.git/ /path/to/dump/
                         `,
-                        code_language: "language-bash",
+                        code_language: bash,
                         rows: 2,
                         reference: "https://book.hacktricks.xyz/generic-methodologies-and-resources/external-recon-methodology#code-repositories"
                     },
                     {
-                        title: "OSINT - Gather email addresses",
-                        description: "Use tools like email-finder to find email addresses related to the target domain.",
+                        title: "OSINT - Gather email addresses/ passwords",
+                        description: "Use tools like email-finder to find email addresses/passwords related to the target domain.",
                         code: `# anymailfinder
 https://newapp.anymailfinder.com/search/single
 
 # using theHarvester
-theHarvester -d example.com -b all -l 200`,
-                        code_language: noCodeAvailableLanguage,
+theHarvester -d example.com -b all -l 200
+
+# tool that has a DB leak of username/password combinations
+https://www.proxynova.com/tools/comb/
+
+# using breachparse for DB leak
+https://github.com/hmaverickadams/breach-parse
+`,
+                        code_language: bash,
                         rows: 2,
-                        reference: ""
+                        reference: "https://book.hacktricks.xyz/generic-methodologies-and-resources/external-recon-methodology"
                     },
                     {
-                        title: "",
-                        description: "",
-                        code: noCodeAvailable,
-                        code_language: noCodeAvailableLanguage,
+                        title: "OSINT - OSINTFRAMEWORK",
+                        description: "Use the OSINTFRAMEWORK to check for information about the target domain.",
+                        code: `https://osintframework.com/`,
+                        code_language: bash,
                         rows: 2,
-                        reference: ""
+                        reference: "https://osintframework.com/"
+                    },
+                    {
+                        title: "OSINT - TOOLS",
+                        description: "Use tools to help with gathering OSINT information.",
+                        code: `# rengine
+https://github.com/yogeshojha/rengine
+
+# Osmedeus
+https://github.com/j3ssie/Osmedeus
+
+# reconftw
+https://github.com/six2dez/reconftw
+`,
+                        code_language: bash,
+                        rows: 2,
+                        reference: "https://book.hacktricks.xyz/generic-methodologies-and-resources/external-recon-methodology"
                     }
                 ]
             },{
@@ -218,7 +270,7 @@ whatweb -a 3 <IP> # aggressive
 
 # 3
 # use wappalyzer plugin in browser`,
-                    code_language: "language-bash",
+                    code_language: bash,
                     rows: 2,
                     reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
                 },
@@ -237,7 +289,7 @@ whatweb -a 3 <IP> # aggressive
 # joomscan - https://github.com/OWASP/joomscan
 # cmsmap - https://github.com/dionach/CMSmap
 `,
-                    code_language: "language-bash",
+                    code_language: bash,
                     rows: 2,
                     reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
                 },{
@@ -260,7 +312,7 @@ nuclei -ut && nuclei -target <URL>`,
 /crossdomain.xml
 /clientaccesspolicy.xml
 /.well-known/`,
-                    code_language: "language-bash",
+                    code_language: bash,
                     rows: 2,
                     reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
                 },
@@ -268,7 +320,7 @@ nuclei -ut && nuclei -target <URL>`,
                     title: "Analyze Page Comments",
                     description: "Examine HTML comments on main and secondary pages for sensitive data.",
                     code: `# use the comment extractor tool under the 'enumeration tooling' tab`,
-                    code_language: "language-bash",
+                    code_language: bash,
                     rows: 2,
                     reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
                 },
@@ -277,7 +329,7 @@ nuclei -ut && nuclei -target <URL>`,
                     description: "Map out the website structure and identify potentially interesting files/folders.",
                     code: `# using gospider
 gospider -s <URL> | tee output.txt`,
-                    code_language: "language-bash",
+                    code_language: bash,
                     rows: 2,
                     reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
                 },
@@ -286,7 +338,7 @@ gospider -s <URL> | tee output.txt`,
                     description: "Use tools like gobuster to discover hidden directories and files, focusing on development, backups, and testing areas.",
                     code: `# using gobuster
 gobuster dir -u <URL> -x txt,jsp,html,js -w /usr/share/wordlists/dirb/common.txt -o test.txt`,
-                    code_language: "language-bash",
+                    code_language: bash,
                     rows: 2,
                     reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
                 },
@@ -299,15 +351,15 @@ gobuster fuzz -u <URL>?FUZZ=test -w /path/to/parameter/wordlist.txt -b 200
 # Using Arjun for parameter discovery
 # https://github.com/s0md3v/Arjun
 arjun -u <URL> -w /path/to/parameter/wordlist.txt`,
-                    code_language: "language-bash",
+                    code_language: bash,
                     rows: 2,
                     reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
                 },
                 {
-                    title: "Once you have identified all the possible endpoints accepting user input, check for all kind of vulnerabilities related to it",
-                    description: "TODO",
-                    code: `TODO`,
-                    code_language: "language-bash",
+                    title: "Check for vulnerabilities in identified user input endpoints",
+                    description: "Once you have identified all the possible endpoints accepting user input, check for all kind of vulnerabilities related to it",
+                    code: noCodeAvailable,
+                    code_language: bash,
                     rows: 2,
                     reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
                 },
