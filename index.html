@@ -475,16 +475,6 @@
                         <ul class="nav nav-tabs" id="enum-tooling-tab" role="tablist">
 
                             <li class="nav-item">
-                                <a class="nav-link" id="enum-tooling-google-dork-tab" data-bs-toggle="tab"
-                                    href="#enum-tooling-google-dork-content" role="tab">
-                                    <img data-bs-toggle="tooltip" data-bs-placement="right"
-                                        title="Google dork query builder"
-                                        src="assets/icons/navbar/tab-2-enum-tooling/google-dork.png" width="25px"
-                                        height="25px;">
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
                                 <a class="nav-link active" id="enum-tooling-spider-nav-item" data-bs-toggle="tab"
                                     href="#enum-tooling-spider" role="tab">
                                     <img data-bs-toggle="tooltip" data-bs-placement="right" title="Website spider"
@@ -512,6 +502,16 @@
                             </li>
 
                             <li class="nav-item">
+                                <a class="nav-link" id="enum-tooling-google-dork-tab" data-bs-toggle="tab"
+                                    href="#enum-tooling-google-dork-content" role="tab">
+                                    <img data-bs-toggle="tooltip" data-bs-placement="right"
+                                        title="Google dork query builder"
+                                        src="assets/icons/navbar/tab-2-enum-tooling/google-dork.png" width="25px"
+                                        height="25px;">
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
                                 <a class="nav-link" id="enum-tooling-message-listener-nav-item" data-bs-toggle="tab"
                                     href="#enum-tooling-message-listener" role="tab">
                                     <img data-bs-toggle="tooltip" data-bs-placement="right" title="Listener"
@@ -525,31 +525,10 @@
 
                         <!-- tab content START -->
                         <div class="tab-content" id="enum-tooling-tab-content">
-                            <!-- tab 1 - google dork START -->
-                            <div class="tab-pane fade show active" id="enum-tooling-google-dork-content"
-                                role="tabpanel">
-                                <div class="d-flex flex-column justify-content-between h-100">
-                                    <div class="mt-2 mb-2">
-                                        <h4> Google dork query builder </h4>
-                                        <div id="virtual-select-container">
-                                            <select class="virtual-select" data-custom-object="true" id="select-test"
-                                                multiple="true" name="native-select" placeholder="Native Select"
-                                                data-search="true" data-silent-initial-value-set="true">
-                                                <option value="1" disabled>Option 1</option>
-                                                <option value="2">Option 2</option>
-                                                <option value="3">Option 3</option>
-                                                <option value="4">Option 4</option>
-                                                <option value="5">Option 5</option>
-                                                <option value="6">Option 6</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- tab 1 - google dork END -->
 
-                            <!-- tab 2 - spider START -->
-                            <div class="tab-pane fade" id="enum-tooling-spider" role="tabpanel" style="height: 485px">
+                            <!-- tab 1 - spider START -->
+                            <div class="tab-pane fade active show" id="enum-tooling-spider" role="tabpanel"
+                                style="height: 485px">
                                 <div class="d-flex flex-column justify-content-between h-100">
                                     <div class="mt-2 mb-2">
                                         <h4> Website spider </h4>
@@ -590,9 +569,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- tab 2 - spider END -->
+                            <!-- tab 1 - spider END -->
 
-                            <!-- tab 3 - toolbox START -->
+                            <!-- tab 2 - toolbox START -->
                             <div class="tab-pane fade" id="enum-tooling-toolbox" role="tabpanel" style="height: 485px">
                                 <div class="d-flex flex-column justify-content-between h-100">
                                     <div class="mt-2 mb-2">
@@ -656,9 +635,9 @@
 
                                 </div>
                             </div>
-                            <!-- tab 3 - toolbox END -->
+                            <!-- tab 2 - toolbox END -->
 
-                            <!-- tab 4 - iframe checker START -->
+                            <!-- tab 3 - iframe checker START -->
                             <div class="tab-pane fade" id="enum-tooling-iframe-checker" role="tabpanel"
                                 style="height: 485px">
                                 <div class="d-flex flex-column justify-content-between h-100">
@@ -700,7 +679,76 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- tab 4 - iframe checker END -->
+                            <!-- tab 3 - iframe checker END -->
+
+                            <!-- tab 4 - google dork START -->
+                            <div class="tab-pane fade" id="enum-tooling-google-dork-content" role="tabpanel">
+                                <div class="d-flex flex-column justify-content-between" style="height: 485px;">
+                                    <div class="mt-2 mb-2">
+                                        <div
+                                            class="d-flex justify-content-start mt-1 enum-tooling-google-dork-explanation">
+                                            <h4 class="me-2">Google Dork query builder</h4>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <div class="w-50 me-1">
+                                                <div class="form-group">
+                                                    <!-- start textarea and copybutton-->
+                                                    <div class="position-relative d-flex">
+                                                        <textarea class="form-control" style="height:20px;"
+                                                            placeholder="example.com"
+                                                            id="enum-tooling-google-dork-domain-input">example.com</textarea>
+                                                        <a href="#">
+                                                            <img class="copy-icon" src="assets/icons/general/copy.png"
+                                                                style="position: absolute; bottom: 5px; right: 5px;"
+                                                                height="25px" width="25px" alt="Copy">
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="w-50 ms-1" id="virtual-select-container">
+                                                <select class="virtual-select" data-custom-object="true"
+                                                    id="enum-tooling-google-dork-select-parameters" multiple="true"
+                                                    name="native-select" placeholder="Select search parameters"
+                                                    data-search="true" data-silent-initial-value-set="true">
+                                                    <option value="inurl">inurl:</option>
+                                                    <option value="intitle">intitle:</option>
+                                                    <option value="filetype">filetype:</option>
+                                                    <option value="ext">ext:</option>
+                                                    <option value="link">link:</option>
+                                                    <option value="cache">cache:</option>
+                                                    <option value="allintext">allintext:</option>
+                                                    <option value="allinurl">allinurl:</option>
+                                                    <option value="related">related:</option>
+                                                    <option value="phrase">"specific phrase"</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-2 d-flex justify-content-between">
+                                            <button class="btn btn-outline-primary w-100"
+                                                id="enum-tooling-google-dork-build-query-button">Build
+                                                query</button>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <!-- start textarea and copybutton-->
+                                            Output
+                                            <div class="position-relative d-flex">
+                                                <textarea class="form-control" id="enum-tooling-google-dork-output-textarea"
+                                                    style="width: 100%; height: 325px;padding-right: 40px;"></textarea>
+                                                <a href="#">
+                                                    <img class="copy-icon" src="assets/icons/general/copy.png"
+                                                        style="position: absolute; bottom: 5px; right: 5px;"
+                                                        height="25px" width="25px" alt="Copy">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- tab 4 - google dork END -->
 
                             <!-- tab 5 - message listener START -->
                             <div class="tab-pane fade" id="enum-tooling-message-listener" role="tabpanel">
@@ -715,7 +763,7 @@
                                             <div class="d-flex justify-content-between">
                                                 <img data-bs-toggle="tooltip" data-bs-placement="right"
                                                     title="Postmessage monitor"
-                                                    src="assets/icons/navbar/tab-2-enum-tooling/subtab-4-message-listener/postmessage-monitor.png"
+                                                    src="assets/icons/navbar/tab-2-enum-tooling/subtab-5-message-listener/postmessage-monitor.png"
                                                     width="25px" height="25px">
                                                 <div class="ms-1 text-dark" style="font-size: 10px;"
                                                     id="enum-tooling-postmessage-monitor-count">
@@ -731,7 +779,7 @@
                                             <div class="d-flex justify-content-between">
                                                 <img data-bs-toggle="tooltip" data-bs-placement="right"
                                                     title="Cookie monitor"
-                                                    src="assets/icons/navbar/tab-2-enum-tooling/subtab-4-message-listener/cookie-monitor.png"
+                                                    src="assets/icons/navbar/tab-2-enum-tooling/subtab-5-message-listener/cookie-monitor.png"
                                                     width="25px" height="25px">
                                                 <div class="ms-1 text-dark" style="font-size: 10px;"
                                                     id="enum-tooling-cookie-monitor-count">
@@ -1202,8 +1250,7 @@
                             <div class="tab-pane fade" id="shell-assistant-transfer-methods" role="tabpanel"
                                 style="height: 485px">
                                 <div class="d-flex flex-column justify-content-between h-100">
-                                    <div
-                                        class="d-flex justify-content-start mt-1 shell-assistant-stabilize-shell-modal">
+                                    <div class="d-flex justify-content-start mt-1">
                                         <h4 class="me-2">Transfer methods</h4>
                                     </div>
                                     <!-- local IP and PORT START-->
