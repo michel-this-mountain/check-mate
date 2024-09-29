@@ -691,52 +691,39 @@
                                         </div>
 
                                         <div class="d-flex justify-content-between mb-2">
-                                            <div class="w-50 me-1">
-                                                <div class="form-group">
-                                                    <!-- start textarea and copybutton-->
-                                                    <div class="position-relative d-flex">
-                                                        <textarea class="form-control" style="height:20px;"
-                                                            placeholder="example.com"
-                                                            id="enum-tooling-google-dork-domain-input">example.com</textarea>
-                                                        <a href="#">
-                                                            <img class="copy-icon" src="assets/icons/general/copy.png"
-                                                                style="position: absolute; bottom: 5px; right: 5px;"
-                                                                height="25px" width="25px" alt="Copy">
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="w-50 ms-1" id="virtual-select-container">
+                                            <div class="w-100" id="virtual-select-container">
                                                 <select class="virtual-select" data-custom-object="true"
                                                     id="enum-tooling-google-dork-select-parameters" multiple="true"
                                                     name="native-select" placeholder="Select search parameters"
                                                     data-search="true" data-silent-initial-value-set="true">
-                                                    <option value="inurl">inurl:</option>
-                                                    <option value="intitle">intitle:</option>
-                                                    <option value="filetype">filetype:</option>
-                                                    <option value="ext">ext:</option>
-                                                    <option value="link">link:</option>
-                                                    <option value="cache">cache:</option>
-                                                    <option value="allintext">allintext:</option>
-                                                    <option value="allinurl">allinurl:</option>
-                                                    <option value="related">related:</option>
-                                                    <option value="phrase">"specific phrase"</option>
+                                                    <option value="site:">site:</option>
+                                                    <option value="inurl:">inurl:</option>
+                                                    <option value="intitle:">intitle:</option>
+                                                    <option value="filetype:">filetype:</option>
+                                                    <option value="ext:">ext:</option>
+                                                    <option value="link:">link:</option>
+                                                    <option value="cache:">cache:</option>
+                                                    <option value="allintext:">allintext:</option>
+                                                    <option value="allinurl:">allinurl:</option>
+                                                    <option value="related:">related:</option>
                                                 </select>
                                             </div>
                                         </div>
 
                                         <div class="mb-2 d-flex justify-content-between">
-                                            <button class="btn btn-outline-primary w-100"
-                                                id="enum-tooling-google-dork-build-query-button">Build
-                                                query</button>
+                                            <button class="btn btn-outline-primary w-100" data-bs-toggle="modal"
+                                                data-bs-target="#enum-tooling-google-dork-parameters"
+                                                id="enum-tooling-google-dork-build-query-button">
+                                                Build query
+                                            </button>
                                         </div>
 
                                         <div class="form-group">
                                             <!-- start textarea and copybutton-->
                                             Output
                                             <div class="position-relative d-flex">
-                                                <textarea class="form-control" id="enum-tooling-google-dork-output-textarea"
+                                                <textarea class="form-control" readonly
+                                                    id="enum-tooling-google-dork-output-textarea"
                                                     style="width: 100%; height: 325px;padding-right: 40px;"></textarea>
                                                 <a href="#">
                                                     <img class="copy-icon" src="assets/icons/general/copy.png"
@@ -1601,6 +1588,25 @@
 
         <!-- modal container -->
         <div id="modal-container">
+            <!-- test -->
+
+            <div class="modal fade" id="enum-tooling-google-dork-parameters" tabindex="-1"
+                aria-labelledby="enum-tooling-google-dork-parameters-label" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered w-75">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="enum-tooling-google-dork-parameters-label">Google dork query
+                                builder</h5>
+                            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body p-1" style="max-height: 400px; overflow-y:scroll;">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- test -->
+
             <!-- reserved for modals e.g.: code modals etc.-->
         </div>
         <!-- modal container -->

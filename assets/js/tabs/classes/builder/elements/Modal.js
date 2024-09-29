@@ -79,6 +79,7 @@ class Modal {
         divContainer.appendChild(modalDialog)
 
         document.getElementById("modal-container").appendChild(divContainer)
+
         return this.#buildModalButton()
     }
 }
