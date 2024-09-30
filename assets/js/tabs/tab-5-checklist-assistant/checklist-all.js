@@ -10,83 +10,167 @@ const noCodeAvailable = "# no code available"
 const noCodeAvailableLanguage = "language-bash"
 
 const bash = "language-bash"
+const powershell = "language-powershell"
 
 const checklist = {
     windows: {
         checklist_privesc: [{
-            chapter: "1. Enumeration",
+            chapter: "1. Initial Enumeration",
             checks: [
                 {
-                    title: "System enumeration: systeminfo",
-                    description: "test description 1 enumeration",
-                    code: `systeminfo; ls`,
-                    code_language: "language-powershell",
+                    title: "System enumeration - systeminfo",
+                    description: "Gather information about the system",
+                    code: `# gather information about the system
+systeminfo
+
+# gather specific information about the system
+systeminfo | findstr /B /C:"OS Name" /C:"OS Version" /C:"System Type"
+`,
+                    code_language: powershell,
                     code_available: true,
                     rows: 2,
                     reference: "https://academy.tcm-sec.com/courses/1154361/lectures/24794929"
                 },
                 {
-                    title: "System enumeration: systeminfo",
-                    description: "test description 2 enumeration",
-                    code: "systeminfo",
-                    code_language: "language-powershell",
+                    title: "System enumeration - wmic qfe (check installed patches)",
+                    description: "wmic : windows management instrumentation commandline - return information about the system patches",
+                    code: `# gather information about installed patches
+wmic qfe
+
+# filter on most important columns
+wmic qfe Caption,Description,HotFixID,InstalledOn
+`,
+                    code_language: powershell,
                     code_available: true,
                     rows: 2,
                     reference: "https://academy.tcm-sec.com/courses/1154361/lectures/24794929"
                 },
+                {
+                    title: "System enumeration - wmic logialdisk",
+                    description: "Gather information about the present drives on the machine",
+                    code: `# list all drives
+wmic logicaldisk
+
+# list important sections
+wmic logicaldisk get caption,description,providername 
+                    `,
+                    code_language: powershell,
+                    code_available: true,
+                    rows: 2,
+                    reference: "https://academy.tcm-sec.com/courses/1154361/lectures/24794929"
+                },
+                {
+                    title: "User enumeration - users",
+                    description: "Check who you are, and what privileges you have within the system",
+                    code: `# check who you are on the system, check your privileges, 
+# check your groups
+whoami
+whoami /priv
+whoami /groups
+
+# gather information about the users on this machine
+net user
+
+# gather information about a specific user 
+net user <USERNAME>`,
+                    code_language: powershell,
+                    code_available: true,
+                    rows: 2,
+                    reference: "https://academy.tcm-sec.com/courses/1154361/lectures/24794929"
+                },
+                {
+                    title: "User enumeration - groups",
+                    description: "Check what groups are present, and which groups hold which users",
+                    code: `# gather information about the groups on the system
+net localgroup
+
+# check which users are part of the administrator group
+net localgroup Administrators`,
+                    code_language: powershell,
+                    code_available: true,
+                    rows: 2,
+                    reference: "https://academy.tcm-sec.com/courses/1154361/lectures/24794929"
+                },
+                {
+                    title: "Network enumeration",
+                    description: "Gather information about the network",
+                    code: `# gather information on the network
+ipconfig
+ipconfig /all
+
+# gather information about the arp table
+arp -a
+
+# gather information about the routing table
+route print
+
+# netstat 
+netstat -ano`,
+                    code_language: powershell,
+                    code_available: true,
+                    rows: 2,
+                    reference: "https://academy.tcm-sec.com/courses/1154361/lectures/24794929"
+                },
+                {
+                    title: "Password hunting (small)",
+                    description: "Check for passwords in the current directory",
+                    code: `Check for passwords in the current directory
+findstr /si password *.txt
+findstr /si password *.xml
+findstr /si password *.ini
+
+# find password string in config files
+dir /s *pass* == *cred* == *vnc* == *.config*`,
+                    code_language: powershell,
+                    code_available: true,
+                    rows: 2,
+                    reference: "https://sushant747.gitbooks.io/total-oscp-guide/content/privilege_escalation_windows.html"
+                },
+                {
+                    title: "AV enumeration - programs",
+                    description: "Gather information about the antivirus and services running",
+                    code: `# show the services running
+sc queryex type= service
+
+# show a specific service running
+sc query windefend`,
+                    code_language: powershell,
+                    code_available: true,
+                    rows: 2,
+                    reference: "https://academy.tcm-sec.com/courses/1154361/lectures/24794929"
+                },
+                {
+                    title: "AV enumeration - firewalls",
+                    description: "Gather firewall configuration/ state of the firewall",
+                    code: `# gather information about the firewall and open ports
+netsh firewall show state 
+
+# gather firewall config 
+netsh firewall show config
+                    `,
+                    code_language: powershell,
+                    code_available: true,
+                    rows: 2,
+                    reference: "https://academy.tcm-sec.com/courses/1154361/lectures/24794929"
+                }
             ]
         },
-            {
-                chapter: "2. test",
-                checks: [
-                    {
-                        title: "System enumeration: systeminfo",
-                        description: "test description 1",
-                        code: "systeminfo",
-                        code_language: "language-powershell",
-                        code_available: true,
-                        rows: 2,
-                        reference: "https://academy.tcm-sec.com/courses/1154361/lectures/24794929"
-                    },
-                    {
-                        title: "System enumeration: systeminfofsdf s fsdfsdfsd fsd fsd fsd fs dfsdf  ansdb amnsbd mansbd amnbd mansbd mansbd mnasb dmnasb dmnasbd mansb dmnasbd ",
-                        description: "test description 2",
-                        code: `#!/bin/bash
-# A simple variable example
-greeting=Hello
-name=Tux
-var=$((3+9))
-echo $greeting $name $var
+        {
+            chapter: "2. Automated tooling",
+            checks: [
+                {
+                    title: "WinPEAS",
+                    description: "",
+                    code: ``,
+                    code_language: powershell,
+                    code_available: true,
+                    rows: 2,
+                    reference: "https://academy.tcm-sec.com/courses/1154361/lectures/24794929"
+                }
+            ]
+        },
 
-if [ $a == $b -a $b == $c -a $a == $c ]
-then
-echo EQUILATERAL
-
-elif [ $a == $b -o $b == $c -o $a == $c ]
-then 
-echo ISOSCELES
-else
-echo SCALENE
-
-fi
-
-i=1
-while [[ $i -le 10 ]] ; do
-   echo "$i"
-  (( i += 1 ))
-done
-
-#Executing commands with back ticks(or \`\`)
-var=\`df -h | grep tmpfs\`
-echo $var
-`,
-                        code_language: bash,
-                        code_available: true,
-                        rows: 2,
-                        reference: "https://academy.tcm-sec.com/courses/1154361/lectures/24794929"
-                    },
-                ]
-            }]
+        ]
     },
 
 
@@ -248,21 +332,21 @@ https://github.com/six2dez/reconftw
                         reference: "https://book.hacktricks.xyz/generic-methodologies-and-resources/external-recon-methodology"
                     }
                 ]
-            },{
-            chapter: "2. Enumeration",
-            checks: [
-                {
-                    title: "Understand System Context",
-                    description: "Identify the system's purpose, use cases, and functionality.",
-                    code: noCodeAvailable,
-                    code_language: noCodeAvailableLanguage,
-                    rows: 2,
-                    reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
-                },
-                {
-                    title: "Identify Web Server Technologies",
-                    description: "Use Wappalyzer, check headers and source code to determine technologies in use.",
-                    code: `# 1
+            }, {
+                chapter: "2. Enumeration",
+                checks: [
+                    {
+                        title: "Understand System Context",
+                        description: "Identify the system's purpose, use cases, and functionality.",
+                        code: noCodeAvailable,
+                        code_language: noCodeAvailableLanguage,
+                        rows: 2,
+                        reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
+                    },
+                    {
+                        title: "Identify Web Server Technologies",
+                        description: "Use Wappalyzer, check headers and source code to determine technologies in use.",
+                        code: `# 1
 whatweb -a 1 <IP> # stealthy
 
 # 2
@@ -270,103 +354,103 @@ whatweb -a 3 <IP> # aggressive
 
 # 3
 # use wappalyzer plugin in browser`,
-                    code_language: bash,
-                    rows: 2,
-                    reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
-                },
-                {
-                    title: "Check for Known Vulnerabilities",
-                    description: "Research and identify any public PoCs for the detected technologies.",
-                    code: noCodeAvailable,
-                    code_language: noCodeAvailableLanguage,
-                    rows: 2,
-                    reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
-                },
-                {
-                    title: "Run Specialized Scanners",
-                    description: "Utilize technology-specific scanners like wpscan, joomscan, etc.",
-                    code: `# wpscan - https://github.com/wpscanteam/wpscan 
+                        code_language: bash,
+                        rows: 2,
+                        reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
+                    },
+                    {
+                        title: "Check for Known Vulnerabilities",
+                        description: "Research and identify any public PoCs for the detected technologies.",
+                        code: noCodeAvailable,
+                        code_language: noCodeAvailableLanguage,
+                        rows: 2,
+                        reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
+                    },
+                    {
+                        title: "Run Specialized Scanners",
+                        description: "Utilize technology-specific scanners like wpscan, joomscan, etc.",
+                        code: `# wpscan - https://github.com/wpscanteam/wpscan 
 # joomscan - https://github.com/OWASP/joomscan
 # cmsmap - https://github.com/dionach/CMSmap
 `,
-                    code_language: bash,
-                    rows: 2,
-                    reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
-                },{
-                    title: "Execute Automated Scans",
-                    description: "Run various automated scanners and analyze results for vulnerabilities.",
-                    code: `nikto -h <URL>
+                        code_language: bash,
+                        rows: 2,
+                        reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
+                    }, {
+                        title: "Execute Automated Scans",
+                        description: "Run various automated scanners and analyze results for vulnerabilities.",
+                        code: `nikto -h <URL>
 whatweb -a 4 <URL>
 wapiti -u <URL>
 zaproxy #You can use an API
 nuclei -ut && nuclei -target <URL>`,
-                    code_language: "#",
-                    rows: 2,
-                    reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
-                },
-                {
-                    title: "Locate Interesting Files",
-                    description: "Search for common files that may contain sensitive information.",
-                    code: `/robots.txt
+                        code_language: "#",
+                        rows: 2,
+                        reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
+                    },
+                    {
+                        title: "Locate Interesting Files",
+                        description: "Search for common files that may contain sensitive information.",
+                        code: `/robots.txt
 /sitemap.xml
 /crossdomain.xml
 /clientaccesspolicy.xml
 /.well-known/`,
-                    code_language: bash,
-                    rows: 2,
-                    reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
-                },
-                {
-                    title: "Analyze Page Comments",
-                    description: "Examine HTML comments on main and secondary pages for sensitive data.",
-                    code: `# use the comment extractor tool under the 'enumeration tooling' tab`,
-                    code_language: bash,
-                    rows: 2,
-                    reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
-                },
-                {
-                    title: "Spider the Website",
-                    description: "Map out the website structure and identify potentially interesting files/folders.",
-                    code: `# using gospider
+                        code_language: bash,
+                        rows: 2,
+                        reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
+                    },
+                    {
+                        title: "Analyze Page Comments",
+                        description: "Examine HTML comments on main and secondary pages for sensitive data.",
+                        code: `# use the comment extractor tool under the 'enumeration tooling' tab`,
+                        code_language: bash,
+                        rows: 2,
+                        reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
+                    },
+                    {
+                        title: "Spider the Website",
+                        description: "Map out the website structure and identify potentially interesting files/folders.",
+                        code: `# using gospider
 gospider -s <URL> | tee output.txt`,
-                    code_language: bash,
-                    rows: 2,
-                    reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
-                },
-                {
-                    title: "Directory and File Brute-forcing",
-                    description: "Use tools like gobuster to discover hidden directories and files, focusing on development, backups, and testing areas.",
-                    code: `# using gobuster
+                        code_language: bash,
+                        rows: 2,
+                        reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
+                    },
+                    {
+                        title: "Directory and File Brute-forcing",
+                        description: "Use tools like gobuster to discover hidden directories and files, focusing on development, backups, and testing areas.",
+                        code: `# using gobuster
 gobuster dir -u <URL> -x txt,jsp,html,js -w /usr/share/wordlists/dirb/common.txt -o test.txt`,
-                    code_language: bash,
-                    rows: 2,
-                    reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
-                },
-                {
-                    title: "Bruteforce for hidden parameters",
-                    description: "Identify parameters that return different responses compared to others",
-                    code: `# Using Gobuster for parameter fuzzing
+                        code_language: bash,
+                        rows: 2,
+                        reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
+                    },
+                    {
+                        title: "Bruteforce for hidden parameters",
+                        description: "Identify parameters that return different responses compared to others",
+                        code: `# Using Gobuster for parameter fuzzing
 gobuster fuzz -u <URL>?FUZZ=test -w /path/to/parameter/wordlist.txt -b 200
 
 # Using Arjun for parameter discovery
 # https://github.com/s0md3v/Arjun
 arjun -u <URL> -w /path/to/parameter/wordlist.txt`,
-                    code_language: bash,
-                    rows: 2,
-                    reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
-                },
-                {
-                    title: "Check for vulnerabilities in identified user input endpoints",
-                    description: "Once you have identified all the possible endpoints accepting user input, check for all kind of vulnerabilities related to it",
-                    code: noCodeAvailable,
-                    code_language: bash,
-                    rows: 2,
-                    reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
-                },
+                        code_language: bash,
+                        rows: 2,
+                        reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
+                    },
+                    {
+                        title: "Check for vulnerabilities in identified user input endpoints",
+                        description: "Once you have identified all the possible endpoints accepting user input, check for all kind of vulnerabilities related to it",
+                        code: noCodeAvailable,
+                        code_language: bash,
+                        rows: 2,
+                        reference: "https://book.hacktricks.xyz/network-services-pentesting/pentesting-web"
+                    },
 
 
-            ]
-        }],
+                ]
+            }],
     },
 }
 
