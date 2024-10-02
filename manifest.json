@@ -24,11 +24,11 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["assets/js/content-scripts/content-script.js", "assets/js/content-scripts/monitor-script.js"]
+      "js": ["assets/js/content-scripts/content-script.js", "assets/js/content-scripts/monitor-script.js", "assets/js/content-scripts/obfuscation/javascript-obfuscator.js"]
     }
   ],
   "background": {
-    "scripts": ["assets/js/background-scripts/background.js", "assets/js/background-scripts/webrequest.js"],
+    "scripts": ["assets/js/background-scripts/background.js"],
     "persistent": true
   },
   "web_accessible_resources": ["assets/icons/logo.png"],

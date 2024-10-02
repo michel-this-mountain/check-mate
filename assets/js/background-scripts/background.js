@@ -13,7 +13,13 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
             cookieChangesJson = {};
         } else {
             let activeTabId = tabs[0].id;
-            browser.tabs.sendMessage(activeTabId, {command: message.command, id: message.id});
+
+            if (message.hasOwnProperty("value")){
+                browser.tabs.sendMessage(activeTabId, {command: message.command, id: message.id, value: message.value});
+
+            } else {
+                browser.tabs.sendMessage(activeTabId, {command: message.command, id: message.id});
+            }
         }
     }
 });

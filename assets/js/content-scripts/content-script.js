@@ -1,12 +1,14 @@
 // script that gets injected in the specified urls (manifest.json)
 browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
-    console.log(message.command)
+    // console.log(JavaScriptObfuscator.obfuscate(`console.log(1)`).getObfuscatedCode());
     switch (message.command) {
         // ## GENERAL START ## //
 
         // ## GENERAL START ## //
-
         // ## TAB 1 'general tooling' START ## //
+        case "obfuscateJavascript":
+            browser.runtime.sendMessage({obfuscatedCode: JavaScriptObfuscator.obfuscate(message.value).getObfuscatedCode(), id: message.id});
+            break;
         // ## TAB 1 'general tooling' END ## //
 
         // ## TAB 2 'enum tooling' START ## //
@@ -22,7 +24,10 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
             break;
 
         case "convertAndHighlightHiddenInputs":
-            document.querySelectorAll('input[type=hidden]').forEach(input => {input.setAttribute('type', 'text');input.style.cssText = 'border: 10px dotted purple';});
+            document.querySelectorAll('input[type=hidden]').forEach(input => {
+                input.setAttribute('type', 'text');
+                input.style.cssText = 'border: 10px dotted purple';
+            });
             break;
         case "highlightInputs":
             document.querySelectorAll('input').forEach(input => input.style.border = '5px solid red');

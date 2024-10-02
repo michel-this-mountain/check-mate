@@ -291,7 +291,7 @@ function loaderCheck(currentId, incrementTotalScriptsProcessing) {
  */
 function initMessageManager() {
     // IDs of buttons to set event listeners on
-    let browserRuntimeActionIds = [
+    let browserRuntimeActionIdsClick = [
         "enum-tooling-spider-start-button",
         "enum-tooling-highlight-forms-cp",
         "enum-tooling-highlight-inputs-cp",
@@ -304,13 +304,30 @@ function initMessageManager() {
         "exploit-assistant-csrf-checker-load-form"
     ];
 
+    let browserRuntimeActionIdsOnInput = [
+        "general-tooling-code-obfuscation-input",
+    ]
+
     // Set event listeners for all enum-tooling on the toolbox page
-    browserRuntimeActionIds.forEach(id => {
+    browserRuntimeActionIdsClick.forEach(id => {
         let tmpElement = document.getElementById(id);
         if (tmpElement) {
             tmpElement.addEventListener('click', () => {
                 let messageValue = tmpElement.value
                 browser.runtime.sendMessage({command: messageValue, id: id});
+                // these are scripts that take longer to process, e.g. spidering a website, if so, the loading icon appears on the left bottom side
+                loaderCheck(id, true)
+            });
+        }
+    });
+
+    browserRuntimeActionIdsOnInput.forEach(id => {
+        let tmpElement = document.getElementById(id);
+        if (tmpElement) {
+            tmpElement.addEventListener('input', () => {
+                let command = tmpElement.getAttribute("data-runtime-command")
+                browser.runtime.sendMessage({command: command, id: id, value: tmpElement.value});
+
                 // these are scripts that take longer to process, e.g. spidering a website, if so, the loading icon appears on the left bottom side
                 loaderCheck(id, true)
             });
@@ -324,6 +341,11 @@ function initMessageManager() {
         // GENERAL SECTION END
 
         // ## TAB 1 'general tooling' START ## //
+        if (message.hasOwnProperty("obfuscatedCode")) {
+            console.log(message.obfuscatedCode)
+            document.getElementById("general-tooling-code-obfuscation-output-code").textContent = message.obfuscatedCode;
+            // document.getElementById("general-tooling-code-obfuscation-output-code").value = message.value;
+        }
         // ## TAB 1 'general tooling' END ## //
 
         // ## TAB 2 'enum tooling' START ## //
@@ -598,11 +620,11 @@ function buildTableBodyFromObject(dataArray, tableBodyId, countId, includeHierar
 
 /**
  * initVirtualSelect()
- * 
+ *
  * initialize the virtual select element
  */
 function initVirtualSelect() {
-    VirtualSelect.init({ ele: '.virtual-select' });
+    VirtualSelect.init({ele: '.virtual-select'});
 }
 
 

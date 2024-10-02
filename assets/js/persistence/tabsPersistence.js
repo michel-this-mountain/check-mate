@@ -102,7 +102,7 @@ const tabs = {
                 "#exploit-assistant-csrf-checker",
                 "#shell-assistant-reverse-shells", "#shell-assistant-bind-shells", "#shell-assistant-transfer-methods", "#shell-assistant-msf-content",
                 "#checklist-assistant-web-checklist", "#checklist-assistant-linux-os-checklist", "#checklist-assistant-windows-os-checklist", "#exploit-assistant-sql-injection", 
-                "#exploit-assistant-xss", "#enum-tooling-google-dork-content"],
+                "#exploit-assistant-xss", "#enum-tooling-google-dork-content", "#general-tooling-code-obfuscation-content"],
 
     "layer_3": ["#enum-tooling-cookie-monitor-tab", "#enum-tooling-postmessage-monitor-tab",
                 "#checklist-assistant-web-wordpress-check-content", "#checklist-assistant-web-general-check-content",
