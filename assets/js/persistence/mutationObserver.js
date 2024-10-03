@@ -138,6 +138,15 @@ function saveElementsToLocalStorage() {
 }
 
 /**
+ * saveElementToLocalStorage()
+ *
+ * save a single element to local storage
+ */
+function saveElementToLocalStorage(id, value){
+    localStorage.setItem(id, value)
+}
+
+/**
  * addGlobalEventListener()
  *
  * global event listener that listens for a specific event type and selector, and executes a callback function

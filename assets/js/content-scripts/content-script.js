@@ -7,7 +7,17 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
         // ## GENERAL START ## //
         // ## TAB 1 'general tooling' START ## //
         case "obfuscateJavascript":
-            browser.runtime.sendMessage({obfuscatedCode: JavaScriptObfuscator.obfuscate(message.value).getObfuscatedCode(), id: message.id});
+            if (message.hasOwnProperty("targetSelectValue") && message.hasOwnProperty("value")) {
+                switch (message.targetSelectValue) {
+                    case "js-obfuscate-obfuscator-io":
+                        browser.runtime.sendMessage({obfuscatedCode: JavaScriptObfuscator.obfuscate(message.value).getObfuscatedCode(), id: message.id});
+                        break;
+
+                    case "js-obfuscate-minimal-chars":
+                        browser.runtime.sendMessage({obfuscatedCode: obfuscateJavascriptMinimal(message.value), id: message.id});
+                        break;
+                }
+            }
             break;
         // ## TAB 1 'general tooling' END ## //
 

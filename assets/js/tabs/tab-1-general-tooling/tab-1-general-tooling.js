@@ -81,36 +81,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     updateCodeHighlight();
-
-    // code obfuscation
-    // const codeObfuscationSelect = document.getElementById("general-tooling-code-obfuscation-options");
-    // const codeObfuscationInput = document.getElementById("general-tooling-code-obfuscation-input");
-    // const codeObfuscationOutput = document.getElementById("general-tooling-code-obfuscation-output-pre");
-    // const screenshotElementObfuscation = document.getElementById("general-tooling-code-obfuscation-screenshot");
-
-    // const updateCodeObfuscation = () => {
-    //     updateCodeElement(codeObfuscationOutput.querySelector("code"),JavaScriptObfuscator.obfuscate(`${codeObfuscationInput.value}`).getObfuscatedCode(), codeObfuscationSelect);
-    // };
-
-    // codeObfuscationInput.addEventListener("input", updateCodeObfuscation);
-    // codeObfuscationSelect.addEventListener("change", updateCodeObfuscation);
-
-    // screenshotElementObfuscation.addEventListener("click", () => {
-    //     captureAndCopyCodeElementToClipboard(codeObfuscationOutput.querySelector("code"), codeObfuscationSelect.value);
-    //     screenshotElementObfuscation.src = "assets/icons/general/screenshot-success.png";
-    //     screenshotElementObfuscation.closest("a").classList.add("inactive-link");
-
-    //     setTimeout(() => {
-    //         screenshotElementObfuscation.src = "assets/icons/general/screenshot.png";
-    //         screenshotElementObfuscation.closest("a").classList.remove("inactive-link");
-    //     }, 2000);
-    // });
-
-    // updateCodeObfuscation();
-    // setTimeout(() => {
-    //     console.log(JavaScriptObfuscator.obfuscate(`console.log(1);window.alert(2);`).getObfuscatedCode());
-    // }, 5000);
-
 });
 
 /**

@@ -1,19 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Obfuscate Input String</title>
-</head>
-<body>
-ddasd
-<h2>Obfuscate Input String</h2>
-<textarea id="inputCode" rows="10" cols="80">alert('hello');</textarea><br><br>
-<button onclick="runObfuscator()">Obfuscate</button>
-
-<h3>Obfuscated Code:</h3>
-<pre id="outputCode"></pre>
-
-<script>
-function obfuscateInputMinimal(code) {
+function obfuscateJavascriptMinimal(code) {
     var TABLE = {};
 
     function generate_string(text) {
@@ -140,13 +125,3 @@ function obfuscateInputMinimal(code) {
 
     return payload;
 }
-
-function runObfuscator() {
-    var code = document.getElementById('inputCode').value;
-    var obfuscatedCode = obfuscateInput(code);
-    document.getElementById('outputCode').textContent = obfuscatedCode;
-}
-</script>
-
-</body>
-</html>

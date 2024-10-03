@@ -303,7 +303,6 @@ function initMessageManager() {
         "enum-tooling-view-hidden-input",
         "exploit-assistant-csrf-checker-load-form"
     ];
-
     let browserRuntimeActionIdsOnInput = [
         "general-tooling-code-obfuscation-input",
     ]
@@ -323,14 +322,32 @@ function initMessageManager() {
 
     browserRuntimeActionIdsOnInput.forEach(id => {
         let tmpElement = document.getElementById(id);
-        if (tmpElement) {
-            tmpElement.addEventListener('input', () => {
-                let command = tmpElement.getAttribute("data-runtime-command")
-                browser.runtime.sendMessage({command: command, id: id, value: tmpElement.value});
 
+        if (tmpElement) {
+            let targetSelect = document.getElementById(tmpElement.getAttribute("data-target-select"));
+            let command = tmpElement.getAttribute("data-runtime-command");
+
+            tmpElement.addEventListener('input', () => {
+                browser.runtime.sendMessage({
+                    command: command,
+                    id: id,
+                    value: tmpElement.value,
+                    targetSelectValue: targetSelect.value
+                });
                 // these are scripts that take longer to process, e.g. spidering a website, if so, the loading icon appears on the left bottom side
                 loaderCheck(id, true)
             });
+
+            targetSelect.addEventListener("change", () => {
+                browser.runtime.sendMessage({
+                    command: command,
+                    id: id,
+                    value: tmpElement.value,
+                    targetSelectValue: targetSelect.value
+                });
+                // these are scripts that take longer to process, e.g. spidering a website, if so, the loading icon appears on the left bottom side
+                loaderCheck(id, true)
+            })
         }
     });
 
@@ -342,9 +359,12 @@ function initMessageManager() {
 
         // ## TAB 1 'general tooling' START ## //
         if (message.hasOwnProperty("obfuscatedCode")) {
-            console.log(message.obfuscatedCode)
-            document.getElementById("general-tooling-code-obfuscation-output-code").textContent = message.obfuscatedCode;
-            // document.getElementById("general-tooling-code-obfuscation-output-code").value = message.value;
+            let outputCodeElement = document.getElementById("general-tooling-code-obfuscation-output-code");
+
+            outputCodeElement.value = message.obfuscatedCode;
+            outputCodeElement.innerText = message.obfuscatedCode;
+
+            saveElementToLocalStorage(outputCodeElement.id, outputCodeElement.value)
         }
         // ## TAB 1 'general tooling' END ## //
 
